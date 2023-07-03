@@ -1,4 +1,11 @@
-
 var page = document.getElementById("canvas");
 canvas.width = 1850;
 canvas.height = 1200;
+
+var singlePlayer = {
+    x: 450,
+    y: 450,
+    width: 100,
+    height: 10,
+    background: "#FFFFFF" 
+}
