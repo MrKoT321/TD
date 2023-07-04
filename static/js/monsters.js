@@ -2,6 +2,7 @@ var monster1 = {
     hp: 100,
     speed: 3,
     cost: 0,
+<<<<<<< HEAD
     width: 50,
     height: 50,
     color: "black"//pic: '',
@@ -32,4 +33,8 @@ var monster4 = {
     width: 50,
     height: 50,
     color: "black"//pic: '',
+=======
+    width: 0,
+    pic: '',
+>>>>>>> origin/Nikita
 }
