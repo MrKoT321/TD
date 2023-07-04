@@ -13,6 +13,7 @@ canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
 var starttime = 0
+var mobamount = lvl1.mobamount - 1
 
 const background = new Image();
 background.src = "../static/images/BASE-MAP.png";
@@ -26,11 +27,10 @@ function initEventsListeners() {
 }
 
 function onCanvasMouseDown(event) {
-        starttime = sf.width/2
 }
 
 function drawBackground() {
-    if (GAME.background) { 
+    if (GAME.background) {
         canvasContext.drawImage(GAME.background, 0, 0, GAME.width, GAME.height)
     }
 }
@@ -38,13 +38,19 @@ function drawBackground() {
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     drawBackground();
-    if (starttime > 0){
-        drawMonster(sf);
-        starttime += sf.speed;
+    for (var monster of monsters) {
+        drawMonster(monster);
     }
-    console.log(starttime);
-    if (starttime > sf.width + 50){
-        drawMonster(pa);
+    for (var monster of monsters) {
+        updateMonster(monster);
+    }
+    if (mobamount > 0){
+        starttime += 2
+        if (starttime > 100){
+            addMonster(pa, lvl1);
+            starttime = 0;
+            mobamount -= 1;
+    }
     }
     requestAnimationFrame(play);
 }
