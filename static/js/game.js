@@ -6,5 +6,27 @@ var GAME = {
 }
 
 var page = document.getElementById("canvas");
-canvas.width = GA;
-canvas.height = 1000;
+canvas.width = GAME.width;
+canvas.height = GAME.height;
+var canvasContext = canvas.getContext("2d");
+
+const background = new Image();
+background.src = "../static/images/BASE-MAP.png";
+
+background.onload = () => {
+    GAME.background = background;
+}
+
+function drawBackground() {
+    if (GAME.background) { 
+        canvasContext.drawImage(GAME.background, 0, 0, GAME.width, GAME.height)
+    }
+}
+
+function play() {
+    canvasContext.clearRect(0, 0, GAME.width, GAME.height);
+    drawBackground();
+    drawMonster(monster);
+    requestAnimationFrame(play);
+}
+play();

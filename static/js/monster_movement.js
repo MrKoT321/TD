@@ -1,9 +1,3 @@
-var canvas = document.getElementById("canvas");
-canvas.width = 1600;
-canvas.height = 1000;
-var canvasContext = canvas.getContext("2d");
-
-
 var monster = {
     hp: monster1.hp,
     speed: monster1.speed,
@@ -16,17 +10,10 @@ var monster = {
 }
 
 function drawMonster(monster) {
-    canvasContext.clearRect(0, 0, 1000, 1000);
-    canvasContext.fillStyle = "yellow";
+    canvasContext.fillStyle = "rgba(0, 0, 0, 0)";
     canvasContext.fillRect(0, 0, 1000, 1000);
     canvasContext.fillStyle = monster.color;
-    canvasContext.fillRect(monster.x, monster.y, monster.width, monster.height);
+    canvasContext.fillRect(monster.x, monster.y - monster.height/2, monster.width, monster.height);
     // canvasContext.fill();
     monster.x += monster.speed;
 }
-
-function play() {
-    drawMonster(monster);
-    requestAnimationFrame(play);
-}
-play();
