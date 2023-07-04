@@ -40,11 +40,29 @@ function drawTiles() {
         })        
 }
 
-// function drawTower() {
-//     forEach
-// }
+function MakeTower() {
+    towerTiles.forEach(tile => {
+        if (
+            mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100
+        ) {
+            towerTilesActive.push([tile[0], tile[1]]);
+        }
+    })
+}
 
-const mouse = {
+function drawTower() {
+    towerTilesActive.forEach(tile => {
+        canvasContext.fillStyle = "blue";
+        canvasContext.fillRect(tile[0], tile[1], 100, 100);
+    })
+}
+
+var mouse = {
+    x: undefined,
+    y: undefined
+}
+
+var mouseClick = {
     x: undefined,
     y: undefined
 }
@@ -59,11 +77,21 @@ window.addEventListener(
     }
 )
 
+window.addEventListener (
+    'click',
+    (event) => {
+        windowWidth = document.documentElement.clientWidth;
+        windowHeight = document.documentElement.clientHeight
+        mouseClick.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
+        mouseClick.y = event.clientY - ((windowHeight - GAME.height) / 2) + 100;
+        MakeTower();
+    }
+)
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     drawBackground();
     drawTiles();
-    // drawTower();
+    drawTower();
     drawMonster(monster);
     requestAnimationFrame(play);
 }
