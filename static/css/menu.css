@@ -1,0 +1,77 @@
+body 
+{
+    margin: 0;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+.menu
+{
+    margin: 40px 0 0 50px;
+    width: 1800px;
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+    background-color: aqua;
+}
+
+.menu-title
+{
+    margin-top: 100px;
+    width: 600px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: bisque;
+}
+
+.menu-title__game-name
+{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.buttons
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button-start
+{
+    width: 400px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+    color: white;
+}
+
+.button-multiplay
+{
+    width: 400px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+    color: white;
+}
+
+.button-settings
+{
+    width: 400px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+    color: white;
+}
