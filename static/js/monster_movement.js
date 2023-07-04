@@ -14,6 +14,5 @@ function drawMonster(monster) {
     canvasContext.fillRect(0, 0, 1000, 1000);
     canvasContext.fillStyle = monster.color;
     canvasContext.fillRect(monster.x, monster.y - monster.height/2, monster.width, monster.height);
-    // canvasContext.fill();
     monster.x += monster.speed;
 }
