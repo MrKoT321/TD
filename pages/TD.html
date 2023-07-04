@@ -3,8 +3,30 @@
     <head>
         <title>Tower Defense</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="../static/css/style.css">
     </head>
     <body>
+        <div class="game">
+            <div class="game__field field">
+                <canvas id='canvas'></canvas>
+            </div>
+            <div class="game__bar bar">
+                <div class="bar__bufs"></div>
+                <div class="bar__menu">
+                    <div class="bar__pause pause">
+                        <div class="pause__btn"></div>
+                    </div>
+                    <div class="bar__out">
+                        <div class="bar__icon">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="application/javascript" src="../static/js/monsters.js"></script>
+        <script type="application/javascript" src="../static/js/lvls.js"></script>
+        <script type="application/javascript" src="../static/js/monster_movement.js"></script>
+        <script type="application/javascript" src="../static/js/game.js"></script>
     </body>
 </html>
