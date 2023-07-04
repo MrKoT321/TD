@@ -93,7 +93,7 @@ window.addEventListener(
         windowWidth = document.documentElement.clientWidth;
         windowHeight = document.documentElement.clientHeight
         mouse.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
-        mouse.y = event.clientY - ((windowHeight - GAME.height) / 2) + 100;
+        mouse.y = event.clientY - ((windowHeight - GAME.height) / 2);
     }
 )
 
@@ -103,7 +103,7 @@ window.addEventListener (
         windowWidth = document.documentElement.clientWidth;
         windowHeight = document.documentElement.clientHeight
         mouseClick.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
-        mouseClick.y = event.clientY - ((windowHeight - GAME.height) / 2) + 100;
+        mouseClick.y = event.clientY - ((windowHeight - GAME.height) / 2);
         MakeTower();
     }
 )
