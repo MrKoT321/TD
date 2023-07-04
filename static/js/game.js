@@ -5,7 +5,7 @@ var GAME = {
     isPlay: false,             // состояние игры идет или нет
 }
 
-var mnstr = [sf, pa];
+var notdeadmonsters = []
 
 var page = document.getElementById("canvas");
 canvas.width = GAME.width;
@@ -38,10 +38,14 @@ function drawBackground() {
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     drawBackground();
-    for (var monster of monsters) {
+    //for (var monster of monsters) {
+        //let notdeadmonsters = monsters.filter(value => value.health > 0);
+    //}
+    //убираем мобов, которые умерли
+    for (var monster of monsters) {//поменять monsters на notdeadmonsters
         drawMonster(monster);
     }
-    for (var monster of monsters) {
+    for (var monster of monsters) {//поменять monsters на notdeadmonsters
         updateMonster(monster);
     }
     if (mobamount > 0){
