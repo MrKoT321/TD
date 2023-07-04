@@ -1,3 +1,5 @@
+var monsters = [];
+
 var sf = {
     hp: monster1.hp,
     speed: monster1.speed,
@@ -16,8 +18,12 @@ var pa = {
     width: monster2.width,
     height: monster2.height,
     color: monster2.color,
-    x: lvl1.start_x - 50,
+    x: lvl1.start_x,
     y: lvl1.start_y
+}
+
+function updateMonster(monster){
+    monster.x += monster.speed;
 }
 
 function drawMonster(monster) {
@@ -25,6 +31,18 @@ function drawMonster(monster) {
     canvasContext.fillRect(0, 0, 1000, 1000);
     canvasContext.fillStyle = monster.color;
     canvasContext.fillRect(monster.x, monster.y - monster.height/2, monster.width, monster.height);
-    // canvasContext.fill();
-    monster.x += monster.speed;
 }
+
+function addMonster(monster, lvl){
+    monsters.push ({
+        hp: monster.hp,
+        speed: monster.speed,
+        cost: monster.cost,
+        width: monster.width,
+        height: monster.height,
+        color: monster.color,
+        x: lvl.start_x - 50,
+        y: lvl.start_y,
+    })
+}
+addMonster(sf, lvl1)

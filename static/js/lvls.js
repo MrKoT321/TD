@@ -6,7 +6,8 @@ var lvl1 = {
     towers: [60, 66, 87],
     road: [113, 129, 114, 130, 115, 131, 116, 132, 117, 133, 100, 101, 84, 85, 68, 69, 52, 53, 54, 70, 55, 71, 56, 72, 57, 73, 58, 74, 89, 90, 105, 106, 121, 122, 107, 123, 108, 124, 109, 125, 110, 126],
     castleHP: 100,    
-    money: 100
+    money: 100,
+    mobamount: 2
 };
 
 var lvl2 = {
@@ -16,7 +17,8 @@ var lvl2 = {
     towers: [],
     road: [],
     castleHP: 100,    
-    money: 100  
+    money: 100,
+    mobamount: 4  
 }
 
 var lvl3 = {
@@ -26,7 +28,8 @@ var lvl3 = {
     towers: [],
     road: [],
     castleHP: 100,    
-    money: 100 
+    money: 100,
+    mobamount: 6 
 }
 
 var lvl4 = {
@@ -36,7 +39,8 @@ var lvl4 = {
     towers: [],
     road: [],
     castleHP: 100,    
-    money: 100 
+    money: 100,
+    mobamount: 8 
 }
 
 var lvl5 = {
@@ -46,5 +50,6 @@ var lvl5 = {
     towers: [],
     road: [],
     castleHP: 100,    
-    money: 100 
+    money: 100,
+    mobamount: 10 
 }
