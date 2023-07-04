@@ -45,7 +45,16 @@ function MakeTower() {
         if (
             mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100
         ) {
-            towerTilesActive.push([tile[0], tile[1]]);
+            let isBusy = false;
+            towerTilesActive.forEach(activeTile => {
+                if(activeTile[0] == tile[0] && activeTile[1] == tile[1]) {
+                    isBusy = true;
+                }
+            })
+            if (!isBusy){
+                towerTilesActive.push([tile[0], tile[1]]);
+            }
+            console.log(towerTilesActive);
         }
     })
 }
@@ -87,6 +96,7 @@ window.addEventListener (
         MakeTower();
     }
 )
+
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     drawBackground();
