@@ -4,9 +4,10 @@ var lvl1 = {
     finish_x: 1600,
     finish_y: 600,
     towers: [60, 66, 87],
-    road: [113, 129, 114, 130, 115, 131, 116, 132, 117, 133, 100, 101, 84, 85, 68, 69, 52, 53, 54, 70, 55, 71, 56, 72, 57, 73, 58, 74, 89, 90, 105, 106, 121, 122, 107, 123, 108, 124, 109, 125, 110, 126],
+    road: [36, 37, 38, 39, 40, 41, 42, 52, 53, 54, 55, 56, 57, 58, 68, 69, 73, 74, 79, 80, 84, 85, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117],
     castleHP: 100,    
-    money: 100
+    money: 100,
+    start_dir: 'r'
 };
 
 var lvl2 = {
@@ -16,7 +17,8 @@ var lvl2 = {
     towers: [],
     road: [],
     castleHP: 100,    
-    money: 100  
+    money: 100,
+    start_dir: 'r' 
 }
 
 var lvl3 = {
@@ -26,7 +28,8 @@ var lvl3 = {
     towers: [],
     road: [],
     castleHP: 100,    
-    money: 100 
+    money: 100,
+    start_dir: 'r' 
 }
 
 var lvl4 = {
@@ -36,7 +39,8 @@ var lvl4 = {
     towers: [],
     road: [],
     castleHP: 100,    
-    money: 100 
+    money: 100,
+    start_dir: 'r'  
 }
 
 var lvl5 = {
@@ -46,5 +50,6 @@ var lvl5 = {
     towers: [],
     road: [],
     castleHP: 100,    
-    money: 100 
+    money: 100,
+    start_dir: 'r' 
 }

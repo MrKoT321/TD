@@ -5,7 +5,7 @@ var GAME = {
     isPlay: false,             // состояние игры идет или нет
 }
 
-var mnstr = [sf, pa];
+var mnstr = [sf];
 
 var page = document.getElementById("canvas");
 canvas.width = GAME.width;
@@ -40,12 +40,13 @@ function play() {
     drawBackground();
     if (starttime > 0){
         drawMonster(sf);
+        monsterCorrect(lvl1, sf);
         starttime += sf.speed;
     }
-    console.log(starttime);
-    if (starttime > sf.width + 50){
-        drawMonster(pa);
-    }
+    // // console.log(starttime);
+    // if (starttime > sf.width + 50){
+    //     drawMonster(pa);
+    // }
     requestAnimationFrame(play);
 }
 
