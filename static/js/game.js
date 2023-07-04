@@ -5,6 +5,8 @@ var GAME = {
     isPlay: false,             // состояние игры идет или нет
 }
 
+var mnstr = [sf, pa];
+
 var page = document.getElementById("canvas");
 canvas.width = GAME.width;
 canvas.height = GAME.height;
@@ -41,7 +43,7 @@ function play() {
         starttime += sf.speed;
     }
     console.log(starttime);
-    if (starttime > sf.width + 100){
+    if (starttime > sf.width + 50){
         drawMonster(pa);
     }
     requestAnimationFrame(play);
