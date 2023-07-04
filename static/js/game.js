@@ -5,32 +5,28 @@ var GAME = {
     isPlay: false,             // состояние игры идет или нет
 }
 
-
-var monsters = [{x: lvl1.start_x, y: start_y}, {x: 0, y: 0}]
-
 var page = document.getElementById("canvas");
 canvas.width = GAME.width;
 canvas.height = GAME.height;
-var ctx = canvas.getContext("2d");
+var canvasContext = canvas.getContext("2d");
 
-function drawMonster() {
-    ctx.fillStyle = monster1.color;
-    ctx.fillRect(monsters[0].x, monsters[0].y, )
+const background = new Image();
+background.src = "../static/images/BASE-MAP.png";
+
+background.onload = () => {
+    GAME.background = background;
 }
 
-function drawFrame() {
-    ctx.clearRect(0, 0, GAME.width, GAME.height);
-    drawMonster();
-}
-
-function update() {
-    
+function drawBackground() {
+    if (GAME.background) { 
+        canvasContext.drawImage(GAME.background, 0, 0, GAME.width, GAME.height)
+    }
 }
 
 function play() {
-    drawFrame();
-    update();
+    canvasContext.clearRect(0, 0, GAME.width, GAME.height);
+    drawBackground();
+    drawMonster(monster);
     requestAnimationFrame(play);
 }
-
 play();
