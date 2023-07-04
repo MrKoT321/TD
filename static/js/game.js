@@ -46,7 +46,7 @@ function drawTiles() {
             if (
                 mouse.x > tile[0] && mouse.x < tile[0] + 100 && mouse.y > tile[1] && mouse.y < tile[1] + 100
             ) {
-                canvasContext.fillStyle = "yellow";
+                canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
                 canvasContext.fillRect(tile[0], tile[1], 100, 100);
             }
         })        
