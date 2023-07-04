@@ -4,11 +4,7 @@ var GAME = {
     isPlay: false,    
 }
 
-<<<<<<< HEAD
-var mnstr = [sf];
-=======
 var notdeadmonsters = []
->>>>>>> main
 
 var page = document.getElementById("canvas");
 canvas.width = GAME.width;

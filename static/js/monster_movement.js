@@ -19,14 +19,8 @@ var pa = {
     width: monster2.width,
     height: monster2.height,
     color: monster2.color,
-<<<<<<< HEAD
-    x: lvl1.start_x - 50,
-    y: lvl1.start_y,
-    dir: lvl1.start_dir
-=======
     x: lvl1.start_x,
     y: lvl1.start_y
->>>>>>> main
 }
 
 function updateMonster(monster){
