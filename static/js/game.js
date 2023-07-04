@@ -49,5 +49,6 @@ function play() {
     requestAnimationFrame(play);
 }
 
+
 initEventsListeners();
 play();
