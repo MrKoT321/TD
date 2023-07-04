@@ -16,7 +16,7 @@ var pa = {
     width: monster2.width,
     height: monster2.height,
     color: monster2.color,
-    x: lvl1.start_x,
+    x: lvl1.start_x - 50,
     y: lvl1.start_y
 }
 
