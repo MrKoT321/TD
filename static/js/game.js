@@ -66,7 +66,6 @@ function MakeTower() {
             if (!isBusy){
                 towerTilesActive.push([tile[0], tile[1]]);
             }
-            console.log(towerTilesActive);
         }
     })
 }
