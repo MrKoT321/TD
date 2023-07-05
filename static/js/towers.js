@@ -4,7 +4,7 @@ var tower1 = {
     radius: 200,
     type: "arrow",
     atkspeed: 10,
-    towerColor: "blue",
+    towerColor: "orange",
     atkColor: "red"
 }
 
@@ -14,7 +14,7 @@ var tower2 = {
     radius: 200,
     type: "bash",
     atkspeed: 10,
-    towerColor: "blue",
+    towerColor: "yellow",
     atkColor: "red"
 }
 
