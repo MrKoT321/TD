@@ -8,7 +8,8 @@ var lvl1 = {
     castleHP: 100,    
     money: 100,
     start_dir: 'r',
-    mobamount: 2
+    mobamount: 2,
+    background: "../static/images/BASE-MAP.png"
 };
 
 var lvl2 = {
@@ -20,7 +21,8 @@ var lvl2 = {
     castleHP: 100,    
     money: 100,
     start_dir: 'r',
-    mobamount: 4  
+    mobamount: 4,
+    background: "../static/images/BASE-MAP.png"  
 }
 
 var lvl3 = {
@@ -32,7 +34,8 @@ var lvl3 = {
     castleHP: 100,    
     money: 100,
     start_dir: 'r',
-    mobamount: 6 
+    mobamount: 6,
+    background: "../static/images/BASE-MAP.png" 
 }
 
 var lvl4 = {
@@ -44,7 +47,8 @@ var lvl4 = {
     castleHP: 100,    
     money: 100,
     start_dir: 'r',
-    mobamount: 8 
+    mobamount: 8,
+    background: "../static/images/BASE-MAP.png" 
 }
 
 var lvl5 = {
@@ -56,5 +60,6 @@ var lvl5 = {
     castleHP: 100,    
     money: 100,
     start_dir: 'r',
-    mobamount: 10 
+    mobamount: 10,
+    background: "../static/images/BASE-MAP.png" 
 }
