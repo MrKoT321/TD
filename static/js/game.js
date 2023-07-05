@@ -1,14 +1,16 @@
 let popupBg = document.querySelector('.popup__bg');
 let popup = document.querySelector('.popup'); 
 
+var lvl = lvl1;
+
 var GAME = {
     width: 1600,
     height: 1000,
     isPlay: false,
+    castleHP: lvl.castleHP
 }
 
 var mobamount = lvl1.mobamount
-var lvl = lvl1;
 
 var page = document.getElementById("canvas");
 canvas.width = GAME.width;
@@ -25,10 +27,16 @@ lvl.towers.forEach(towerPos => {
 })
 
 const background = new Image();
-background.src = "../static/images/BASE-MAP.png";
+const castle = new Image();
+castle.src = lvl.castle_src;
+background.src = lvl.back_src;
 
 background.onload = () => {
     GAME.background = background;
+}
+
+castle.onload = () => {
+    GAME.castle = castle;
 }
 
 function initEventsListeners() {
@@ -41,6 +49,12 @@ function onCanvasMouseDown(event) {
 function drawBackground() {
     if (GAME.background) {
         canvasContext.drawImage(GAME.background, 0, 0, GAME.width, GAME.height)
+    }
+}
+
+function drawCastle() {
+    if (GAME.castle) {
+        canvasContext.drawImage(GAME.castle, lvl.castle_x, lvl.castle_y, lvl.castle_w, lvl.castle_h)
     }
 }
 
@@ -119,7 +133,8 @@ function lvlCompete(){
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     drawBackground();
-    moveMonsters();
+    moveMonsters(GAME);
+    drawCastle();
     drawTiles();
     drawTower();
     if(monsters.length == 0){

@@ -20,6 +20,13 @@ function drawMonster(monster) {
     canvasContext.fillRect(monster.x, monster.y - monster.height / 2, monster.width, monster.height);
 }
 
+function checkFinish(lvl, cell) {
+    if(contains(lvl.finish_cells, cell)) {
+        return true;
+    }
+    return false;
+}
+
 function monsterMove(monster) {
     switch (monster.dir) {
         case 'r':
@@ -38,8 +45,10 @@ function monsterMove(monster) {
 }
 
 function canvasToGrid(x, y) {
-    let temp = Math.floor(y / 100) * 16 + Math.floor(x / 100) + 1;
-    return temp;
+    if (x < 1600 && x > 0 && y < 1000 && y > 0) {
+        return Math.floor(y / 100) * 16 + Math.floor(x / 100) + 1;
+    } 
+    return 0
 }
 
 function contains(arr, elem) {
@@ -52,41 +61,74 @@ function contains(arr, elem) {
 }
 
 function monsterCorrect(lvl, monster) {
-    switch (monster.dir) {
+    let cell;
+    switch(monster.dir) {
         case 'r':
-            if (!contains(lvl.road, canvasToGrid(monster.x + monster.width / 2 + 100, monster.y))) {
-                if (contains(lvl.road, canvasToGrid(monster.x, monster.y - 100))) {
+            cell = canvasToGrid(monster.x + monster.width/2 + 100, monster.y);
+            if(checkFinish(lvl, cell)) {
+                monster.finish = true;
+                break;
+            }
+            if(!contains(lvl.road, cell)) {
+                if(contains(lvl.road, canvasToGrid(monster.x, monster.y - 110))) {
                     monster.dir = 'u';
                 } else {
                     monster.dir = 'd';
                 }
+            };
+            if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
+                monster.hp = 0;
             }
             break;
         case 'u':
-            if (!contains(lvl.road, canvasToGrid(monster.x, monster.y - 100))) {
-                if (contains(lvl.road, canvasToGrid(monster.x - 110, monster.y))) {
+            cell = canvasToGrid(monster.x, monster.y - 100);
+            if(checkFinish(lvl, cell)) {
+                monster.finish = true;
+                break;
+            }
+            if(!contains(lvl.road, cell) && !monster.finish) {
+                if(contains(lvl.road, canvasToGrid(monster.x - 100, monster.y))) {
                     monster.dir = 'l';
                 } else {
                     monster.dir = 'r';
                 }
             }
+            if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y + monster.height))) {
+                monster.hp = 0;
+            }
             break;
         case 'l':
-            if (!contains(lvl.road, canvasToGrid(monster.x - monster.width / 2 - 100, monster.y))) {
-                if (contains(lvl.road, canvasToGrid(monster.x + 110, monster.y + 110))) {
+            cell = canvasToGrid(monster.x - monster.width/2 - 100, monster.y);
+            if(checkFinish(lvl, cell)) {
+                monster.finish = true;
+                break;
+            }
+            if(!contains(lvl.road, cell)) {
+                if(contains(lvl.road, canvasToGrid(monster.x + 100, monster.y + 110))) {
                     monster.dir = 'u';
                 } else {
                     monster.dir = 'd';
                 }
             }
+            if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x + monster.width, monster.y))) {
+                monster.hp = 0;
+            }
             break;
         case 'd':
-            if (!contains(lvl.road, canvasToGrid(monster.x, monster.y + 100))) {
-                if (contains(lvl.road, canvasToGrid(monster.x - 110, monster.y))) {
+            cell = canvasToGrid(monster.x, monster.y + 100);
+            if(checkFinish(lvl, cell)) {
+                monster.finish = true;
+                break;
+            }
+            if(!contains(lvl.road, cell)) {
+                if(contains(lvl.road, canvasToGrid(monster.x - 100, monster.y))) {
                     monster.dir = 'l';
                 } else {
                     monster.dir = 'r';
                 }
+            }
+            if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
+                monster.hp = 0;
             }
             break;
     }
@@ -104,11 +146,22 @@ function addMonster(monster) {
         x: monster.x,
         y: monster.y,
         dir: monster.dir,
-        maxhp: monster.maxhp
+        maxhp: monster.maxhp,
+        finish: false
     })
 }
 
-function moveMonsters() {
+function registerCollision(monster, GAME) {
+    if(monster.hp == 0) {
+        let bar = document.getElementById("hp-bar");
+        bar.children[GAME.castleHP - 1].classList.add("_hide");
+        GAME.castleHP -= 1;
+    }
+}
+
+addMonster(sf)
+
+function moveMonsters(GAME) {
     let notdeadmonsters = monsters.filter(value => value.hp > 0);
     monsters = notdeadmonsters;
     for (var monster of monsters) {
@@ -118,6 +171,7 @@ function moveMonsters() {
     for (var monster of monsters) {
         monsterMove(monster);
         monsterCorrect(lvl, monster);
+        registerCollision(monster, GAME);
     }
     if (mobamount > 0) {
         starttime += 2
