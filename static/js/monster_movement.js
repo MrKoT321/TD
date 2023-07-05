@@ -152,9 +152,17 @@ function addMonster(monster) {
     })
 }
 
+function registerCollision(monster, GAME) {
+    if(monster.hp == 0) {
+        let bar = document.getElementById("hp-bar");
+        bar.children[GAME.castleHP - 1].classList.add("_hide");
+        GAME.castleHP -= 1;
+    }
+}
+
 addMonster(sf)
 
-function moveMonsters() {
+function moveMonsters(GAME) {
     let notdeadmonsters = monsters.filter(value => value.hp > 0);
     monsters = notdeadmonsters;
     for (var monster of monsters) {
@@ -163,6 +171,7 @@ function moveMonsters() {
     for (var monster of monsters) {
         monsterMove(monster);
         monsterCorrect(lvl, monster);
+        registerCollision(monster, GAME);
     }
     if (mobamount > 0) {
         starttime += 2

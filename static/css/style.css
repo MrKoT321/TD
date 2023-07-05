@@ -15,6 +15,7 @@ body {
 
 .field {
     width: 1600px;
+    position: relative;
 }
 
 .bar {
@@ -94,3 +95,18 @@ body {
     top: 50%;
     transform: translate(0px, -50%);
 }
+
+.hp-bar {
+    top: 30px;
+    left: 1150px;
+    width: 225px;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hp-bar__hp._hide{
+    visibility: hidden;
+}
+

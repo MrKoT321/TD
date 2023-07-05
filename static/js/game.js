@@ -1,11 +1,13 @@
+var lvl = lvl1;
+
 var GAME = {
     width: 1600,
     height: 1000,
     isPlay: false,
+    castleHP: lvl.castleHP
 }
 
 var mobamount = lvl1.mobamount - 1
-var lvl = lvl1;
 
 var page = document.getElementById("canvas");
 canvas.width = GAME.width;
@@ -123,7 +125,7 @@ window.addEventListener(
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     drawBackground();
-    moveMonsters();
+    moveMonsters(GAME);
     drawCastle();
     drawTiles();
     drawTower();
