@@ -8,7 +8,7 @@ var lvl = lvl1;
 var GAME = {
     width: 1600,
     height: 1000,
-    isPlay: false,
+    isPlay: true,
     castleHP: lvl.castleHP
 }
 
@@ -102,21 +102,25 @@ var mouseClick = {
 window.addEventListener(
     'mousemove',
     (event) => {
-        windowWidth = document.documentElement.clientWidth;
-        windowHeight = document.documentElement.clientHeight
-        mouse.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
-        mouse.y = event.clientY - ((windowHeight - GAME.height) / 2);
+        if(GAME.isPlay == true) {
+            windowWidth = document.documentElement.clientWidth;
+            windowHeight = document.documentElement.clientHeight
+            mouse.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
+            mouse.y = event.clientY - ((windowHeight - GAME.height) / 2);
+        }
     }
 )
 
 window.addEventListener(
     'click',
     (event) => {
-        windowWidth = document.documentElement.clientWidth;
-        windowHeight = document.documentElement.clientHeight
-        mouseClick.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
-        mouseClick.y = event.clientY - ((windowHeight - GAME.height) / 2);
-        MakeTower();
+        if(GAME.isPlay == true) {
+            windowWidth = document.documentElement.clientWidth;
+            windowHeight = document.documentElement.clientHeight
+            mouseClick.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
+            mouseClick.y = event.clientY - ((windowHeight - GAME.height) / 2);
+            MakeTower();
+        }
     }
 )
 
@@ -138,9 +142,11 @@ function play() {
     drawTower();
     if(GAME.castleHP == 0){
         gameOver();
+        GAME.isPlay = false;
     }
     if(GAME.castleHP > 0 && monsters.length == 0){
         lvlComplete();
+        GAME.isPlay = false;
     }
     requestAnimationFrame(play);
 }
