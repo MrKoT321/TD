@@ -49,6 +49,16 @@ function drawCastle() {
     }
 }
 
+function gameOver(){ 
+    popupoverBg.classList.add('active'); 
+    popupover.classList.add('active'); 
+} 
+ 
+function lvlComplete(){ 
+    popupcompleteBg.classList.add('active'); 
+    popupcomplete.classList.add('active'); 
+}
+
 function play() {
     drawBackground();
     moveMonsters(GAME);
