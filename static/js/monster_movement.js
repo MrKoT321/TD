@@ -109,7 +109,7 @@ function addMonster(monster) {
         dir: monster.dir
     })
 }
-
+sf.hp = 0;
 addMonster(sf)
 
 function moveMonsters() {

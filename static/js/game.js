@@ -1,3 +1,6 @@
+let popupBg = document.querySelector('.popup__bg');
+let popup = document.querySelector('.popup'); 
+
 var GAME = {
     width: 1600,
     height: 1000,
@@ -108,12 +111,21 @@ window.addEventListener(
     }
 )
 
+function lvlCompete(){
+    popupBg.classList.add('active');
+    popup.classList.add('active');
+}
+
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
+    pa.hp = 0;
     drawBackground();
-    moveMonsters()
+    moveMonsters();
     drawTiles();
     drawTower();
+    if(notdeadmonsters.length == 0){
+        lvlCompete();
+    }
     requestAnimationFrame(play);
 }
 
