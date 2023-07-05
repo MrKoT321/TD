@@ -125,7 +125,7 @@ window.addEventListener(
     }
 )
 
-function lvlCompete(){
+function gameOver(){
     popupBg.classList.add('active');
     popup.classList.add('active');
 }
@@ -137,8 +137,8 @@ function play() {
     drawCastle();
     drawTiles();
     drawTower();
-    if(monsters.length == 0){
-        lvlCompete();
+    if(GAME.castleHP == 0){
+        gameOver();
     }
     requestAnimationFrame(play);
 }

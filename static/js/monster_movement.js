@@ -152,14 +152,13 @@ function addMonster(monster) {
 }
 
 function registerCollision(monster, GAME) {
-    if(monster.hp == 0) {
+    if(monster.hp == 0 && monster.finish == true) {
         let bar = document.getElementById("hp-bar");
         bar.children[GAME.castleHP - 1].classList.add("_hide");
         GAME.castleHP -= 1;
+        monster.hp -=1;
     }
 }
-
-addMonster(sf)
 
 function moveMonsters(GAME) {
     let notdeadmonsters = monsters.filter(value => value.hp > 0);
