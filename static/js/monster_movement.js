@@ -9,7 +9,8 @@ var sf = {
     color: monster1.color,
     x: lvl1.start_x,
     y: lvl1.start_y,
-    dir: lvl1.start_dir
+    dir: lvl1.start_dir,
+    finish: false
 }
 
 var pa = {
@@ -21,7 +22,8 @@ var pa = {
     color: monster2.color,
     x: lvl1.start_x,
     y: lvl1.start_y,
-    dir: lvl1.start_dir
+    dir: lvl1.start_dir,
+    finish: false
 }
 
 // function updateMonster(monster){
@@ -34,6 +36,13 @@ function drawMonster(monster) {
     canvasContext.fillStyle = monster.color;
     canvasContext.fillRect(monster.x, monster.y - monster.height/2, monster.width, monster.height);
     // canvasContext.fill();
+}
+
+function checkFinish(lvl, cell) {
+    if(contains(lvl.finish_cells, cell)) {
+        return true;
+    }
+    return false;
 }
 
 function monsterMove(monster) {
@@ -54,8 +63,10 @@ function monsterMove(monster) {
 }
 
 function canvasToGrid(x, y) {
-    let temp = Math.floor(y / 100) * 16 + Math.floor(x / 100) + 1;
-    return temp;
+    if (x < 1600 && x > 0 && y < 1000 && y > 0) {
+        return Math.floor(y / 100) * 16 + Math.floor(x / 100) + 1;
+    } 
+    return 0
 }
 
 function contains(arr, elem) {
@@ -68,42 +79,74 @@ function contains(arr, elem) {
 }
 
 function monsterCorrect(lvl, monster) {
+    let cell;
     switch(monster.dir) {
         case 'r':
-            if(!contains(lvl.road, canvasToGrid(monster.x + monster.width/2 + 100, monster.y))) {
-                if(contains(lvl.road, canvasToGrid(monster.x, monster.y - 100))) {
-                    console.log('клетка:', canvasToGrid(monster.x + monster.width/2 + 100, monster.y));
+            cell = canvasToGrid(monster.x + monster.width/2 + 100, monster.y);
+            if(checkFinish(lvl, cell)) {
+                monster.finish = true;
+                break;
+            }
+            if(!contains(lvl.road, cell)) {
+                if(contains(lvl.road, canvasToGrid(monster.x, monster.y - 110))) {
                     monster.dir = 'u';
                 } else {
                     monster.dir = 'd';
                 }
+            };
+            if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
+                console.log('hp = 0')
             }
             break;
         case 'u':
-            if(!contains(lvl.road, canvasToGrid(monster.x, monster.y - 100))) {
-                if(contains(lvl.road, canvasToGrid(monster.x - 110, monster.y))) {
+            cell = canvasToGrid(monster.x, monster.y - 100);
+            if(checkFinish(lvl, cell)) {
+                monster.finish = true;
+                break;
+            }
+            if(!contains(lvl.road, cell) && !monster.finish) {
+                if(contains(lvl.road, canvasToGrid(monster.x - 100, monster.y))) {
                     monster.dir = 'l';
                 } else {
                     monster.dir = 'r';
                 }
             }
+            if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y + monster.height))) {
+                console.log('hp = 0')
+            }
             break;
         case 'l':
-            if(!contains(lvl.road,canvasToGrid(monster.x - monster.width/2 - 100, monster.y))) {
-                if(contains(lvl.road, canvasToGrid(monster.x + 110, monster.y + 110))) {
+            cell = canvasToGrid(monster.x - monster.width/2 - 100, monster.y);
+            if(checkFinish(lvl, cell)) {
+                monster.finish = true;
+                break;
+            }
+            if(!contains(lvl.road, cell)) {
+                if(contains(lvl.road, canvasToGrid(monster.x + 100, monster.y + 110))) {
                     monster.dir = 'u';
                 } else {
                     monster.dir = 'd';
                 }
             }
+            if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x + monster.width, monster.y))) {
+                console.log('hp = 0')
+            }
             break;
         case 'd':
-            if(!contains(lvl.road, canvasToGrid(monster.x, monster.y + 100))) {
-                if(contains(lvl.road, canvasToGrid(monster.x - 110, monster.y))) {
+            cell = canvasToGrid(monster.x, monster.y + 100);
+            if(checkFinish(lvl, cell)) {
+                monster.finish = true;
+                break;
+            }
+            if(!contains(lvl.road, cell)) {
+                if(contains(lvl.road, canvasToGrid(monster.x - 100, monster.y))) {
                     monster.dir = 'l';
                 } else {
                     monster.dir = 'r';
                 }
+            }
+            if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
+                console.log('hp = 0')
             }
             break;
     }
@@ -120,7 +163,8 @@ function addMonster(monster, lvl){
         color: monster.color,
         x: lvl.start_x - 50,
         y: lvl.start_y,
-        dir: lvl1.start_dir
+        dir: lvl1.start_dir,
+        finish: false
     })
 }
 addMonster(sf, lvl1)

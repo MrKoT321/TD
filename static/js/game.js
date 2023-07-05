@@ -22,7 +22,7 @@ lvl.towers.forEach(towerPos => {
 })
 
 const background = new Image();
-background.src = "../static/images/BASE-MAP.png";
+background.src = lvl.back_src;
 
 background.onload = () => {
     GAME.background = background;
