@@ -119,7 +119,8 @@ function play() {
         drawMonster(monster);
     }
     for (var monster of monsters) {//поменять monsters на notdeadmonsters
-        updateMonster(monster);
+        monsterMove(monster);
+        monsterCorrect(lvl, monster);
     }
     if (mobamount > 0){
         starttime += 2
