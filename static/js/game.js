@@ -16,9 +16,6 @@ var canvasContext = canvas.getContext("2d");
 var starttime = 0;
 var mobamount = lvl.mobamount - 1
 
-lvl.towers.forEach(towerPos => {
-    towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100])
-})
 
 const background = new Image();
 const castle = new Image();
@@ -45,18 +42,6 @@ function drawCastle() {
         canvasContext.drawImage(GAME.castle, lvl.castle_x, lvl.castle_y, lvl.castle_w, lvl.castle_h)
     }
 }
-
-function drawTiles() {
-    towerTiles.forEach(tile => {
-        if (
-            mouse.x > tile[0] && mouse.x < tile[0] + 100 && mouse.y > tile[1] && mouse.y < tile[1] + 100
-        ) {
-            canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
-            canvasContext.fillRect(tile[0], tile[1], 100, 100);
-        }
-    })
-}
-
 
 function play() {
     drawBackground();

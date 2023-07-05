@@ -53,8 +53,10 @@ function isTowerOnPlace(tile) {
 
 function drawTiles() {
     towerTiles.forEach(tile => {
-        canvasContext.fillStyle = "rgba(4, 188, 78, 1)";
-        canvasContext.fillRect(tile[0], tile[1], 100, 100);
+        if (!(isTowerOnPlace(tile))) {
+            canvasContext.fillStyle = "#04BC4E";
+            canvasContext.fillRect(tile[0], tile[1], 100, 100);
+        }
         if (
             mouse.x > tile[0] && mouse.x < tile[0] + 100 && mouse.y > tile[1] && mouse.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
         ) {
@@ -65,13 +67,14 @@ function drawTiles() {
 }
 
 function makeTower() {
-    // towerTiles.forEach(tile => {
-    //     if (
-    //         mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
-    //     ) {
-    //         towerTilesActive.push([tile[0], tile[1]]);
-    //     }
-    // })
+    towerTiles.forEach(tile => {
+        if (
+            mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
+        ) {
+            towerTilesActive.push([tile[0], tile[1]]);
+            console.log(towerTilesActive)
+        }
+    })
 }
 
 function drawTower() {
