@@ -53,6 +53,8 @@ function isTowerOnPlace(tile) {
 
 function drawTiles() {
     towerTiles.forEach(tile => {
+        canvasContext.fillStyle = "rgba(4, 188, 78, 1)";
+        canvasContext.fillRect(tile[0], tile[1], 100, 100);
         if (
             mouse.x > tile[0] && mouse.x < tile[0] + 100 && mouse.y > tile[1] && mouse.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
         ) {
