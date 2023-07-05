@@ -1,5 +1,7 @@
-let popupBg = document.querySelector('.popup__bg');
-let popup = document.querySelector('.popup'); 
+let popupoverBg = document.querySelector('.popupover__bg');
+let popupover = document.querySelector('.popupover');
+let popupcompleteBg = document.querySelector('.popupcomplete__bg');
+let popupcomplete = document.querySelector('.popupcomplete');  
 
 var lvl = lvl1;
 
@@ -119,8 +121,13 @@ window.addEventListener(
 )
 
 function gameOver(){
-    popupBg.classList.add('active');
-    popup.classList.add('active');
+    popupoverBg.classList.add('active');
+    popupover.classList.add('active');
+}
+
+function lvlComplete(){
+    popupcompleteBg.classList.add('active');
+    popupcomplete.classList.add('active');
 }
 
 function play() {
@@ -131,6 +138,9 @@ function play() {
     drawTower();
     if(GAME.castleHP == 0){
         gameOver();
+    }
+    if(GAME.castleHP > 0 && monsters.length == 0){
+        lvlComplete();
     }
     requestAnimationFrame(play);
 }

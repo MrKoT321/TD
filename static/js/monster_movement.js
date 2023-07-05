@@ -154,7 +154,9 @@ function addMonster(monster) {
 function registerCollision(monster, GAME) {
     if(monster.hp == 0 && monster.finish == true) {
         let bar = document.getElementById("hp-bar");
-        bar.children[GAME.castleHP - 1].classList.add("_hide");
+        if(GAME.castleHP > 0){
+            bar.children[GAME.castleHP - 1].classList.add("_hide");
+        }
         GAME.castleHP -= 1;
         monster.hp -=1;
     }
