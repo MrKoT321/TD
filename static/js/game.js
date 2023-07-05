@@ -96,6 +96,7 @@ function play() {
             completeClose();
             lvl = changeLvl();
             mobamount = lvl.mobamount;
+            GAME.castleHP = lvl.castleHP;
             console.log(lvl);
         });
     }
