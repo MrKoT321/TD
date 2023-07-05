@@ -1,11 +1,16 @@
 var mouse = {
-    x: undefined,
-    y: undefined
+    x: 0,
+    y: 0
 }
 
 var mouseClick = {
-    x: undefined,
-    y: undefined
+    x: 0,
+    y: 0
+}
+
+const field = {
+    x: document.querySelector(".game__field").getBoundingClientRect().x,
+    y: document.querySelector(".game__field").getBoundingClientRect().y
 }
 
 var lvl = lvl1;
@@ -19,8 +24,8 @@ window.addEventListener(
     (event) => {
         windowWidth = document.documentElement.clientWidth;
         windowHeight = document.documentElement.clientHeight
-        mouse.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
-        mouse.y = event.clientY - ((windowHeight - GAME.height) / 2);
+        mouse.x = event.clientX - field.x;
+        mouse.y = event.clientY - field.y;
     }
 )
 
@@ -28,9 +33,10 @@ window.addEventListener (
     'click',
     (event) => {
         windowWidth = document.documentElement.clientWidth;
-        windowHeight = document.documentElement.clientHeight
-        mouseClick.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
-        mouseClick.y = event.clientY - ((windowHeight - GAME.height) / 2);
+        windowHeight = document.documentElement.clientHeight;
+        mouseClick.x = event.clientX - field.x;
+        mouseClick.y = event.clientY - field.y;
+        console.log(mouseClick)
         drawNewTowerSelector();       
         drawTowerAbilities();  
         makeTower();
@@ -75,7 +81,6 @@ function makeTower() {
             mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
         ) {
             towerTilesActive.push([tile[0], tile[1]]);
-
         }
     })
 }
