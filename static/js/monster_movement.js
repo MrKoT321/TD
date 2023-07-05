@@ -45,4 +45,5 @@ function addMonster(monster, lvl){
         y: lvl.start_y,
     })
 }
+
 addMonster(sf, lvl1)
