@@ -246,8 +246,26 @@ body {
     visibility: hidden;
 }
 
-.next-lvl {
-    width: 100px;
-    height: 100px;
-    background-color: #005799;
+.next-lvl-container {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.next-lvl-btn {
+    width: 150px;
+    height: 50px;
+    border: none;
+    background-color: green;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 17px;
+    transform: scale(1);
+    transition: 0.2s all ease-in-out;
+}
+
+.next-lvl-btn:hover {
+    transform: scale(0.9);
 }
