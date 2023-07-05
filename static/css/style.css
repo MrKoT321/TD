@@ -49,6 +49,7 @@ body {
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
     border-left: 35px solid #6E18C0;
+    cursor: pointer;
 }
 
 .bar__out {
