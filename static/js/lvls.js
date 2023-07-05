@@ -29,7 +29,7 @@ var lvl2 = {
     castle_h: 418,
     money: 100,
     start_dir: 'r',
-    mobamount: 2,
+    mobamount: 4,
     back_src:  "../static/images/MAP1.svg",
     castle_src:  "../static/images/CASTLE.svg" 
 }

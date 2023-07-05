@@ -72,9 +72,9 @@ function overClose(){
     popupcomplete.classList.remove('active');
 }
 
-function changeLvl(lvls, GAME, lvl) {
+function changeLvl() {
     GAME.lvlCount += 1;
-    lvl = lvls[GAME.lvlCount - 1];
+    return lvls[GAME.lvlCount - 1];
 }
 
 function play() {
@@ -87,10 +87,17 @@ function play() {
         gameOver();
         GAME.isPlay = false;
     }
-    if(GAME.castleHP > 0 && monsters.length == 0){
+    if(GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay){
         lvlComplete();
         GAME.isPlay = false;
-        changeLvl(lvls, GAME, lvl);
+        let nextBtn = document.getElementById("next-lvl-btn");
+        nextBtn.addEventListener("click", () => {
+            console.log("next");
+            completeClose();
+            lvl = changeLvl();
+            mobamount = lvl.mobamount;
+            console.log(lvl);
+        });
     }
     requestAnimationFrame(play);
 }
