@@ -79,7 +79,7 @@ function monsterCorrect(lvl, monster) {
                 }
             };
             if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
-                console.log('hp = 0')
+                monster.hp = 0;
             }
             break;
         case 'u':
@@ -96,7 +96,7 @@ function monsterCorrect(lvl, monster) {
                 }
             }
             if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y + monster.height))) {
-                console.log('hp = 0')
+                monster.hp = 0;
             }
             break;
         case 'l':
@@ -113,7 +113,7 @@ function monsterCorrect(lvl, monster) {
                 }
             }
             if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x + monster.width, monster.y))) {
-                console.log('hp = 0')
+                monster.hp = 0;
             }
             break;
         case 'd':
@@ -130,7 +130,7 @@ function monsterCorrect(lvl, monster) {
                 }
             }
             if(monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
-                console.log('hp = 0')
+                monster.hp = 0;
             }
             break;
     }
@@ -147,7 +147,7 @@ function addMonster(monster) {
         color: monster.color,
         x: monster.x,
         y: monster.y,
-        dir: monster.start_dir,
+        dir: monster.dir,
         finish: false
     })
 }

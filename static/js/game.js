@@ -22,10 +22,16 @@ lvl.towers.forEach(towerPos => {
 })
 
 const background = new Image();
+const castle = new Image();
+castle.src = lvl.castle_src;
 background.src = lvl.back_src;
 
 background.onload = () => {
     GAME.background = background;
+}
+
+castle.onload = () => {
+    GAME.castle = castle;
 }
 
 function initEventsListeners() {
@@ -38,6 +44,12 @@ function onCanvasMouseDown(event) {
 function drawBackground() {
     if (GAME.background) {
         canvasContext.drawImage(GAME.background, 0, 0, GAME.width, GAME.height)
+    }
+}
+
+function drawCastle() {
+    if (GAME.castle) {
+        canvasContext.drawImage(GAME.castle, lvl.castle_x, lvl.castle_y, lvl.castle_w, lvl.castle_h)
     }
 }
 
@@ -111,7 +123,8 @@ window.addEventListener(
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     drawBackground();
-    moveMonsters()
+    moveMonsters();
+    drawCastle();
     drawTiles();
     drawTower();
     requestAnimationFrame(play);

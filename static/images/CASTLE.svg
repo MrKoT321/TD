@@ -1,0 +1,113 @@
+<svg width="210" height="418" viewBox="0 0 210 418" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.32203 112.5L105.5 2.26827L202.678 112.5H8.32203Z" fill="#FF0000" stroke="black" stroke-width="3"/>
+<path d="M5 115H4V116V216V316V416V417H5H105H205H206V416V316V216L206 116V115H205H105H5Z" fill="#A6A7A5" stroke="black" stroke-width="2"/>
+<g style="mix-blend-mode:multiply">
+<path d="M87 173.5V252H52V173.5C52 163.835 59.835 156 69.5 156C79.165 156 87 163.835 87 173.5Z" fill="#D9D9D9"/>
+<path d="M87 173.5V252H52V173.5C52 163.835 59.835 156 69.5 156C79.165 156 87 163.835 87 173.5Z" stroke="black" stroke-width="2"/>
+</g>
+<g style="mix-blend-mode:multiply">
+<path d="M154 173.5V252H119V173.5C119 163.835 126.835 156 136.5 156C146.165 156 154 163.835 154 173.5Z" fill="#D9D9D9"/>
+<path d="M154 173.5V252H119V173.5C119 163.835 126.835 156 136.5 156C146.165 156 154 163.835 154 173.5Z" stroke="black" stroke-width="2"/>
+</g>
+<rect y="107" width="207" height="13" fill="#FF0000"/>
+<line x1="15" y1="108.5" x2="2" y2="108.5" stroke="black" stroke-width="3"/>
+<line x1="1.5" y1="120" x2="1.5" y2="107" stroke="black" stroke-width="3"/>
+<line x1="209" y1="120.5" y2="120.5" stroke="black" stroke-width="3"/>
+<line x1="208" y1="119" x2="208" y2="107" stroke="black" stroke-width="2"/>
+<line x1="207" y1="108.5" x2="196" y2="108.5" stroke="black" stroke-width="3"/>
+<path d="M143 391.5V417H66V391.5C66 370.237 83.237 353 104.5 353C125.763 353 143 370.237 143 391.5Z" fill="#664747" stroke="black" stroke-width="2"/>
+<line x1="94.4297" y1="354.237" x2="94.4297" y2="416.881" stroke="black"/>
+<line x1="72.1763" y1="369.898" x2="72.1763" y2="418" stroke="black"/>
+<line x1="99.9932" y1="354.237" x2="99.9932" y2="416.881" stroke="black"/>
+<line x1="77.7393" y1="363.187" x2="77.7393" y2="416.881" stroke="black"/>
+<line x1="105.556" y1="354.237" x2="105.556" y2="415.763" stroke="black"/>
+<line x1="83.3027" y1="359.831" x2="83.3027" y2="416.881" stroke="black"/>
+<line x1="88.8662" y1="355.356" x2="88.8662" y2="416.881" stroke="black"/>
+<line x1="111.12" y1="354.237" x2="111.12" y2="416.881" stroke="black"/>
+<line x1="116.683" y1="355.356" x2="116.683" y2="416.881" stroke="black"/>
+<line x1="122.247" y1="356.475" x2="122.247" y2="418" stroke="black"/>
+<line x1="127.81" y1="362.068" x2="127.81" y2="418" stroke="black"/>
+<line x1="133.373" y1="365.424" x2="133.373" y2="416.881" stroke="black"/>
+<line x1="138.937" y1="373.254" x2="138.937" y2="416.881" stroke="black"/>
+<line x1="142.887" y1="388.797" x2="66.1126" y2="388.797" stroke="black" stroke-width="2"/>
+<path d="M3.34073 179.721L19 147.154L34.6593 179.721H3.34073Z" fill="#FF0000" stroke="black"/>
+<g style="mix-blend-mode:multiply">
+<rect x="3.5" y="179.684" width="31" height="236.816" fill="#A6A7A5"/>
+<rect x="3.5" y="179.684" width="31" height="236.816" stroke="black"/>
+</g>
+<path d="M175.341 180.721L191 148.154L206.659 180.721H175.341Z" fill="#FF0000" stroke="black"/>
+<g style="mix-blend-mode:multiply">
+<rect x="175.5" y="180.684" width="31" height="236.816" fill="#A6A7A5"/>
+<rect x="175.5" y="180.684" width="31" height="236.816" stroke="black"/>
+</g>
+<line x1="43" y1="307.5" x2="51" y2="307.5" stroke="black"/>
+<line x1="35" y1="303.5" x2="43" y2="303.5" stroke="black"/>
+<line x1="51" y1="303.5" x2="59" y2="303.5" stroke="black"/>
+<line x1="59" y1="307.5" x2="67" y2="307.5" stroke="black"/>
+<line x1="67" y1="303.5" x2="75" y2="303.5" stroke="black"/>
+<line x1="75" y1="307.5" x2="83" y2="307.5" stroke="black"/>
+<line x1="82" y1="303.5" x2="90" y2="303.5" stroke="black"/>
+<line x1="90" y1="307.5" x2="98" y2="307.5" stroke="black"/>
+<line x1="98" y1="303.5" x2="106" y2="303.5" stroke="black"/>
+<line x1="106" y1="307.5" x2="114" y2="307.5" stroke="black"/>
+<line x1="114" y1="303.5" x2="122" y2="303.5" stroke="black"/>
+<line x1="122" y1="307.5" x2="130" y2="307.5" stroke="black"/>
+<line x1="131" y1="303.5" x2="139" y2="303.5" stroke="black"/>
+<line x1="139" y1="307.5" x2="147" y2="307.5" stroke="black"/>
+<line x1="147" y1="303.5" x2="155" y2="303.5" stroke="black"/>
+<line x1="155" y1="307.5" x2="163" y2="307.5" stroke="black"/>
+<line x1="163" y1="303.5" x2="171" y2="303.5" stroke="black"/>
+<line x1="42.5" y1="303" x2="42.5" y2="308" stroke="black"/>
+<line x1="51.5" y1="303" x2="51.5" y2="308" stroke="black"/>
+<line x1="58.5" y1="303" x2="58.5" y2="308" stroke="black"/>
+<line x1="67.5" y1="303" x2="67.5" y2="308" stroke="black"/>
+<line x1="74.5" y1="303" x2="74.5" y2="308" stroke="black"/>
+<line x1="82.5" y1="303" x2="82.5" y2="308" stroke="black"/>
+<line x1="89.5" y1="303" x2="89.5" y2="308" stroke="black"/>
+<line x1="98.5" y1="303" x2="98.5" y2="308" stroke="black"/>
+<line x1="105.5" y1="303" x2="105.5" y2="308" stroke="black"/>
+<line x1="114.5" y1="303" x2="114.5" y2="308" stroke="black"/>
+<line x1="121.5" y1="303" x2="121.5" y2="308" stroke="black"/>
+<line x1="130.5" y1="303" x2="130.5" y2="308" stroke="black"/>
+<line x1="138.5" y1="303" x2="138.5" y2="308" stroke="black"/>
+<line x1="147.5" y1="303" x2="147.5" y2="308" stroke="black"/>
+<line x1="154.5" y1="303" x2="154.5" y2="308" stroke="black"/>
+<line x1="163.5" y1="303" x2="163.5" y2="308" stroke="black"/>
+<line x1="171.5" y1="303" x2="171.5" y2="308" stroke="black"/>
+<line x1="35.5" y1="303" x2="35.5" y2="308" stroke="black"/>
+<line x1="43" y1="306.5" x2="51" y2="306.5" stroke="black"/>
+<line x1="35" y1="302.5" x2="43" y2="302.5" stroke="black"/>
+<line x1="51" y1="302.5" x2="59" y2="302.5" stroke="black"/>
+<line x1="59" y1="306.5" x2="67" y2="306.5" stroke="black"/>
+<line x1="67" y1="302.5" x2="75" y2="302.5" stroke="black"/>
+<line x1="75" y1="306.5" x2="83" y2="306.5" stroke="black"/>
+<line x1="82" y1="302.5" x2="90" y2="302.5" stroke="black"/>
+<line x1="90" y1="306.5" x2="98" y2="306.5" stroke="black"/>
+<line x1="98" y1="302.5" x2="106" y2="302.5" stroke="black"/>
+<line x1="106" y1="306.5" x2="114" y2="306.5" stroke="black"/>
+<line x1="114" y1="302.5" x2="122" y2="302.5" stroke="black"/>
+<line x1="122" y1="306.5" x2="130" y2="306.5" stroke="black"/>
+<line x1="131" y1="302.5" x2="139" y2="302.5" stroke="black"/>
+<line x1="139" y1="306.5" x2="147" y2="306.5" stroke="black"/>
+<line x1="147" y1="302.5" x2="155" y2="302.5" stroke="black"/>
+<line x1="155" y1="306.5" x2="163" y2="306.5" stroke="black"/>
+<line x1="163" y1="302.5" x2="171" y2="302.5" stroke="black"/>
+<line x1="42.5" y1="302" x2="42.5" y2="307" stroke="black"/>
+<line x1="51.5" y1="302" x2="51.5" y2="307" stroke="black"/>
+<line x1="58.5" y1="302" x2="58.5" y2="307" stroke="black"/>
+<line x1="67.5" y1="302" x2="67.5" y2="307" stroke="black"/>
+<line x1="74.5" y1="302" x2="74.5" y2="307" stroke="black"/>
+<line x1="82.5" y1="302" x2="82.5" y2="307" stroke="black"/>
+<line x1="89.5" y1="302" x2="89.5" y2="307" stroke="black"/>
+<line x1="98.5" y1="302" x2="98.5" y2="307" stroke="black"/>
+<line x1="105.5" y1="302" x2="105.5" y2="307" stroke="black"/>
+<line x1="114.5" y1="302" x2="114.5" y2="307" stroke="black"/>
+<line x1="121.5" y1="302" x2="121.5" y2="307" stroke="black"/>
+<line x1="130.5" y1="302" x2="130.5" y2="307" stroke="black"/>
+<line x1="138.5" y1="302" x2="138.5" y2="307" stroke="black"/>
+<line x1="147.5" y1="302" x2="147.5" y2="307" stroke="black"/>
+<line x1="154.5" y1="302" x2="154.5" y2="307" stroke="black"/>
+<line x1="163.5" y1="302" x2="163.5" y2="307" stroke="black"/>
+<line x1="171.5" y1="302" x2="171.5" y2="307" stroke="black"/>
+<line x1="35.5" y1="302" x2="35.5" y2="307" stroke="black"/>
+</svg>

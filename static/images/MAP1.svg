@@ -307,9 +307,6 @@
 <rect x="1200" y="500" width="100" height="100" transform="rotate(-180 1200 500)" fill="#00CD52"/>
 <rect x="1200" y="600" width="100" height="100" transform="rotate(-180 1200 600)" fill="#C97500"/>
 <rect x="1200" y="300" width="100" height="100" transform="rotate(-180 1200 300)" fill="#00CD52"/>
-<g style="mix-blend-mode:multiply">
-<rect x="1200" y="400" width="100" height="100" transform="rotate(-180 1200 400)" fill="#04BC4E"/>
-</g>
 <rect x="1200" y="100" width="100" height="100" transform="rotate(-180 1200 100)" fill="#DE0000"/>
 <rect x="1200" y="200" width="100" height="100" transform="rotate(-180 1200 200)" fill="#D9D9D9"/>
 <rect x="1200" y="100" width="100" height="100" transform="rotate(-180 1200 100)" fill="#00CD52"/>
@@ -353,6 +350,8 @@
 <rect x="1400" y="300" width="100" height="100" fill="#00CD52"/>
 <rect x="1400" y="200" width="100" height="100" fill="#00CD52"/>
 <rect x="1400" y="400" width="100" height="100" fill="#C97500"/>
+<rect x="1396" y="300" width="104" height="100" fill="#C97500"/>
+<rect x="1500" y="300" width="100" height="100" fill="#C97500"/>
 <rect x="1400" y="900" width="100" height="100" fill="#DE0000"/>
 <rect x="1400" y="800" width="100" height="100" fill="#D9D9D9"/>
 <rect x="1400" y="900" width="100" height="100" fill="#00CD52"/>
@@ -363,7 +362,6 @@
 <rect x="1600" y="1000" width="100" height="100" transform="rotate(-180 1600 1000)" fill="#00CD52"/>
 <rect x="1600" y="500" width="100" height="100" transform="rotate(-180 1600 500)" fill="#C97500"/>
 <rect x="1600" y="300" width="100" height="100" transform="rotate(-180 1600 300)" fill="#00CD52"/>
-<rect x="1600" y="400" width="100" height="100" transform="rotate(-180 1600 400)" fill="#00CD52"/>
 <rect x="1600" y="100" width="100" height="100" transform="rotate(-180 1600 100)" fill="#DE0000"/>
 <rect x="1600" y="200" width="100" height="100" transform="rotate(-180 1600 200)" fill="#D9D9D9"/>
 <rect x="1600" y="100" width="100" height="100" transform="rotate(-180 1600 100)" fill="#00CD52"/>
@@ -375,22 +373,8 @@
 <path d="M1100 882.333L1119.84 943L1177.88 950L1208 882.333L1177.88 902.167L1191.84 882.333L1158.78 891.667L1166.12 854.333L1147.02 896.333L1140.41 817L1125.71 902.167L1119.84 849.667L1114.69 902.167L1100 882.333Z" fill="url(#paint6_linear_38_428)" stroke="url(#paint7_linear_38_428)" stroke-width="3"/>
 <path d="M40 248.333L59.8367 309L117.878 316L148 248.333L117.878 268.167L131.837 248.333L98.7755 257.667L106.122 220.333L87.0204 262.333L80.4082 183L65.7143 268.167L59.8367 215.667L54.6939 268.167L40 248.333Z" fill="url(#paint8_linear_38_428)" stroke="url(#paint9_linear_38_428)" stroke-width="3"/>
 <rect x="700" y="600" width="100" height="100" transform="rotate(-180 700 600)" fill="#D9D9D9"/>
-<g style="mix-blend-mode:multiply">
-<path d="M700 599.5L600 599.5L600 499.5L700 499.5L700 599.5Z" fill="#04BC4E"/>
-</g>
-<g style="mix-blend-mode:multiply">
-<rect x="700" y="600" width="100" height="100" transform="rotate(-180 700 600)" fill="#04BC4E"/>
-</g>
-<g style="mix-blend-mode:multiply">
-<rect x="1200" y="400" width="100" height="100" transform="rotate(-180 1200 400)" fill="#04BC4E"/>
-</g>
 <rect x="200" y="500" width="100" height="100" transform="rotate(-180 200 500)" fill="#D9D9D9"/>
-<g style="mix-blend-mode:multiply">
-<rect x="200" y="500" width="100" height="100" transform="rotate(-180 200 500)" fill="#04BC4E"/>
-</g>
-<g style="mix-blend-mode:multiply">
-<rect x="200" y="500" width="100" height="100" transform="rotate(-180 200 500)" fill="#04BC4E"/>
-</g>
+<rect x="100" y="400" width="100" height="100" fill="#00CD52"/>
 <rect x="1400" y="700" width="100" height="100" fill="#00CD52"/>
 <rect x="1500" y="700" width="100" height="100" fill="#00CD52"/>
 <rect x="1400" y="500" width="100" height="100" fill="#C97500"/>
@@ -402,120 +386,11 @@
 <path d="M1000 293C1000 320.614 977.614 343 950 343L909 343C881.386 343 859 320.614 859 293L859 250C859 222.386 881.386 200 909 200L950 200C977.614 200 1000 222.386 1000 250L1000 293Z" fill="#C97500"/>
 <path d="M941 651C941 678.614 918.614 701 891 701L850 701C822.386 701 800 678.614 800 651L800 608C800 580.386 822.386 558 850 558L891 558C918.614 558 941 580.386 941 608L941 651Z" fill="#C97500"/>
 <rect x="1398" y="116" width="100" height="100" transform="rotate(-180 1398 116)" fill="#00CD52"/>
-<path d="M1400.32 114.5L1497.5 4.26828L1594.68 114.5H1400.32Z" fill="#FF0000" stroke="black" stroke-width="3"/>
-<path d="M1398 115H1397V116V215V216V217V315V316V317V416V417H1398H1497H1498H1499H1598H1599V416V317V316V315V217V216V215L1599 116V115H1598H1499H1498H1497H1398Z" fill="#A6A7A5" stroke="black" stroke-width="2"/>
-<g style="mix-blend-mode:multiply">
-<path d="M1445 173.5C1445 163.835 1452.84 156 1462.5 156C1472.16 156 1480 163.835 1480 173.5V252H1445V173.5Z" fill="#D9D9D9"/>
-<path d="M1445 173.5C1445 163.835 1452.84 156 1462.5 156C1472.16 156 1480 163.835 1480 173.5V252H1445V173.5Z" stroke="black" stroke-width="2"/>
-</g>
-<g style="mix-blend-mode:multiply">
-<path d="M1512 173.5C1512 163.835 1519.84 156 1529.5 156C1539.16 156 1547 163.835 1547 173.5V252H1512V173.5Z" fill="#D9D9D9"/>
-<path d="M1512 173.5C1512 163.835 1519.84 156 1529.5 156C1539.16 156 1547 163.835 1547 173.5V252H1512V173.5Z" stroke="black" stroke-width="2"/>
-</g>
-<rect x="1392" y="108" width="207" height="13" fill="#FF0000"/>
-<line x1="1408" y1="109.5" x2="1392" y2="109.5" stroke="black" stroke-width="3"/>
-<line x1="1391.5" y1="121" x2="1391.5" y2="108" stroke="black" stroke-width="3"/>
-<line x1="1599" y1="120.5" x2="1390" y2="120.5" stroke="black" stroke-width="3"/>
-<line x1="1598" y1="120" x2="1598" y2="108" stroke="black" stroke-width="2"/>
-<line x1="1598" y1="109.5" x2="1587" y2="109.5" stroke="black" stroke-width="3"/>
-<path d="M1459 389.5C1459 368.237 1476.24 351 1497.5 351C1518.76 351 1536 368.237 1536 389.5V415H1459V389.5Z" fill="#664747" stroke="black" stroke-width="2"/>
-<line x1="1487.43" y1="352.237" x2="1487.43" y2="414.881" stroke="black"/>
-<line x1="1465.18" y1="367.898" x2="1465.18" y2="416" stroke="black"/>
-<line x1="1492.99" y1="352.237" x2="1492.99" y2="414.881" stroke="black"/>
-<line x1="1470.74" y1="361.187" x2="1470.74" y2="414.881" stroke="black"/>
-<line x1="1498.56" y1="352.237" x2="1498.56" y2="413.763" stroke="black"/>
-<line x1="1476.3" y1="357.831" x2="1476.3" y2="414.881" stroke="black"/>
-<line x1="1481.87" y1="353.356" x2="1481.87" y2="414.881" stroke="black"/>
-<line x1="1504.12" y1="352.237" x2="1504.12" y2="414.881" stroke="black"/>
-<line x1="1509.68" y1="353.356" x2="1509.68" y2="414.881" stroke="black"/>
-<line x1="1515.25" y1="354.475" x2="1515.25" y2="416" stroke="black"/>
-<line x1="1520.81" y1="360.068" x2="1520.81" y2="416" stroke="black"/>
-<line x1="1526.37" y1="363.424" x2="1526.37" y2="414.881" stroke="black"/>
-<line x1="1531.94" y1="371.254" x2="1531.94" y2="414.881" stroke="black"/>
-<line x1="1535.89" y1="386.797" x2="1459.11" y2="386.797" stroke="black" stroke-width="2"/>
-<path d="M1396.34 179.721L1412 147.154L1427.66 179.721H1396.34Z" fill="#FF0000" stroke="black"/>
-<g style="mix-blend-mode:multiply">
-<rect x="1396.5" y="179.684" width="31" height="236.816" fill="#A6A7A5"/>
-<rect x="1396.5" y="179.684" width="31" height="236.816" stroke="black"/>
-</g>
-<path d="M1565.34 179.721L1581 147.154L1596.66 179.721H1565.34Z" fill="#FF0000" stroke="black"/>
-<g style="mix-blend-mode:multiply">
-<rect x="1565.5" y="179.684" width="31" height="236.816" fill="#A6A7A5"/>
-<rect x="1565.5" y="179.684" width="31" height="236.816" stroke="black"/>
-</g>
-<line x1="1436" y1="307.5" x2="1444" y2="307.5" stroke="black"/>
-<line x1="1428" y1="303.5" x2="1436" y2="303.5" stroke="black"/>
-<line x1="1444" y1="303.5" x2="1452" y2="303.5" stroke="black"/>
-<line x1="1452" y1="307.5" x2="1460" y2="307.5" stroke="black"/>
-<line x1="1460" y1="303.5" x2="1468" y2="303.5" stroke="black"/>
-<line x1="1468" y1="307.5" x2="1476" y2="307.5" stroke="black"/>
-<line x1="1475" y1="303.5" x2="1483" y2="303.5" stroke="black"/>
-<line x1="1483" y1="307.5" x2="1491" y2="307.5" stroke="black"/>
-<line x1="1491" y1="303.5" x2="1499" y2="303.5" stroke="black"/>
-<line x1="1499" y1="307.5" x2="1507" y2="307.5" stroke="black"/>
-<line x1="1507" y1="303.5" x2="1515" y2="303.5" stroke="black"/>
-<line x1="1515" y1="307.5" x2="1523" y2="307.5" stroke="black"/>
-<line x1="1524" y1="303.5" x2="1532" y2="303.5" stroke="black"/>
-<line x1="1532" y1="307.5" x2="1540" y2="307.5" stroke="black"/>
-<line x1="1540" y1="303.5" x2="1548" y2="303.5" stroke="black"/>
-<line x1="1548" y1="307.5" x2="1556" y2="307.5" stroke="black"/>
-<line x1="1556" y1="303.5" x2="1564" y2="303.5" stroke="black"/>
-<line x1="1435.5" y1="303" x2="1435.5" y2="308" stroke="black"/>
-<line x1="1444.5" y1="303" x2="1444.5" y2="308" stroke="black"/>
-<line x1="1451.5" y1="303" x2="1451.5" y2="308" stroke="black"/>
-<line x1="1460.5" y1="303" x2="1460.5" y2="308" stroke="black"/>
-<line x1="1467.5" y1="303" x2="1467.5" y2="308" stroke="black"/>
-<line x1="1475.5" y1="303" x2="1475.5" y2="308" stroke="black"/>
-<line x1="1482.5" y1="303" x2="1482.5" y2="308" stroke="black"/>
-<line x1="1491.5" y1="303" x2="1491.5" y2="308" stroke="black"/>
-<line x1="1498.5" y1="303" x2="1498.5" y2="308" stroke="black"/>
-<line x1="1507.5" y1="303" x2="1507.5" y2="308" stroke="black"/>
-<line x1="1514.5" y1="303" x2="1514.5" y2="308" stroke="black"/>
-<line x1="1523.5" y1="303" x2="1523.5" y2="308" stroke="black"/>
-<line x1="1531.5" y1="303" x2="1531.5" y2="308" stroke="black"/>
-<line x1="1540.5" y1="303" x2="1540.5" y2="308" stroke="black"/>
-<line x1="1547.5" y1="303" x2="1547.5" y2="308" stroke="black"/>
-<line x1="1556.5" y1="303" x2="1556.5" y2="308" stroke="black"/>
-<line x1="1564.5" y1="303" x2="1564.5" y2="308" stroke="black"/>
-<line x1="1428.5" y1="303" x2="1428.5" y2="308" stroke="black"/>
-<line x1="1436" y1="306.5" x2="1444" y2="306.5" stroke="black"/>
-<line x1="1428" y1="302.5" x2="1436" y2="302.5" stroke="black"/>
-<line x1="1444" y1="302.5" x2="1452" y2="302.5" stroke="black"/>
-<line x1="1452" y1="306.5" x2="1460" y2="306.5" stroke="black"/>
-<line x1="1460" y1="302.5" x2="1468" y2="302.5" stroke="black"/>
-<line x1="1468" y1="306.5" x2="1476" y2="306.5" stroke="black"/>
-<line x1="1475" y1="302.5" x2="1483" y2="302.5" stroke="black"/>
-<line x1="1483" y1="306.5" x2="1491" y2="306.5" stroke="black"/>
-<line x1="1491" y1="302.5" x2="1499" y2="302.5" stroke="black"/>
-<line x1="1499" y1="306.5" x2="1507" y2="306.5" stroke="black"/>
-<line x1="1507" y1="302.5" x2="1515" y2="302.5" stroke="black"/>
-<line x1="1515" y1="306.5" x2="1523" y2="306.5" stroke="black"/>
-<line x1="1524" y1="302.5" x2="1532" y2="302.5" stroke="black"/>
-<line x1="1532" y1="306.5" x2="1540" y2="306.5" stroke="black"/>
-<line x1="1540" y1="302.5" x2="1548" y2="302.5" stroke="black"/>
-<line x1="1548" y1="306.5" x2="1556" y2="306.5" stroke="black"/>
-<line x1="1556" y1="302.5" x2="1564" y2="302.5" stroke="black"/>
-<line x1="1435.5" y1="302" x2="1435.5" y2="307" stroke="black"/>
-<line x1="1444.5" y1="302" x2="1444.5" y2="307" stroke="black"/>
-<line x1="1451.5" y1="302" x2="1451.5" y2="307" stroke="black"/>
-<line x1="1460.5" y1="302" x2="1460.5" y2="307" stroke="black"/>
-<line x1="1467.5" y1="302" x2="1467.5" y2="307" stroke="black"/>
-<line x1="1475.5" y1="302" x2="1475.5" y2="307" stroke="black"/>
-<line x1="1482.5" y1="302" x2="1482.5" y2="307" stroke="black"/>
-<line x1="1491.5" y1="302" x2="1491.5" y2="307" stroke="black"/>
-<line x1="1498.5" y1="302" x2="1498.5" y2="307" stroke="black"/>
-<line x1="1507.5" y1="302" x2="1507.5" y2="307" stroke="black"/>
-<line x1="1514.5" y1="302" x2="1514.5" y2="307" stroke="black"/>
-<line x1="1523.5" y1="302" x2="1523.5" y2="307" stroke="black"/>
-<line x1="1531.5" y1="302" x2="1531.5" y2="307" stroke="black"/>
-<line x1="1540.5" y1="302" x2="1540.5" y2="307" stroke="black"/>
-<line x1="1547.5" y1="302" x2="1547.5" y2="307" stroke="black"/>
-<line x1="1556.5" y1="302" x2="1556.5" y2="307" stroke="black"/>
-<line x1="1564.5" y1="302" x2="1564.5" y2="307" stroke="black"/>
-<line x1="1428.5" y1="302" x2="1428.5" y2="307" stroke="black"/>
 <rect x="1396" y="403" width="100" height="100" transform="rotate(-180 1396 403)" fill="#00CD52"/>
 <path d="M1600 650C1600 677.614 1577.61 700 1550 700L1504 700C1476.39 700 1454 677.614 1454 650L1454 607C1454 579.386 1476.39 557 1504 557L1550 557C1577.61 557 1600 579.386 1600 607L1600 650Z" fill="#C97500"/>
 <path d="M1296 400H1396V450C1396 477.614 1373.61 500 1346 500H1296V400Z" fill="#00CD52"/>
+<rect x="600" y="500" width="100" height="100" fill="#00CD52"/>
+<rect x="1100" y="300" width="100" height="100" fill="#00CD52"/>
 </g>
 <defs>
 <radialGradient id="paint0_radial_38_428" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(452 51) rotate(90) scale(49 148)">
