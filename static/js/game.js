@@ -3,18 +3,19 @@ let popupover = document.querySelector('.popupover');
 let popupcompleteBg = document.querySelector('.popupcomplete__bg');
 let popupcomplete = document.querySelector('.popupcomplete');  
 
-var lvls
- = [lvl1, lvl2, lvl3, lvl4, lvl5]
-var lvl = lvl1;
+var lvls = [lvl1, lvl2, lvl3, lvl4, lvl5]
 
 var GAME = {
     width: 1600,
     height: 1000,
-    isPlay: false,
-    castleHP: lvl.castleHP
+    isPlay: true,
+    lvlCount: 1
 }
 
-var mobamount = lvl1.mobamount
+var lvl = lvls[GAME.lvlCount - 1];
+GAME.castleHP = lvl.castleHP;
+
+var mobamount = lvl.mobamount
 
 var notdeadmonsters = []
 
@@ -51,14 +52,29 @@ function drawCastle() {
     }
 }
 
-function gameOver(){ 
-    popupoverBg.classList.add('active'); 
-    popupover.classList.add('active'); 
-} 
- 
-function lvlComplete(){ 
-    popupcompleteBg.classList.add('active'); 
-    popupcomplete.classList.add('active'); 
+function gameOver(){
+    popupoverBg.classList.add('active');
+    popupover.classList.add('active');
+}
+
+function lvlComplete(){
+    popupcompleteBg.classList.add('active');
+    popupcomplete.classList.add('active');
+}
+
+function completeClose(){
+    popupcompleteBg.classList.remove('active');
+    popupcomplete.classList.remove('active');
+}
+
+function overClose(){
+    popupcompleteBg.classList.remove('active');
+    popupcomplete.classList.remove('active');
+}
+
+function changeLvl() {
+    GAME.lvlCount += 1;
+    return lvls[GAME.lvlCount - 1];
 }
 
 function play() {
@@ -69,9 +85,19 @@ function play() {
     drawTower();
     if(GAME.castleHP == 0){
         gameOver();
+        GAME.isPlay = false;
     }
-    if(GAME.castleHP > 0 && monsters.length == 0){
+    if(GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay){
         lvlComplete();
+        GAME.isPlay = false;
+        let nextBtn = document.getElementById("next-lvl-btn");
+        nextBtn.addEventListener("click", () => {
+            console.log("next");
+            completeClose();
+            lvl = changeLvl();
+            mobamount = lvl.mobamount;
+            console.log(lvl);
+        });
     }
     requestAnimationFrame(play);
 }
