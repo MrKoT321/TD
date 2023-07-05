@@ -15,7 +15,7 @@ canvas.width = GAME.width;
 canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
-var starttime = 0
+var starttime = 100
 
 var towerTiles = [];
 var towerTilesActive = [];
@@ -122,7 +122,8 @@ function play() {
     moveMonsters();
     drawTiles();
     drawTower();
-    if(notdeadmonsters.length == 0){
+    console.log(monsters.length)
+    if(monsters.length == 0){
         lvlCompete();
     }
     requestAnimationFrame(play);

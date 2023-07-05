@@ -122,8 +122,8 @@ function moveMonsters() {
     }
     if (mobamount > 0) {
         starttime += 2
-        if (starttime > 100) {
-            addMonster(pa);
+        if (starttime >= 100) {
+            addMonster(pa); //TODO: заменить на массив волны
             starttime = 0;
             mobamount -= 1;
         }
