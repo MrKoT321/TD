@@ -15,7 +15,12 @@
                 </div>
             </div>
             <div class="game__field field">
-                <canvas id='canvas'></canvas>                
+                <canvas id='canvas'></canvas>
+                <div class="field__hp-bar hp-bar" id="hp-bar">
+                    <img src="../static/images/hp.svg" alt="hp1" class="hp-bar__hp">
+                    <img src="../static/images/hp.svg" alt="hp2" class="hp-bar__hp">
+                    <img src="../static/images/hp.svg" alt="hp3" class="hp-bar__hp">
+                </div>
             </div>
             <div class="game__bar bar">
                 <div class="bar__bufs"></div>
@@ -31,6 +36,11 @@
                 </div>
             </div>
         </div>
+        <div class="popup__bg"> 
+            <div class="popup">
+                <h1 class="over">GAME OVER</h1>
+            </div>
+        </div> 
         <script type="application/javascript" src="../static/js/monsters.js"></script>
         <script type="application/javascript" src="../static/js/lvls.js"></script>
         <script type="application/javascript" src="../static/js/monster_movement.js"></script>

@@ -1,10 +1,16 @@
+let popupBg = document.querySelector('.popup__bg');
+let popup = document.querySelector('.popup'); 
+
+var lvl = lvl1;
+
 var GAME = {
     width: 1600,
     height: 1000,
     isPlay: false,
+    castleHP: lvl.castleHP
 }
 
-var lvl = lvl1;
+var mobamount = lvl1.mobamount
 
 var notdeadmonsters = []
 
@@ -13,8 +19,7 @@ canvas.width = GAME.width;
 canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
-var starttime = 0;
-var mobamount = lvl.mobamount - 1
+var starttime = 100
 
 const background = new Image();
 background.src = lvl.background;
@@ -116,12 +121,20 @@ window.addEventListener(
     }
 )
 
+function gameOver(){
+    popupBg.classList.add('active');
+    popup.classList.add('active');
+}
+
 function play() {
     drawBackground();
-    moveMonsters();
+    moveMonsters(GAME);
     drawCastle();
     drawTiles();
     drawTower();
+    if(GAME.castleHP == 0){
+        gameOver();
+    }
     requestAnimationFrame(play);
 }
 

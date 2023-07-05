@@ -16,8 +16,6 @@ pa.dir = lvl1.start_dir;
 // }
 
 function drawMonster(monster) {
-    canvasContext.fillStyle = "rgba(0, 0, 0, 0)";
-    canvasContext.fillRect(0, 0, 1000, 1000);
     canvasContext.fillStyle = monster.color;
     canvasContext.fillRect(monster.x, monster.y - monster.height / 2, monster.width, monster.height);
 }
@@ -148,28 +146,46 @@ function addMonster(monster) {
         x: monster.x,
         y: monster.y,
         dir: monster.dir,
+        maxhp: monster.maxhp,
         finish: false
     })
 }
 
-addMonster(sf)
+function registerCollision(monster, GAME) {
+    if(monster.hp == 0 && monster.finish == true) {
+        let bar = document.getElementById("hp-bar");
+        bar.children[GAME.castleHP - 1].classList.add("_hide");
+        GAME.castleHP -= 1;
+        monster.hp -=1;
+    }
+}
 
-function moveMonsters() {
+function moveMonsters(GAME) {
     let notdeadmonsters = monsters.filter(value => value.hp > 0);
     monsters = notdeadmonsters;
     for (var monster of monsters) {
         drawMonster(monster);
+        hpBar(monster);
     }
     for (var monster of monsters) {
         monsterMove(monster);
         monsterCorrect(lvl, monster);
+        registerCollision(monster, GAME);
     }
     if (mobamount > 0) {
         starttime += 2
-        if (starttime > 100) {
-            addMonster(pa);
+        if (starttime >= 100) {
+            addMonster(pa); //TODO: заменить на массив волны
             starttime = 0;
             mobamount -= 1;
         }
     }
+}
+
+function hpBar(monster) {
+    var percentHP = monster.hp / monster.maxhp;
+    canvasContext.fillStyle = "green";
+    canvasContext.fillRect(monster.x + 1, monster.y - monster.height/2 - 10, monster.width * percentHP, 5);
+    canvasContext.strokeStyle = "black";
+    canvasContext.strokeRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
 }

@@ -1,5 +1,6 @@
 var monster1 = {
     hp: 100,
+    maxhp: 100,
     speed: 2,
     cost: 0,
     width: 50,
@@ -9,6 +10,7 @@ var monster1 = {
 
 var monster2 = {
     hp: 100,
+    maxhp: 100,
     speed: 2,
     cost: 0,
     width: 50,
@@ -18,6 +20,7 @@ var monster2 = {
 
 var monster3 = {
     hp: 100,
+    maxhp: 100,
     speed: 3,
     cost: 0,
     width: 50,
@@ -27,6 +30,7 @@ var monster3 = {
 
 var monster4 = {
     hp: 100,
+    maxhp: 100,
     speed: 3,
     cost: 0,
     width: 50,
