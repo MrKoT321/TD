@@ -16,9 +16,6 @@ var canvasContext = canvas.getContext("2d");
 var starttime = 0;
 var mobamount = lvl.mobamount - 1
 
-const background = new Image();
-background.src = lvl.background;
-
 lvl.towers.forEach(towerPos => {
     towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100])
 })
