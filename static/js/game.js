@@ -118,7 +118,6 @@ function lvlCompete(){
 
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
-    pa.hp = 0;
     drawBackground();
     moveMonsters();
     drawTiles();
