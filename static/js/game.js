@@ -3,6 +3,8 @@ let popupover = document.querySelector('.popupover');
 let popupcompleteBg = document.querySelector('.popupcomplete__bg');
 let popupcomplete = document.querySelector('.popupcomplete');  
 
+var lvls
+ = [lvl1, lvl2, lvl3, lvl4, lvl5]
 var lvl = lvl1;
 
 var GAME = {
