@@ -1,10 +1,11 @@
 var GAME = {
     width: 1600,
     height: 1000,
-    isPlay: false,    
+    isPlay: false,
 }
 
-var notdeadmonsters = []
+var mobamount = lvl1.mobamount - 1
+var lvl = lvl1;
 
 var page = document.getElementById("canvas");
 canvas.width = GAME.width;
@@ -12,8 +13,7 @@ canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
 var starttime = 0
-var mobamount = lvl1.mobamount - 1
-var lvl = lvl1;
+
 var towerTiles = [];
 var towerTilesActive = [];
 
@@ -42,14 +42,14 @@ function drawBackground() {
 }
 
 function drawTiles() {
-        towerTiles.forEach(tile => {
-            if (
-                mouse.x > tile[0] && mouse.x < tile[0] + 100 && mouse.y > tile[1] && mouse.y < tile[1] + 100
-            ) {
-                canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
-                canvasContext.fillRect(tile[0], tile[1], 100, 100);
-            }
-        })        
+    towerTiles.forEach(tile => {
+        if (
+            mouse.x > tile[0] && mouse.x < tile[0] + 100 && mouse.y > tile[1] && mouse.y < tile[1] + 100
+        ) {
+            canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
+            canvasContext.fillRect(tile[0], tile[1], 100, 100);
+        }
+    })
 }
 
 function MakeTower() {
@@ -59,11 +59,11 @@ function MakeTower() {
         ) {
             let isBusy = false;
             towerTilesActive.forEach(activeTile => {
-                if(activeTile[0] == tile[0] && activeTile[1] == tile[1]) {
+                if (activeTile[0] == tile[0] && activeTile[1] == tile[1]) {
                     isBusy = true;
                 }
             })
-            if (!isBusy){
+            if (!isBusy) {
                 towerTilesActive.push([tile[0], tile[1]]);
             }
         }
@@ -97,7 +97,7 @@ window.addEventListener(
     }
 )
 
-window.addEventListener (
+window.addEventListener(
     'click',
     (event) => {
         windowWidth = document.documentElement.clientWidth;
@@ -111,25 +111,7 @@ window.addEventListener (
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     drawBackground();
-    //for (var monster of monsters) {
-        //let notdeadmonsters = monsters.filter(value => value.health > 0);
-    //}
-    //убираем мобов, которые умерли
-    for (var monster of monsters) {//поменять monsters на notdeadmonsters
-        drawMonster(monster);
-    }
-    for (var monster of monsters) {//поменять monsters на notdeadmonsters
-        monsterMove(monster);
-        monsterCorrect(lvl, monster);
-    }
-    if (mobamount > 0){
-        starttime += 2
-        if (starttime > 100){
-            addMonster(pa, lvl1);
-            starttime = 0;
-            mobamount -= 1;
-    }
-    }
+    moveMonsters()
     drawTiles();
     drawTower();
     requestAnimationFrame(play);
