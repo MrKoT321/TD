@@ -7,8 +7,20 @@
     </head>
     <body>
         <div class="game">
+            <div class="tower-selection hidden">
+                <div class="choise-towers">
+                    <div class="choise-tower tower1"></div>
+                    <div class="choise-tower tower2"></div>
+                    <div class="choise-tower tower3"></div>
+                </div>
+            </div>
             <div class="game__field field">
                 <canvas id='canvas'></canvas>
+                <div class="field__hp-bar hp-bar" id="hp-bar">
+                    <img src="../static/images/hp.svg" alt="hp1" class="hp-bar__hp">
+                    <img src="../static/images/hp.svg" alt="hp2" class="hp-bar__hp">
+                    <img src="../static/images/hp.svg" alt="hp3" class="hp-bar__hp">
+                </div>
             </div>
             <div class="game__bar bar">
                 <div class="bar__bufs"></div>
@@ -24,9 +36,20 @@
                 </div>
             </div>
         </div>
+        <div class="popupover__bg"> 
+            <div class="popupover">
+                <h1 class="over">GAME OVER</h1>
+            </div>
+        </div> 
+        <div class="popupcomplete__bg"> 
+            <div class="popupcomplete">
+                <h1 class="complete">LEVEL COMPLETE</h1>
+            </div>
+        </div> 
         <script type="application/javascript" src="../static/js/monsters.js"></script>
         <script type="application/javascript" src="../static/js/lvls.js"></script>
         <script type="application/javascript" src="../static/js/monster_movement.js"></script>
+        <script type="application/javascript" src="../static/js/tower_placement.js"></script>
         <script type="application/javascript" src="../static/js/game.js"></script>
     </body>
 </html>
