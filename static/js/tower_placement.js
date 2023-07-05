@@ -17,13 +17,11 @@ var lvl = lvl1;
 
 var towerAbilities = document.querySelector(".tower-abilities");
 var newTowerSelector = document.querySelector(".new-tower");
-var deleteTowerButton = document.querySelector(".delete-tower")
+var deleteTowerButton = document.querySelector(".delete-tower");
 
 window.addEventListener(
     'mousemove',
     (event) => {
-        windowWidth = document.documentElement.clientWidth;
-        windowHeight = document.documentElement.clientHeight
         mouse.x = event.clientX - field.x;
         mouse.y = event.clientY - field.y;
     }
@@ -32,11 +30,8 @@ window.addEventListener(
 window.addEventListener (
     'click',
     (event) => {
-        windowWidth = document.documentElement.clientWidth;
-        windowHeight = document.documentElement.clientHeight;
         mouseClick.x = event.clientX - field.x;
         mouseClick.y = event.clientY - field.y;
-        console.log(mouseClick)
         drawNewTowerSelector();       
         drawTowerAbilities();  
         makeTower();
