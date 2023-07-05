@@ -15,13 +15,23 @@
             <img src="../static/img/menu.svg" class="background-menu">  
         </div>
         <div class="buttons">
-            <a><img src="../static/img/multiplay.svg" class="button-multiplay"></a>
+            <a href="#popup-multiplay"><img src="../static/img/multiplay.svg" class="button-multiplay" ></a>
             <a href="/TD/pages/TD.html"><img src="../static/img/start.svg" class="button-start" ></a>
-            <a href="#popup"><img src="../static/img/settings.svg" class="button-settings" ></a> 
+            <a href="#popup-settings"><img src="../static/img/settings.svg" class="button-settings" ></a> 
         </div>
     </div>
-
-    <div id="popup" class="popup">
+    <div id="popup-multiplay" class="popup">
+        <a href="#" class="popup__multiplay"></a>
+        <div class="popup__body">
+            <div class="popup__content">
+                <div class="popup-buttons">
+                <a href="#" class="popup-button__attack">ATTACK</a>
+                <a href="#" class="popup-button__defense">DEFENSE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="popup-settings" class="popup">
         <a href="#" class="popup__area"></a>
         <div class="popup__body">
             <div class="popup__content">
