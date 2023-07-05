@@ -38,14 +38,12 @@ function drawBackground() {
 function play() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     drawBackground();
-    //for (var monster of monsters) {
-        //let notdeadmonsters = monsters.filter(value => value.health > 0);
-    //}
-    //убираем мобов, которые умерли
-    for (var monster of monsters) {//поменять monsters на notdeadmonsters
+    let notdeadmonsters = monsters.filter(value => value.hp > 0);
+    monsters = notdeadmonsters;
+    for (var monster of monsters) {
         drawMonster(monster);
     }
-    for (var monster of monsters) {//поменять monsters на notdeadmonsters
+    for (var monster of monsters) {
         updateMonster(monster);
     }
     if (mobamount > 0){
