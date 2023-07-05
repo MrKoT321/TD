@@ -21,17 +21,7 @@ canvas.width = GAME.width;
 canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
-<<<<<<< HEAD
 var starttime = 100
-
-lvl.towers.forEach(towerPos => {
-    towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100])
-})
-=======
-var starttime = 0;
-var mobamount = lvl.mobamount - 1
-
->>>>>>> BoBa
 
 const background = new Image();
 const castle = new Image();
