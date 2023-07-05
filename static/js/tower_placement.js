@@ -10,7 +10,9 @@ var mouseClick = {
 
 var lvl = lvl1;
 
-var towerSelector = document.querySelector(".tower-selection");
+var towerAbilities = document.querySelector(".tower-abilities");
+var newTowerSelector = document.querySelector(".new-tower");
+var deleteTowerButton = document.querySelector(".delete-tower")
 
 window.addEventListener(
     'mousemove',
@@ -29,8 +31,9 @@ window.addEventListener (
         windowHeight = document.documentElement.clientHeight
         mouseClick.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
         mouseClick.y = event.clientY - ((windowHeight - GAME.height) / 2);
+        drawNewTowerSelector();       
+        drawTowerAbilities();  
         makeTower();
-        drawTowerSelector();
     }
 )
 
@@ -72,7 +75,7 @@ function makeTower() {
             mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
         ) {
             towerTilesActive.push([tile[0], tile[1]]);
-            console.log(towerTilesActive)
+
         }
     })
 }
@@ -84,25 +87,57 @@ function drawTower() {
         canvasContext.arc(tile[0] + 50, tile[1] + 50, 50, 0, 2 * Math.PI);
         canvasContext.closePath();
         canvasContext.fill();
-        // canvasContext.fillRect(tile[0], tile[1], 100, 100);
     })
 }
 
-function drawTowerSelector() {
+function drawNewTowerSelector() {
     let isFindDrawPos = false;
     towerTiles.forEach(tile => {
         if (
-            mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 
+            mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
         ) {
             let menuPosX = tile[0] - 125 + 50;
             let menuPosY = tile[1] - 125 + 50;
-            towerSelector.style.left = menuPosX + "px";
-            towerSelector.style.top = menuPosY + "px";
-            towerSelector.classList.remove("hidden");
+            newTowerSelector.style.left = menuPosX + "px";
+            newTowerSelector.style.top = menuPosY + "px";
+            newTowerSelector.classList.remove("hidden");
             isFindDrawPos = true;
         }
     })
     if (!isFindDrawPos) {
-        towerSelector.classList.add("hidden");
+        newTowerSelector.classList.add("hidden");
     }
 }
+
+function drawTowerAbilities() {
+    let isFindDrawPos = false;
+    for (var i = 0; i < towerTilesActive.length; i++) {
+        tile = towerTilesActive[i];
+        if (
+            mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 && isTowerOnPlace(tile)
+        ) {
+            let menuPosX = tile[0] - 125 + 50;
+            let menuPosY = tile[1] - 125 + 50;
+            towerAbilities.style.left = menuPosX + "px";
+            towerAbilities.style.top = menuPosY + "px";
+            towerAbilities.classList.remove("hidden");
+            isFindDrawPos = true;
+        }
+    }
+    if (!isFindDrawPos) {
+        towerAbilities.classList.add("hidden");
+    }
+}
+
+
+deleteTowerButton.addEventListener(
+    "click",
+    () => {
+        for(var i = 0; i < towerTilesActive.length; i++) {
+            activeTile = towerTilesActive[i];
+            if (mouseClick.x > activeTile[0] && mouseClick.x < activeTile[0] + 100 && mouseClick.y > activeTile[1] && mouseClick.y < activeTile[1] + 100) {
+                towerTilesActive.splice(i, 1);
+            }
+        }
+    }
+)

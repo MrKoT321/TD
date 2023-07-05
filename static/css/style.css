@@ -31,6 +31,10 @@ body {
     min-width: 250px;
 }
 
+.new-tower {
+    display: block;
+}
+
 .choise-towers {
     position: relative;    
 }
@@ -46,6 +50,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    cursor: pointer;
 }
 
 .tower2 {
@@ -53,6 +58,7 @@ body {
     position: absolute;
     top: 0;
     right: 0;
+    cursor: pointer;
 }
 
 .tower3 {
@@ -60,8 +66,28 @@ body {
     position: absolute;
     bottom: -37.5px;
     left: calc(50% - 37.5px);
+    cursor: pointer;
 }
 
+.tower-abilities {
+
+}
+
+.choice-abilitie {
+    position: relative;
+}
+
+.delete-tower {
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+    background: red;
+    position: absolute;
+    bottom: -37.5px;
+    left: calc(50% - 37.5px);
+    cursor: pointer;
+}
+    
 .bar {
     width: 200px;
     background-color: #232F3899;
