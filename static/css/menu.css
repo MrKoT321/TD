@@ -223,10 +223,8 @@ a
 
 .popup-button__defense:hover
 {
-<<<<<<< HEAD
     box-shadow: 10px 20px 30px;
     color: purple;
-=======
     font-size: 40px;
     margin-bottom: 1em;
 }
@@ -234,5 +232,4 @@ a
 .popup__text
 {
     transition: all 0.3s ease 0s;
->>>>>>> 683ea7536a46cc06cda777fe11493ff4d6abd5f1
 }
