@@ -3,6 +3,8 @@ let popupover = document.querySelector('.popupover');
 let popupcompleteBg = document.querySelector('.popupcomplete__bg');
 let popupcomplete = document.querySelector('.popupcomplete');  
 
+var lvls
+ = [lvl1, lvl2, lvl3, lvl4, lvl5]
 var lvl = lvl1;
 
 var GAME = {
@@ -22,10 +24,6 @@ canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
 var starttime = 100
-
-lvl.towers.forEach(towerPos => {
-    towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100])
-})
 
 const background = new Image();
 const castle = new Image();
@@ -53,81 +51,14 @@ function drawCastle() {
     }
 }
 
-function drawTiles() {
-    towerTiles.forEach(tile => {
-        if (
-            mouse.x > tile[0] && mouse.x < tile[0] + 100 && mouse.y > tile[1] && mouse.y < tile[1] + 100
-        ) {
-            canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
-            canvasContext.fillRect(tile[0], tile[1], 100, 100);
-        }
-    })
-}
-
-function MakeTower() {
-    towerTiles.forEach(tile => {
-        if (
-            mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100
-        ) {
-            let isBusy = false;
-            towerTilesActive.forEach(activeTile => {
-                if (activeTile[0] == tile[0] && activeTile[1] == tile[1]) {
-                    isBusy = true;
-                }
-            })
-            if (!isBusy) {
-                towerTilesActive.push([tile[0], tile[1]]);
-            }
-        }
-    })
-}
-
-function drawTower() {
-    towerTilesActive.forEach(tile => {
-        canvasContext.fillStyle = "blue";
-        canvasContext.fillRect(tile[0], tile[1], 100, 100);
-    })
-}
-
-var mouse = {
-    x: undefined,
-    y: undefined
-}
-
-var mouseClick = {
-    x: undefined,
-    y: undefined
-}
-
-window.addEventListener(
-    'mousemove',
-    (event) => {
-        windowWidth = document.documentElement.clientWidth;
-        windowHeight = document.documentElement.clientHeight
-        mouse.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
-        mouse.y = event.clientY - ((windowHeight - GAME.height) / 2);
-    }
-)
-
-window.addEventListener(
-    'click',
-    (event) => {
-        windowWidth = document.documentElement.clientWidth;
-        windowHeight = document.documentElement.clientHeight
-        mouseClick.x = event.clientX - ((windowWidth - GAME.width) / 2) + 100;
-        mouseClick.y = event.clientY - ((windowHeight - GAME.height) / 2);
-        MakeTower();
-    }
-)
-
-function gameOver(){
-    popupoverBg.classList.add('active');
-    popupover.classList.add('active');
-}
-
-function lvlComplete(){
-    popupcompleteBg.classList.add('active');
-    popupcomplete.classList.add('active');
+function gameOver(){ 
+    popupoverBg.classList.add('active'); 
+    popupover.classList.add('active'); 
+} 
+ 
+function lvlComplete(){ 
+    popupcompleteBg.classList.add('active'); 
+    popupcomplete.classList.add('active'); 
 }
 
 function play() {
@@ -145,4 +76,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
+console.log(document.querySelector(".game__field").getBoundingClientRect())
 play();
