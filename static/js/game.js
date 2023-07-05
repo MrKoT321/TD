@@ -74,5 +74,4 @@ function play() {
     requestAnimationFrame(play);
 }
 
-console.log(document.querySelector(".game__field").getBoundingClientRect())
 play();
