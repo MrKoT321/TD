@@ -109,30 +109,32 @@ window.addEventListener (
 )
 
 function play() {
-    canvasContext.clearRect(0, 0, GAME.width, GAME.height);
-    drawBackground();
-    //for (var monster of monsters) {
-        //let notdeadmonsters = monsters.filter(value => value.health > 0);
-    //}
-    //убираем мобов, которые умерли
-    for (var monster of monsters) {//поменять monsters на notdeadmonsters
-        drawMonster(monster);
+    if(GAME.isPlay){
+        canvasContext.clearRect(0, 0, GAME.width, GAME.height);
+        drawBackground();
+        //for (var monster of monsters) {
+            //let notdeadmonsters = monsters.filter(value => value.health > 0);
+        //}
+        //убираем мобов, которые умерли
+        for (var monster of monsters) {//поменять monsters на notdeadmonsters
+            drawMonster(monster);
+        }
+        for (var monster of monsters) {//поменять monsters на notdeadmonsters
+            monsterMove(monster);
+            monsterCorrect(lvl, monster);
+        }
+        if (mobamount > 0){
+            starttime += 2
+            if (starttime > 100){
+                addMonster(pa, lvl1);
+                starttime = 0;
+                mobamount -= 1;
+        }
+        }
+        drawTiles();
+        drawTower();
+        requestAnimationFrame(play);
     }
-    for (var monster of monsters) {//поменять monsters на notdeadmonsters
-        monsterMove(monster);
-        monsterCorrect(lvl, monster);
-    }
-    if (mobamount > 0){
-        starttime += 2
-        if (starttime > 100){
-            addMonster(pa, lvl1);
-            starttime = 0;
-            mobamount -= 1;
-    }
-    }
-    drawTiles();
-    drawTower();
-    requestAnimationFrame(play);
 }
 
 play();
