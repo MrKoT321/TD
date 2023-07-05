@@ -7,7 +7,7 @@ var GAME = {
     isPlay: false,
 }
 
-var mobamount = lvl1.mobamount - 1
+var mobamount = lvl1.mobamount
 var lvl = lvl1;
 
 var page = document.getElementById("canvas");
@@ -122,7 +122,6 @@ function play() {
     moveMonsters();
     drawTiles();
     drawTower();
-    console.log(monsters.length)
     if(monsters.length == 0){
         lvlCompete();
     }
