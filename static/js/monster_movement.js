@@ -192,10 +192,8 @@ function moveMonsters(GAME) {
         starttime += 2
         if (starttime >= 100) {
             addMonster();
-            console.log(monsters)
             GAME.isPlay = 'play'
             monstercount += 1;
-            console.log(monstercount)
             starttime = 0;
             mobamount -= 1;
         }
