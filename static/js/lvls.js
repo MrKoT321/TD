@@ -13,7 +13,8 @@ const lvl1 = {
     start_dir: 'r',
     mobamount: 2,
     back_src:  "../static/images/MAP1.svg",
-    castle_src:  "../static/images/CASTLE.svg"
+    castle_src:  "../static/images/CASTLE.svg",
+    monsters: []
 };
 
 const lvl2 = {
@@ -30,6 +31,7 @@ const lvl2 = {
     money: 100,
     start_dir: 'r',
     mobamount: 4,
+    monsters: [], 
     back_src:  "../static/images/MAP2.svg",
     castle_src:  "../static/images/CASTLE.svg" 
 }
@@ -44,7 +46,8 @@ const lvl3 = {
     start_dir: 'r',
     mobamount: 6,
     background: "../static/images/BASE-MAP.png",
-    castle_src:  "../static/images/CASTLE.svg" 
+    castle_src:  "../static/images/CASTLE.svg",
+    monsters: [] 
 }
 
 const lvl4 = {
@@ -57,7 +60,8 @@ const lvl4 = {
     start_dir: 'r',
     mobamount: 8,
     background: "../static/images/BASE-MAP.png",
-    castle_src:  "../static/images/CASTLE.svg" 
+    castle_src:  "../static/images/CASTLE.svg",
+    monsters: [] 
 }
 
 const lvl5 = {
@@ -70,5 +74,6 @@ const lvl5 = {
     start_dir: 'r',
     mobamount: 10,
     background: "../static/images/BASE-MAP.png",
-    castle_src:  "../static/images/CASTLE.svg"
+    castle_src:  "../static/images/CASTLE.svg",
+    monsters: []
 }

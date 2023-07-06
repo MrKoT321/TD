@@ -1,14 +1,15 @@
 const popupoverBg = document.querySelector('.popupover__bg');
 const popupover = document.querySelector('.popupover');
 const popupcompleteBg = document.querySelector('.popupcomplete__bg');
-const popupcomplete = document.querySelector('.popupcomplete');  
+const popupcomplete = document.querySelector('.popupcomplete');
+const startwave = document.getElementById("startwave");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4, lvl5]
 
 var GAME = {
     width: 1600,
     height: 1000,
-    isPlay: 'play',
+    isPlay: 'wavepause',
     lvlCount: 1
 }
 
@@ -52,21 +53,39 @@ function drawCastle() {
     }
 }
 
-function gameOver(){
-    popupoverBg.classList.add('active');
-    popupover.classList.add('active');
+function gameOver() {
+    if (GAME.castleHP == 0) {
+        popupoverBg.classList.add('active');
+        popupover.classList.add('active');
+        GAME.isPlay = 'popuppause';
+    }
 }
 
-function lvlComplete(){
-    popupcompleteBg.classList.add('active');
-    popupcomplete.classList.add('active');
+function lvlComplete() {
+    if (GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay == 'play') {
+        popupcompleteBg.classList.add('active');
+        popupcomplete.classList.add('active');
+        GAME.isPlay = 'popuppause';
+        let nextBtn = document.getElementById("next-lvl-btn");
+        nextBtn.addEventListener("click", () => {
+            lvl = changeLvl();
+            mobamount = lvl.mobamount;
+            GAME.castleHP = lvl.castleHP;
+            changeMap();
+            updateCastleHP();
+            popupClose();
+            GAME.isPlay = 'wavepause';
+            monstercount = 0;
+        });
+    }
 }
 
-function popupClose(){
+function popupClose() {
     popupcompleteBg.classList.remove('active');
     popupcomplete.classList.remove('active');
-    popupcompleteBg.classList.remove('active');
-    popupcomplete.classList.remove('active');
+    GAME.isPlay = 'startgame';
+    startwave.classList.remove("play")
+    startwave.classList.add("pause")
 }
 
 function changeLvl() {
@@ -77,14 +96,31 @@ function changeLvl() {
 
 function updateCastleHP() {
     let bar = document.getElementById("hp-bar");
-    for(let i = 0; i < GAME.castleHP; i++) {
+    for (let i = 0; i < GAME.castleHP; i++) {
         bar.children[i].classList.remove("_hide");
     }
 }
 
-// состояния 'play' - мобы идут, башни ставятся
-//           'pause' - мобы не идут, башни ставятся
-//           'menu' - мобы не идут, башни не ставятся
+startwave.addEventListener(
+    "click",
+    () => {
+        if (GAME.isPlay == 'wavepause') {
+            startwave.classList.remove("pause")
+            startwave.classList.add("play")
+            GAME.isPlay = 'startgame'
+        } else {
+            if (GAME.isPlay == 'menu') {
+                startwave.classList.remove("pause")
+                startwave.classList.add("play")
+                GAME.isPlay = 'play'
+            } else {
+                startwave.classList.remove("play")
+                startwave.classList.add("pause")
+                GAME.isPlay = 'menu'
+            }
+        }
+    }
+)
 
 function changeMap() {
     castle.src = lvl.castle_src;
@@ -93,11 +129,17 @@ function changeMap() {
     background.onload = () => {
         GAME.background = background;
     }
-    
+
     castle.onload = () => {
         GAME.castle = castle;
     }
 };
+
+// состояния 'play' - мобы идут, башни ставятся
+//           'wavepause' - мобы не идут, башни ставятся
+//           'menu' - мобы не идут, башни не ставятся
+//           'popuppause' - мобы идут, башни не ставятся
+//           'startgame' - ожидание появления первого моба
 
 function play() {
     drawBackground();
@@ -105,27 +147,8 @@ function play() {
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
-    attackArcher(monsters, tower);
-    if(GAME.castleHP == 0){
-        gameOver();
-        GAME.isPlay = 'pause';
-    }
-    if(GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay == 'play'){
-        lvlComplete();
-        GAME.isPlay = 'pause';
-        let nextBtn = document.getElementById("next-lvl-btn");
-        nextBtn.addEventListener("click", () => {
-            lvl = changeLvl();
-            mobamount = lvl.mobamount;
-            GAME.castleHP = lvl.castleHP;
-            changeMap();
-            pa.x = lvl.start_x;
-            pa.y = lvl.start_y - 50;
-            pa.dir = lvl.start_dir;
-            updateCastleHP();
-            popupClose();
-        });
-    }
+    gameOver();
+    lvlComplete();
     requestAnimationFrame(play);
 }
 

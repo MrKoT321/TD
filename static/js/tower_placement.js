@@ -34,8 +34,10 @@ window.addEventListener (
     (event) => {
         mouseClick.x = event.clientX - field.x;
         mouseClick.y = event.clientY - field.y;
-        drawNewTowerSelector();       
-        drawTowerAbilities();  
+        if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
+            drawNewTowerSelector();       
+            drawTowerAbilities(); 
+        }
     }
 )
 
@@ -63,7 +65,6 @@ function isMouseOnActiveTile(m, activeTile) {
 
 function drawTiles(GAME, lvls) {
     if (compareWithGameLvl !== GAME.lvlCount) {
-        console.log(12213123)
         towerTiles = [];
         towers = [];
         lvls[GAME.lvlCount - 1].towersPos.forEach(towerPos => {
@@ -76,9 +77,12 @@ function drawTiles(GAME, lvls) {
             canvasContext.fillStyle = "#04BC4E";
             canvasContext.fillRect(tile[0], tile[1], 100, 100);
         }
-        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile)))) {
-            canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
-            canvasContext.fillRect(tile[0], tile[1], 100, 100);
+        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile))))
+         {
+            if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
+                canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
+                canvasContext.fillRect(tile[0], tile[1], 100, 100);
+            }
         }
     })        
 }
@@ -128,14 +132,21 @@ function drawTowerAbilities() {
     }
 }
 
+function addMoney(cost) {
+    let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
+    let moneyInfo = document.querySelector(".count-coin__value");
+    moneyInfo.innerHTML = String(Math.floor(moneyValue + (cost / 2)));  
+}
 
 deleteTowerButton.addEventListener(
     "click",
     () => {
-        for(var i = 0; i < towers.length; i++) {
-            activeTile = towers[i];
-            if (isMouseOnActiveTile(mouseClick, activeTile)) {
-                towers.splice(i, 1);
+        if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
+            for(var i = 0; i < towers.length; i++) {
+                activeTile = towers[i];
+                if (mouseClick.x > activeTile.x && mouseClick.x < activeTile.x + 100 && mouseClick.y > activeTile.y && mouseClick.y < activeTile.y + 100) {
+                    towers.splice(i, 1);
+                }
             }
         }
     }
@@ -156,27 +167,18 @@ function pushToTowers(tower, posX, posY) {
     })
 }
 
-archerTower.addEventListener(
-    "click",
-    () => {
-        towerTiles.forEach(tile => {
-            if (isMouseOnTile(mouseClick, tile)) {
-                pushToTowers(archer, tile[0], tile[1]);
-            }
-        })
-    }
-)
+function makeTower(tower) {
+    let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
+    let moneyInfo = document.querySelector(".count-coin__value");
+    towerTiles.forEach(tile => {
+        if (isMouseOnTile(mouseClick, tile) && moneyValue >= tower.cost) {
+            pushToTowers(tower, tile[0], tile[1]);
+            moneyInfo.innerHTML = moneyValue - tower.cost;
+        }
+    })
+}
 
-bashTower.addEventListener(
-    "click",
-    () => {
-        towerTiles.forEach(tile => {
-            if (isMouseOnTile(mouseClick, tile)) {
-                pushToTowers(bash, tile[0], tile[1]);
-            }
-        })
-    }
-)
+archerTower.addEventListener("click", () => { makeTower(archer) })
 
 mortirTower.addEventListener(
     "click",
@@ -219,3 +221,6 @@ function attackArcher(monsters) {
         }
     }
 }
+bashTower.addEventListener("click", () => { makeTower(bash) })
+
+mortirTower.addEventListener("click", () => { makeTower(mortir) })
