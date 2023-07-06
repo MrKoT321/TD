@@ -63,7 +63,6 @@ function isMouseOnActiveTile(m, activeTile) {
 
 function drawTiles(GAME, lvls) {
     if (compareWithGameLvl !== GAME.lvlCount) {
-        console.log(12213123)
         towerTiles = [];
         towers = [];
         lvls[GAME.lvlCount - 1].towersPos.forEach(towerPos => {
@@ -128,6 +127,11 @@ function drawTowerAbilities() {
     }
 }
 
+function addMoney(cost) {
+    let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
+    let moneyInfo = document.querySelector(".count-coin__value");
+    moneyInfo.innerHTML = String(Math.floor(moneyValue + (cost / 2)));  
+}
 
 deleteTowerButton.addEventListener(
     "click",
@@ -136,6 +140,7 @@ deleteTowerButton.addEventListener(
             activeTile = towers[i];
             if (isMouseOnActiveTile(mouseClick, activeTile)) {
                 towers.splice(i, 1);
+                addMoney(activeTile.cost);
             }
         }
     }
@@ -155,35 +160,19 @@ function pushToTowers(tower, posX, posY) {
     })
 }
 
-archerTower.addEventListener(
-    "click",
-    () => {
-        towerTiles.forEach(tile => {
-            if (isMouseOnTile(mouseClick, tile)) {
-                pushToTowers(archer, tile[0], tile[1]);
-            }
-        })
-    }
-)
+function makeTower(tower) {
+    let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
+    let moneyInfo = document.querySelector(".count-coin__value");
+    towerTiles.forEach(tile => {
+        if (isMouseOnTile(mouseClick, tile) && moneyValue >= tower.cost) {
+            pushToTowers(tower, tile[0], tile[1]);
+            moneyInfo.innerHTML = moneyValue - tower.cost;
+        }
+    })
+}
 
-bashTower.addEventListener(
-    "click",
-    () => {
-        towerTiles.forEach(tile => {
-            if (isMouseOnTile(mouseClick, tile)) {
-                pushToTowers(bash, tile[0], tile[1]);
-            }
-        })
-    }
-)
+archerTower.addEventListener("click", () => { makeTower(archer) })
 
-mortirTower.addEventListener(
-    "click",
-    () => {
-        towerTiles.forEach(tile => {
-            if (isMouseOnTile(mouseClick, tile)) {
-                pushToTowers(mortir, tile[0], tile[1]);
-            }
-        })
-    }
-)
+bashTower.addEventListener("click", () => { makeTower(bash) })
+
+mortirTower.addEventListener("click", () => { makeTower(mortir) })
