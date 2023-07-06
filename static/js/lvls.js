@@ -13,7 +13,8 @@ var lvl1 = {
     start_dir: 'r',
     mobamount: 2,
     back_src:  "../static/images/MAP1.svg",
-    castle_src:  "../static/images/CASTLE.svg"
+    castle_src:  "../static/images/CASTLE.svg",
+    monsters: []
 };
 
 var lvl2 = {
@@ -31,7 +32,8 @@ var lvl2 = {
     start_dir: 'r',
     mobamount: 4,
     back_src:  "../static/images/MAP1.svg",
-    castle_src:  "../static/images/CASTLE.svg" 
+    castle_src:  "../static/images/CASTLE.svg",
+    monsters: [] 
 }
 
 var lvl3 = {
@@ -44,7 +46,8 @@ var lvl3 = {
     start_dir: 'r',
     mobamount: 6,
     background: "../static/images/BASE-MAP.png",
-    castle_src:  "../static/images/CASTLE.svg" 
+    castle_src:  "../static/images/CASTLE.svg",
+    monsters: [] 
 }
 
 var lvl4 = {
@@ -57,7 +60,8 @@ var lvl4 = {
     start_dir: 'r',
     mobamount: 8,
     background: "../static/images/BASE-MAP.png",
-    castle_src:  "../static/images/CASTLE.svg" 
+    castle_src:  "../static/images/CASTLE.svg",
+    monsters: [] 
 }
 
 var lvl5 = {
@@ -70,5 +74,6 @@ var lvl5 = {
     start_dir: 'r',
     mobamount: 10,
     background: "../static/images/BASE-MAP.png",
-    castle_src:  "../static/images/CASTLE.svg"
+    castle_src:  "../static/images/CASTLE.svg",
+    monsters: []
 }
