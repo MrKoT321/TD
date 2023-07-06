@@ -13,8 +13,6 @@ const field = {
     y: document.querySelector(".game__field").getBoundingClientRect().y
 }
 
-var lvl = lvl1;
-
 const towerAbilities = document.querySelector(".tower-abilities");
 const newTowerSelector = document.querySelector(".new-tower");
 const deleteTowerButton = document.querySelector(".delete-tower");
@@ -43,10 +41,12 @@ window.addEventListener (
 
 var towerTiles = [];
 var towers = [];
+var compareWithLvl = 0;
 
-lvl.towersPos.forEach(towerPos => {
-    towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100])
-})
+// var lvl = lvl1;
+// lvl.towersPos.forEach(towerPos => {
+//     towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100])
+// })
 
 function isTowerOnPlace(tile) {
     let res = false;
@@ -67,13 +67,19 @@ function isMouseOnActiveTile(m, activeTile) {
 }
 
 function drawTiles() {
+    if (compareWithLvl !== GAME.lvlCount) {
+        towerTiles = [];
+        lvls[GAME.lvlCount - 1].towersPos.forEach(towerPos => {
+            towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100]);
+        })
+        compareWithLvl = lvlCount;
+    }
     towerTiles.forEach(tile => {
         if (!(isTowerOnPlace(tile))) {
             canvasContext.fillStyle = "#04BC4E";
             canvasContext.fillRect(tile[0], tile[1], 100, 100);
         }
-        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile))))
-         {
+        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile)))) {
             canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
             canvasContext.fillRect(tile[0], tile[1], 100, 100);
         }
