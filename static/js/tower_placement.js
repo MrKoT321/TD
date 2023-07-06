@@ -41,12 +41,7 @@ window.addEventListener (
 
 var towerTiles = [];
 var towers = [];
-var compareWithLvl = 0;
-
-// var lvl = lvl1;
-// lvl.towersPos.forEach(towerPos => {
-//     towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100])
-// })
+var compareWithGameLvl = 0;
 
 function isTowerOnPlace(tile) {
     let res = false;
@@ -66,13 +61,13 @@ function isMouseOnActiveTile(m, activeTile) {
     return m.x > activeTile.x && m.x < activeTile.x + 100 && m.y > activeTile.y && m.y < activeTile.y + 100
 }
 
-function drawTiles() {
-    if (compareWithLvl !== GAME.lvlCount) {
+function drawTiles(GAME) {
+    if (compareWithGameLvl !== GAME.lvlCount) {
         towerTiles = [];
         lvls[GAME.lvlCount - 1].towersPos.forEach(towerPos => {
             towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100]);
         })
-        compareWithLvl = lvlCount;
+        compareWithGameLvl = GAME.lvlCount;
     }
     towerTiles.forEach(tile => {
         if (!(isTowerOnPlace(tile))) {

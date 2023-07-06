@@ -81,13 +81,13 @@ function play() {
     drawBackground();
     moveMonsters(GAME);
     drawCastle();
-    drawTiles();
+    drawTiles(GAME);
     drawTower();
     if(GAME.castleHP == 0){
         gameOver();
         GAME.isPlay = false;
     }
-    if(GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay){
+    if(GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay) {
         lvlComplete();
         GAME.isPlay = false;
         let nextBtn = document.getElementById("next-lvl-btn");
