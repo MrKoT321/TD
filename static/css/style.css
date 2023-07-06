@@ -211,7 +211,8 @@ body {
     padding: 25px;
     transition: 0.5s all;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .popupover.active {
@@ -338,11 +339,14 @@ body {
 .overbutton {
     display: flex;
     flex-direction: row;
+    gap: 40px;
 }
 
 .restart {
+    align-items: center;
+    gap: 10px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .restart__img{
@@ -351,12 +355,18 @@ body {
 }
 
 .restart__txt{
-    color: blue;
+    color: blue
+}
+
+.restarta{
+    text-decoration: none;
 }
 
 .menu {
+    align-items: center;
+    gap: 10px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .menu__img{
