@@ -75,6 +75,7 @@ function popupClose() {
 }
 
 function changeLvl() {
+
     GAME.lvlCount += 1;
     return lvls[GAME.lvlCount - 1];
 }
@@ -107,11 +108,24 @@ startwave.addEventListener(
 //           'popuppause' - мобы идут, башни не ставятся
 //           'startgame' - ожидание появления первого моба
 
+function changeMap() {
+    castle.src = lvl.castle_src;
+    background.src = lvl.back_src;
+
+    background.onload = () => {
+        GAME.background = background;
+    }
+    
+    castle.onload = () => {
+        GAME.castle = castle;
+    }
+};
+
 function play() {
     drawBackground();
     moveMonsters(GAME);
     drawCastle();
-    drawTiles();
+    drawTiles(GAME, lvls);
     drawTower();
     if (GAME.castleHP == 0) {
         gameOver();
@@ -125,6 +139,10 @@ function play() {
             lvl = changeLvl();
             mobamount = lvl.mobamount;
             GAME.castleHP = lvl.castleHP;
+            changeMap();
+            pa.x = lvl.start_x;
+            pa.y = lvl.start_y - 50;
+            pa.dir = lvl.start_dir;
             updateCastleHP();
             popupClose();
         });

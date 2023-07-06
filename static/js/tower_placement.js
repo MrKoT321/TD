@@ -13,15 +13,13 @@ const field = {
     y: document.querySelector(".game__field").getBoundingClientRect().y
 }
 
-var lvl = lvl1;
+const towerAbilities = document.querySelector(".tower-abilities");
+const newTowerSelector = document.querySelector(".new-tower");
+const deleteTowerButton = document.querySelector(".delete-tower");
 
-var towerAbilities = document.querySelector(".tower-abilities");
-var newTowerSelector = document.querySelector(".new-tower");
-var deleteTowerButton = document.querySelector(".delete-tower");
-
-var arrowTower = document.querySelector(".tower1");
-var bashTower = document.querySelector(".tower2");
-var mortirTower = document.querySelector(".tower3");
+const arrowTower = document.querySelector(".tower1");
+const bashTower = document.querySelector(".tower2");
+const mortirTower = document.querySelector(".tower3");
 
 window.addEventListener(
     'mousemove',
@@ -45,10 +43,7 @@ window.addEventListener (
 
 var towerTiles = [];
 var towers = [];
-
-lvl.towersPos.forEach(towerPos => {
-    towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100])
-})
+var compareWithGameLvl = 0;
 
 function isTowerOnPlace(tile) {
     let res = false;
@@ -64,7 +59,20 @@ function isMouseOnTile(m, tile) {
     return m.x > tile[0] && m.x < tile[0] + 100 && m.y > tile[1] && m.y < tile[1] + 100
 }
 
-function drawTiles() {
+function isMouseOnActiveTile(m, activeTile) {
+    return m.x > activeTile.x && m.x < activeTile.x + 100 && m.y > activeTile.y && m.y < activeTile.y + 100
+}
+
+function drawTiles(GAME, lvls) {
+    if (compareWithGameLvl !== GAME.lvlCount) {
+        console.log(12213123)
+        towerTiles = [];
+        towers = [];
+        lvls[GAME.lvlCount - 1].towersPos.forEach(towerPos => {
+            towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100]);
+        })
+        compareWithGameLvl = GAME.lvlCount;
+    }
     towerTiles.forEach(tile => {
         if (!(isTowerOnPlace(tile))) {
             canvasContext.fillStyle = "#04BC4E";
@@ -93,9 +101,7 @@ function drawTower() {
 function drawNewTowerSelector() {
     let isFindDrawPos = false;
     towerTiles.forEach(tile => {
-        if (
-            mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
-        ) {
+        if (isMouseOnTile(mouseClick, tile) && (!(isTowerOnPlace(tile)))) {
             let menuPosX = tile[0] - 125 + 50;
             let menuPosY = tile[1] - 125 + 50;
             newTowerSelector.style.left = menuPosX + "px";
@@ -112,12 +118,10 @@ function drawNewTowerSelector() {
 function drawTowerAbilities() {
     let isFindDrawPos = false;
     for (var i = 0; i < towers.length; i++) {
-        tile = towers[i]; 
-        if (
-            mouseClick.x > tile.x && mouseClick.x < tile.x + 100 && mouseClick.y > tile.y && mouseClick.y < tile.y + 100
-        ) {
-            let menuPosX = tile.x - 125 + 50;
-            let menuPosY = tile.y - 125 + 50;
+        activeTile = towers[i]; 
+        if (isMouseOnActiveTile(mouseClick, activeTile)) {
+            let menuPosX = activeTile.x - 125 + 50;
+            let menuPosY = activeTile.y - 125 + 50;
             towerAbilities.style.left = menuPosX + "px";
             towerAbilities.style.top = menuPosY + "px";
             towerAbilities.classList.remove("hidden");
@@ -162,10 +166,8 @@ arrowTower.addEventListener(
     "click",
     () => {
         towerTiles.forEach(tile => {
-            if (
-                mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 
-            ) {
-                pushToTowers(tower1, tile[0], tile[1])
+            if (isMouseOnTile(mouseClick, tile)) {
+                pushToTowers(tower1, tile[0], tile[1]);
             }
         })
     }
@@ -175,10 +177,8 @@ bashTower.addEventListener(
     "click",
     () => {
         towerTiles.forEach(tile => {
-            if (
-                mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100
-            ) {
-                pushToTowers(tower2, tile[0], tile[1])
+            if (isMouseOnTile(mouseClick, tile)) {
+                pushToTowers(tower2, tile[0], tile[1]);
             }
         })
     }
@@ -188,10 +188,8 @@ mortirTower.addEventListener(
     "click",
     () => {
         towerTiles.forEach(tile => {
-            if (
-                mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100
-            ) {
-                pushToTowers(tower3, tile[0], tile[1])
+            if (isMouseOnTile(mouseClick, tile)) {
+                pushToTowers(tower3, tile[0], tile[1]);
             }
         })
     }

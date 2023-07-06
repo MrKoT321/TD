@@ -1,4 +1,4 @@
-var tower1 = {
+const tower1 = {
     cost: 100,
     atk: 10,
     radius: 200,
@@ -8,7 +8,7 @@ var tower1 = {
     atkColor: "red"
 }
 
-var tower2 = {
+const tower2 = {
     cost: 100,
     atk: 10,
     radius: 200,
@@ -18,7 +18,7 @@ var tower2 = {
     atkColor: "red"
 }
 
-var tower3 = {
+const tower3 = {
     cost: 100,
     atk: 10,
     radius: 200,

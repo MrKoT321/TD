@@ -262,15 +262,15 @@ body {
     transition: 0.5s all ;
 }
 
-.complete{
+.complete {
     color:green;
     padding-top: 100px;
     padding-bottom: 100px;
 }
 
 .hp-bar {
-    top: 30px;
-    left: 1150px;
+    top: 25px;
+    left: 625px;
     width: 225px;
     display: flex;
     position: absolute;
@@ -278,8 +278,34 @@ body {
     justify-content: space-between;
 }
 
-.hp-bar__hp._hide{
+.hp-bar__hp._hide {
     visibility: hidden;
+}
+
+.count-coin {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
+    
+}
+
+.count-coin__img {
+    top: 19px;
+    left: 220px;
+    width: 65px;
+    height: 65px;
+    position: absolute;
+}
+.hp-bar__hp {
+    transform: scale(1);
+    transition: 0.3s all ease-in-out;
+}
+
+.hp-bar__hp._hide{
+    transform: scale(0);
 }
 
 .next-lvl-container {
