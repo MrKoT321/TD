@@ -191,9 +191,11 @@ function moveMonsters(GAME) {
     if (mobamount > 0 && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play' || GAME.isPlay == 'startgame')) {
         starttime += 2
         if (starttime >= 100) {
-            addMonster(); //TODO: заменить на массив волны
+            addMonster();
+            console.log(monsters)
             GAME.isPlay = 'play'
             monstercount += 1;
+            console.log(monstercount)
             starttime = 0;
             mobamount -= 1;
         }
