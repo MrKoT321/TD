@@ -130,7 +130,6 @@ function monsterCorrect(lvl, monster) {
             if(!contains(lvl.road, cell)) {
                 if(contains(lvl.road, canvasToGrid(monster.x, monster.y - monster.height/2 - 100))) {
                     monster.dir = 'u';
-                    console.log(monster.x, monster.y - monster.height/2);
                 } else {
                     monster.dir = 'd';
                 }
@@ -138,7 +137,6 @@ function monsterCorrect(lvl, monster) {
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x + monster.width, monster.y))) {
                 monster.hp = 0;
             }
-            console.log(monster.dir);
             break;
         case 'd':
             cell = canvasToGrid(monster.x, monster.y + 100);
