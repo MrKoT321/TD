@@ -192,34 +192,38 @@ mortirTower.addEventListener(
 )
 
 function hittingRadius(tower, mstrCenterX, mstrCenterY) {
-    const conditionX = mstrCenterX >= tower.x + 50 - tower.radius && mstrCenterX <= tower.x + 50 + tower.radius;
-    const conditionY = mstrCenterY >= tower.y + 50 - tower.radius && mstrCenterY <= tower.y + 50 + tower.radius;
-    if(conditionX && conditionY) {
+    if(Math.sqrt(Math.pow(mstrCenterX - tower.x + 50, 2) + Math.pow(mstrCenterY - tower.y + 50, 2)) <= tower.radius) {
         return true;
     }
     return false;
 }
 
-function attackArcher(monsters) {
-    for(let i = 0; i < monsters.length; i++){
-        let mstrCenterX = monsters[i].x + monsters[i].wdth/2;
-        let mstrCenterY = monsters[i].y + monsters[i].height/2;
-        if(tower.currentEnemy == -1) {
-            tower.currentEnemy = i;
+function attackArcher() {
+    towers.forEach(tower => {
+        if(tower.type == "arrow") {
+            for(let i = 0; i < monsters.length; i++){
+                var mstrCenterX = monsters[i].x + monsters[i].width/2;
+                var mstrCenterY = monsters[i].y + monsters[i].height/2;
+                if(tower.currentEnemy == -1) {
+                    tower.currentEnemy = i;
+                }
+                console.log(mstrCenterX, mstrCenterY);
+                if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY)) {
+                    //стрела
+                    // createArrow();
+                    // while(arrow.x != mstrCenterX && arrow.y != mstrCenterY) {
+                    //     if(mstrCenterX < tower.x) {
+                    //         if(mstrCenterY < tower.y) {
+        
+                    //         }
+                    //     }
+                    // }
+                    monsters[i].hp -= tower.atk;
+                    console.log(monsters[i].hp)
+                }
+            }
         }
-        if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY) && time % atkspeed == 0) {
-            //стрела
-            // createArrow();
-            // while(arrow.x != mstrCenterX && arrow.y != mstrCenterY) {
-            //     if(mstrCenterX < tower.x) {
-            //         if(mstrCenterY < tower.y) {
-
-            //         }
-            //     }
-            // }
-            monster.hp -= tower.atk;
-        }
-    }
+    })
 }
 bashTower.addEventListener("click", () => { makeTower(bash) })
 
