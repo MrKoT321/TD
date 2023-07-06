@@ -3,6 +3,7 @@ const popupover = document.querySelector('.popupover');
 const popupcompleteBg = document.querySelector('.popupcomplete__bg');
 const popupcomplete = document.querySelector('.popupcomplete');
 const startwave = document.getElementById("startwave");
+const backmenu = document.getElementById("menu");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4, lvl5]
 
@@ -31,6 +32,13 @@ const background = new Image();
 const castle = new Image();
 castle.src = lvl.castle_src;
 background.src = lvl.back_src;
+
+backmenu.addEventListener(
+    "click",
+    () => {
+        GAME.isPlay = "wavepause"
+    }
+)
 
 background.onload = () => {
     GAME.background = background;
