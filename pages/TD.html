@@ -1,68 +1,91 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <title>Tower Defense</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="../static/css/style.css">
-    </head>
-    <body>
-        <div class="game">
-            <div class="game__field field">
-                <canvas id='canvas'></canvas>
-                <div class="count-coin">
-                    <span class="count-coin__value">100</span>
-                    <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
-                </div>
-                <div class="tower-selection new-tower hidden">
-                    <div class="choise-towers">
-                        <div class="choise-tower archer"></div>
-                        <div class="choise-tower bash"></div>
-                        <div class="choise-tower mortir"></div>
-                    </div>
-                </div>
-                <div class="tower-selection tower-abilities hidden">
-                    <div class="choice-abilitie">
-                        <div class="delete-tower"></div>
-                    </div>
-                </div>
-                <div class="field__hp-bar hp-bar" id="hp-bar">
-                    <img src="../static/images/hp.svg" alt="hp1" class="hp-bar__hp">
-                    <img src="../static/images/hp.svg" alt="hp2" class="hp-bar__hp">
-                    <img src="../static/images/hp.svg" alt="hp3" class="hp-bar__hp">
+
+<head>
+    <title>Tower Defense</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+    <div class="game">
+        <div class="game__field field">
+            <canvas id='canvas'></canvas>
+            <div class="count-coin">
+                <span class="count-coin__value">100</span>
+                <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
+            </div>
+            <div class="tower-selection new-tower hidden">
+                <div class="choise-towers">
+                    <div class="choise-tower archer"></div>
+                    <div class="choise-tower bash"></div>
+                    <div class="choise-tower mortir"></div>
                 </div>
             </div>
-            <div class="game__bar bar">
-                <div class="bar__bufs"></div>
-                <div class="bar__menu">
-                    <div class="bar__pause pause">
-                        <div class="pause__btn pause" id="startwave"></div>
-                    </div>
-                    <div class="bar__out">
-                        <div class="bar__icon">
-                            <span></span>
-                        </div>
+            <div class="tower-selection tower-abilities hidden">
+                <div class="choice-abilitie">
+                    <div class="delete-tower"></div>
+                </div>
+            </div>
+            <div class="field__hp-bar hp-bar" id="hp-bar">
+                <img src="../static/images/hp.svg" alt="hp1" class="hp-bar__hp">
+                <img src="../static/images/hp.svg" alt="hp2" class="hp-bar__hp">
+                <img src="../static/images/hp.svg" alt="hp3" class="hp-bar__hp">
+            </div>
+        </div>
+        <div class="game__bar bar">
+            <div class="bar__bufs"></div>
+            <div class="bar__menu">
+                <div class="bar__pause pause">
+                    <div class="pause__btn pause" id="startwave"></div>
+                </div>
+                <div class="bar__out">
+                    <div class="bar__icon">
+                        <span></span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="popupover__bg"> 
-            <div class="popupover">
-                <h1 class="over">GAME OVER</h1>
-            </div>
-        </div> 
-        <div class="popupcomplete__bg"> 
-            <div class="popupcomplete">
-                <h1 class="complete">LEVEL COMPLETE</h1>
-                <div class="next-lvl-container">
-                    <button class="next-lvl-btn" id="next-lvl-btn">Next level</button>
+    </div>
+    <div class="popupover__bg">
+        <div class="popupover">
+            <h1 class="over">GAME OVER</h1>
+            <div class="overbutton">
+                <div>
+                    <label>
+                        <div class="restart">
+                            <span class="menu__txt">RESTART</span>
+                            <img class="restart__img" src="../static/images/restart.png" />
+                        </div>
+                    </label>
+                    <button></button>
+                </div>
+                <div>
+                    <label>
+                        <div class="menu">
+                            <span class="menu__txt">MENU</span>
+                            <img class="menu__img" src="../static/images/menu.png" />
+                        </div>
+                    </label>
+                    <button class="menu hide"></button>
                 </div>
             </div>
-        </div> 
-        <script type="application/javascript" src="../static/js/monsters.js"></script>
-        <script type="application/javascript" src="../static/js/lvls.js"></script>
-        <script type="application/javascript" src="../static/js/towers.js"></script>
-        <script type="application/javascript" src="../static/js/monster_movement.js"></script>
-        <script type="application/javascript" src="../static/js/tower_placement.js"></script>
-        <script type="application/javascript" src="../static/js/game.js"></script>
-    </body>
+        </div>
+    </div>
+    <div class="popupcomplete__bg">
+        <div class="popupcomplete">
+            <h1 class="complete">LEVEL COMPLETE</h1>
+            <div class="next-lvl-container">
+                <button class="next-lvl-btn" id="next-lvl-btn">Next level</button>
+            </div>
+        </div>
+    </div>
+    <script type="application/javascript" src="../static/js/monsters.js"></script>
+    <script type="application/javascript" src="../static/js/lvls.js"></script>
+    <script type="application/javascript" src="../static/js/towers.js"></script>
+    <script type="application/javascript" src="../static/js/monster_movement.js"></script>
+    <script type="application/javascript" src="../static/js/tower_placement.js"></script>
+    <script type="application/javascript" src="../static/js/game.js"></script>
+</body>
+
 </html>
