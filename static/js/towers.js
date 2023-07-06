@@ -1,7 +1,7 @@
 const archer = {
     cost: 30,
     atk: 1,
-    radius: 250,
+    radius: 300,
     type: "arrow",
     atkspeed: 10,
     towerColor: "orange",

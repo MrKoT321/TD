@@ -146,7 +146,7 @@ function play() {
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
-    atackBash(GAME);
+    attackBash(GAME);
     gameOver();
     lvlComplete();
     requestAnimationFrame(play);

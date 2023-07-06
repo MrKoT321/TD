@@ -199,24 +199,18 @@ mortirTower.addEventListener(
     }
 )
 
-function hittingRadius(tower, mstrCenterX, mstrCenterY) {
-    if(Math.sqrt(Math.pow(mstrCenterX - tower.x + 50, 2) + Math.pow(mstrCenterY - tower.y + 50, 2)) <= tower.radius) {
-        return true;
-    }
-    return false;
+function hittingRadius(tower, mstrX, mstrY) {
+    return Math.sqrt(Math.pow(mstrX - tower.x, 2) + Math.pow(mstrY - tower.y, 2)) <= tower.radius;
 }
 
 function attackArcher() {
     towers.forEach(tower => {
         if(tower.type == "arrow") {
             for(let i = 0; i < monsters.length; i++){
-                var mstrCenterX = monsters[i].x + monsters[i].width/2;
-                var mstrCenterY = monsters[i].y + monsters[i].height/2;
-                if(tower.currentEnemy == -1) {
-                    tower.currentEnemy = i;
-                }
-                console.log(mstrCenterX, mstrCenterY);
-                if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY)) {
+                // if(tower.currentEnemy == -1) {
+                //     tower.currentEnemy = i;
+                // }
+                if(  hittingRadius(tower, monsters[i].x, monsters[i].y)) {
                     //стрела
                     // createArrow();
                     // while(arrow.x != mstrCenterX && arrow.y != mstrCenterY) {
@@ -237,7 +231,7 @@ bashTower.addEventListener("click", () => { makeTower(bash) })
 
 mortirTower.addEventListener("click", () => { makeTower(mortir) })
 
-function atackBash(GAME) {
+function attackBash(GAME) {
     towers.forEach(tower => {
         if(tower.type = "bash") {
             towerCenterX = tower.x + 50;
