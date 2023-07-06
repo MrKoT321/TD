@@ -188,8 +188,10 @@ function moveMonsters(GAME) {
 
 function hpBar(monster) {
     var percentHP = monster.hp / monster.maxhp;
+    canvasContext.fillStyle = "red";
+    canvasContext.fillRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
     canvasContext.fillStyle = "green";
-    canvasContext.fillRect(monster.x + 1, monster.y - monster.height/2 - 10, monster.width * percentHP, 5);
-    canvasContext.strokeStyle = "black";
-    canvasContext.strokeRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
+    canvasContext.fillRect(monster.x, monster.y - monster.height/2 - 10, monster.width * percentHP, 5);
+    // canvasContext.strokeStyle = "black";
+    // canvasContext.strokeRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
 }

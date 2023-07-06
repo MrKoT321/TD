@@ -260,8 +260,8 @@ body {
 }
 
 .hp-bar {
-    top: 30px;
-    left: 1150px;
+    top: 25px;
+    left: 625px;
     width: 225px;
     display: flex;
     position: absolute;
@@ -269,8 +269,13 @@ body {
     justify-content: space-between;
 }
 
+.hp-bar__hp {
+    transform: scale(1);
+    transition: 0.3s all ease-in-out;
+}
+
 .hp-bar__hp._hide{
-    visibility: hidden;
+    transform: scale(0);
 }
 
 .next-lvl-container {
