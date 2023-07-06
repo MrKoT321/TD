@@ -37,7 +37,7 @@ window.addEventListener (
         if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
             drawNewTowerSelector();       
             drawTowerAbilities(); 
-        }
+        }  
     }
 )
 
@@ -77,9 +77,9 @@ function drawTiles(GAME, lvls) {
             canvasContext.fillStyle = "#04BC4E";
             canvasContext.fillRect(tile[0], tile[1], 100, 100);
         }
-        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile))))
-         {
-            if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
+        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile)))) 
+        {
+            if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause' || GAME.isPlay == 'startgame'){
                 canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
                 canvasContext.fillRect(tile[0], tile[1], 100, 100);
             }
@@ -94,6 +94,13 @@ function drawTower() {
         canvasContext.arc(tile.x + 50, tile.y + 50, 50, 0, 2 * Math.PI);
         canvasContext.closePath();
         canvasContext.fill();
+
+        canvasContext.beginPath();
+        canvasContext.strokeStyle = "pink";
+        canvasContext.lineWidth = 2;
+        canvasContext.arc(tile.x + 50, tile.y + 50, tile.radius, 0, 2 * Math.PI);
+        canvasContext.stroke();
+        canvasContext.closePath();
     })
 }
 
@@ -141,11 +148,12 @@ function addMoney(cost) {
 deleteTowerButton.addEventListener(
     "click",
     () => {
-        if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
+        if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause' || GAME.isPlay == 'startgame'){
             for(var i = 0; i < towers.length; i++) {
                 activeTile = towers[i];
-                if (mouseClick.x > activeTile.x && mouseClick.x < activeTile.x + 100 && mouseClick.y > activeTile.y && mouseClick.y < activeTile.y + 100) {
+                if (isMouseOnActiveTile(mouseClick, activeTile)) {
                     towers.splice(i, 1);
+                    addMoney(activeTile.cost);
                 }
             }
         }
@@ -228,3 +236,22 @@ function attackArcher() {
 bashTower.addEventListener("click", () => { makeTower(bash) })
 
 mortirTower.addEventListener("click", () => { makeTower(mortir) })
+
+function atackBash(GAME) {
+    towers.forEach(tower => {
+        if(tower.type = "bash") {
+            towerCenterX = tower.x + 50;
+            towerCenterY = tower.y + 50;
+            lvls[GAME.lvlCount - 1].monsters.forEach(monster => {
+
+                lineToMonster = Math.sqrt(Math.pow(monster.x - tower.x, 2) + Math.pow(monster.y - tower.y, 2));
+                if (lineToMonster <= tower.radius) {
+                    monster.hp -= tower.atk;
+                }
+                // if (monster.x <= towerCenterX + tower.radius && monster.y == towerCenterY) {
+                //     monster.hp -= tower.atk;
+                // }
+            })
+        }
+    })
+}
