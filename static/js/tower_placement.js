@@ -15,13 +15,13 @@ const field = {
 
 var lvl = lvl1;
 
-var towerAbilities = document.querySelector(".tower-abilities");
-var newTowerSelector = document.querySelector(".new-tower");
-var deleteTowerButton = document.querySelector(".delete-tower");
+const towerAbilities = document.querySelector(".tower-abilities");
+const newTowerSelector = document.querySelector(".new-tower");
+const deleteTowerButton = document.querySelector(".delete-tower");
 
-var arrowTower = document.querySelector(".tower1");
-var bashTower = document.querySelector(".tower2");
-var mortirTower = document.querySelector(".tower3");
+const arrowTower = document.querySelector(".tower1");
+const bashTower = document.querySelector(".tower2");
+const mortirTower = document.querySelector(".tower3");
 
 window.addEventListener(
     'mousemove',
