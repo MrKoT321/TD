@@ -74,6 +74,8 @@ function lvlComplete() {
             changeMap();
             updateCastleHP();
             popupClose();
+            GAME.isPlay = 'wavepause';
+            monstercount = 0;
         });
     }
 }
@@ -81,10 +83,7 @@ function lvlComplete() {
 function popupClose() {
     popupcompleteBg.classList.remove('active');
     popupcomplete.classList.remove('active');
-    popupcompleteBg.classList.remove('active');
-    popupcomplete.classList.remove('active');
-    GAME.isPlay = 'wavepause';
-    monstercount = 0;
+    GAME.isPlay = 'startgame';
     startwave.classList.remove("play")
     startwave.classList.add("pause")
 }
@@ -105,17 +104,23 @@ function updateCastleHP() {
 startwave.addEventListener(
     "click",
     () => {
-      if(GAME.isPlay == 'wavepause'){
-        startwave.classList.remove("pause")
-        startwave.classList.add("play")
-        GAME.isPlay = 'startgame'
-      } else {
-        startwave.classList.remove("play")
-        startwave.classList.add("pause")
-        GAME.isPlay = 'wavepause' 
-      }
+        if (GAME.isPlay == 'wavepause') {
+            startwave.classList.remove("pause")
+            startwave.classList.add("play")
+            GAME.isPlay = 'startgame'
+        } else {
+            if (GAME.isPlay == 'menu') {
+                startwave.classList.remove("pause")
+                startwave.classList.add("play")
+                GAME.isPlay = 'play'
+            } else {
+                startwave.classList.remove("play")
+                startwave.classList.add("pause")
+                GAME.isPlay = 'menu'
+            }
+        }
     }
-  )
+)
 
 function changeMap() {
     castle.src = lvl.castle_src;
@@ -124,7 +129,7 @@ function changeMap() {
     background.onload = () => {
         GAME.background = background;
     }
-    
+
     castle.onload = () => {
         GAME.castle = castle;
     }
