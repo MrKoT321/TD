@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #434343;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .game {
