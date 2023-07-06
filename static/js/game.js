@@ -70,6 +70,7 @@ function popupClose(){
 }
 
 function changeLvl() {
+
     GAME.lvlCount += 1;
     return lvls[GAME.lvlCount - 1];
 }
@@ -84,6 +85,19 @@ function updateCastleHP() {
 // состояния 'play' - мобы идут, башни ставятся
 //           'pause' - мобы не идут, башни ставятся
 //           'menu' - мобы не идут, башни не ставятся
+
+function changeMap() {
+    castle.src = lvl.castle_src;
+    background.src = lvl.back_src;
+
+    background.onload = () => {
+        GAME.background = background;
+    }
+    
+    castle.onload = () => {
+        GAME.castle = castle;
+    }
+};
 
 function play() {
     drawBackground();
@@ -103,6 +117,10 @@ function play() {
             lvl = changeLvl();
             mobamount = lvl.mobamount;
             GAME.castleHP = lvl.castleHP;
+            changeMap();
+            pa.x = lvl.start_x;
+            pa.y = lvl.start_y - 50;
+            pa.dir = lvl.start_dir;
             updateCastleHP();
             popupClose();
         });
