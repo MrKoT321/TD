@@ -90,7 +90,6 @@ function popupClose() {
 }
 
 function changeLvl() {
-
     GAME.lvlCount += 1;
     return lvls[GAME.lvlCount - 1];
 }
@@ -142,6 +141,7 @@ function play() {
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
+    atackBash(GAME);
     gameOver();
     lvlComplete();
     requestAnimationFrame(play);
