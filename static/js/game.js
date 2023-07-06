@@ -1,14 +1,14 @@
-let popupoverBg = document.querySelector('.popupover__bg');
-let popupover = document.querySelector('.popupover');
-let popupcompleteBg = document.querySelector('.popupcomplete__bg');
-let popupcomplete = document.querySelector('.popupcomplete');  
+const popupoverBg = document.querySelector('.popupover__bg');
+const popupover = document.querySelector('.popupover');
+const popupcompleteBg = document.querySelector('.popupcomplete__bg');
+const popupcomplete = document.querySelector('.popupcomplete');  
 
-var lvls = [lvl1, lvl2, lvl3, lvl4, lvl5]
+const lvls = [lvl1, lvl2, lvl3, lvl4, lvl5]
 
 var GAME = {
     width: 1600,
     height: 1000,
-    isPlay: true,
+    isPlay: 'play',
     lvlCount: 1
 }
 
@@ -19,7 +19,7 @@ var mobamount = lvl.mobamount
 
 var notdeadmonsters = []
 
-var page = document.getElementById("canvas");
+var canvas = document.getElementById("canvas");
 canvas.width = GAME.width;
 canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
@@ -62,12 +62,9 @@ function lvlComplete(){
     popupcomplete.classList.add('active');
 }
 
-function completeClose(){
+function popupClose(){
     popupcompleteBg.classList.remove('active');
     popupcomplete.classList.remove('active');
-}
-
-function overClose(){
     popupcompleteBg.classList.remove('active');
     popupcomplete.classList.remove('active');
 }
@@ -77,6 +74,17 @@ function changeLvl() {
     return lvls[GAME.lvlCount - 1];
 }
 
+function updateCastleHP() {
+    let bar = document.getElementById("hp-bar");
+    for(let i = 0; i < GAME.castleHP; i++) {
+        bar.children[i].classList.remove("_hide");
+    }
+}
+
+// состояния 'play' - мобы идут, башни ставятся
+//           'pause' - мобы не идут, башни ставятся
+//           'menu' - мобы не идут, башни не ставятся
+
 function play() {
     drawBackground();
     moveMonsters(GAME);
@@ -85,19 +93,18 @@ function play() {
     drawTower();
     if(GAME.castleHP == 0){
         gameOver();
-        GAME.isPlay = false;
+        GAME.isPlay = 'pause';
     }
-    if(GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay){
+    if(GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay == 'play'){
         lvlComplete();
-        GAME.isPlay = false;
+        GAME.isPlay = 'pause';
         let nextBtn = document.getElementById("next-lvl-btn");
         nextBtn.addEventListener("click", () => {
-            console.log("next");
-            completeClose();
             lvl = changeLvl();
             mobamount = lvl.mobamount;
             GAME.castleHP = lvl.castleHP;
-            console.log(lvl);
+            updateCastleHP();
+            popupClose();
         });
     }
     requestAnimationFrame(play);
