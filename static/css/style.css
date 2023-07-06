@@ -5,6 +5,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #434343;
+    overflow: hidden;
 }
 
 .game {
@@ -47,7 +49,7 @@ body {
 }
 
 .tower1 {
-    background: red;
+    background: orange;
     position: absolute;
     top: 0;
     left: 0;
@@ -70,9 +72,9 @@ body {
     cursor: pointer;
 }
 
-.tower-abilities {
+/* .tower-abilities {
 
-}
+} */
 
 .choice-abilitie {
     position: relative;
@@ -91,7 +93,7 @@ body {
     
 .bar {
     width: 200px;
-    background-color: #232F3899;
+    background-color: #005799;
     display: flex;
     flex-direction: column;
 }
@@ -207,7 +209,7 @@ body {
     transition: 0.5s all ;
 }
 
-.over{
+.over {
     color:red;
     padding-top: 100px;
     padding-bottom: 100px;
@@ -242,6 +244,8 @@ body {
     transition: 0.5s all ;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .popupcomplete.active {
@@ -256,8 +260,8 @@ body {
 }
 
 .hp-bar {
-    top: 30px;
-    left: 1150px;
+    top: 25px;
+    left: 625px;
     width: 225px;
     display: flex;
     position: absolute;
@@ -285,4 +289,37 @@ body {
     width: 65px;
     height: 65px;
     position: absolute;
+}
+.hp-bar__hp {
+    transform: scale(1);
+    transition: 0.3s all ease-in-out;
+}
+
+.hp-bar__hp._hide{
+    transform: scale(0);
+}
+
+.next-lvl-container {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.next-lvl-btn {
+    width: 150px;
+    height: 50px;
+    border: none;
+    background-color: green;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 17px;
+    transform: scale(1);
+    transition: 0.2s all ease-in-out;
+    cursor: pointer;
+}
+
+.next-lvl-btn:hover {
+    transform: scale(0.9);
 }
