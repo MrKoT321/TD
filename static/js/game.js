@@ -89,7 +89,7 @@ function play() {
     drawBackground();
     moveMonsters(GAME);
     drawCastle();
-    drawTiles();
+    drawTiles(GAME);
     drawTower();
     if(GAME.castleHP == 0){
         gameOver();

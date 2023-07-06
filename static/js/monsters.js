@@ -1,4 +1,4 @@
-var monster1 = {
+const monster1 = {
     hp: 100,
     maxhp: 100,
     speed: 2,
@@ -8,7 +8,7 @@ var monster1 = {
     color: "black"//pic: '',
 }
 
-var monster2 = {
+const monster2 = {
     hp: 100,
     maxhp: 100,
     speed: 2,
@@ -18,7 +18,7 @@ var monster2 = {
     color: "black"//pic: '',
 }
 
-var monster3 = {
+const monster3 = {
     hp: 100,
     maxhp: 100,
     speed: 3,
@@ -28,7 +28,7 @@ var monster3 = {
     color: "black"//pic: '',
 }
 
-var monster4 = {
+const monster4 = {
     hp: 100,
     maxhp: 100,
     speed: 3,
