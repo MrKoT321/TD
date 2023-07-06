@@ -118,9 +118,6 @@ function play() {
             mobamount = lvl.mobamount;
             GAME.castleHP = lvl.castleHP;
             changeMap();
-            pa.x = lvl.start_x;
-            pa.y = lvl.start_y - 50;
-            pa.dir = lvl.start_dir;
             updateCastleHP();
             popupClose();
         });
