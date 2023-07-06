@@ -37,7 +37,7 @@ window.addEventListener (
         if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
             drawNewTowerSelector();       
             drawTowerAbilities(); 
-        }
+        }  
     }
 )
 
@@ -77,8 +77,8 @@ function drawTiles(GAME, lvls) {
             canvasContext.fillStyle = "#04BC4E";
             canvasContext.fillRect(tile[0], tile[1], 100, 100);
         }
-        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile))))
-         {
+        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile)))) 
+        {
             if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
                 canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
                 canvasContext.fillRect(tile[0], tile[1], 100, 100);
@@ -144,8 +144,9 @@ deleteTowerButton.addEventListener(
         if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
             for(var i = 0; i < towers.length; i++) {
                 activeTile = towers[i];
-                if (mouseClick.x > activeTile.x && mouseClick.x < activeTile.x + 100 && mouseClick.y > activeTile.y && mouseClick.y < activeTile.y + 100) {
+                if (isMouseOnActiveTile(mouseClick, activeTile)) {
                     towers.splice(i, 1);
+                    addMoney(activeTile.cost);
                 }
             }
         }
@@ -182,3 +183,18 @@ archerTower.addEventListener("click", () => { makeTower(archer) })
 bashTower.addEventListener("click", () => { makeTower(bash) })
 
 mortirTower.addEventListener("click", () => { makeTower(mortir) })
+
+function atackBash(GAME) {
+    towers.forEach(tower => {
+        if(tower.type = "bash") {
+            towerCenterX = tower.x + 50;
+            towerCenterY = tower.y + 50;
+            lvls[GAME.lvlCount - 1].monsters.forEach(monster => {
+                lineToMonster = Math.sqrt(Math.pow(monster.x - tower.x) + Math.pow(monster.y - tower.y))
+                if (monster.x <= towerCenterX + tower.radius && monster.y == towerCenterY) {
+                    monster.hp -= tower.atk;
+                }
+            })
+        }
+    })
+}
