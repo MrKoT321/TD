@@ -120,10 +120,19 @@ body {
 .pause__btn {
     width: 0;
     height: 0;
+    cursor: pointer;
+}
+
+.pause__btn.play{
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: 35px solid white;
+}
+
+.pause__btn.pause{
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
     border-left: 35px solid #6E18C0;
-    cursor: pointer;
 }
 
 .bar__out {
