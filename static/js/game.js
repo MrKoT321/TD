@@ -10,9 +10,12 @@ const lvls = [lvl1, lvl2, lvl3, lvl4, lvl5]
 var GAME = {
     width: 1600,
     height: 1000,
+    startTime: new Date(),
     isPlay: 'wavepause',
     lvlCount: 1
 }
+
+var timer = 0;
 
 var lvl = lvls[GAME.lvlCount - 1];
 GAME.castleHP = lvl.castleHP;
@@ -26,7 +29,7 @@ canvas.width = GAME.width;
 canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
-var starttime = 100
+var starttime = 100;
 
 const background = new Image();
 const castle = new Image();
@@ -46,6 +49,10 @@ background.onload = () => {
 
 castle.onload = () => {
     GAME.castle = castle;
+}
+
+function catchTime() {
+
 }
 
 function drawBackground() {
@@ -84,6 +91,7 @@ function lvlComplete() {
             popupClose();
             GAME.isPlay = 'wavepause';
             monstercount = 0;
+            starttime = 100;
         });
     }
 }
@@ -149,11 +157,13 @@ function changeMap() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    catchTime();
     drawBackground();
     moveMonsters(GAME);
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
+    atackArcher(GAME)
     atackBash(GAME);
     gameOver();
     lvlComplete();

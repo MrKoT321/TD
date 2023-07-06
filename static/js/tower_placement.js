@@ -194,8 +194,23 @@ mortirTower.addEventListener("click", () => { makeTower(mortir) })
 function atackBash(GAME) {
     towers.forEach(tower => {
         if(tower.type = "bash") {
-            towerCenterX = tower.x + 50;
-            towerCenterY = tower.y + 50;
+            lvls[GAME.lvlCount - 1].monsters.forEach(monster => {
+
+                lineToMonster = Math.sqrt(Math.pow(monster.x - tower.x, 2) + Math.pow(monster.y - tower.y, 2));
+                if (lineToMonster <= tower.radius) {
+                    monster.hp -= tower.atk;
+                }
+                // if (monster.x <= towerCenterX + tower.radius && monster.y == towerCenterY) {
+                //     monster.hp -= tower.atk;
+                // }
+            })
+        }
+    })
+}
+
+function atackArcher(GAME) {
+    towers.forEach(tower => {
+        if(tower.type = "arrow") {
             lvls[GAME.lvlCount - 1].monsters.forEach(monster => {
 
                 lineToMonster = Math.sqrt(Math.pow(monster.x - tower.x, 2) + Math.pow(monster.y - tower.y, 2));
