@@ -197,7 +197,8 @@ function atackBash(GAME) {
             towerCenterX = tower.x + 50;
             towerCenterY = tower.y + 50;
             lvls[GAME.lvlCount - 1].monsters.forEach(monster => {
-                lineToMonster = Math.sqrt(Math.pow(monster.x - tower.x) + Math.pow(monster.y - tower.y));
+
+                lineToMonster = Math.sqrt(Math.pow(monster.x - tower.x, 2) + Math.pow(monster.y - tower.y, 2));
                 if (lineToMonster <= tower.radius) {
                     monster.hp -= tower.atk;
                 }
