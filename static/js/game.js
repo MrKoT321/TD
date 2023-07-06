@@ -1,14 +1,15 @@
 const popupoverBg = document.querySelector('.popupover__bg');
 const popupover = document.querySelector('.popupover');
 const popupcompleteBg = document.querySelector('.popupcomplete__bg');
-const popupcomplete = document.querySelector('.popupcomplete');  
+const popupcomplete = document.querySelector('.popupcomplete');
+const startwave = document.getElementById("startwave");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4, lvl5]
 
 var GAME = {
     width: 1600,
     height: 1000,
-    isPlay: 'play',
+    isPlay: 'wavepause',
     lvlCount: 1
 }
 
@@ -52,21 +53,25 @@ function drawCastle() {
     }
 }
 
-function gameOver(){
+function gameOver() {
     popupoverBg.classList.add('active');
     popupover.classList.add('active');
 }
 
-function lvlComplete(){
+function lvlComplete() {
     popupcompleteBg.classList.add('active');
     popupcomplete.classList.add('active');
 }
 
-function popupClose(){
+function popupClose() {
     popupcompleteBg.classList.remove('active');
     popupcomplete.classList.remove('active');
     popupcompleteBg.classList.remove('active');
     popupcomplete.classList.remove('active');
+    GAME.isPlay = 'wavepause';
+    monstercount = 0;
+    startwave.classList.remove("play")
+    startwave.classList.add("pause")
 }
 
 function changeLvl() {
@@ -76,14 +81,31 @@ function changeLvl() {
 
 function updateCastleHP() {
     let bar = document.getElementById("hp-bar");
-    for(let i = 0; i < GAME.castleHP; i++) {
+    for (let i = 0; i < GAME.castleHP; i++) {
         bar.children[i].classList.remove("_hide");
     }
 }
 
+startwave.addEventListener(
+    "click",
+    () => {
+      if(GAME.isPlay == 'wavepause'){
+        startwave.classList.remove("pause")
+        startwave.classList.add("play")
+        GAME.isPlay = 'startgame'
+      } else {
+        startwave.classList.remove("play")
+        startwave.classList.add("pause")
+        GAME.isPlay = 'wavepause' 
+      }
+    }
+  )
+
 // состояния 'play' - мобы идут, башни ставятся
-//           'pause' - мобы не идут, башни ставятся
+//           'wavepause' - мобы не идут, башни ставятся
 //           'menu' - мобы не идут, башни не ставятся
+//           'popuppause' - мобы идут, башни не ставятся
+//           'startgame' - ожидание появления первого моба
 
 function play() {
     drawBackground();
@@ -91,13 +113,13 @@ function play() {
     drawCastle();
     drawTiles();
     drawTower();
-    if(GAME.castleHP == 0){
+    if (GAME.castleHP == 0) {
         gameOver();
-        GAME.isPlay = 'pause';
+        GAME.isPlay = 'popuppause';
     }
-    if(GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay == 'play'){
+    if (GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay == 'play') {
         lvlComplete();
-        GAME.isPlay = 'pause';
+        GAME.isPlay = 'popuppause';
         let nextBtn = document.getElementById("next-lvl-btn");
         nextBtn.addEventListener("click", () => {
             lvl = changeLvl();

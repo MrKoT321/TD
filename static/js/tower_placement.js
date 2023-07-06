@@ -36,8 +36,10 @@ window.addEventListener (
     (event) => {
         mouseClick.x = event.clientX - field.x;
         mouseClick.y = event.clientY - field.y;
-        drawNewTowerSelector();       
-        drawTowerAbilities();  
+        if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
+            drawNewTowerSelector();       
+            drawTowerAbilities(); 
+        }
     }
 )
 
@@ -58,17 +60,22 @@ function isTowerOnPlace(tile) {
     return res
 }
 
+function isMouseOnTile(m, tile) {
+    return m.x > tile[0] && m.x < tile[0] + 100 && m.y > tile[1] && m.y < tile[1] + 100
+}
+
 function drawTiles() {
     towerTiles.forEach(tile => {
         if (!(isTowerOnPlace(tile))) {
             canvasContext.fillStyle = "#04BC4E";
             canvasContext.fillRect(tile[0], tile[1], 100, 100);
         }
-        if (
-            mouse.x > tile[0] && mouse.x < tile[0] + 100 && mouse.y > tile[1] && mouse.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
-        ) {
-            canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
-            canvasContext.fillRect(tile[0], tile[1], 100, 100);
+        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile))))
+         {
+            if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
+                canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
+                canvasContext.fillRect(tile[0], tile[1], 100, 100);
+            }
         }
     })        
 }
@@ -126,10 +133,12 @@ function drawTowerAbilities() {
 deleteTowerButton.addEventListener(
     "click",
     () => {
-        for(var i = 0; i < towers.length; i++) {
-            activeTile = towers[i];
-            if (mouseClick.x > activeTile.x && mouseClick.x < activeTile.x + 100 && mouseClick.y > activeTile.y && mouseClick.y < activeTile.y + 100) {
-                towers.splice(i, 1);
+        if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
+            for(var i = 0; i < towers.length; i++) {
+                activeTile = towers[i];
+                if (mouseClick.x > activeTile.x && mouseClick.x < activeTile.x + 100 && mouseClick.y > activeTile.y && mouseClick.y < activeTile.y + 100) {
+                    towers.splice(i, 1);
+                }
             }
         }
     }
