@@ -50,7 +50,7 @@ const lvl3 = {
 const lvl4 = {
     start_y: 700,
     finish_cells: [],
-    towers: [],
+    towersPos: [],
     road: [],
     castleHP: 100,    
     money: 100,
@@ -63,7 +63,7 @@ const lvl4 = {
 const lvl5 = {
     start_y: 700,
     finish_cells: [],
-    towers: [],
+    towersPos: [],
     road: [],
     castleHP: 100,    
     money: 100,

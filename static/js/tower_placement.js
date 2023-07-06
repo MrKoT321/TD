@@ -61,9 +61,11 @@ function isMouseOnActiveTile(m, activeTile) {
     return m.x > activeTile.x && m.x < activeTile.x + 100 && m.y > activeTile.y && m.y < activeTile.y + 100
 }
 
-function drawTiles(GAME) {
+function drawTiles(GAME, lvls) {
     if (compareWithGameLvl !== GAME.lvlCount) {
+        console.log(12213123)
         towerTiles = [];
+        towers = [];
         lvls[GAME.lvlCount - 1].towersPos.forEach(towerPos => {
             towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100]);
         })
