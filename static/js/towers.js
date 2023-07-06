@@ -1,4 +1,4 @@
-const tower1 = {
+const archer = {
     cost: 100,
     atk: 10,
     radius: 200,
@@ -8,7 +8,7 @@ const tower1 = {
     atkColor: "red"
 }
 
-const tower2 = {
+const bash = {
     cost: 100,
     atk: 10,
     radius: 200,
@@ -18,7 +18,7 @@ const tower2 = {
     atkColor: "red"
 }
 
-const tower3 = {
+const mortir = {
     cost: 100,
     atk: 10,
     radius: 200,

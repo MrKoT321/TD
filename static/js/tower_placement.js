@@ -17,9 +17,9 @@ const towerAbilities = document.querySelector(".tower-abilities");
 const newTowerSelector = document.querySelector(".new-tower");
 const deleteTowerButton = document.querySelector(".delete-tower");
 
-const arrowTower = document.querySelector(".tower1");
-const bashTower = document.querySelector(".tower2");
-const mortirTower = document.querySelector(".tower3");
+const archerTower = document.querySelector(".archer");
+const bashTower = document.querySelector(".bash");
+const mortirTower = document.querySelector(".mortir");
 
 window.addEventListener(
     'mousemove',
@@ -155,12 +155,12 @@ function pushToTowers(tower, posX, posY) {
     })
 }
 
-arrowTower.addEventListener(
+archerTower.addEventListener(
     "click",
     () => {
         towerTiles.forEach(tile => {
             if (isMouseOnTile(mouseClick, tile)) {
-                pushToTowers(tower1, tile[0], tile[1]);
+                pushToTowers(archer, tile[0], tile[1]);
             }
         })
     }
@@ -171,7 +171,7 @@ bashTower.addEventListener(
     () => {
         towerTiles.forEach(tile => {
             if (isMouseOnTile(mouseClick, tile)) {
-                pushToTowers(tower2, tile[0], tile[1]);
+                pushToTowers(bash, tile[0], tile[1]);
             }
         })
     }
@@ -182,7 +182,7 @@ mortirTower.addEventListener(
     () => {
         towerTiles.forEach(tile => {
             if (isMouseOnTile(mouseClick, tile)) {
-                pushToTowers(tower3, tile[0], tile[1]);
+                pushToTowers(mortir, tile[0], tile[1]);
             }
         })
     }
