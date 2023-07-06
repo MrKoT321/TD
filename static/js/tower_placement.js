@@ -58,15 +58,22 @@ function isTowerOnPlace(tile) {
     return res
 }
 
+function isMouseOnTile(m, tile) {
+    return m.x > tile[0] && m.x < tile[0] + 100 && m.y > tile[1] && m.y < tile[1] + 100
+}
+
+function isMouseOnActiveTile(m, activeTile) {
+    return m.x > activeTile.x && m.x < activeTile.x + 100 && m.y > activeTile.y && m.y < activeTile.y + 100
+}
+
 function drawTiles() {
     towerTiles.forEach(tile => {
         if (!(isTowerOnPlace(tile))) {
             canvasContext.fillStyle = "#04BC4E";
             canvasContext.fillRect(tile[0], tile[1], 100, 100);
         }
-        if (
-            mouse.x > tile[0] && mouse.x < tile[0] + 100 && mouse.y > tile[1] && mouse.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
-        ) {
+        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile))))
+         {
             canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
             canvasContext.fillRect(tile[0], tile[1], 100, 100);
         }
@@ -86,9 +93,7 @@ function drawTower() {
 function drawNewTowerSelector() {
     let isFindDrawPos = false;
     towerTiles.forEach(tile => {
-        if (
-            mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 && (!(isTowerOnPlace(tile)))
-        ) {
+        if (isMouseOnTile(mouseClick, tile) && (!(isTowerOnPlace(tile)))) {
             let menuPosX = tile[0] - 125 + 50;
             let menuPosY = tile[1] - 125 + 50;
             newTowerSelector.style.left = menuPosX + "px";
@@ -105,12 +110,10 @@ function drawNewTowerSelector() {
 function drawTowerAbilities() {
     let isFindDrawPos = false;
     for (var i = 0; i < towers.length; i++) {
-        tile = towers[i]; 
-        if (
-            mouseClick.x > tile.x && mouseClick.x < tile.x + 100 && mouseClick.y > tile.y && mouseClick.y < tile.y + 100
-        ) {
-            let menuPosX = tile.x - 125 + 50;
-            let menuPosY = tile.y - 125 + 50;
+        activeTile = towers[i]; 
+        if (isMouseOnActiveTile(mouseClick, activeTile)) {
+            let menuPosX = activeTile.x - 125 + 50;
+            let menuPosY = activeTile.y - 125 + 50;
             towerAbilities.style.left = menuPosX + "px";
             towerAbilities.style.top = menuPosY + "px";
             towerAbilities.classList.remove("hidden");
@@ -128,7 +131,7 @@ deleteTowerButton.addEventListener(
     () => {
         for(var i = 0; i < towers.length; i++) {
             activeTile = towers[i];
-            if (mouseClick.x > activeTile.x && mouseClick.x < activeTile.x + 100 && mouseClick.y > activeTile.y && mouseClick.y < activeTile.y + 100) {
+            if (isMouseOnActiveTile(mouseClick, activeTile)) {
                 towers.splice(i, 1);
             }
         }
@@ -153,10 +156,8 @@ arrowTower.addEventListener(
     "click",
     () => {
         towerTiles.forEach(tile => {
-            if (
-                mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100 
-            ) {
-                pushToTowers(tower1, tile[0], tile[1])
+            if (isMouseOnTile(mouseClick, tile)) {
+                pushToTowers(tower1, tile[0], tile[1]);
             }
         })
     }
@@ -166,10 +167,8 @@ bashTower.addEventListener(
     "click",
     () => {
         towerTiles.forEach(tile => {
-            if (
-                mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100
-            ) {
-                pushToTowers(tower2, tile[0], tile[1])
+            if (isMouseOnTile(mouseClick, tile)) {
+                pushToTowers(tower2, tile[0], tile[1]);
             }
         })
     }
@@ -179,10 +178,8 @@ mortirTower.addEventListener(
     "click",
     () => {
         towerTiles.forEach(tile => {
-            if (
-                mouseClick.x > tile[0] && mouseClick.x < tile[0] + 100 && mouseClick.y > tile[1] && mouseClick.y < tile[1] + 100
-            ) {
-                pushToTowers(tower3, tile[0], tile[1])
+            if (isMouseOnTile(mouseClick, tile)) {
+                pushToTowers(tower3, tile[0], tile[1]);
             }
         })
     }
