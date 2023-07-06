@@ -94,8 +94,9 @@ function drawTower() {
         canvasContext.arc(tile.x + 50, tile.y + 50, 50, 0, 2 * Math.PI);
         canvasContext.closePath();
         canvasContext.fill();
+
         canvasContext.beginPath();
-        canvasContext.strokeStyle = "black";
+        canvasContext.strokeStyle = "pink";
         canvasContext.lineWidth = 2;
         canvasContext.arc(tile.x + 50, tile.y + 50, tile.radius, 0, 2 * Math.PI);
         canvasContext.stroke();
