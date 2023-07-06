@@ -200,7 +200,7 @@ mortirTower.addEventListener(
 )
 
 function hittingRadius(tower, mstrX, mstrY) {
-    return Math.sqrt(Math.pow(mstrX - tower.x, 2) + Math.pow(mstrY - tower.y, 2)) <= tower.radius;
+    return Math.sqrt(Math.pow(mstrX - tower.x + 50, 2) + Math.pow(mstrY - tower.y + 50, 2)) <= tower.radius;
 }
 
 function attackArcher() {
