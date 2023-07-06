@@ -280,7 +280,6 @@ body {
     font-weight: 900;
     font-size: 80px;
     color: white;
-    
 }
 
 .count-coin__img {
@@ -290,6 +289,24 @@ body {
     height: 65px;
     position: absolute;
 }
+
+.count-score {
+    position: absolute;
+    top: 0;
+    left: 320px;
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
+}
+
+.count-score__img {
+    top: 19px;
+    left: 208px;
+    width: 65px;
+    height: 65px;
+    position: absolute;
+} 
+
 .hp-bar__hp {
     transform: scale(1);
     transition: 0.3s all ease-in-out;
