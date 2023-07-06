@@ -1,4 +1,4 @@
-var lvl1 = {
+const lvl1 = {
     start_x: 0,
     start_y: 700,
     finish_cells: [63, 64],
@@ -16,7 +16,7 @@ var lvl1 = {
     castle_src:  "../static/images/CASTLE.svg"
 };
 
-var lvl2 = {
+const lvl2 = {
     start_x: 1175,
     start_y: 0,
     finish_cells: [82, 83],
@@ -34,7 +34,7 @@ var lvl2 = {
     castle_src:  "../static/images/CASTLE.svg" 
 }
 
-var lvl3 = {
+const lvl3 = {
     start_y: 700,
     finish_cells: [],
     towersPos: [],
@@ -47,7 +47,7 @@ var lvl3 = {
     castle_src:  "../static/images/CASTLE.svg" 
 }
 
-var lvl4 = {
+const lvl4 = {
     start_y: 700,
     finish_cells: [],
     towers: [],
@@ -60,7 +60,7 @@ var lvl4 = {
     castle_src:  "../static/images/CASTLE.svg" 
 }
 
-var lvl5 = {
+const lvl5 = {
     start_y: 700,
     finish_cells: [],
     towers: [],

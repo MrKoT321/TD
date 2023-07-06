@@ -291,6 +291,7 @@ body {
     font-size: 17px;
     transform: scale(1);
     transition: 0.2s all ease-in-out;
+    cursor: pointer;
 }
 
 .next-lvl-btn:hover {
