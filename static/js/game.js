@@ -105,6 +105,7 @@ function play() {
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
+    attackArcher(monsters, tower);
     if(GAME.castleHP == 0){
         gameOver();
         GAME.isPlay = 'pause';

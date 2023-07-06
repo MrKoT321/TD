@@ -151,7 +151,8 @@ function pushToTowers(tower, posX, posY) {
         type: tower.type,
         atkspeed: tower.atkspeed,
         towerColor: tower.towerColor,
-        atkColor: tower.atkColor
+        atkColor: tower.atkColor,
+        currentEnemy: -1
     })
 }
 
@@ -187,3 +188,34 @@ mortirTower.addEventListener(
         })
     }
 )
+
+function hittingRadius(tower, mstrCenterX, mstrCenterY) {
+    const conditionX = mstrCenterX >= tower.x + 50 - tower.radius && mstrCenterX <= tower.x + 50 + tower.radius;
+    const conditionY = mstrCenterY >= tower.y + 50 - tower.radius && mstrCenterY <= tower.y + 50 + tower.radius;
+    if(conditionX && conditionY) {
+        return true;
+    }
+    return false;
+}
+
+function attackArcher(monsters) {
+    for(let i = 0; i < monsters.length; i++){
+        let mstrCenterX = monsters[i].x + monsters[i].wdth/2;
+        let mstrCenterY = monsters[i].y + monsters[i].height/2;
+        if(tower.currentEnemy == -1) {
+            tower.currentEnemy = i;
+        }
+        if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY) && time % atkspeed == 0) {
+            //стрела
+            // createArrow();
+            // while(arrow.x != mstrCenterX && arrow.y != mstrCenterY) {
+            //     if(mstrCenterX < tower.x) {
+            //         if(mstrCenterY < tower.y) {
+
+            //         }
+            //     }
+            // }
+            monster.hp -= tower.atk;
+        }
+    }
+}
