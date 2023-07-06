@@ -176,3 +176,15 @@ archerTower.addEventListener("click", () => { makeTower(archer) })
 bashTower.addEventListener("click", () => { makeTower(bash) })
 
 mortirTower.addEventListener("click", () => { makeTower(mortir) })
+
+function atackTowes(GAME) {
+    atackBash()
+}
+
+function atackBash() {
+    towers.forEach(tower => {
+        if(tower.type = "bash") {
+            
+        }
+    })
+}
