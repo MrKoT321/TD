@@ -53,7 +53,7 @@ castle.onload = () => {
 function resetStopwatch() {
     GAME.stopwatch = 0;
     startTimer = new Date();
-    GAME.stopwatch = 0;
+    GAME.milisectimer = 0;
 }
 
 function catchTime() {
