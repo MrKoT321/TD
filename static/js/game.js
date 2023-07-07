@@ -194,9 +194,8 @@ function play() {
     drawTiles(GAME, lvls);
     drawTower();
     attackArcher(GAME);
-    attackBash(GAME);
+    attackBash();
     gameOver();
-    console.log(GAME.stopwatch)
     requestAnimationFrame(play);
 }
 
