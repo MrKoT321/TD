@@ -251,7 +251,6 @@ function attackArcher(GAME) {
         
                     //         }
                     //     }
-                    // }
                     monsters[i].hp -= tower.atk;
                     tower.hit = true;
                 }
