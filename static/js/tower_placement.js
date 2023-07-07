@@ -228,14 +228,21 @@ function attackArcher(GAME) {
     towers.forEach(tower => {
         if(tower.type == "arrow") {
             for(let i = 0; i < monsters.length; i++){
+                if(monsters[i].hp == 0) {
+                    tower.currentEnemy = -1;
+                    tower.startTime = -1;
+                }
                 let mstrCenterX = monsters[i].x + monsters[i].width/2;
                 let mstrCenterY = monsters[i].y + monsters[i].height/2;
                 if(tower.currentEnemy == -1 && hittingRadius(tower, mstrCenterX, mstrCenterY)) {
                     tower.currentEnemy = i;
                     tower.startTime = GAME.stopwatch;
                 }
-                console.log(tower.currentEnemy, GAME.stopwatch, tower.startTime, tower.atkspeed);
-                if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY) && (GAME.stopwatch - tower.startTime) % tower.atkspeed == 0) {
+                console.log(tower.currentEnemy, GAME.stopwatch, tower.startTime, tower.atkspeed, monsters[i].hp);
+                if(!((GAME.stopwatch - tower.startTime) % tower.atkspeed == 0)) {
+                    tower.hit = false;
+                }
+                if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY) && tower.hit == false && (GAME.stopwatch - tower.startTime) % tower.atkspeed == 0) {
                     //стрела
                     // createArrow();
                     // while(arrow.x != mstrCenterX && arrow.y != mstrCenterY) {
@@ -246,11 +253,7 @@ function attackArcher(GAME) {
                     //     }
                     // }
                     monsters[i].hp -= tower.atk;
-                    console.log(monsters[i].hp)
-                }
-                if(monsters[i].hp == 0) {
-                    tower.currentEnemy = -1;
-                    tower.startTime = -1;
+                    tower.hit = true;
                 }
             }
         }
