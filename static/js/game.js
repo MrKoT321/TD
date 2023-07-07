@@ -186,7 +186,6 @@ function play() {
     if (GAME.isPlay == 'menu') {
         stopTimer();
     }
-    console.log(GAME.isPlay)
     drawBackground();
     moveMonsters(GAME);
     drawCastle();
@@ -195,7 +194,6 @@ function play() {
     attackArcher();
     attackBash(GAME);
     gameOver();
-    console.log(GAME.stopwatch, GAME.isPlay)
     requestAnimationFrame(play);
 }
 
