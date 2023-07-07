@@ -10,13 +10,14 @@ var GAME = {
     width: 1600,
     height: 1000,
     stopwatch: 0,
-    msInPause: 0,
     isPlay: 'wavepause',
+    money: 0,
     lvlCount: 1
 }
 
 var startTimer = new Date();
 var timeInPause = 0;
+var timeInLastPause = 0;
 var pauseStartTime = new Date();
 
 var lvl = lvls[GAME.lvlCount - 1];
@@ -47,20 +48,21 @@ castle.onload = () => {
 }
 
 function resetStopwatch() {
+    GAME.stopwatch = 0;
     startTimer = new Date();
 }
 
 function catchTime() {
-    if (timeInPause != 0) {
-        GAME.msInPause += timeInPause;
+    if (timeInLastPause != 0) {
+        timeInPause += timeInLastPause;
     }
-    timeInPause = 0;
-    GAME.stopwatch = Math.floor((new Date() - startTimer - GAME.msInPause) / 1000);
+    timeInLastPause = 0;
+    GAME.stopwatch = Math.floor((new Date() - startTimer - timeInPause) / 1000);
     pauseStartTime = new Date();
 }
 
 function stopTimer() {
-    timeInPause = new Date() - pauseStartTime;
+    timeInLastPause = new Date() - pauseStartTime;
 }
 
 function drawBackground() {
@@ -94,6 +96,7 @@ function lvlComplete() {
             lvl = changeLvl();
             mobamount = lvl.mobamount;
             GAME.castleHP = lvl.castleHP;
+            GAME.money = lvl.money;
             changeMap();
             updateCastleHP();
             popupClose();
@@ -183,7 +186,6 @@ function play() {
     atackBash(GAME);
     gameOver();
     lvlComplete();
-    console.log(GAME.stopwatch, GAME.isPlay)
     requestAnimationFrame(play);
 }
 
