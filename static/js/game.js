@@ -10,9 +10,15 @@ const lvls = [lvl1, lvl2, lvl3, lvl4, lvl5]
 var GAME = {
     width: 1600,
     height: 1000,
+    stopwatch: 0,
+    msInPause: 0,
     isPlay: 'wavepause',
     lvlCount: 1
 }
+
+var startTimer = new Date();
+var timeInPause = 0;
+var pauseStartTime = new Date();
 
 var lvl = lvls[GAME.lvlCount - 1];
 GAME.castleHP = lvl.castleHP;
@@ -26,7 +32,7 @@ canvas.width = GAME.width;
 canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
-var starttime = 100
+var starttime = 100;
 
 const background = new Image();
 const castle = new Image();
@@ -46,6 +52,23 @@ background.onload = () => {
 
 castle.onload = () => {
     GAME.castle = castle;
+}
+
+function resetStopwatch() {
+    startTimer = new Date();
+}
+
+function catchTime() {
+    if (timeInPause != 0) {
+        GAME.msInPause += timeInPause;
+    }
+    timeInPause = 0;
+    GAME.stopwatch = Math.floor((new Date() - startTimer - GAME.msInPause) / 1000);
+    pauseStartTime = new Date();
+}
+
+function stopTimer() {
+    timeInPause = new Date() - pauseStartTime;
 }
 
 function drawBackground() {
@@ -84,6 +107,7 @@ function lvlComplete() {
             popupClose();
             GAME.isPlay = 'wavepause';
             monstercount = 0;
+            starttime = 100;
         });
     }
 }
@@ -149,14 +173,25 @@ function changeMap() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    if (GAME.isPlay == 'wavepause') {
+        resetStopwatch();
+    }
+    if (GAME.isPlay == 'play') {
+        catchTime();
+    }
+    if (GAME.isPlay == 'menu') {
+        stopTimer();
+    }
     drawBackground();
     moveMonsters(GAME);
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
-    attackBash(GAME);
+    atackArcher(GAME)
+    atackBash(GAME);
     gameOver();
     lvlComplete();
+    console.log(GAME.stopwatch, GAME.isPlay)
     requestAnimationFrame(play);
 }
 
