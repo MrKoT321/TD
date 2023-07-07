@@ -199,18 +199,21 @@ mortirTower.addEventListener(
     }
 )
 
-function hittingRadius(tower, mstrX, mstrY) {
-    return (Math.sqrt(Math.pow(mstrX - tower.x, 2) + Math.pow(mstrY - tower.y, 2)) <= tower.radius)
+function hittingRadius(tower, mstrCenterX, mstrCenterY) {
+    let distance = Math.sqrt(Math.pow(mstrCenterX - tower.x - 50, 2) + Math.pow(mstrCenterY - tower.y - 50, 2));
+    return (distance <= tower.radius);
 }
 
 function attackArcher() {
     towers.forEach(tower => {
         if(tower.type == "arrow") {
             for(let i = 0; i < monsters.length; i++){
-                // if(tower.currentEnemy == -1) {
-                //     tower.currentEnemy = i;
-                // }
-                if(  hittingRadius(tower, monsters[i].x, monsters[i].y)) {
+                if(tower.currentEnemy == -1) {
+                    tower.currentEnemy = i;
+                }
+                let mstrCenterX = monsters[i].x + monsters[i].width/2;
+                let mstrCenterY = monsters[i].y + monsters[i].height/2;
+                if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY)) {
                     //стрела
                     // createArrow();
                     // while(arrow.x != mstrCenterX && arrow.y != mstrCenterY) {
@@ -233,27 +236,10 @@ mortirTower.addEventListener("click", () => { makeTower(mortir) })
 
 function attackBash(GAME) {
     towers.forEach(tower => {
-        if(tower.type = "bash") {
+        if(tower.type == "bash") {
             lvls[GAME.lvlCount - 1].monsters.forEach(monster => {
 
                 lineToMonster = Math.sqrt(Math.pow(monster.x + monster.width/2 - tower.x + 50, 2) + Math.pow(monster.y + monster.height/2 - tower.y + 50, 2));
-                if (lineToMonster <= tower.radius) {
-                    monster.hp -= tower.atk;
-                }
-                // if (monster.x <= towerCenterX + tower.radius && monster.y == towerCenterY) {
-                //     monster.hp -= tower.atk;
-                // }
-            })
-        }
-    })
-}
-
-function atackArcher(GAME) {
-    towers.forEach(tower => {
-        if(tower.type = "arrow") {
-            lvls[GAME.lvlCount - 1].monsters.forEach(monster => {
-
-                lineToMonster = Math.sqrt(Math.pow(monster.x - tower.x, 2) + Math.pow(monster.y - tower.y, 2));
                 if (lineToMonster <= tower.radius) {
                     monster.hp -= tower.atk;
                 }

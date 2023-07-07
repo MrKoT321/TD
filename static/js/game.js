@@ -187,11 +187,11 @@ function play() {
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
-    atackArcher(GAME)
-    atackBash(GAME);
+    attackArcher();
+    attackBash(GAME);
     gameOver();
     lvlComplete();
-    console.log(GAME.stopwatch, GAME.isPlay)
+    //console.log(GAME.stopwatch, GAME.isPlay)
     requestAnimationFrame(play);
 }
 
