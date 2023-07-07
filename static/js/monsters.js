@@ -1,7 +1,7 @@
 const monster1 = {
     hp: 100,
     maxhp: 100,
-    speed: 1.1,
+    speed: 5,
     cost: 0,
     width: 50,
     height: 50,

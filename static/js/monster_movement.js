@@ -6,7 +6,7 @@ var monstercount = 0;
 //     monster.x += monster.speed;
 // }
 
-function pushMonsters(lvl, monster){
+function pushMonsters(lvl, monster) {  
     (lvl.monsters).push({
         hp: monster.hp,
         speed: monster.speed,
