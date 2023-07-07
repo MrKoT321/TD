@@ -172,10 +172,15 @@ function registerCollision(monster, GAME) {
 
 function moveMonsters(GAME) {
     let notdeadmonsters = monsters.filter(value => value.hp > 0);
+    if(monsters.length > notdeadmonsters.length)
+    {
+        for (var monster of lvl.monsters) {
+            payForMonster(monster);
+        }
+    }
     monsters = notdeadmonsters;
     for (var monster of monsters) {
         drawMonster(monster);
-
         hpBar(monster);
     }
     for (var monster of monsters) {
@@ -203,10 +208,11 @@ function hpBar(monster) {
     // canvasContext.strokeRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
 }
 
-function payForMonster() {
+function payForMonster(monster) {
     if (monster.hp <= 0 && monster.hp > -1000) {
         let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
         let moneyInfo = document.querySelector(".count-coin__value");
-        moneyInfo.innerHTML = String(Math.floor(moneyValue + monster.cost));  
+        moneyInfo.innerHTML = String(Math.floor(moneyValue + monster.cost));
+        monster.hp = -1000;
     }
 }

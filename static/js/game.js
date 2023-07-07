@@ -111,7 +111,6 @@ function updateMoney() {
 
 function lvlComplete() {
     if (GAME.castleHP > 0 && monsters.length == 0) {
-        console.log(1111)
         popupcompleteBg.classList.add('active');
         popupcomplete.classList.add('active');
         GAME.isPlay = 'popuppause';

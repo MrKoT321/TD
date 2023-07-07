@@ -238,7 +238,7 @@ function attackArcher(GAME) {
                     tower.currentEnemy = i;
                     tower.startTime = GAME.stopwatch;
                 }
-                console.log(tower.currentEnemy, GAME.stopwatch, tower.startTime, tower.atkspeed, monsters[i].hp);
+                //console.log(tower.currentEnemy, GAME.stopwatch, tower.startTime, tower.atkspeed, monsters[i].hp);
                 if(!((GAME.stopwatch - tower.startTime) % tower.atkspeed == 0)) {
                     tower.hit = false;
                 }
@@ -268,7 +268,7 @@ function attackBash(GAME) {
         if(tower.type == "bash") {
             monsters.forEach(monster => {
                 lineToMonster = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - tower.x - 50, 2) + Math.pow(monster.y + (monster.height / 2) - tower.y - 50, 2));
-                console.log(lineToMonster)
+                //console.log(lineToMonster)
                 if (!(GAME.stopwatch % tower.atkspeed == 0)) {
                     monster.hit = false;
                     tower.hit = false;
