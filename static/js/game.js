@@ -196,6 +196,7 @@ function play() {
     attackArcher(GAME);
     attackBash(GAME);
     gameOver();
+    console.log(GAME.stopwatch)
     requestAnimationFrame(play);
 }
 
