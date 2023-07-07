@@ -6,7 +6,7 @@ var monstercount = 0;
 //     monster.x += monster.speed;
 // }
 
-function pushMonsters(lvl, monster) {  
+function pushMonsters(lvl, monster) {
     (lvl.monsters).push({
         hp: monster.hp,
         speed: monster.speed,
@@ -82,30 +82,30 @@ function monsterCorrect(lvl, monster) {
     let cell;
     switch (monster.dir) {
         case 'r':
-            cell = canvasToGrid(monster.x + monster.width/2 + 101, monster.y);
+            cell = canvasToGrid(monster.x + monster.width / 2 + 101, monster.y);
             if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
             }
-            if (!contains(lvl.road, cell)  && !monster.finish) {
-                if (contains(lvl.road, canvasToGrid(monster.x, monster.y + monster.height/2 - 110))) {
+            if (!contains(lvl.road, cell) && !monster.finish) {
+                if (contains(lvl.road, canvasToGrid(monster.x, monster.y + monster.height / 2 - 110))) {
                     monster.dir = 'u';
                 } else {
                     monster.dir = 'd';
                 }
             };
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
-                monster.hp = 0;
+                monster.hp = -1000;
             }
             break;
         case 'u':
-            cell = canvasToGrid(monster.x, monster.y + monster.height/2 - 110);
+            cell = canvasToGrid(monster.x, monster.y + monster.height / 2 - 110);
             if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
             }
             if (!contains(lvl.road, cell) && !monster.finish) {
-                if (contains(lvl.road, canvasToGrid(monster.x + monster.width/2 - 110, monster.y))) {
+                if (contains(lvl.road, canvasToGrid(monster.x + monster.width / 2 - 110, monster.y))) {
                     monster.dir = 'l';
                 } else {
                     monster.dir = 'r';
@@ -116,13 +116,13 @@ function monsterCorrect(lvl, monster) {
             }
             break;
         case 'l':
-            cell = canvasToGrid(monster.x + monster.width/2 - 101, monster.y);
-            if(checkFinish(lvl, cell)) {
+            cell = canvasToGrid(monster.x + monster.width / 2 - 101, monster.y);
+            if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
             }
             if (!contains(lvl.road, cell) && !monster.finish) {
-                if (contains(lvl.road, canvasToGrid(monster.x, monster.y + monster.height/2 - 110))) {
+                if (contains(lvl.road, canvasToGrid(monster.x, monster.y + monster.height / 2 - 110))) {
                     monster.dir = 'u';
                 } else {
                     monster.dir = 'd';
@@ -133,13 +133,13 @@ function monsterCorrect(lvl, monster) {
             }
             break;
         case 'd':
-            cell = canvasToGrid(monster.x, monster.y + monster.height/2 + 110);
+            cell = canvasToGrid(monster.x, monster.y + monster.height / 2 + 110);
             if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
             }
             if (!contains(lvl.road, cell) && !monster.finish) {
-                if (contains(lvl.road, canvasToGrid(monster.x + monster.width/2 - 110, monster.y))) {
+                if (contains(lvl.road, canvasToGrid(monster.x + monster.width / 2 - 110, monster.y))) {
                     monster.dir = 'l';
                 } else {
                     monster.dir = 'r';
@@ -201,4 +201,12 @@ function hpBar(monster) {
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width * percentHP, 5);
     // canvasContext.strokeStyle = "black";
     // canvasContext.strokeRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
+}
+
+function payForMonster() {
+    if (monster.hp <= 0 && monster.hp > -1000) {
+        let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
+        let moneyInfo = document.querySelector(".count-coin__value");
+        moneyInfo.innerHTML = String(Math.floor(moneyValue + monster.cost));  
+    }
 }
