@@ -65,7 +65,9 @@ function catchTime() {
         timeInPause += timeInLastPause;
     }
     timeInLastPause = 0;
-    GAME.stopwatch = Math.floor((new Date() - startTimer - timeInPause) / 1000);
+    if (GAME.stopwatch != Math.floor((new Date() - startTimer - timeInPause) / 1000)){
+        GAME.stopwatch = Math.floor((new Date() - startTimer - timeInPause) / 1000);
+    }
     pauseStartTime = new Date();
 }
 
