@@ -12,7 +12,6 @@ var GAME = {
     height: 1000,
     stopwatch: 0,
     isPlay: 'wavepause',
-    money: 0,
     lvlCount: 1
 }
 

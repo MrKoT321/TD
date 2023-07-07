@@ -22,8 +22,18 @@ const archerTower = document.querySelector(".archer");
 const bashTower = document.querySelector(".bash");
 const mortirTower = document.querySelector(".mortir");
 
-var moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
-var moneyInfo = document.querySelector(".count-coin__value");
+// var moneyValue = Math.floor(document.querySelector(".count-s 
+var arrow = {
+    x: 0,
+    y: 0,
+    radius: 10,
+    exist: false,
+    color: "black",
+    towerCenterX: 0,
+    towerCenterY: 0,
+    speed: 5,
+    atk: 0
+}
 
 window.addEventListener(
     'mousemove',
@@ -112,18 +122,18 @@ function canBuy(tower) {
     return moneyValue >= tower.cost
 }
 
-function checkWhatCanBuy() {
-    if (canBuy(archer)) {
-        // archerTower 
+// function checkWhatCanBuy() {
+//     if (canBuy(archer)) {
+//         // archerTower 
         
-    }
-    if (canBuy(bash)) {
-        // bashTower
-    }
-    if (canBuy(mortir)) {
-        // mortirTower
-    }
-}
+//     }
+//     if (canBuy(bash)) {
+//         // bashTower
+//     }
+//     if (canBuy(mortir)) {
+//         // mortirTower
+//     }
+// }
 
 function drawNewTowerSelector() {
     let isFindDrawPos = false;
@@ -134,7 +144,7 @@ function drawNewTowerSelector() {
             newTowerSelector.style.left = menuPosX + "px";
             newTowerSelector.style.top = menuPosY + "px";
             newTowerSelector.classList.remove("hidden");
-            checkWhatCanBuy();
+            // checkWhatCanBuy();
             isFindDrawPos = true;
         }
     })
@@ -198,8 +208,10 @@ function pushToTowers(tower, posX, posY) {
 }
 
 function makeTower(tower) {
+    let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
+    let moneyInfo = document.querySelector(".count-coin__value");
     towerTiles.forEach(tile => {
-        if (isMouseOnTile(mouseClick, tile) && canBuy(tower)) {
+        if (isMouseOnTile(mouseClick, tile) && moneyValue >= tower.cost) {
             pushToTowers(tower, tile[0], tile[1]);
             moneyInfo.innerHTML = moneyValue - tower.cost;
         }
@@ -208,20 +220,41 @@ function makeTower(tower) {
 
 archerTower.addEventListener("click", () => { makeTower(archer) })
 
-mortirTower.addEventListener(
-    "click",
-    () => {
-        towerTiles.forEach(tile => {
-            if (isMouseOnTile(mouseClick, tile)) {
-                pushToTowers(mortir, tile[0], tile[1]);
-            }
-        })
-    }
-)
-
 function hittingRadius(tower, mstrCenterX, mstrCenterY) {
     let distance = Math.sqrt(Math.pow(mstrCenterX - tower.x - 50, 2) + Math.pow(mstrCenterY - tower.y - 50, 2));
     return (distance <= tower.radius);
+}
+
+function drawArrow() {
+    if(arrow.exist) {
+        canvasContext.fillStyle = arrow.color;
+        canvasContext.beginPath();
+        canvasContext.arc(arrow.x, arrow.y, arrow.radius, 0, 2 * Math.PI);
+        canvasContext.closePath();
+        canvasContext.fill();
+    }
+}
+
+function updateArrow(monster) {
+    if(arrow.exist) {
+        let mstrCenterX = monster.x + monster.width/2;
+        let mstrCenterY = monster.x + monster.height/2;
+        if(arrow.x != mstrCenterX && arrow.y != mstrCenterY) {
+            if(mstrCenterX < arrow.towerCenterX) {
+            arrow.x -= arrow.speed;
+            } else {
+                arrow.x += arrow.speed;
+            }
+            if(mstrCenterY < arrow.towerCenterY) {
+                arrow.y -= arrow.speed;
+            } else {
+                arrow.y += arrow.speed;
+            }
+        } else {
+            arrow.exist = false;
+            monster.hp -= arrow.atk;
+        }
+    }
 }
 
 function attackArcher(GAME) {
@@ -243,20 +276,21 @@ function attackArcher(GAME) {
                     tower.hit = false;
                 }
                 if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY) && tower.hit == false && (GAME.stopwatch - tower.startTime) % tower.atkspeed == 0) {
-                    //стрела
-                    // createArrow();
-                    // while(arrow.x != mstrCenterX && arrow.y != mstrCenterY) {
-                    //     if(mstrCenterX < tower.x) {
-                    //         if(mstrCenterY < tower.y) {
-        
-                    //         }
-                    //     }
-                    monsters[i].hp -= tower.atk;
+                    arrow.exist = true;
+                    arrow.x = tower.x + 50;
+                    arrow.y = tower.y + 50;
+                    arrow.towerCenterX = arrow.x;
+                    arrow.towerCenterY = arrow.y;
+                    arrow.atk = tower.atk;
                     tower.hit = true;
                 }
             }
+            if(tower.currentEnemy != -1) {
+                drawArrow();
+                updateArrow(monsters[tower.currentEnemy]);
+            }
         }
-    })
+    });
 }
 
 bashTower.addEventListener("click", () => { makeTower(bash) })
