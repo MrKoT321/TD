@@ -63,11 +63,8 @@ function catchTime() {
     if (GAME.stopwatch != Math.floor((new Date() - startTimer - timeInPause) / 1000)){
         GAME.stopwatch = Math.floor((new Date() - startTimer - timeInPause) / 1000);
     }
-<<<<<<< HEAD
     timeInPause = 0;
     GAME.stopwatch = Math.floor(new Date() - startTimer - GAME.msInPause)
-=======
->>>>>>> ea62aeb45f10cd5d8f5045efca5ac9d848c03bcc
     pauseStartTime = new Date();
 }
 
@@ -96,7 +93,6 @@ function gameOver() {
     }
 }
 
-<<<<<<< HEAD
 nextBtn.addEventListener("click", () => {
     lvl = changeLvl();
     mobamount = lvl.mobamount;
@@ -109,13 +105,11 @@ nextBtn.addEventListener("click", () => {
     starttime = 200;
 }
 );
-=======
 function updateMoney() {
     var moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
     var moneyInfo = document.querySelector(".count-coin__value");
     moneyInfo.innerHTML = moneyValue + 50;
 }
->>>>>>> ea62aeb45f10cd5d8f5045efca5ac9d848c03bcc
 
 function lvlComplete() {
     if (GAME.castleHP > 0 && monsters.length == 0) {
@@ -123,23 +117,6 @@ function lvlComplete() {
         popupcompleteBg.classList.add('active');
         popupcomplete.classList.add('active');
         GAME.isPlay = 'popuppause';
-<<<<<<< HEAD
-=======
-        let nextBtn = document.getElementById("next-lvl-btn");
-        nextBtn.addEventListener("click", () => {
-            lvl = changeLvl();
-            mobamount = lvl.mobamount;
-            GAME.castleHP = lvl.castleHP;
-            changeMap();
-            updateCastleHP();
-            updateMoney();
-            popupClose();
-            GAME.isPlay = 'wavepause';
-            monstercount = 0;
-            starttime = 100;
-            
-        });
->>>>>>> ea62aeb45f10cd5d8f5045efca5ac9d848c03bcc
     }
 }
 
