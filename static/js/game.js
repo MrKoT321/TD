@@ -193,8 +193,7 @@ function play() {
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
-    attackArcher(GAME);
-    attackBash(GAME);
+    attackTowers(GAME)
     gameOver();
     console.log(GAME.stopwatch)
     requestAnimationFrame(play);

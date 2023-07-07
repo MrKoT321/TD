@@ -285,3 +285,8 @@ function attackBash(GAME) {
         }
     })
 }
+
+function attackTowers(GAME) {
+    attackArcher(GAME);
+    attackBash(GAME);
+}
