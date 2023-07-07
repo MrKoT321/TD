@@ -31,7 +31,7 @@ var arrow = {
     color: "black",
     towerCenterX: 0,
     towerCenterY: 0,
-    speed: 5,
+    speed: 3,
     atk: 0
 }
 
@@ -236,19 +236,24 @@ function drawArrow() {
 }
 
 function updateArrow(monster) {
-    if(arrow.exist) {
+    if(arrow.exist && monster.hp > 0) {
         let mstrCenterX = monster.x + monster.width/2;
-        let mstrCenterY = monster.x + monster.height/2;
-        if(arrow.x != mstrCenterX && arrow.y != mstrCenterY) {
-            if(mstrCenterX < arrow.towerCenterX) {
-            arrow.x -= arrow.speed;
-            } else {
-                arrow.x += arrow.speed;
+        let mstrCenterY = monster.y + monster.height/2;
+        if(arrow.x < monster.x || arrow.x > monster.x + monster.width || arrow.y < monster.y || arrow.y > monster.y + monster.height) {
+            if(arrow.x > monster.x + monster.width) {
+                arrow.x -= arrow.speed;
+            } else { 
+                if (arrow.x < monster.x)
+                {arrow.x += arrow.speed;}
             }
-            if(mstrCenterY < arrow.towerCenterY) {
+            if(arrow.y > monster.y + monster.height) {
                 arrow.y -= arrow.speed;
             } else {
-                arrow.y += arrow.speed;
+                // if (mstrCenterY > arrow.y){
+                //     arrow.y += arrow.speed;
+                // }
+                if (arrow.y < monster.y)
+                {arrow.y += arrow.speed;}
             }
         } else {
             arrow.exist = false;
@@ -271,7 +276,6 @@ function attackArcher(GAME) {
                     tower.currentEnemy = i;
                     tower.startTime = GAME.stopwatch;
                 }
-                console.log(tower.currentEnemy, GAME.stopwatch, tower.startTime, tower.atkspeed, monsters[i].hp);
                 if(!((GAME.stopwatch - tower.startTime) % tower.atkspeed == 0)) {
                     tower.hit = false;
                 }
@@ -288,6 +292,7 @@ function attackArcher(GAME) {
             if(tower.currentEnemy != -1) {
                 drawArrow();
                 updateArrow(monsters[tower.currentEnemy]);
+                console.log(monsters[tower.currentEnemy], tower.currentEnemy)
             }
         }
     });
