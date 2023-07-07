@@ -93,7 +93,7 @@ function gameOver() {
 }
 
 function lvlComplete() {
-    if (GAME.castleHP > 0 && monsters.length == 0 && GAME.isPlay == 'play') {
+    if (GAME.castleHP > 0 && monsters.length == 0) {
         popupcompleteBg.classList.add('active');
         popupcomplete.classList.add('active');
         GAME.isPlay = 'popuppause';
@@ -177,6 +177,7 @@ function play() {
         resetStopwatch();
     }
     if (GAME.isPlay == 'play') {
+        lvlComplete();
         catchTime();
     }
     if (GAME.isPlay == 'menu') {
@@ -190,7 +191,6 @@ function play() {
     atackArcher(GAME)
     atackBash(GAME);
     gameOver();
-    lvlComplete();
     console.log(GAME.stopwatch, GAME.isPlay)
     requestAnimationFrame(play);
 }
