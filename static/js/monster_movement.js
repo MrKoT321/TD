@@ -6,7 +6,7 @@ var monstercount = 0;
 //     monster.x += monster.speed;
 // }
 
-function pushMonsters(lvl, monster){
+function pushMonsters(lvl, monster) {  
     (lvl.monsters).push({
         hp: monster.hp,
         speed: monster.speed,
@@ -38,7 +38,7 @@ function drawMonster(monster) {
     canvasContext.fillRect(monster.x, monster.y - monster.height / 2, monster.width, monster.height);
 }
 
-function checkFinish(lvl, cell) {
+function checkFinish(lvl, cell) {   // FIXME
     if (contains(lvl.finish_cells, cell)) {
         return true;
     }

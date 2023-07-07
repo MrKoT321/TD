@@ -161,7 +161,7 @@ function drawTowerAbilities() {
     }
 }
 
-function addMoney(cost) {
+function addMoneyForTower(cost) {
     let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
     let moneyInfo = document.querySelector(".count-coin__value");
     moneyInfo.innerHTML = String(Math.floor(moneyValue + (cost / 2)));  
@@ -175,7 +175,7 @@ deleteTowerButton.addEventListener(
                 activeTile = towers[i];
                 if (isMouseOnActiveTile(mouseClick, activeTile)) {
                     towers.splice(i, 1);
-                    addMoney(activeTile.cost);
+                    addMoneyForTower(activeTile.cost);
                 }
             }
         }

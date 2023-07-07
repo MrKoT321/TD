@@ -177,6 +177,7 @@ function play() {
     if (GAME.isPlay == 'menu') {
         stopTimer();
     }
+    console.log(GAME.isPlay)
     drawBackground();
     moveMonsters(GAME);
     drawCastle();
