@@ -96,6 +96,12 @@ function gameOver() {
     }
 }
 
+function updateMoney() {
+    var moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
+    var moneyInfo = document.querySelector(".count-coin__value");
+    moneyInfo.innerHTML = moneyValue + 50;
+}
+
 function lvlComplete() {
     if (GAME.castleHP > 0 && monsters.length == 0) {
         popupcompleteBg.classList.add('active');
@@ -106,13 +112,14 @@ function lvlComplete() {
             lvl = changeLvl();
             mobamount = lvl.mobamount;
             GAME.castleHP = lvl.castleHP;
-            GAME.money = lvl.money;
             changeMap();
             updateCastleHP();
+            updateMoney();
             popupClose();
             GAME.isPlay = 'wavepause';
             monstercount = 0;
             starttime = 100;
+            
         });
     }
 }
@@ -195,7 +202,6 @@ function play() {
     drawTower();
     attackTowers(GAME)
     gameOver();
-    console.log(GAME.stopwatch)
     requestAnimationFrame(play);
 }
 

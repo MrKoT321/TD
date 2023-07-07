@@ -28,7 +28,7 @@ const lvl2 = {
     castle_y: 202,
     castle_w: 214,
     castle_h: 400,
-    money: 100,
+    money: 200,
     start_dir: 'r',
     mobamount: 4,
     monsters: [], 
