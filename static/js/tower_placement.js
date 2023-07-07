@@ -240,20 +240,18 @@ function updateArrow(monster) {
         let mstrCenterX = monster.x + monster.width/2;
         let mstrCenterY = monster.y + monster.height/2;
         if(arrow.x < monster.x || arrow.x > monster.x + monster.width || arrow.y < monster.y || arrow.y > monster.y + monster.height) {
-            if(arrow.x > monster.x + monster.width) {
+            if(mstrCenterX < arrow.x) {
                 arrow.x -= arrow.speed;
             } else { 
-                if (arrow.x < monster.x)
-                {arrow.x += arrow.speed;}
+                arrow.x += arrow.speed;
             }
-            if(arrow.y > monster.y + monster.height) {
+            if(mstrCenterY < arrow.y) {
                 arrow.y -= arrow.speed;
             } else {
                 // if (mstrCenterY > arrow.y){
                 //     arrow.y += arrow.speed;
                 // }
-                if (arrow.y < monster.y)
-                {arrow.y += arrow.speed;}
+                arrow.y += arrow.speed;
             }
         } else {
             arrow.exist = false;
