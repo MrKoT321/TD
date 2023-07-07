@@ -35,13 +35,6 @@ function drawMonster(monster) {
     canvasContext.fillRect(monster.x, monster.y, monster.width, monster.height);
 }
 
-function checkFinish(lvl, cell) {
-    if (contains(lvl.finish_cells, cell)) {
-        return true;
-    }
-    return false;
-}
-
 function monsterMove(monster) {
     var speed = monster.speed
     if (GAME.isPlay == 'play' || GAME.isPlay == 'popuppause') {
@@ -72,6 +65,10 @@ function canvasToGrid(x, y) {
     return 0
 }
 
+function checkFinish(lvl, cell) {
+    return contains(lvl.finish_cells, cell)
+}
+
 function contains(arr, elem) {
     for (var i = 0; i < arr.length; i++) {
         if (arr[i] === elem) {
@@ -85,7 +82,7 @@ function monsterCorrect(lvl, monster) {
     let cell;
     switch (monster.dir) {
         case 'r':
-            cell = canvasToGrid(monster.x + monster.width / 2 + 100, monster.y);
+            cell = canvasToGrid(monster.x + monster.width/2 + 101, monster.y);
             if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
@@ -119,7 +116,7 @@ function monsterCorrect(lvl, monster) {
             }
             break;
         case 'l':
-            cell = canvasToGrid(monster.x + monster.width/2 - 100, monster.y);
+            cell = canvasToGrid(monster.x + monster.width/2 - 101, monster.y);
             if(checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
@@ -142,7 +139,6 @@ function monsterCorrect(lvl, monster) {
                 break;
             }
             if (!contains(lvl.road, cell) && !monster.finish) {
-                console.log(cell, canvasToGrid(monster.x + monster.width/2 - 110, monster.y))
                 if (contains(lvl.road, canvasToGrid(monster.x + monster.width/2 - 110, monster.y))) {
                     monster.dir = 'l';
                 } else {
