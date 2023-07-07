@@ -196,7 +196,7 @@ function atackBash(GAME) {
         if(tower.type = "bash") {
             lvls[GAME.lvlCount - 1].monsters.forEach(monster => {
 
-                lineToMonster = Math.sqrt(Math.pow(monster.x - tower.x, 2) + Math.pow(monster.y - tower.y, 2));
+                lineToMonster = Math.sqrt(Math.pow(monster.x + monster.width/2 - tower.x + 50, 2) + Math.pow(monster.y + monster.height/2 - tower.y + 50, 2));
                 if (lineToMonster <= tower.radius) {
                     monster.hp -= tower.atk;
                 }

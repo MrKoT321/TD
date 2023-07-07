@@ -14,9 +14,6 @@ function pushMonsters(lvl, monster){
         width: monster.width,
         height: monster.height,
         color: monster.color,
-        x: monster.x,
-        y: monster.y,
-        dir: monster.dir,
         maxhp: monster.maxhp,
         finish: false,
         x: lvl.start_x,
@@ -35,7 +32,7 @@ pushMonsters(lvl2, monster1)
 
 function drawMonster(monster) {
     canvasContext.fillStyle = monster.color;
-    canvasContext.fillRect(monster.x, monster.y - monster.height / 2, monster.width, monster.height);
+    canvasContext.fillRect(monster.x, monster.y, monster.width, monster.height);
 }
 
 function checkFinish(lvl, cell) {
@@ -93,8 +90,8 @@ function monsterCorrect(lvl, monster) {
                 monster.finish = true;
                 break;
             }
-            if (!contains(lvl.road, cell)) {
-                if (contains(lvl.road, canvasToGrid(monster.x, monster.y - 110))) {
+            if (!contains(lvl.road, cell)  && !monster.finish) {
+                if (contains(lvl.road, canvasToGrid(monster.x, monster.y + monster.height/2 - 110))) {
                     monster.dir = 'u';
                 } else {
                     monster.dir = 'd';
@@ -105,13 +102,13 @@ function monsterCorrect(lvl, monster) {
             }
             break;
         case 'u':
-            cell = canvasToGrid(monster.x, monster.y - 100);
+            cell = canvasToGrid(monster.x, monster.y + monster.height/2 - 110);
             if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
             }
             if (!contains(lvl.road, cell) && !monster.finish) {
-                if (contains(lvl.road, canvasToGrid(monster.x - 100, monster.y))) {
+                if (contains(lvl.road, canvasToGrid(monster.x + monster.width/2 - 110, monster.y))) {
                     monster.dir = 'l';
                 } else {
                     monster.dir = 'r';
@@ -127,8 +124,8 @@ function monsterCorrect(lvl, monster) {
                 monster.finish = true;
                 break;
             }
-            if(!contains(lvl.road, cell)) {
-                if(contains(lvl.road, canvasToGrid(monster.x, monster.y - monster.height/2 - 100))) {
+            if (!contains(lvl.road, cell) && !monster.finish) {
+                if (contains(lvl.road, canvasToGrid(monster.x, monster.y + monster.height/2 - 110))) {
                     monster.dir = 'u';
                 } else {
                     monster.dir = 'd';
@@ -139,13 +136,14 @@ function monsterCorrect(lvl, monster) {
             }
             break;
         case 'd':
-            cell = canvasToGrid(monster.x, monster.y + 100);
+            cell = canvasToGrid(monster.x, monster.y + monster.height/2 + 110);
             if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
             }
-            if (!contains(lvl.road, cell)) {
-                if (contains(lvl.road, canvasToGrid(monster.x - 100, monster.y))) {
+            if (!contains(lvl.road, cell) && !monster.finish) {
+                console.log(cell, canvasToGrid(monster.x + monster.width/2 - 110, monster.y))
+                if (contains(lvl.road, canvasToGrid(monster.x + monster.width/2 - 110, monster.y))) {
                     monster.dir = 'l';
                 } else {
                     monster.dir = 'r';
@@ -203,9 +201,9 @@ function moveMonsters(GAME) {
 function hpBar(monster) {
     var percentHP = monster.hp / monster.maxhp;
     canvasContext.fillStyle = "red";
-    canvasContext.fillRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
+    canvasContext.fillRect(monster.x, monster.y - 10, monster.width, 5);
     canvasContext.fillStyle = "green";
-    canvasContext.fillRect(monster.x, monster.y - monster.height/2 - 10, monster.width * percentHP, 5);
+    canvasContext.fillRect(monster.x, monster.y - 10, monster.width * percentHP, 5);
     // canvasContext.strokeStyle = "black";
     // canvasContext.strokeRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
 }
