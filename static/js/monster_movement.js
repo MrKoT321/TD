@@ -185,7 +185,7 @@ function moveMonsters(GAME) {
         registerCollision(monster, GAME);
     }
     if (mobamount > 0 && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play')) {
-        if (GAME.stopwatch > starttime) {
+        if (GAME.milisectimer > starttime) {
             addMonster();
             GAME.isPlay = 'play';
             starttime += 200;
