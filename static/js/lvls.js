@@ -11,7 +11,7 @@ const lvl1 = {
     castle_h: 400,
     money: 100,
     start_dir: 'r',
-    mobamount: 2,
+    mobamount: 4,
     back_src:  "../static/images/MAP1.svg",
     castle_src:  "../static/images/CASTLE.svg",
     monsters: []
@@ -30,7 +30,7 @@ const lvl2 = {
     castle_h: 400,
     money: 200,
     start_dir: 'r',
-    mobamount: 4,
+    mobamount: 6,
     monsters: [], 
     back_src:  "../static/images/MAP2.svg",
     castle_src:  "../static/images/CASTLE.svg" 

@@ -24,7 +24,11 @@ function pushMonsters(lvl, monster) {
 
 pushMonsters(lvl1, monster1)
 pushMonsters(lvl1, monster1)
+pushMonsters(lvl1, monster1)
+pushMonsters(lvl1, monster1)
 
+pushMonsters(lvl2, monster1)
+pushMonsters(lvl2, monster1)
 pushMonsters(lvl2, monster1)
 pushMonsters(lvl2, monster1)
 pushMonsters(lvl2, monster1)
