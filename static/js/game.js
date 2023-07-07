@@ -12,13 +12,14 @@ var GAME = {
     width: 1600,
     height: 1000,
     stopwatch: 0,
-    msInPause: 0,
     isPlay: 'wavepause',
+    money: 0,
     lvlCount: 1
 }
 
 var startTimer = new Date();
 var timeInPause = 0;
+var timeInLastPause = 0;
 var pauseStartTime = new Date();
 
 var lvl = lvls[GAME.lvlCount - 1];
@@ -49,21 +50,29 @@ castle.onload = () => {
 }
 
 function resetStopwatch() {
+    GAME.stopwatch = 0;
     startTimer = new Date();
     GAME.stopwatch = 0;
 }
 
 function catchTime() {
-    if (timeInPause != 0) {
-        GAME.msInPause += timeInPause;
+    if (timeInLastPause != 0) {
+        timeInPause += timeInLastPause;
     }
+    timeInLastPause = 0;
+    if (GAME.stopwatch != Math.floor((new Date() - startTimer - timeInPause) / 1000)){
+        GAME.stopwatch = Math.floor((new Date() - startTimer - timeInPause) / 1000);
+    }
+<<<<<<< HEAD
     timeInPause = 0;
     GAME.stopwatch = Math.floor(new Date() - startTimer - GAME.msInPause)
+=======
+>>>>>>> ea62aeb45f10cd5d8f5045efca5ac9d848c03bcc
     pauseStartTime = new Date();
 }
 
 function stopTimer() {
-    timeInPause = new Date() - pauseStartTime;
+    timeInLastPause = new Date() - pauseStartTime;
 }
 
 function drawBackground() {
@@ -87,6 +96,7 @@ function gameOver() {
     }
 }
 
+<<<<<<< HEAD
 nextBtn.addEventListener("click", () => {
     lvl = changeLvl();
     mobamount = lvl.mobamount;
@@ -99,6 +109,13 @@ nextBtn.addEventListener("click", () => {
     starttime = 200;
 }
 );
+=======
+function updateMoney() {
+    var moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
+    var moneyInfo = document.querySelector(".count-coin__value");
+    moneyInfo.innerHTML = moneyValue + 50;
+}
+>>>>>>> ea62aeb45f10cd5d8f5045efca5ac9d848c03bcc
 
 function lvlComplete() {
     if (GAME.castleHP > 0 && monsters.length == 0) {
@@ -106,6 +123,23 @@ function lvlComplete() {
         popupcompleteBg.classList.add('active');
         popupcomplete.classList.add('active');
         GAME.isPlay = 'popuppause';
+<<<<<<< HEAD
+=======
+        let nextBtn = document.getElementById("next-lvl-btn");
+        nextBtn.addEventListener("click", () => {
+            lvl = changeLvl();
+            mobamount = lvl.mobamount;
+            GAME.castleHP = lvl.castleHP;
+            changeMap();
+            updateCastleHP();
+            updateMoney();
+            popupClose();
+            GAME.isPlay = 'wavepause';
+            monstercount = 0;
+            starttime = 100;
+            
+        });
+>>>>>>> ea62aeb45f10cd5d8f5045efca5ac9d848c03bcc
     }
 }
 
@@ -222,8 +256,7 @@ function play() {
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
-    atackArcher(GAME)
-    atackBash(GAME);
+    attackTowers(GAME)
     gameOver();
     requestAnimationFrame(play);
 }

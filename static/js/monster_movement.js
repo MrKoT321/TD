@@ -6,7 +6,7 @@ var monstercount = 0;
 //     monster.x += monster.speed;
 // }
 
-function pushMonsters(lvl, monster){
+function pushMonsters(lvl, monster) {  
     (lvl.monsters).push({
         hp: monster.hp,
         speed: monster.speed,
@@ -188,7 +188,13 @@ function moveMonsters(GAME) {
         if (GAME.stopwatch > starttime) {
             addMonster();
             GAME.isPlay = 'play';
+<<<<<<< HEAD
             starttime += 200;
+=======
+            monstercount += 1;
+            starttime = 0;
+            mobamount -= 1;
+>>>>>>> ea62aeb45f10cd5d8f5045efca5ac9d848c03bcc
         }
     }
 }
