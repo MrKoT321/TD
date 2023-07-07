@@ -154,7 +154,9 @@ function monsterCorrect(lvl, monster) {
 }
 
 function addMonster() {
-    monsters.push(lvl.monsters[monstercount])
+    monsters.push(lvl.monsters[monstercount]);
+    monstercount += 1;
+    mobamount -= 1;
 }
 
 function registerCollision(monster, GAME) {
@@ -182,14 +184,11 @@ function moveMonsters(GAME) {
         monsterCorrect(lvl, monster);
         registerCollision(monster, GAME);
     }
-    if (mobamount > 0 && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play' || GAME.isPlay == 'startgame')) {
-        starttime += 2
-        if (starttime >= 100) {
+    if (mobamount > 0 && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play')) {
+        if (GAME.stopwatch > starttime) {
             addMonster();
-            GAME.isPlay = 'play'
-            monstercount += 1;
-            starttime = 0;
-            mobamount -= 1;
+            GAME.isPlay = 'play';
+            starttime += 200;
         }
     }
 }
