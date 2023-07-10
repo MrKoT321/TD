@@ -184,7 +184,7 @@ function moveMonsters(GAME) {
         if (GAME.milisectimer > starttime) {
             addMonster();
             GAME.isPlay = 'play';
-            starttime += 200;
+            starttime += 900;
         }
     }
 }
@@ -195,8 +195,6 @@ function hpBar(monster) {
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width, 5);
     canvasContext.fillStyle = "green";
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width * percentHP, 5);
-    // canvasContext.strokeStyle = "black";
-    // canvasContext.strokeRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
 }
 
 function payForMonster(monster) {
