@@ -200,6 +200,10 @@ function play() {
     drawTiles(GAME, lvls);
     drawTower();
     attackTowers(GAME)
+    drawArrow();
+    updateArrow();
+    drawBullet();
+    updateBullet();
     gameOver();
     requestAnimationFrame(play);
 }

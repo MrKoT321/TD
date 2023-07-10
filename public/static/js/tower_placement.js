@@ -31,7 +31,25 @@ var arrow = {
     color: "black",
     towerCenterX: 0,
     towerCenterY: 0,
-    speed: 3,
+    speed: 5,
+    atk: 0
+}
+
+var bullet = {
+    x: 0,
+    y: 0,
+    radius: 20,
+    blastRadius: 70,
+    exist: false,
+    hit: true,
+    init: false,
+    color: "black",
+    radiusColor: "red",
+    acceleration: 2,
+    towerCenterX: 0,
+    towerCenterY: 0,
+    speed: 2,
+    cos: 0,
     atk: 0
 }
 
@@ -236,24 +254,42 @@ function drawArrow() {
     }
 }
 
-function updateArrow(monster) {
-    if(arrow.exist && monster.hp > 0) {
-        let mstrCenterX = monster.x + monster.width/2;
-        let mstrCenterY = monster.y + monster.height/2;
-        if(arrow.x < monster.x || arrow.x > monster.x + monster.width || arrow.y < monster.y || arrow.y > monster.y + monster.height) {
-            if(arrow.x >= mstrCenterX) {
-                arrow.x -= arrow.speed;
-            } else { 
-                arrow.x += arrow.speed;
+function updateArrow() {
+    if(arrow.exist && arrow.currentEnemy && arrow.currentEnemy.hp > 0) {
+        let mstrCenterX = arrow.currentEnemy.x + arrow.currentEnemy.width/2;
+        let mstrCenterY = arrow.currentEnemy.y + arrow.currentEnemy.height/2;
+        let outMonsterX = arrow.x < arrow.currentEnemy.x || arrow.x > arrow.currentEnemy.x + arrow.currentEnemy.width;
+        let outMonsterY = arrow.y < arrow.currentEnemy.y || arrow.y > arrow.currentEnemy.y + arrow.currentEnemy.height;
+        if(outMonsterX || outMonsterY) {
+            if(outMonsterX) {
+                if(arrow.x >= mstrCenterX) {
+                    arrow.x -= arrow.speed;
+                } else { 
+                    arrow.x += arrow.speed;
+                }
+            } else {
+                if(arrow.x >= mstrCenterX) {
+                    arrow.x -= arrow.currentEnemy.speed;
+                } else { 
+                    arrow.x += arrow.currentEnemy.speed;;
+                }
             }
-            if(arrow.y >= mstrCenterY) {
-                arrow.y -= arrow.speed;
-            } else { 
-                arrow.y += arrow.speed;
+            if(outMonsterY) {
+                if(arrow.y >= mstrCenterY) {
+                    arrow.y -= arrow.speed;
+                } else { 
+                    arrow.y += arrow.speed;
+                }
+            } else {
+                if(arrow.y >= mstrCenterY) {
+                    arrow.y -= arrow.currentEnemy.speed;
+                } else { 
+                    arrow.y += arrow.currentEnemy.speed;
+                }
             }
         } else {
             arrow.exist = false;
-            monster.hp -= arrow.atk;
+            arrow.currentEnemy.hp -= arrow.atk;
         }
     }
 }
@@ -283,13 +319,90 @@ function attackArcher(GAME) {
                     arrow.towerCenterY = arrow.y;
                     arrow.atk = tower.atk;
                     tower.hit = true;
+                    arrow.currentEnemy = monsters[tower.currentEnemy]
                 }
             }
-            if(tower.currentEnemy != -1) {
-                drawArrow();
-                updateArrow(monsters[tower.currentEnemy]);
-                console.log(monsters[tower.currentEnemy], tower.currentEnemy)
+        }
+    });
+}
+
+function drawBullet() {
+    if(bullet.exist) {
+        canvasContext.fillStyle = bullet.color;
+        canvasContext.beginPath();
+        canvasContext.arc(bullet.x, bullet.y, bullet.radius, 0, 2 * Math.PI);
+        canvasContext.closePath();
+        canvasContext.fill();
+
+        canvasContext.beginPath();
+        canvasContext.strokeStyle = bullet.radiusColor;
+        canvasContext.lineWidth = 2;
+        canvasContext.arc(bullet.x, bullet.y, bullet.blastRadius, 0, 2 * Math.PI);
+        canvasContext.stroke();
+        canvasContext.closePath();
+    }
+}
+
+const t = 60;
+var speedBulletY = 0;
+
+function updateBullet() {
+    if(bullet.exist) {
+        if(bullet.init) {
+            bullet.init = false;
+            let dir;
+            if(bullet.finishY < bullet.towerCenterY) {
+                dir = -1;
+            } else {
+                dir = 1;
             }
+            let tg = ((2 * (bullet.finishY - bullet.towerCenterY) - bullet.acceleration * Math.pow(t, 2))) / ((bullet.finishX - bullet.towerCenterX) * 2);
+            console.log(tg);
+            bullet.cos = 1 / (1 + Math.pow(tg, 2));
+            console.log(bullet.cos);
+            bullet.speed = (bullet.finishX - bullet.towerCenterX) / (bullet.cos * dir * t);
+            console.log(bullet.speed);
+            console.log(bullet.speed * bullet.cos)
+        }
+        if(bullet.x != bullet.finishX && bullet.y != bullet.finishY) {
+            bullet.x += bullet.speed * bullet.cos;
+            // bullet.y += bullet.speed * Math.sqrt(1 - Math.pow(bullet.cos, 2)) * t + bullet.acceleration * Math.pow(t, 2) / 2;
+            // bullet.y += bullet.speed * Math.sqrt(1 - Math.pow(bullet.cos, 2)) * bullet.acceleration;
+        } else {
+            bullet.exist = false;
+            monsters.forEach(monster => {
+                let mstrCenterX = monster.x + monster.width/2;
+                let mstrCenterY = monster.y + monster.height/2;
+                let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
+                if(distance <= bullet.radius) {
+                    monster.hp -= bullet.atk;
+                }
+            })
+        }
+    }
+}
+
+function attackMortir(GAME) {
+    towers.forEach(tower => {
+        if(tower.type == "splash") {
+            monsters.forEach(monster => {
+                let mstrCenterX = monster.x + monster.width/2;
+                let mstrCenterY = monster.y + monster.height/2;
+                tower.hit = !bullet.hit;
+                // console.log(!tower.hit, bullet.hit);
+                if(hittingRadius(tower, mstrCenterX, mstrCenterY) && tower.placeTime % tower.atkspeed == 0 && !tower.hit){
+                    bullet.exist = true;
+                    bullet.init = true;
+                    bullet.finishX = mstrCenterX;
+                    bullet.finishY = mstrCenterY;
+                    bullet.towerCenterX = tower.x + 50;
+                    bullet.x = tower.x + 50;
+                    bullet.towerCenterY = tower.y + 50;
+                    bullet.y = tower.y + 50;
+                    bullet.atk = tower.atk;
+                    bullet.hit = false;
+                }
+            })
         }
     });
 }
@@ -322,4 +435,5 @@ function attackBash() {
 function attackTowers(GAME) {
     attackArcher(GAME);
     attackBash(GAME);
+    attackMortir(GAME);
 }
