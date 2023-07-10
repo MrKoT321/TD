@@ -231,7 +231,11 @@ function play() {
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
-    attackTowers(GAME);
+    attackTowers(GAME)
+    drawArrow();
+    updateArrow();
+    drawBullet();
+    updateBullet();
     gameOver();
     requestAnimationFrame(play);
 }
