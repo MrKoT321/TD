@@ -48,7 +48,8 @@ var bullet = {
     acceleration: 2,
     towerCenterX: 0,
     towerCenterY: 0,
-    speed: 2,
+    speedX: 0,
+    speedY: 0,
     cos: 0,
     atk: 0
 }
@@ -343,28 +344,24 @@ function drawBullet() {
     }
 }
 
-const t = 30;
-var speedBulletY = 0;
-var speedBulletX = 0;
-
 function updateBullet() {
     if(bullet.exist) {
+        const t = 30;
         if(bullet.init) {
             bullet.init = false;
-            speedBulletX = (bullet.finishX - bullet.x) / t;
-            speedBulletY = (2 * (bullet.finishY - bullet.y) - bullet.acceleration * Math.pow(t, 2)) / (2 * t);
+            bullet.speedX = (bullet.finishX - bullet.x) / t;
+            bullet.speedY = (2 * (bullet.finishY - bullet.y) - bullet.acceleration * Math.pow(t, 2)) / (2 * t);
         }
         if(bullet.x != bullet.finishX && bullet.y != bullet.finishY) {
-            bullet.x += speedBulletX;
-            bullet.y += speedBulletY;
-            speedBulletY += bullet.acceleration;
+            bullet.x += bullet.speedX;
+            bullet.y += bullet.speedY;
+            bullet.speedY += bullet.acceleration;
         } else {
             bullet.exist = false;
             monsters.forEach(monster => {
                 let mstrCenterX = monster.x + monster.width/2;
                 let mstrCenterY = monster.y + monster.height/2;
-                let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
-                if(distance <= bullet.radius) {
+                if(hittingRadius(bullet, mstrCenterX, mstrCenterY)) {
                     monster.hp -= bullet.atk;
                 }
             })
