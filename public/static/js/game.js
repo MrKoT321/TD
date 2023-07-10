@@ -225,6 +225,8 @@ function play() {
         addMonster();
         GAME.isPlay = 'play';
     }
+    if (GAME.isPlay == 'startgame') {
+    }
     moveMonsters(GAME);
     drawCastle();
     drawTiles(GAME, lvls);

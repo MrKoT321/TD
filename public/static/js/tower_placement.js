@@ -43,7 +43,7 @@ window.addEventListener(
     }
 )
 
-window.addEventListener (
+window.addEventListener(
     'click',
     (event) => {
         mouseClick.x = event.clientX - field.x;
