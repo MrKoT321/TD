@@ -199,9 +199,7 @@ function hpBar(monster) {
 
 function payForMonster(monster) {
     if (monster.hp <= 0 && monster.hp > -1000) {
-        let moneyInfo = document.querySelector(".count-coin__value");
         GAME.money += monster.cost
-        moneyInfo.innerHTML = String(Math.floor(GAME.money));
         monster.hp = -1001;
     }
 }
@@ -216,24 +214,15 @@ function addMonstersToLvls() {
 }
 
 function updateScoreForMob() {
-    let scoreInfo = document.querySelector(".count-score__value");
     for(var monster of lvl.monsters){
         if (monsters.length != 0) {
             if (monster.hp == -1000) {
                 GAME.score -= monster.cost;
-                scoreInfo.innerHTML = String(Math.floor(GAME.score));
                 monster.hp = -1001;
             }
             if (monster.hp > - 1000 && monster.hp <= 0) {
                 GAME.score += monster.cost
-                scoreInfo.innerHTML = String(Math.floor(GAME.score))
             }
         }
     } 
-}
-
-function updateScoreForLvlComplete(){
-    let scoreInfo = document.querySelector(".count-score__value");
-    GAME.score += GAME.lvlCount * 100;
-    scoreInfo.innerHTML = String(Math.floor(GAME.score));
 }
