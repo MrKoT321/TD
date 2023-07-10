@@ -225,3 +225,20 @@ a
     box-shadow: 10px 20px 30px;
     color: purple;
 }
+
+.records {
+    position: absolute;
+    top: 0;
+    left: 320px;
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
+}
+
+.records__img {
+    top: 85px;
+    left: 1350px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+} 
