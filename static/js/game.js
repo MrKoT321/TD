@@ -235,4 +235,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
+addMonstersToLvls();
 play();

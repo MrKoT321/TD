@@ -22,14 +22,6 @@ function pushMonsters(lvl, monster) {
     })
 }
 
-pushMonsters(lvl1, monster1)
-pushMonsters(lvl1, monster1)
-
-pushMonsters(lvl2, monster1)
-pushMonsters(lvl2, monster1)
-pushMonsters(lvl2, monster1)
-pushMonsters(lvl2, monster1)
-
 function drawMonster(monster) {
     canvasContext.fillStyle = monster.color;
     canvasContext.fillRect(monster.x, monster.y, monster.width, monster.height);
@@ -215,4 +207,13 @@ function payForMonster(monster) {
         moneyInfo.innerHTML = String(Math.floor(moneyValue + monster.cost));
         monster.hp = -1000;
     }
+}
+
+function addMonstersToLvls(){
+    pushMonsters(lvl1, monster1);
+    pushMonsters(lvl1, monster1);
+    pushMonsters(lvl2, monster1);
+    pushMonsters(lvl2, monster1);
+    pushMonsters(lvl2, monster1);
+    pushMonsters(lvl2, monster1);
 }
