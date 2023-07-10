@@ -343,31 +343,21 @@ function drawBullet() {
     }
 }
 
-const t = 60;
+const t = 30;
 var speedBulletY = 0;
+var speedBulletX = 0;
 
 function updateBullet() {
     if(bullet.exist) {
         if(bullet.init) {
             bullet.init = false;
-            let dir;
-            if(bullet.finishY < bullet.towerCenterY) {
-                dir = -1;
-            } else {
-                dir = 1;
-            }
-            let tg = ((2 * (bullet.finishY - bullet.towerCenterY) - bullet.acceleration * Math.pow(t, 2))) / ((bullet.finishX - bullet.towerCenterX) * 2);
-            console.log(tg);
-            bullet.cos = 1 / (1 + Math.pow(tg, 2));
-            console.log(bullet.cos);
-            bullet.speed = (bullet.finishX - bullet.towerCenterX) / (bullet.cos * dir * t);
-            console.log(bullet.speed);
-            console.log(bullet.speed * bullet.cos)
+            speedBulletX = (bullet.finishX - bullet.x) / t;
+            speedBulletY = (2 * (bullet.finishY - bullet.y) - bullet.acceleration * Math.pow(t, 2)) / (2 * t);
         }
         if(bullet.x != bullet.finishX && bullet.y != bullet.finishY) {
-            bullet.x += bullet.speed * bullet.cos;
-            // bullet.y += bullet.speed * Math.sqrt(1 - Math.pow(bullet.cos, 2)) * t + bullet.acceleration * Math.pow(t, 2) / 2;
-            // bullet.y += bullet.speed * Math.sqrt(1 - Math.pow(bullet.cos, 2)) * bullet.acceleration;
+            bullet.x += speedBulletX;
+            bullet.y += speedBulletY;
+            speedBulletY += bullet.acceleration;
         } else {
             bullet.exist = false;
             monsters.forEach(monster => {
@@ -389,7 +379,6 @@ function attackMortir(GAME) {
                 let mstrCenterX = monster.x + monster.width/2;
                 let mstrCenterY = monster.y + monster.height/2;
                 tower.hit = !bullet.hit;
-                // console.log(!tower.hit, bullet.hit);
                 if(hittingRadius(tower, mstrCenterX, mstrCenterY) && tower.placeTime % tower.atkspeed == 0 && !tower.hit){
                     bullet.exist = true;
                     bullet.init = true;
