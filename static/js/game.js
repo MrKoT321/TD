@@ -91,18 +91,6 @@ function gameOver() {
     }
 }
 
-nextBtn.addEventListener("click", () => {
-    lvl = changeLvl();
-    mobamount = lvl.mobamount;
-    GAME.castleHP = lvl.castleHP;
-    changeMap();
-    updateCastleHP();
-    popupCloseComplete();
-    GAME.isPlay = 'wavepause';
-    monstercount = 0;
-    starttime = 200;
-}
-);
 function updateMoney() {
     var moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
     var moneyInfo = document.querySelector(".count-coin__value");
@@ -165,29 +153,42 @@ startwave.addEventListener(
     }
 )
 
+function updateNextLvlParams() {
+    lvl = changeLvl();
+    mobamount = lvl.mobamount;
+    GAME.castleHP = lvl.castleHP;
+    monstercount = 0;
+    starttime = 200;
+}
+
+function updateRestartGameParams() {
+    GAME.lvlCount = 1;
+    lvl = lvls[GAME.lvlCount - 1];
+    mobamount = lvl.mobamount;
+    GAME.castleHP = lvl.castleHP;
+    monstercount = 0;
+    starttime = 200;
+    for (var lvl of lvls) {
+        lvl.monsters = []
+    }
+}
+
+nextBtn.addEventListener("click", () => {
+    updateNextLvlParams();
+    changeMap();
+    updateCastleHP();
+    popupCloseComplete();
+}
+);
+
 restartgame.addEventListener(
     "click",
     () => {
-        GAME.lvlCount = 1;
-        lvl = lvls[GAME.lvlCount - 1];
-        mobamount = lvl.mobamount;
-        GAME.castleHP = lvl.castleHP;
+        updateRestartGameParams();
         changeMap();
         updateCastleHP();
         popupCloseOver();
-        GAME.isPlay = 'wavepause';
-        monstercount = 0;
-        starttime = 200;
-        monstercount = 0;
-        lvl1.monsters = [];
-        lvl2.monsters = [];
-        pushMonsters(lvl1, monster1)
-        pushMonsters(lvl1, monster1)
-
-        pushMonsters(lvl2, monster1)
-        pushMonsters(lvl2, monster1)
-        pushMonsters(lvl2, monster1)
-        pushMonsters(lvl2, monster1)
+        addMonstersToLvls();
     }
 )
 
