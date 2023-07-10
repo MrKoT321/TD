@@ -1,16 +1,16 @@
 const archer = {
     cost: 30,
-    atk: 1,
-    radius: 300,
+    atk:   15,
+    radius: 350,
     type: "arrow",
     atkspeed: 2,
     towerColor: "orange",
-    atkColor: "red"
+    atkColor: "red" 
 }
 
 const bash = {
     cost: 40,
-    atk: 20,
+    atk: 25,
     radius: 300,
     type: "bash",
     atkspeed: 3,
