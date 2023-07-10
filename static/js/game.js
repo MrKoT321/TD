@@ -14,7 +14,8 @@ var GAME = {
     stopwatch: 0,
     milisectimer: 0,
     isPlay: 'wavepause',
-    money: 0,
+    money: 100,
+    score: 0,
     lvlCount: 1
 }
 
@@ -99,6 +100,7 @@ function updateMoney() {
 
 function lvlComplete() {
     if (GAME.castleHP > 0 && monsters.length == 0) {
+        updateScoreForLvlComplete();
         popupcompleteBg.classList.add('active');
         popupcomplete.classList.add('active');
         GAME.isPlay = 'popuppause';
@@ -219,12 +221,14 @@ function play() {
     if (GAME.isPlay == 'play') {
         lvlComplete();
         catchTime();
+        updateScoreForMob();
     }
     if (GAME.isPlay == 'menu') {
         stopTimer();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster();
+        updateScoreForMob();
         GAME.isPlay = 'play';
     }
     moveMonsters(GAME);
