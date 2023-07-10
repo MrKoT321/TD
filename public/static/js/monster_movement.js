@@ -6,7 +6,7 @@ var monstercount = 0;
 //     monster.x += monster.speed;
 // }
 
-function pushMonsters(lvl, monster) {  
+function pushMonsters(lvl, monster) {
     (lvl.monsters).push({
         hp: monster.hp,
         speed: monster.speed,
@@ -21,18 +21,6 @@ function pushMonsters(lvl, monster) {
         dir: lvl.start_dir
     })
 }
-
-pushMonsters(lvl1, monster1)
-pushMonsters(lvl1, monster1)
-pushMonsters(lvl1, monster1)
-pushMonsters(lvl1, monster1)
-
-pushMonsters(lvl2, monster1)
-pushMonsters(lvl2, monster1)
-pushMonsters(lvl2, monster1)
-pushMonsters(lvl2, monster1)
-pushMonsters(lvl2, monster1)
-pushMonsters(lvl2, monster1)
 
 function drawMonster(monster) {
     canvasContext.fillStyle = monster.color;
@@ -66,11 +54,11 @@ function canvasToGrid(x, y) {
     if (x < 1600 && x > 0 && y < 1000 && y > 0) {
         return Math.floor(y / 100) * 16 + Math.floor(x / 100) + 1;
     }
-    return 0
+    return 0;
 }
 
 function checkFinish(lvl, cell) {
-    return contains(lvl.finish_cells, cell)
+    return contains(lvl.finish_cells, cell);
 }
 
 function contains(arr, elem) {
@@ -86,30 +74,30 @@ function monsterCorrect(lvl, monster) {
     let cell;
     switch (monster.dir) {
         case 'r':
-            cell = canvasToGrid(monster.x + monster.width/2 + 101, monster.y);
+            cell = canvasToGrid(monster.x + monster.width / 2 + 101, monster.y);
             if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
             }
-            if (!contains(lvl.road, cell)  && !monster.finish) {
-                if (contains(lvl.road, canvasToGrid(monster.x, monster.y + monster.height/2 - 110))) {
+            if (!contains(lvl.road, cell) && !monster.finish) {
+                if (contains(lvl.road, canvasToGrid(monster.x, monster.y + monster.height / 2 - 110))) {
                     monster.dir = 'u';
                 } else {
                     monster.dir = 'd';
                 }
             };
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
-                monster.hp = 0;
+                monster.hp = -1000;
             }
             break;
         case 'u':
-            cell = canvasToGrid(monster.x, monster.y + monster.height/2 - 110);
+            cell = canvasToGrid(monster.x, monster.y + monster.height / 2 - 110);
             if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
             }
             if (!contains(lvl.road, cell) && !monster.finish) {
-                if (contains(lvl.road, canvasToGrid(monster.x + monster.width/2 - 110, monster.y))) {
+                if (contains(lvl.road, canvasToGrid(monster.x + monster.width / 2 - 110, monster.y))) {
                     monster.dir = 'l';
                 } else {
                     monster.dir = 'r';
@@ -120,13 +108,13 @@ function monsterCorrect(lvl, monster) {
             }
             break;
         case 'l':
-            cell = canvasToGrid(monster.x + monster.width/2 - 101, monster.y);
-            if(checkFinish(lvl, cell)) {
+            cell = canvasToGrid(monster.x + monster.width / 2 - 101, monster.y);
+            if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
             }
             if (!contains(lvl.road, cell) && !monster.finish) {
-                if (contains(lvl.road, canvasToGrid(monster.x, monster.y + monster.height/2 - 110))) {
+                if (contains(lvl.road, canvasToGrid(monster.x, monster.y + monster.height / 2 - 110))) {
                     monster.dir = 'u';
                 } else {
                     monster.dir = 'd';
@@ -137,13 +125,13 @@ function monsterCorrect(lvl, monster) {
             }
             break;
         case 'd':
-            cell = canvasToGrid(monster.x, monster.y + monster.height/2 + 110);
+            cell = canvasToGrid(monster.x, monster.y + monster.height / 2 + 110);
             if (checkFinish(lvl, cell)) {
                 monster.finish = true;
                 break;
             }
             if (!contains(lvl.road, cell) && !monster.finish) {
-                if (contains(lvl.road, canvasToGrid(monster.x + monster.width/2 - 110, monster.y))) {
+                if (contains(lvl.road, canvasToGrid(monster.x + monster.width / 2 - 110, monster.y))) {
                     monster.dir = 'l';
                 } else {
                     monster.dir = 'r';
@@ -158,7 +146,9 @@ function monsterCorrect(lvl, monster) {
 }
 
 function addMonster() {
-    monsters.push(lvl.monsters[monstercount])
+    monsters.push(lvl.monsters[monstercount]);
+    monstercount += 1;
+    mobamount -= 1;
 }
 
 function registerCollision(monster, GAME) {
@@ -174,10 +164,15 @@ function registerCollision(monster, GAME) {
 
 function moveMonsters(GAME) {
     let notdeadmonsters = monsters.filter(value => value.hp > 0);
+    if(monsters.length > notdeadmonsters.length)
+    {
+        for (var monster of lvl.monsters) {
+            payForMonster(monster);
+        }
+    }
     monsters = notdeadmonsters;
     for (var monster of monsters) {
         drawMonster(monster);
-
         hpBar(monster);
     }
     for (var monster of monsters) {
@@ -186,14 +181,11 @@ function moveMonsters(GAME) {
         monsterCorrect(lvl, monster);
         registerCollision(monster, GAME);
     }
-    if (mobamount > 0 && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play' || GAME.isPlay == 'startgame')) {
-        starttime += 2
-        if (starttime >= 100) {
+    if (mobamount > 0 && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play')) {
+        if (GAME.milisectimer > starttime) {
             addMonster();
             GAME.isPlay = 'play';
-            monstercount += 1;
-            starttime = 0;
-            mobamount -= 1;
+            starttime += 200;
         }
     }
 }
@@ -206,4 +198,22 @@ function hpBar(monster) {
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width * percentHP, 5);
     // canvasContext.strokeStyle = "black";
     // canvasContext.strokeRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
+}
+
+function payForMonster(monster) {
+    if (monster.hp <= 0 && monster.hp > -1000) {
+        let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
+        let moneyInfo = document.querySelector(".count-coin__value");
+        moneyInfo.innerHTML = String(Math.floor(moneyValue + monster.cost));
+        monster.hp = -1000;
+    }
+}
+
+function addMonstersToLvls(){
+    pushMonsters(lvl1, monster1);
+    pushMonsters(lvl1, monster1);
+    pushMonsters(lvl2, monster1);
+    pushMonsters(lvl2, monster1);
+    pushMonsters(lvl2, monster1);
+    pushMonsters(lvl2, monster1);
 }

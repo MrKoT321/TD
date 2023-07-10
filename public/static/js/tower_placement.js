@@ -66,15 +66,15 @@ function isTowerOnPlace(tile) {
             res = true;
         }
     })
-    return res
+    return res;
 }
 
 function isMouseOnTile(m, tile) {
-    return m.x > tile[0] && m.x < tile[0] + 100 && m.y > tile[1] && m.y < tile[1] + 100
+    return m.x > tile[0] && m.x < tile[0] + 100 && m.y > tile[1] && m.y < tile[1] + 100;
 }
 
 function isMouseOnActiveTile(m, activeTile) {
-    return m.x > activeTile.x && m.x < activeTile.x + 100 && m.y > activeTile.y && m.y < activeTile.y + 100
+    return m.x > activeTile.x && m.x < activeTile.x + 100 && m.y > activeTile.y && m.y < activeTile.y + 100;
 }
 
 function drawTiles(GAME, lvls) {
@@ -119,7 +119,7 @@ function drawTower() {
 }
 
 function canBuy(tower) {
-    return moneyValue >= tower.cost
+    return moneyValue >= tower.cost;
 }
 
 // function checkWhatCanBuy() {
@@ -288,7 +288,6 @@ function attackArcher(GAME) {
             if(tower.currentEnemy != -1) {
                 drawArrow();
                 updateArrow(monsters[tower.currentEnemy]);
-                console.log(monsters[tower.currentEnemy], tower.currentEnemy)
             }
         }
     });
