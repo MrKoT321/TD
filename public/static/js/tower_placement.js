@@ -361,7 +361,8 @@ function updateBullet() {
             monsters.forEach(monster => {
                 let mstrCenterX = monster.x + monster.width/2;
                 let mstrCenterY = monster.y + monster.height/2;
-                if(hittingRadius(bullet, mstrCenterX, mstrCenterY)) {
+                let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
+                if(distance <= bullet.radius) {
                     monster.hp -= bullet.atk;
                 }
             })
