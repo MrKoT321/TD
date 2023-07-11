@@ -173,10 +173,7 @@ function moveMonsters(GAME) {
     for (var monster of monsters) {
         drawMonster(monster);
         hpBar(monster);
-    }
-    for (var monster of monsters) {
         monsterMove(monster);
-
         monsterCorrect(lvl, monster);
         registerCollision(monster, GAME);
     }
@@ -195,8 +192,6 @@ function hpBar(monster) {
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width, 5);
     canvasContext.fillStyle = "green";
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width * percentHP, 5);
-    // canvasContext.strokeStyle = "black";
-    // canvasContext.strokeRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
 }
 
 function payForMonster(monster) {
