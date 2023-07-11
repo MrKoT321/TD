@@ -347,26 +347,29 @@ function drawBullet() {
 function updateBullet() {
     if(bullet.exist) {
         const t = 30;
+
         if(bullet.init) {
             bullet.init = false;
             bullet.speedX = (bullet.finishX - bullet.x) / t;
             bullet.speedY = (2 * (bullet.finishY - bullet.y) - bullet.acceleration * Math.pow(t, 2)) / (2 * t);
         }
-        if(bullet.x != bullet.finishX && bullet.y != bullet.finishY) {
+        if(!bullet.init) {
             bullet.x += bullet.speedX;
             bullet.y += bullet.speedY;
             bullet.speedY += bullet.acceleration;
-        } else {
-            bullet.exist = false;
-            monsters.forEach(monster => {
-                let mstrCenterX = monster.x + monster.width/2;
-                let mstrCenterY = monster.y + monster.height/2;
-                let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
-                if(distance <= bullet.radius) {
-                    monster.hp -= bullet.atk;
-                }
-            })
-        }
+            if (bullet.speedY > 0 && bullet.y > bullet.finishY) {
+                bullet.exist = false;
+                monsters.forEach(monster => {
+                    let mstrCenterX = monster.x + monster.width/2;
+                    let mstrCenterY = monster.y + monster.height/2;
+                    let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
+                    if(distance <= bullet.blastRadius) {
+                        monster.hp -= bullet.atk;
+                        bullet.hit = true;
+                    }
+                })
+            }
+        } 
     }
 }
 
@@ -376,8 +379,7 @@ function attackMortir(GAME) {
             monsters.forEach(monster => {
                 let mstrCenterX = monster.x + monster.width/2;
                 let mstrCenterY = monster.y + monster.height/2;
-                tower.hit = !bullet.hit;
-                if(hittingRadius(tower, mstrCenterX, mstrCenterY) && tower.placeTime % tower.atkspeed == 0 && !tower.hit){
+                if(hittingRadius(tower, mstrCenterX, mstrCenterY) && tower.placeTime % tower.atkspeed == 0 && bullet.hit){
                     bullet.exist = true;
                     bullet.init = true;
                     bullet.finishX = mstrCenterX;
