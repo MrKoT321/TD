@@ -217,7 +217,6 @@ function changeMap() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    console.log(GAME.isPlay)
     drawBackground();
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
