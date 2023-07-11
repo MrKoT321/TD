@@ -36,7 +36,7 @@ canvas.width = GAME.width;
 canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
-var starttime = 200;
+var starttime = 900;
 
 const background = new Image();
 const castle = new Image();
@@ -160,7 +160,7 @@ function updateNextLvlParams() {
     mobamount = lvl.mobamount;
     GAME.castleHP = lvl.castleHP;
     monstercount = 0;
-    starttime = 200;
+    starttime = 900;
 }
 
 function updateRestartGameParams() {
@@ -169,10 +169,12 @@ function updateRestartGameParams() {
     mobamount = lvl.mobamount;
     GAME.castleHP = lvl.castleHP;
     monstercount = 0;
-    starttime = 200;
+    starttime = 900;
     for (var lvl of lvls) {
         lvl.monsters = []
     }
+    GAME.money = 0;
+    GAME.score = 100;
 }
 
 nextBtn.addEventListener("click", () => {

@@ -184,7 +184,7 @@ function moveMonsters(GAME) {
         if (GAME.milisectimer > starttime) {
             addMonster();
             GAME.isPlay = 'play';
-            starttime += 200;
+            starttime += 900;
         }
     }
 }
