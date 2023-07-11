@@ -193,7 +193,8 @@ function pushToTowers(tower, posX, posY) {
         towerColor: tower.towerColor,
         atkColor: tower.atkColor,
         currentEnemy: -1,
-        placeTime: GAME.stopwatch
+        placeTime: GAME.stopwatch,
+        startTime: 0
     })
 }
 
@@ -287,20 +288,25 @@ function updateArrows() {
 function attackArcher(GAME) {
     towers.forEach(tower => {
         if (tower.type == "arrow") {
+            tower.currentEnemy = -1;
             for (let i = 0; i < monsters.length; i++) {
                 let mstrCenterX = monsters[i].x + monsters[i].width / 2;
                 let mstrCenterY = monsters[i].y + monsters[i].height / 2;
-                if (tower.currentEnemy != -1 && !hittingRadius(tower, monsters[tower.currentEnemy].x + monsters[tower.currentEnemy].width / 2, monsters[tower.currentEnemy].y + monsters[tower.currentEnemy].height / 2)) {
-                    tower.currentEnemy = -1;
-                }
-                if (tower.currentEnemy == -1 && hittingRadius(tower, mstrCenterX, mstrCenterY)) {
+                if (hittingRadius(tower, mstrCenterX, mstrCenterY)) {
                     tower.currentEnemy = i;
-                    tower.startTime = GAME.stopwatch;
+                    if (tower.startTime <= 0) {
+                      tower.startTime = GAME.stopwatch;
+                    }
+                    break;
                 }
+            }
+            if (tower.currentEnemy == -1) {
+                tower.startTime = 0;
+            } else {
                 if(!((GAME.stopwatch - tower.startTime) % tower.atkspeed == 0)) {
                     tower.hit = false;
                 }
-                if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY) && !tower.hit && (GAME.stopwatch - tower.startTime) % tower.atkspeed == 0) {
+                if(!tower.hit && (GAME.stopwatch - tower.startTime) % tower.atkspeed == 0) {
                     tower.hit = true;
                     makeArrow(tower);
                 }
@@ -374,20 +380,26 @@ function updateBullets() {
 function attackMortir(GAME) {
     towers.forEach(tower => {
         if(tower.type == "splash") {
+            let mstrCenterX, mstrCenterY;
+            tower.currentEnemy = -1
             for (let i = 0; i < monsters.length; i++) {
-                let mstrCenterX = monsters[i].x + monsters[i].width / 2;
-                let mstrCenterY = monsters[i].y + monsters[i].height / 2;
-                if (tower.currentEnemy != -1 && !hittingRadius(tower, monsters[tower.currentEnemy].x + monsters[tower.currentEnemy].width / 2, monsters[tower.currentEnemy].y + monsters[tower.currentEnemy].height / 2)) {
-                    tower.currentEnemy = -1; 
-                }
-                if (tower.currentEnemy == -1 && hittingRadius(tower, mstrCenterX, mstrCenterY)) {
+                mstrCenterX = monsters[i].x + monsters[i].width / 2;
+                mstrCenterY = monsters[i].y + monsters[i].height / 2;
+                if (hittingRadius(tower, mstrCenterX, mstrCenterY)) {
                     tower.currentEnemy = i;
-                    tower.startTime = GAME.stopwatch;
+                    if (tower.startTime <= 0) {
+                        tower.startTime = GAME.stopwatch;
+                    }
+                    break;
                 }
+            }
+            if (tower.currentEnemy == -1) {
+                tower.startTime = 0;
+            } else {
                 if(!((GAME.stopwatch - tower.startTime) % tower.atkspeed == 0)) {
                     tower.hit = false;
                 }
-                if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY) && (GAME.stopwatch - tower.startTime) % tower.atkspeed == 0 && !tower.hit) {
+                if((GAME.stopwatch - tower.startTime) % tower.atkspeed == 0 && !tower.hit) {
                     tower.hit = true;
                     makeBullet(tower, mstrCenterX, mstrCenterY);
                 }
@@ -412,7 +424,7 @@ function attackBash() {
                     monster.hit = true;
                 }
             })
-            if ((GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !tower.hit) {
+            if (!tower.hit && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0) {
                 tower.hit = true;
             }
         }
