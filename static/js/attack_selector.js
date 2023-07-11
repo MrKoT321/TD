@@ -1,5 +1,5 @@
 var GAME = {
-    width: 1600,
+    width: 1800,
     height: 1000,
     stopwatch: 0,
     milisectimer: 0,
@@ -28,7 +28,13 @@ function drawBackground() {
     }
 }
 
-function play(){
+function updateMoney() {
+    let moneyInfo = document.querySelector(".count-coin");
+    moneyInfo.innerHTML = String(Math.floor(GAME.money));
+}
+
+function play() {
+    updateMoney();
     drawBackground();
 
     requestAnimationFrame(play);

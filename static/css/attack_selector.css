@@ -11,13 +11,13 @@ body {
 
 .game {
     position: relative;
-    width: 1600px;
+    width: 1800px;
     height: 1000px;
     display: flex;
 }
 
 .field {
-    width: 1300px;
+    width: 1800px;
     position: relative;
 }
 
@@ -29,4 +29,18 @@ body {
     font-size: 80px;
     color: white;
 
+}
+
+.monsters_selector{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    margin-left: 128px;
+    gap: 135px;
+    margin-top: 247px;
+}
+
+.monster_selector{
+    width: 200px;
+    height: 200px;
 }
