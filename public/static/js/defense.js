@@ -29,8 +29,6 @@ GAME.castleHP = lvl.castleHP;
 
 var mobamount = lvl.mobamount;
 
-var notdeadmonsters = [];
-
 var canvas = document.getElementById("canvas");
 canvas.width = GAME.width;
 canvas.height = GAME.height;
@@ -231,10 +229,7 @@ function play() {
     }
     if (GAME.isPlay == 'startgame') {
         addMonster();
-        updateScoreForMob();
         GAME.isPlay = 'play';
-    }
-    if (GAME.isPlay == 'startgame') {
     }
     moveMonsters(GAME);
     drawCastle();
