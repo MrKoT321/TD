@@ -5,7 +5,7 @@
 //     },
 //     body: 
 // })
-const socket = new WebSocket("ws://192.168.242.82:8080");
+const socket = new WebSocket("ws://localhost:8080");
 
 // socket.addEventListener("open", (event) => {
 //     socket.send("Hello Server!");

@@ -12,6 +12,6 @@
         }
     ],
     "require": {
-        "openswoole/core":"22.1.2"
+        "cboden/ratchet": "^0.4.4"
     }
 }
