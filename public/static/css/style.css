@@ -74,13 +74,11 @@ body {
 }
 
 .delete-tower {
-    border-radius: 50%;
-    height: 75px;
-    width: 75px;
-    background: red;
+    height: 50px;
+    width: 50px;
     position: absolute;
     bottom: -37.5px;
-    left: calc(50% - 37.5px);
+    left: calc(50% - 25px);
     cursor: pointer;
 }
 

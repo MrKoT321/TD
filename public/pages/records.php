@@ -12,6 +12,9 @@
         <link rel="stylesheet" href="../static/css/record.css">
     </head>
     <body>
+        <div class="buttons">
+            <a href="../" class="back-to-menu">Назад</a>
+        </div>
         <div class="records">
             <span class="records-title">Top scores</span>
             <? foreach($records as $score):?>
