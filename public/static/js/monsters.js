@@ -2,7 +2,7 @@ const monster1 = {
     hp: 100,
     maxhp: 100,
     speed: 2,
-    cost: 0,
+    cost: 10,
     width: 50,
     height: 50,
     color: "black"//pic: '',

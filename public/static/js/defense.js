@@ -3,7 +3,8 @@ const popupover = document.querySelector('.popupover');
 const popupcompleteBg = document.querySelector('.popupcomplete__bg');
 const popupcomplete = document.querySelector('.popupcomplete');
 const startwave = document.getElementById("startwave");
-const backmenu = document.getElementById("menu");
+const restartgame = document.getElementById("restartgame");
+const nextBtn = document.getElementById("next-lvl-btn");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4, lvl5]
 
@@ -11,7 +12,10 @@ var GAME = {
     width: 1600,
     height: 1000,
     stopwatch: 0,
+    milisectimer: 0,
     isPlay: 'wavepause',
+    money: 100,
+    score: 0,
     lvlCount: 1
 }
 
@@ -32,19 +36,12 @@ canvas.width = GAME.width;
 canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
-var starttime = 100;
+var starttime = 900;
 
 const background = new Image();
 const castle = new Image();
 castle.src = lvl.castle_src;
 background.src = lvl.back_src;
-
-backmenu.addEventListener(
-    "click",
-    () => {
-        GAME.isPlay = "wavepause"
-    }
-)
 
 background.onload = () => {
     GAME.background = background;
@@ -57,6 +54,7 @@ castle.onload = () => {
 function resetStopwatch() {
     GAME.stopwatch = 0;
     startTimer = new Date();
+    GAME.milisectimer = 0;
 }
 
 function catchTime() {
@@ -64,9 +62,8 @@ function catchTime() {
         timeInPause += timeInLastPause;
     }
     timeInLastPause = 0;
-    if (GAME.stopwatch != Math.floor((new Date() - startTimer - timeInPause) / 1000)){
-        GAME.stopwatch = Math.floor((new Date() - startTimer - timeInPause) / 1000);
-    }
+    GAME.stopwatch = Math.floor((new Date() - startTimer - timeInPause) / 1000);
+    GAME.milisectimer = Math.floor(new Date() - startTimer - timeInPause);
     pauseStartTime = new Date();
 }
 
@@ -103,30 +100,24 @@ function updateMoney() {
 
 function lvlComplete() {
     if (GAME.castleHP > 0 && monsters.length == 0) {
+        updateScoreForLvlComplete();
         popupcompleteBg.classList.add('active');
         popupcomplete.classList.add('active');
         GAME.isPlay = 'popuppause';
-        let nextBtn = document.getElementById("next-lvl-btn");
-        nextBtn.addEventListener("click", () => {
-            lvl = changeLvl();
-            mobamount = lvl.mobamount;
-            GAME.castleHP = lvl.castleHP;
-            changeMap();
-            updateCastleHP();
-            updateMoney();
-            popupClose();
-            GAME.isPlay = 'wavepause';
-            monstercount = 0;
-            starttime = 100;
-            
-        });
     }
 }
 
-function popupClose() {
+function popupCloseComplete() {
     popupcompleteBg.classList.remove('active');
     popupcomplete.classList.remove('active');
-    GAME.isPlay = 'startgame';
+    startwave.classList.remove("play")
+    startwave.classList.add("pause")
+}
+
+function popupCloseOver() {
+    popupoverBg.classList.remove('active');
+    popupover.classList.remove('active');
+    GAME.isPlay = 'wavepause';
     startwave.classList.remove("play")
     startwave.classList.add("pause")
 }
@@ -164,6 +155,47 @@ startwave.addEventListener(
     }
 )
 
+function updateNextLvlParams() {
+    lvl = changeLvl();
+    mobamount = lvl.mobamount;
+    GAME.castleHP = lvl.castleHP;
+    monstercount = 0;
+    starttime = 900;
+}
+
+function updateRestartGameParams() {
+    GAME.lvlCount = 1;
+    lvl = lvls[GAME.lvlCount - 1];
+    mobamount = lvl.mobamount;
+    GAME.castleHP = lvl.castleHP;
+    monstercount = 0;
+    starttime = 900;
+    for (var lvl of lvls) {
+        lvl.monsters = []
+    }
+    GAME.money = 0;
+    GAME.score = 100;
+}
+
+nextBtn.addEventListener("click", () => {
+    updateNextLvlParams();
+    changeMap();
+    updateCastleHP();
+    popupCloseComplete();
+}
+);
+
+restartgame.addEventListener(
+    "click",
+    () => {
+        updateRestartGameParams();
+        changeMap();
+        updateCastleHP();
+        popupCloseOver();
+        addMonstersToLvls();
+    }
+)
+
 function changeMap() {
     castle.src = lvl.castle_src;
     background.src = lvl.back_src;
@@ -184,17 +216,23 @@ function changeMap() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    drawBackground();
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
     }
     if (GAME.isPlay == 'play') {
         lvlComplete();
         catchTime();
+        updateScoreForMob();
     }
     if (GAME.isPlay == 'menu') {
         stopTimer();
     }
-    drawBackground();
+    if (GAME.isPlay == 'startgame') {
+        addMonster();
+        updateScoreForMob();
+        GAME.isPlay = 'play';
+    }
     moveMonsters(GAME);
     drawCastle();
     drawTiles(GAME, lvls);
@@ -208,4 +246,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
+addMonstersToLvls();
 play();
