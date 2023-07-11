@@ -48,7 +48,8 @@ var bullet = {
     acceleration: 2,
     towerCenterX: 0,
     towerCenterY: 0,
-    speed: 2,
+    speedX: 0,
+    speedY: 0,
     cos: 0,
     atk: 0
 }
@@ -84,15 +85,15 @@ function isTowerOnPlace(tile) {
             res = true;
         }
     })
-    return res
+    return res;
 }
 
 function isMouseOnTile(m, tile) {
-    return m.x > tile[0] && m.x < tile[0] + 100 && m.y > tile[1] && m.y < tile[1] + 100
+    return m.x > tile[0] && m.x < tile[0] + 100 && m.y > tile[1] && m.y < tile[1] + 100;
 }
 
 function isMouseOnActiveTile(m, activeTile) {
-    return m.x > activeTile.x && m.x < activeTile.x + 100 && m.y > activeTile.y && m.y < activeTile.y + 100
+    return m.x > activeTile.x && m.x < activeTile.x + 100 && m.y > activeTile.y && m.y < activeTile.y + 100;
 }
 
 function drawTiles(GAME, lvls) {
@@ -353,42 +354,32 @@ function drawBullet() {
     }
 }
 
-const t = 60;
-var speedBulletY = 0;
-
 function updateBullet() {
     if(bullet.exist) {
+        const t = 30;
+
         if(bullet.init) {
             bullet.init = false;
-            let dir;
-            if(bullet.finishY < bullet.towerCenterY) {
-                dir = -1;
-            } else {
-                dir = 1;
+            bullet.speedX = (bullet.finishX - bullet.x) / t;
+            bullet.speedY = (2 * (bullet.finishY - bullet.y) - bullet.acceleration * Math.pow(t, 2)) / (2 * t);
+        }
+        if(!bullet.init) {
+            bullet.x += bullet.speedX;
+            bullet.y += bullet.speedY;
+            bullet.speedY += bullet.acceleration;
+            if (bullet.speedY > 0 && bullet.y > bullet.finishY) {
+                bullet.exist = false;
+                monsters.forEach(monster => {
+                    let mstrCenterX = monster.x + monster.width/2;
+                    let mstrCenterY = monster.y + monster.height/2;
+                    let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
+                    if(distance <= bullet.blastRadius) {
+                        monster.hp -= bullet.atk;
+                        bullet.hit = true;
+                    }
+                })
             }
-            let tg = ((2 * (bullet.finishY - bullet.towerCenterY) - bullet.acceleration * Math.pow(t, 2))) / ((bullet.finishX - bullet.towerCenterX) * 2);
-            console.log(tg);
-            bullet.cos = 1 / (1 + Math.pow(tg, 2));
-            console.log(bullet.cos);
-            bullet.speed = (bullet.finishX - bullet.towerCenterX) / (bullet.cos * dir * t);
-            console.log(bullet.speed);
-            console.log(bullet.speed * bullet.cos)
-        }
-        if(bullet.x != bullet.finishX && bullet.y != bullet.finishY) {
-            bullet.x += bullet.speed * bullet.cos;
-            // bullet.y += bullet.speed * Math.sqrt(1 - Math.pow(bullet.cos, 2)) * t + bullet.acceleration * Math.pow(t, 2) / 2;
-            // bullet.y += bullet.speed * Math.sqrt(1 - Math.pow(bullet.cos, 2)) * bullet.acceleration;
-        } else {
-            bullet.exist = false;
-            monsters.forEach(monster => {
-                let mstrCenterX = monster.x + monster.width/2;
-                let mstrCenterY = monster.y + monster.height/2;
-                let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
-                if(distance <= bullet.radius) {
-                    monster.hp -= bullet.atk;
-                }
-            })
-        }
+        } 
     }
 }
 
@@ -398,9 +389,7 @@ function attackMortir(GAME) {
             monsters.forEach(monster => {
                 let mstrCenterX = monster.x + monster.width/2;
                 let mstrCenterY = monster.y + monster.height/2;
-                tower.hit = !bullet.hit;
-                // console.log(!tower.hit, bullet.hit);
-                if(hittingRadius(tower, mstrCenterX, mstrCenterY) && tower.placeTime % tower.atkspeed == 0 && !tower.hit){
+                if(hittingRadius(tower, mstrCenterX, mstrCenterY) && tower.placeTime % tower.atkspeed == 0 && bullet.hit){
                     bullet.exist = true;
                     bullet.init = true;
                     bullet.finishX = mstrCenterX;

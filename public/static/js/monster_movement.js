@@ -54,11 +54,11 @@ function canvasToGrid(x, y) {
     if (x < 1600 && x > 0 && y < 1000 && y > 0) {
         return Math.floor(y / 100) * 16 + Math.floor(x / 100) + 1;
     }
-    return 0
+    return 0;
 }
 
 function checkFinish(lvl, cell) {
-    return contains(lvl.finish_cells, cell)
+    return contains(lvl.finish_cells, cell);
 }
 
 function contains(arr, elem) {

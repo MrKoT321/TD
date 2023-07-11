@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #434343;
+    overflow: hidden;
+}
+
+.records {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.records-title {
+    position: absolute;
+    top: 50px;
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
+}
