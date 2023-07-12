@@ -220,7 +220,14 @@ function changeMap() {
 //           'popuppause' - мобы идут, башни не ставятся
 //           'startgame' - ожидание появления первого моба
 
+var k = 0;
+
 function play() {
+    if(monster1.image && k == 0){
+        addMonstersToLvls();
+        k = 1;
+        console.log(1)
+    }
     updateMoney();
     updateScore();
     drawBackground();
@@ -251,5 +258,4 @@ function play() {
     requestAnimationFrame(play);
 }
 
-addMonstersToLvls();
 play();

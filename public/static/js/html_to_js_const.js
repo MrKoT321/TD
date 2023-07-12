@@ -52,3 +52,5 @@ const mob2_3_count = document.getElementById('mob2-3-count');
 const mob3_3_count = document.getElementById('mob3-3-count');
 const mob4_3_count = document.getElementById('mob4-3-count');
 const mob5_3_count = document.getElementById('mob5-3-count');
+
+var mob_count = [mob1_1_count, mob2_1_count, mob3_1_count, mob4_1_count, mob5_1_count, mob1_2_count, mob2_2_count, mob3_2_count, mob4_2_count, mob5_2_count, mob1_3_count, mob2_3_count, mob3_3_count, mob4_3_count, mob5_3_count];

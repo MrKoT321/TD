@@ -13,7 +13,7 @@ function pushMonsters(lvl, monster) {
         cost: monster.cost,
         width: monster.width,
         height: monster.height,
-        color: monster.color,
+        image: monster.image,
         maxhp: monster.maxhp,
         finish: false,
         x: lvl.start_x,
@@ -23,8 +23,9 @@ function pushMonsters(lvl, monster) {
 }
 
 function drawMonster(monster) {
-    canvasContext.fillStyle = monster.color;
-    canvasContext.fillRect(monster.x, monster.y, monster.width, monster.height);
+    if (monster.image) {
+        canvasContext.drawImage(monster.image, monster.x, monster.y, monster.width, monster.height);
+    }
 }
 
 function monsterMove(monster) {
@@ -205,6 +206,7 @@ function payForMonster(monster) {
 }
 
 function addMonstersToLvls() {
+    console.log(monster1.image);
     pushMonsters(lvl1, monster1);
     pushMonsters(lvl1, monster1);
     pushMonsters(lvl2, monster1);

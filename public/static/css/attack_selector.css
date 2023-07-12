@@ -94,14 +94,6 @@ body {
     margin-left: 75px;
 }
 
-.mob-info{
-    display: flex;
-    gap: 36px;
-    align-items: center;
-    height: 132px;
-    width: 360px;
-}
-
 .sell{
     position: absolute;
     margin-left: 282px;
@@ -109,22 +101,10 @@ body {
     cursor: pointer;
 }
 
-.mob1{
-    background: url("../images/monster1.png");
-}
-
-.mob2{
-    background: url("../images/monster2.png");
-}
-
-.mob3{
-    background: url("../images/monster3.png");
-}
-
-.mob4{
-    background: url("../images/monster4.png");
-}
-
-.mob5{
-    background: url("../images/monster5.png");
+.mob-info{
+    display: flex;
+    gap: 36px;
+    align-items: center;
+    height: 132px;
+    width: 360px;
 }
