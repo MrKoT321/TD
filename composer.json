@@ -11,5 +11,7 @@
             "email": "vladimir.fedoseev.2004@mail.ru"
         }
     ],
-    "require": {}
+    "require": {
+        "openswoole/core":"22.1.2"
+    }
 }
