@@ -36,11 +36,9 @@ class RecordTable {
         );
     }
 
-    public function add(Record $record): int {
-        $query = <<<SQL
-        INSERT INTO records (id, nick_name, choisen_class, score)
-        VALUES (:id, :nick_name, :choisen_class, :score)
-        SQL;
+    public function add(Record $record): void {
+        $query = "INSERT INTO records (id, nick_name, choisen_class, score)
+        VALUES (:id, :nick_name, :choisen_class, :score)";
         $statement = $this->connection->prepare($query);
         try 
         {
@@ -59,6 +57,6 @@ class RecordTable {
             echo "General Error: The record could not be able added. <br />".$err->getMessage();
         }
         
-        return (int)$this->connection->lastInsertId();
+        return;
     }
 }

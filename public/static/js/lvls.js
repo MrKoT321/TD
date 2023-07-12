@@ -11,7 +11,7 @@ const lvl1 = {
     castle_h: 400,
     money: 100,
     start_dir: 'r',
-    waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1],],
+    waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
     back_src:  "../static/images/MAP1.png",
     castle_src:  "../static/images/CASTLE.png",
 };
@@ -29,7 +29,7 @@ const lvl2 = {
     castle_h: 400,
     money: 200,
     start_dir: 'r',
-    waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1],],
+    waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
     back_src:  "../static/images/MAP2.png",
     castle_src:  "../static/images/CASTLE.png" 
 }

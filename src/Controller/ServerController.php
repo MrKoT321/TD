@@ -20,6 +20,23 @@ class ServerController
         $this->recordTable = new RecordTable($connection);
     }
 
+    public function addRecords(array $requestData): void 
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST')
+        {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+        $record = new Record(
+            null, 
+            $requestData['nickName'], 
+            $requestData['choisenClass'], 
+            $requestData['score']
+        );
+        $this->recordTable->add($record);
+        return;
+    }
+
     public  function showRecords(): void 
     {
         $records = $this->recordTable->show();

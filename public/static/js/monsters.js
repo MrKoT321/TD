@@ -15,7 +15,7 @@ const monster2 = {
     cost: 0,
     width: 50,
     height: 50,
-    color: "black"//pic: '',
+    color: "red"//pic: '',
 }
 
 const monster3 = {
@@ -25,7 +25,7 @@ const monster3 = {
     cost: 0,
     width: 50,
     height: 50,
-    color: "black"//pic: '',
+    color: "yellow"//pic: '',
 }
 
 const monster4 = {
@@ -35,5 +35,15 @@ const monster4 = {
     cost: 0,
     width: 50,
     height: 50,
-    color: "black"//pic: '',
+    color: "pink"//pic: '',
+}
+
+const monster5 = {
+    hp: 100,
+    maxhp: 100,
+    speed: 3,
+    cost: 0,
+    width: 50,
+    height: 50,
+    color: "white"//pic: '',
 }
