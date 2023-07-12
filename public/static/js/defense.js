@@ -169,9 +169,9 @@ function changeMap() {
     }
 };
 
-function sendResults() {
+// function sendResults() {
 
-}
+// }
 
 startwave.addEventListener(
     "click",
@@ -205,7 +205,7 @@ nextBtn.addEventListener("click", () => {
 restartgame.addEventListener(
     "click",
     () => {
-        sendResults();
+        // sendResults();
         updateRestartGameParams();
         changeMap();
         updateCastleHP();
@@ -214,7 +214,7 @@ restartgame.addEventListener(
     }
 )
 
-backToMenuBtn.addEventListener("click", () => { sendResults() })
+// backToMenuBtn.addEventListener("click", () => { sendResults() })
 
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
