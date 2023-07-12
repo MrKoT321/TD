@@ -138,6 +138,7 @@ function updateCastleHP() {
 }
    
 function nextWave() {
+    console.log(starttime, GAME.milisectimer)
     if(monsters.length == 0 && GAME.wave < 3){
         GAME.wave += 1;
         monstercount = 0;
@@ -164,11 +165,20 @@ function updateRestartGameParams() {
     GAME.wave = 1;
     monstercount = 0;
     starttime = 900;
-    for (var lvl of lvls) {
-        lvl.monsters = []
-    }
     GAME.money = 100;
     GAME.score = 0;
+    towerTiles = [];
+    towers = [];
+    monsters = [];
+    arrows = [];
+    bullets = [];
+    compareWithGameLvl = 0;
+    GAME.isPlay = 'wavepause';
+    startTimer = 0;
+    timeInPause = 0;
+    timeInLastPause = 0;
+    pauseStartTime = 0;
+
 }
 
 function changeMap() {
