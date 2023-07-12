@@ -6,14 +6,15 @@ fireball = {
     y: undefined,   
     color: "red",
     radius: 10,
-    blastRadius: 100,
+    blastRadius: 150,
     reload: 60,
     lastTimeCast: 60,
     speedX: 0,
     speedY: 0,
     finishX: undefined,
     finishY: undefined,
-    isActive: false
+    isActive: false,
+    atk: 60
 }
 
 gameFieldClick = {
@@ -75,17 +76,29 @@ function drawFireball() {
 
 function createFireBall() {
     const t = 30;
-    fireball.x = gameFieldClick.x + 250;
-    fireball.y = gameFieldClick.y - 250;
-    fireball.speedX = -250 / t; 
-    fireball.speedY = 250 / t; 
+    const changePos = 500;
+    fireball.finishX = gameFieldClick.x;
+    fireball.finishY = gameFieldClick.y;
+    fireball.x = gameFieldClick.x + changePos;
+    fireball.y = gameFieldClick.y - changePos;
+    fireball.speedX = -changePos / t; 
+    fireball.speedY = changePos / t; 
 }   
 
 function updateFireball() {
     fireball.x += fireball.speedX;
     fireball.y += fireball.speedY;
     if (fireball.x < fireball.finishX && fireball.y > fireball.finishY) {
-        
+        fireball.x = undefined;
+        fireball.y = undefined;
+        monsters.forEach(monster => {
+            let mstrCenterX = monster.x + monster.width / 2;
+            let mstrCenterY = monster.y + monster.height / 2;
+            let distance = Math.sqrt(Math.pow(mstrCenterX - fireball.finishX, 2) + Math.pow(mstrCenterY - fireball.finishY, 2));
+            if(distance <= fireball.blastRadius) {
+                monster.hp -= fireball.atk;
+            }
+        })
     }
 }
 
@@ -100,5 +113,7 @@ function drawBonuses() {
     drawFireball();
     if (GAME.isPlay == 'play') {
         updateFireball();
+    } else {
+        inActiveFireBall(); 
     }
 }
