@@ -22,7 +22,9 @@
             <? foreach($records as $score):?>
                 <div class="record">
                     <div class="record-nickname"><?= htmlspecialchars($score->getNickName()) ?></div>
-                    <div class="record-choisenclass"><?= $score->getChoisenClass() ?></div>
+                    <div class="record-choisenclass"> 
+                        <div class="record-choisenclass__icon <?= $score->getChoisenClass() ?>"></div> 
+                    </div>
                     <div class="record-score"><?= $score->getScore() ?></div>
                 </div>
             <? endforeach; ?>
