@@ -36,15 +36,13 @@ class ServerController
         $postData = file_get_contents('php://input');
         $data = json_decode($postData, true);
 
-        // if ( ! empty($data)) {
-            $record = new Record(
-                null, 
-                $data['nickName'], 
-                $data['choisenClass'], 
-                $data['score']
-            );
-            $this->recordTable->add($record);
-        // }
+        $record = new Record(
+            null, 
+            $data['nickName'], 
+            $data['choisenClass'], 
+            $data['score']
+        );
+        $this->recordTable->add($record);
         return;
     }
 

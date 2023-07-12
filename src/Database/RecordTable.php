@@ -14,8 +14,8 @@ class RecordTable {
         $this->connection = $connection;
     }
 
-    public function show(): ?array {
-        $query = "SELECT `user_id`, nick_name, choisen_class, score FROM records ORDER BY score LIMIT 10";
+    public function show(): array {
+        $query = "SELECT user_id, nick_name, choisen_class, score FROM records ORDER BY score LIMIT 10";
         $score_stack = [];
         if ($statement = $this->connection->query($query)) {
             foreach($statement as $row) {

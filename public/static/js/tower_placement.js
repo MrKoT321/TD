@@ -25,6 +25,30 @@ const mortirTower = document.querySelector(".mortir");
 var arrows = [];
 var bullets = [];
 
+var towersImg = {
+    arrow: undefined,
+    bash: undefined,
+    splash: undefined
+}
+
+const archerTowerImg = new Image();
+archerTowerImg.src = archer.towerImg;
+archerTowerImg.onload = () => {
+    towersImg.arrow = archerTowerImg;
+}
+
+const bashTowerImg = new Image();
+bashTowerImg.src = bash.towerImg;
+bashTowerImg.onload = () => {
+    towersImg.bash = bashTowerImg;
+}
+
+const mortirTowerImg = new Image();
+mortirTowerImg.src = mortir.towerImg;
+mortirTowerImg.onload = () => {
+    towersImg.splash = mortirTowerImg;
+}
+
 window.addEventListener(
     'mousemove',
     (event) => {
@@ -92,11 +116,15 @@ function drawTiles(GAME, lvls) {
 
 function drawTower() {
     towers.forEach(tile => {
-        canvasContext.fillStyle = tile.towerColor;
-        canvasContext.beginPath();
-        canvasContext.arc(tile.x + 50, tile.y + 50, 50, 0, 2 * Math.PI);
-        canvasContext.closePath();
-        canvasContext.fill();
+        // canvasContext.fillStyle = tile.towerColor;
+        // canvasContext.beginPath();
+        // canvasContext.arc(tile.x + 50, tile.y + 50, 50, 0, 2 * Math.PI);
+        // canvasContext.closePath();
+        // canvasContext.fill();
+        if (tile.type == "arrow") {canvasContext.drawImage(towersImg.arrow, tile.x, tile.y, 75, 75);}
+        if (tile.type == "bash") {canvasContext.drawImage(towersImg.bash, tile.x, tile.y, 75, 75);}
+        if (tile.type == "splash") {canvasContext.drawImage(towersImg.splash, tile.x, tile.y, 75, 75);}
+       
 
         canvasContext.beginPath();
         canvasContext.strokeStyle = "pink";

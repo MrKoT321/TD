@@ -5,7 +5,8 @@ const archer = {
     type: "arrow",
     atkspeed: 2,
     towerColor: "orange",
-    atkColor: "red" 
+    atkColor: "red" ,
+    towerImg: "../static/images/archer_tower.png"
 }
 
 const bash = {
@@ -15,7 +16,8 @@ const bash = {
     type: "bash",
     atkspeed: 3,
     towerColor: "yellow",
-    atkColor: "red"
+    atkColor: "red",
+    towerImg: "../static/images/bash_tower.png"
 }
 
 const mortir = {
@@ -25,5 +27,6 @@ const mortir = {
     type: "splash",
     atkspeed: 2,
     towerColor: "blue",
-    atkColor: "red"
+    atkColor: "red",
+    towerImg: "../static/images/mortir_tower.png"
 }
