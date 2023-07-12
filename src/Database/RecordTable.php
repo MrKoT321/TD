@@ -37,8 +37,10 @@ class RecordTable {
     }
 
     public function add(Record $record): void {
-        $query = "INSERT INTO records (id, nick_name, choisen_class, score)
-        VALUES (:id, :nick_name, :choisen_class, :score)";
+        $query = <<<SQL
+        INSERT INTO records (nick_name, choisen_class, score)
+        VALUES (:nick_name, :choisen_class, :score)
+        SQL;
         $statement = $this->connection->prepare($query);
         try 
         {

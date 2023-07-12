@@ -20,20 +20,31 @@ class ServerController
         $this->recordTable = new RecordTable($connection);
     }
 
-    public function addRecords(array $requestData): void 
+    public function addRecord(): void 
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST')
         {
             $this->writeRedirectSeeOther('/');
             return;
         }
-        $record = new Record(
-            null, 
-            $requestData['nickName'], 
-            $requestData['choisenClass'], 
-            $requestData['score']
-        );
-        $this->recordTable->add($record);
+        if ($_SERVER["CONTENT_TYPE"] ==  'application/json')
+        {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+
+        $postData = file_get_contents('php://input');
+        $data = json_decode($postData, true);
+
+        // if ( ! empty($data)) {
+            $record = new Record(
+                null, 
+                $data['nickName'], 
+                $data['choisenClass'], 
+                $data['score']
+            );
+            $this->recordTable->add($record);
+        // }
         return;
     }
 
