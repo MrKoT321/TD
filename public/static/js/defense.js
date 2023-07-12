@@ -91,17 +91,23 @@ function gameOver() {
 }
 
 function updateMoney() {
-    var moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
-    var moneyInfo = document.querySelector(".count-coin__value");
-    moneyInfo.innerHTML = moneyValue + 50;
+    let moneyInfo = document.querySelector(".count-coin__value");
+    moneyInfo.innerHTML = String(Math.floor(GAME.money));
+}
+
+function updateScore() {
+    let scoreInfo = document.querySelector(".count-score__value");
+    scoreInfo.innerHTML = String(Math.floor(GAME.score));
 }
 
 function lvlComplete() {
     if (GAME.castleHP > 0 && monsters.length == 0) {
-        updateScoreForLvlComplete();
+        console.log(1)
+        GAME.score += GAME.lvlCount * 100;
         popupcompleteBg.classList.add('active');
         popupcomplete.classList.add('active');
         GAME.isPlay = 'popuppause';
+        GAME.money += 100;
     }
 }
 
@@ -159,7 +165,7 @@ function updateNextLvlParams() {
     GAME.castleHP = lvl.castleHP;
     monstercount = 0;
     starttime = 900;
-    GAME.isPlay = 'wavepause'
+    GAME.isPlay = 'wavepause';
 }
 
 function updateRestartGameParams() {
@@ -215,11 +221,14 @@ function changeMap() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    updateMoney();
+    updateScore();
     drawBackground();
+    console.log(GAME.isPlay)
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
     }
-    if (GAME.isPlay == 'play') {
+    if (GAME.isPlay === 'play') {
         lvlComplete();
         catchTime();
         updateScoreForMob();
@@ -241,6 +250,7 @@ function play() {
     drawBullet();
     updateBullet();
     gameOver();
+
     requestAnimationFrame(play);
 }
 

@@ -195,9 +195,7 @@ function hpBar(monster) {
 function payForMonsters(monster) {
     for (var monster of monsters) {
         if (monster.hp <= 0 && !monster.finish) {
-            let moneyInfo = document.querySelector(".count-coin__value");
             GAME.money += monster.cost
-            moneyInfo.innerHTML = String(Math.floor(GAME.money));
         }
     }
 }
@@ -225,10 +223,4 @@ function updateScoreForMob() {
             scoreInfo.innerHTML = String(Math.floor(GAME.score));
         }
     } 
-}
-
-function updateScoreForLvlComplete(){
-    let scoreInfo = document.querySelector(".count-score__value");
-    GAME.score += GAME.lvlCount * 100;
-    scoreInfo.innerHTML = String(Math.floor(GAME.score));
 }

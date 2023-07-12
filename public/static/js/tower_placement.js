@@ -189,12 +189,6 @@ function drawTowerAbilities() {
     }
 }
 
-function addMoneyForTower(cost) {
-    let moneyInfo = document.querySelector(".count-coin__value");
-    GAME.money += cost / 2;
-    moneyInfo.innerHTML = String(Math.floor(GAME.money));
-}
-
 deleteTowerButton.addEventListener(
     "click",
     () => {
@@ -203,7 +197,7 @@ deleteTowerButton.addEventListener(
                 activeTile = towers[i];
                 if (isMouseOnActiveTile(mouseClick, activeTile)) {
                     towers.splice(i, 1);
-                    addMoneyForTower(activeTile.cost);
+                    GAME.money += activeTile.cost / 2;
                 }
             }
         }
@@ -227,12 +221,10 @@ function pushToTowers(tower, posX, posY) {
 }
 
 function makeTower(tower) {
-    let moneyInfo = document.querySelector(".count-coin__value");
     towerTiles.forEach(tile => {
         if (isMouseOnTile(mouseClick, tile) && canBuy(tower)) {
             pushToTowers(tower, tile[0], tile[1]);
             GAME.money -= tower.cost;
-            moneyInfo.innerHTML = String(Math.floor(GAME.money));
         }
     })
 }
