@@ -223,6 +223,8 @@ function play() {
         lvlComplete();
         catchTime();
         updateScoreForMob();
+        updateArrows();
+        updateBullets();
     }
     if (GAME.isPlay == 'menu') {
         stopTimer();
@@ -236,10 +238,8 @@ function play() {
     drawTiles(GAME, lvls);
     drawTower();
     drawArrows();
-    updateArrows();
     drawBullets();
-    updateBullets();
-    attackTowers(GAME)
+    attackTowers(GAME);
     gameOver();
     requestAnimationFrame(play);
 }
