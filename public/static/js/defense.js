@@ -170,7 +170,7 @@ function changeMap() {
 };
 
 function sendResults() {
-    
+
 }
 
 startwave.addEventListener(
@@ -248,6 +248,7 @@ function play() {
     drawArrows();
     drawBullets();
     attackTowers(GAME);
+    drawBonuses();
     gameOver();
     requestAnimationFrame(play);
 }
