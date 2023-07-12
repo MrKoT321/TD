@@ -25,9 +25,6 @@ var startTimer = new Date();
 var timeInPause = 0;
 var timeInLastPause = 0;
 var pauseStartTime = new Date();
-var timeBetweenWavesStart = new Date();
-var timeBetweenWavesLast = 0;
-var timeBetweenWaves = 0;
 
 var lvl = lvls[GAME.lvlCount - 1];
 GAME.castleHP = lvl.castleHP;
@@ -139,51 +136,6 @@ function updateCastleHP() {
         bar.children[i].classList.remove("_hide");
     }
 }
-
-startwave.addEventListener(
-    "click",
-    () => {
-        if (GAME.isPlay == 'wavepause') {
-            startwave.classList.remove("pause");
-            startwave.classList.add("play");
-            GAME.isPlay = 'startgame';
-        } else {
-            if (GAME.isPlay == 'menu') {
-                startwave.classList.remove("pause");
-                startwave.classList.add("play");
-                GAME.isPlay = 'play';
-            } else {
-                startwave.classList.remove("play");
-                startwave.classList.add("pause");
-                GAME.isPlay = 'menu';
-            }
-        }
-    }
-)
-
-// function resetStopwatch() {
-//     GAME.stopwatch = 0;
-//     startTimer = new Date();
-//     GAME.milisectimer = 0;
-// }
-
-// function catchTime() {
-//     if (timeInLastPause != 0) {
-//         timeInPause += timeInLastPause;
-//     }
-//     timeInLastPause = 0;
-//     GAME.stopwatch = Math.floor((new Date() - startTimer - timeInPause) / 1000);
-//     GAME.milisectimer = Math.floor(new Date() - startTimer - timeInPause);
-//     pauseStartTime = new Date();
-// }
-
-// var timeBetweenWavesStart = new Date();
-// var timeBetweenWavesLast = 0;
-// var timeBetweenWaves = 0;
-
-// function stopWaveTimer() {
-//     timeBetweenWavesLast = new Date() - timeBetweenWaves;
-// }
    
 function nextWave() {
     if(monsters.length == 0 && GAME.wave < 3){
@@ -273,7 +225,6 @@ restartgame.addEventListener(
         changeMap();
         updateCastleHP();
         popupCloseOver();
-        addMonstersToLvls();
     }
 )
 
@@ -289,7 +240,7 @@ function play() {
     updateMoney();
     updateScore();
     drawBackground();
-    console.log(GAME.isPlay)
+    
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
     }

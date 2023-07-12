@@ -176,7 +176,6 @@ function moveMonsters(GAME, lvls) {
     }
     if (monstercount < lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play')) {
         if (GAME.milisectimer > starttime) {
-            console.log(GAME.milisectimer, starttime)
             addMonster(GAME, lvls);
             GAME.isPlay = 'play';
             starttime += 900;
