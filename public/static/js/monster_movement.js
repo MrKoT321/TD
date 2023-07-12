@@ -6,7 +6,7 @@ var monstercount = 0;
 // }
 
 function pushMonsters(lvl, monster) {
-    (lvl.monsters).push({
+    monsters.push({
         hp: monster.hp,
         speed: monster.speed,
         cost: monster.cost,
@@ -149,10 +149,9 @@ function monsterCorrect(lvl, monster) {
 
 }
 
-function addMonster() {
-    monsters.push(lvl.monsters[monstercount]);
+function addMonster(GAME, lvls) {
+    pushMonsters(lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
     monstercount += 1;
-    mobamount -= 1;
 }
 
 function registerCollision(monster, GAME) {
@@ -165,7 +164,7 @@ function registerCollision(monster, GAME) {
     }
 }
 
-function moveMonsters(GAME) {
+function moveMonsters(GAME, lvls) {
     payForMonsters();
     monsters = monsters.filter(value => value.hp > 0);
     for (var monster of monsters) {
@@ -175,9 +174,10 @@ function moveMonsters(GAME) {
         monsterCorrect(lvl, monster);
         registerCollision(monster, GAME);
     }
-    if (mobamount > 0 && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play')) {
+    if (monstercount < lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play')) {
         if (GAME.milisectimer > starttime) {
-            addMonster();
+            console.log(GAME.milisectimer, starttime)
+            addMonster(GAME, lvls);
             GAME.isPlay = 'play';
             starttime += 900;
         }
@@ -200,14 +200,9 @@ function payForMonsters(monster) {
     }
 }
 
-function addMonstersToLvls() {
-    pushMonsters(lvl1, monster1);
-    pushMonsters(lvl1, monster1);
-    pushMonsters(lvl2, monster1);
-    pushMonsters(lvl2, monster1);
-    pushMonsters(lvl2, monster1);
-    pushMonsters(lvl2, monster1);
-}
+// function addMonstersToLvls(GAME, lvls) {
+//     monsters = lvls[GAME.lvlCount - 1].waves[GAME.wave - 1];
+// }
 
 function updateScoreForMob() {
     let scoreInfo = document.querySelector(".count-score__value");
