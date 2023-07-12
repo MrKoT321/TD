@@ -1,8 +1,8 @@
 <?php
 use Ratchet\Server\IoServer;
-use MyApp\Chat;
+use testWebSockets\helpers;
 
-    require dirname(__DIR__) . '/vendor/autoload.php';
+    require dirname(__DIR__) . '../../vendor/autoload.php';
 
     $server = IoServer::factory(
         new HttpServer(
