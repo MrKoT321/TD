@@ -34,7 +34,7 @@ class ServerController
 
     public function singleGame(): void 
     {
-        $this->writeRedirectSeeOther("/../../pages/TD.html");
+        $this->writeRedirectSeeOther("/../../pages/defense.html");
     }
 
     public function index(): void
