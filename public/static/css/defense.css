@@ -214,7 +214,6 @@ body {
 .over {
     color: red;
     padding-top: 100px;
-    padding-bottom: 100px;
 }
 
 .popupcomplete__bg {
@@ -349,6 +348,25 @@ body {
     height: 50px;
 }
 
+.score {
+    margin-top: 30px;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.score__title {
+    color: black;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+.score__value {
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
 .menu {
     align-items: center;
     gap: 10px;
@@ -369,4 +387,6 @@ body {
     display: flex;
     flex-direction: row;
     gap: 40px;
+    padding-top: 80px;
+    padding-bottom: 30px;
 }

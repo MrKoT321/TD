@@ -85,6 +85,9 @@ function drawCastle() {
 
 function gameOver() {
     if (GAME.castleHP == 0) {
+        var scoreValue = document.querySelector(".count-score__value").innerHTML;
+        var endScore = document.querySelector(".score__value");
+        endScore.innerHTML = scoreValue;
         popupoverBg.classList.add('active');
         popupover.classList.add('active');
         GAME.isPlay = 'popuppause';
@@ -169,8 +172,23 @@ function changeMap() {
     }
 };
 
-function sendResults() {
-    
+async function sendResults(event) {
+    const score = document.querySelector(".score__value");
+    event.preventDefault();
+    props = {
+      'nickName': 'hahaha',
+      'choisenClass': 'defense',
+      'score': score.innerHTML
+    }
+    console.log(props);
+    // const json = JSON.stringify(props);
+    // let response = await fetch('/api/score', {
+    //       method: 'POST',
+    //       headers: {
+    //       'Content-Type': 'application/json;charset=utf-8'
+    //       },
+    //       body: json
+    // });
 }
 
 startwave.addEventListener(
@@ -204,8 +222,8 @@ nextBtn.addEventListener("click", () => {
 
 restartgame.addEventListener(
     "click",
-    () => {
-        sendResults();
+    (event) => {
+        sendResults(event);
         updateRestartGameParams();
         changeMap();
         updateCastleHP();
@@ -214,7 +232,7 @@ restartgame.addEventListener(
     }
 )
 
-backToMenuBtn.addEventListener("click", () => { sendResults() })
+backToMenuBtn.addEventListener("click", (event) => { sendResults(event) })
 
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
