@@ -8,19 +8,74 @@ body {
     overflow: hidden;
 }
 
+.buttons {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.back-to-menu {
+    /* width: 40px;
+    height: 30px; */
+}
+
+.back-to-menu__img {
+    width: 110px;
+    height: 100px;
+}
+
 .records {
-    width: 500px;
-    height: 500px;
+    margin: 20px 10%;
+    width: 80%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     color: white;
 }
 
 .records-title {
-    position: absolute;
-    top: 50px;
+    display: flex;
+    justify-content: center;
     font-weight: 900;
     font-size: 80px;
     color: white;
+}
+
+.record {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top:30px;
+    font-weight: 900;
+    font-size: 40px;
+    color: white;
+}
+
+.record-nickname {
+    width: 40%;
+    word-wrap: wrap;
+}
+
+.record-choisenclass {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+.record-choisenclass__icon {
+    width: 40px;
+    height: 40px;
+}
+
+.defense {
+    background: url("../images/CASTLE.png") no-repeat ;
+    background-size: cover;
+    
+}
+
+.attack {
+    background: url("../images/attack_icon.png") no-repeat;
+}
+
+.record-score {
+    width: 10%;
 }

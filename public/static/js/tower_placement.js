@@ -22,37 +22,8 @@ const archerTower = document.querySelector(".archer");
 const bashTower = document.querySelector(".bash");
 const mortirTower = document.querySelector(".mortir");
 
-// var moneyValue = Math.floor(document.querySelector(".count-s 
-var arrow = {
-    x: 0,
-    y: 0,
-    radius: 10,
-    exist: false,
-    color: "black",
-    towerCenterX: 0,
-    towerCenterY: 0,
-    speed: 5,
-    atk: 0
-}
-
-var bullet = {
-    x: 0,
-    y: 0,
-    radius: 20,
-    blastRadius: 70,
-    exist: false,
-    hit: true,
-    init: false,
-    color: "black",
-    radiusColor: "red",
-    acceleration: 2,
-    towerCenterX: 0,
-    towerCenterY: 0,
-    speedX: 0,
-    speedY: 0,
-    cos: 0,
-    atk: 0
-}
+var arrows = [];
+var bullets = [];
 
 window.addEventListener(
     'mousemove',
@@ -67,10 +38,10 @@ window.addEventListener(
     (event) => {
         mouseClick.x = event.clientX - field.x;
         mouseClick.y = event.clientY - field.y;
-        if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause'){
-            drawNewTowerSelector();       
-            drawTowerAbilities(); 
-        }  
+        if (GAME.isPlay == 'play' || GAME.isPlay == 'wavepause') {
+            drawNewTowerSelector();
+            drawTowerAbilities();
+        }
     }
 )
 
@@ -81,7 +52,7 @@ var compareWithGameLvl = 0;
 function isTowerOnPlace(tile) {
     let res = false;
     towers.forEach(activeTile => {
-        if(activeTile.x == tile[0] && activeTile.y == tile[1]) {
+        if (activeTile.x == tile[0] && activeTile.y == tile[1]) {
             res = true;
         }
     })
@@ -110,14 +81,13 @@ function drawTiles(GAME, lvls) {
             canvasContext.fillStyle = "#04BC4E";
             canvasContext.fillRect(tile[0], tile[1], 100, 100);
         }
-        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile)))) 
-        {
-            if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause' || GAME.isPlay == 'startgame'){
+        if (isMouseOnTile(mouse, tile) && (!(isTowerOnPlace(tile)))) {
+            if (GAME.isPlay == 'play' || GAME.isPlay == 'wavepause' || GAME.isPlay == 'startgame') {
                 canvasContext.fillStyle = "rgba(0, 0, 0, 0.3)";
                 canvasContext.fillRect(tile[0], tile[1], 100, 100);
             }
         }
-    })        
+    })
 }
 
 function drawTower() {
@@ -138,21 +108,21 @@ function drawTower() {
 }
 
 function canBuy(tower) {
-    return moneyValue >= tower.cost;
+    return GAME.money >= tower.cost
 }
 
-// function checkWhatCanBuy() {
-//     if (canBuy(archer)) {
-//         // archerTower 
-        
-//     }
-//     if (canBuy(bash)) {
-//         // bashTower
-//     }
-//     if (canBuy(mortir)) {
-//         // mortirTower
-//     }
-// }
+function checkWhatCanBuy() {
+    if (canBuy(archer)) {
+        // archerTower 
+
+    }
+    if (canBuy(bash)) {
+        // bashTower
+    }
+    if (canBuy(mortir)) {
+        // mortirTower
+    }
+}
 
 function drawNewTowerSelector() {
     let isFindDrawPos = false;
@@ -175,7 +145,7 @@ function drawNewTowerSelector() {
 function drawTowerAbilities() {
     let isFindDrawPos = false;
     for (var i = 0; i < towers.length; i++) {
-        activeTile = towers[i]; 
+        activeTile = towers[i];
         if (isMouseOnActiveTile(mouseClick, activeTile)) {
             let menuPosX = activeTile.x - 125 + 50;
             let menuPosY = activeTile.y - 125 + 50;
@@ -191,16 +161,16 @@ function drawTowerAbilities() {
 }
 
 function addMoneyForTower(cost) {
-    let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
     let moneyInfo = document.querySelector(".count-coin__value");
-    moneyInfo.innerHTML = String(Math.floor(moneyValue + (cost / 2)));  
+    GAME.money += cost / 2;
+    moneyInfo.innerHTML = String(Math.floor(GAME.money));
 }
 
 deleteTowerButton.addEventListener(
     "click",
     () => {
-        if(GAME.isPlay == 'play' || GAME.isPlay == 'wavepause' || GAME.isPlay == 'startgame'){
-            for(var i = 0; i < towers.length; i++) {
+        if (GAME.isPlay == 'play' || GAME.isPlay == 'wavepause' || GAME.isPlay == 'startgame') {
+            for (var i = 0; i < towers.length; i++) {
                 activeTile = towers[i];
                 if (isMouseOnActiveTile(mouseClick, activeTile)) {
                     towers.splice(i, 1);
@@ -223,17 +193,18 @@ function pushToTowers(tower, posX, posY) {
         towerColor: tower.towerColor,
         atkColor: tower.atkColor,
         currentEnemy: -1,
-        placeTime: GAME.stopwatch
+        placeTime: GAME.stopwatch,
+        startTime: 0
     })
 }
 
 function makeTower(tower) {
-    let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
     let moneyInfo = document.querySelector(".count-coin__value");
     towerTiles.forEach(tile => {
-        if (isMouseOnTile(mouseClick, tile) && moneyValue >= tower.cost) {
+        if (isMouseOnTile(mouseClick, tile) && canBuy(tower)) {
             pushToTowers(tower, tile[0], tile[1]);
-            moneyInfo.innerHTML = moneyValue - tower.cost;
+            GAME.money -= tower.cost;
+            moneyInfo.innerHTML = String(Math.floor(GAME.money));
         }
     })
 }
@@ -245,129 +216,162 @@ function hittingRadius(tower, mstrCenterX, mstrCenterY) {
     return (distance <= tower.radius);
 }
 
-function drawArrow() {
-    if(arrow.exist) {
-        canvasContext.fillStyle = arrow.color;
-        canvasContext.beginPath();
-        canvasContext.arc(arrow.x, arrow.y, arrow.radius, 0, 2 * Math.PI);
-        canvasContext.closePath();
-        canvasContext.fill();
-    }
+function makeArrow(tower) {
+    arrows.push({
+        x: tower.x + 50,
+        y: tower.y + 50,
+        radius: 10,
+        color: "black",
+        towerCenterX: 0,
+        towerCenterY: 0,
+        speed: 5,
+        atk: tower.atk,
+        currentEnemy: monsters[tower.currentEnemy]
+    })
 }
 
-function updateArrow() {
-    if(arrow.exist && arrow.currentEnemy && arrow.currentEnemy.hp > 0) {
-        let mstrCenterX = arrow.currentEnemy.x + arrow.currentEnemy.width/2;
-        let mstrCenterY = arrow.currentEnemy.y + arrow.currentEnemy.height/2;
-        let outMonsterX = arrow.x < arrow.currentEnemy.x || arrow.x > arrow.currentEnemy.x + arrow.currentEnemy.width;
-        let outMonsterY = arrow.y < arrow.currentEnemy.y || arrow.y > arrow.currentEnemy.y + arrow.currentEnemy.height;
-        if(outMonsterX || outMonsterY) {
-            if(outMonsterX) {
-                if(arrow.x >= mstrCenterX) {
-                    arrow.x -= arrow.speed;
-                } else { 
-                    arrow.x += arrow.speed;
+function drawArrows() {
+    arrows.forEach(flyingArrow => {
+        canvasContext.fillStyle = flyingArrow.color;
+        canvasContext.beginPath();
+        canvasContext.arc(flyingArrow.x, flyingArrow.y, flyingArrow.radius, 0, 2 * Math.PI);
+        canvasContext.closePath();
+        canvasContext.fill();
+    })
+}
+
+function updateArrows() {
+    for(var i = 0; i < arrows.length; i++) {
+        let flyingArrow = arrows[i];
+        if(flyingArrow.currentEnemy && flyingArrow.currentEnemy.hp > 0) {
+            let mstrCenterX = flyingArrow.currentEnemy.x + flyingArrow.currentEnemy.width/2;
+            let mstrCenterY = flyingArrow.currentEnemy.y + flyingArrow.currentEnemy.height/2;
+            let outMonsterX = flyingArrow.x < flyingArrow.currentEnemy.x || flyingArrow.x > flyingArrow.currentEnemy.x + flyingArrow.currentEnemy.width;
+            let outMonsterY = flyingArrow.y < flyingArrow.currentEnemy.y || flyingArrow.y > flyingArrow.currentEnemy.y + flyingArrow.currentEnemy.height;
+            if(outMonsterX || outMonsterY) {
+                if(outMonsterX) {
+                    if(flyingArrow.x >= mstrCenterX) {
+                        flyingArrow.x -= flyingArrow.speed;
+                    } else { 
+                        flyingArrow.x += flyingArrow.speed;
+                    }
+                } else {
+                    if(flyingArrow.x >= mstrCenterX) {
+                        flyingArrow.x -= flyingArrow.currentEnemy.speed;
+                    } else { 
+                        flyingArrow.x += flyingArrow.currentEnemy.speed;;
+                    }
+                }
+                if(outMonsterY) {
+                    if(flyingArrow.y >= mstrCenterY) {
+                        flyingArrow.y -= flyingArrow.speed;
+                    } else { 
+                        flyingArrow.y += flyingArrow.speed;
+                    }
+                } else {
+                    if(flyingArrow.y >= mstrCenterY) {
+                        flyingArrow.y -= flyingArrow.currentEnemy.speed;
+                    } else { 
+                        flyingArrow.y += flyingArrow.currentEnemy.speed;
+                    }
                 }
             } else {
-                if(arrow.x >= mstrCenterX) {
-                    arrow.x -= arrow.currentEnemy.speed;
-                } else { 
-                    arrow.x += arrow.currentEnemy.speed;;
-                }
-            }
-            if(outMonsterY) {
-                if(arrow.y >= mstrCenterY) {
-                    arrow.y -= arrow.speed;
-                } else { 
-                    arrow.y += arrow.speed;
-                }
-            } else {
-                if(arrow.y >= mstrCenterY) {
-                    arrow.y -= arrow.currentEnemy.speed;
-                } else { 
-                    arrow.y += arrow.currentEnemy.speed;
-                }
+                flyingArrow.currentEnemy.hp -= flyingArrow.atk;
+                arrows.splice(i, 1);
             }
         } else {
-            arrow.exist = false;
-            arrow.currentEnemy.hp -= arrow.atk;
+            arrows.splice(i, 1);
         }
     }
 }
 
 function attackArcher(GAME) {
     towers.forEach(tower => {
-        if(tower.type == "arrow") {
-            for(let i = 0; i < monsters.length; i++){
-                if(monsters[i].hp == 0) {
-                    tower.currentEnemy = -1;
-                    tower.startTime = -1;
-                }
-                let mstrCenterX = monsters[i].x + monsters[i].width/2;
-                let mstrCenterY = monsters[i].y + monsters[i].height/2;
-                if(tower.currentEnemy == -1 && hittingRadius(tower, mstrCenterX, mstrCenterY)) {
+        if (tower.type == "arrow") {
+            tower.currentEnemy = -1;
+            for (let i = 0; i < monsters.length; i++) {
+                let mstrCenterX = monsters[i].x + monsters[i].width / 2;
+                let mstrCenterY = monsters[i].y + monsters[i].height / 2;
+                if (hittingRadius(tower, mstrCenterX, mstrCenterY)) {
                     tower.currentEnemy = i;
-                    tower.startTime = GAME.stopwatch;
+                    if (tower.startTime <= 0) {
+                      tower.startTime = GAME.stopwatch;
+                    }
+                    break;
                 }
+            }
+            if (tower.currentEnemy == -1) {
+                tower.startTime = 0;
+            } else {
                 if(!((GAME.stopwatch - tower.startTime) % tower.atkspeed == 0)) {
                     tower.hit = false;
                 }
-                if(tower.currentEnemy == i && hittingRadius(tower, mstrCenterX, mstrCenterY) && tower.hit == false && (GAME.stopwatch - tower.startTime) % tower.atkspeed == 0) {
-                    arrow.exist = true;
-                    arrow.x = tower.x + 50;
-                    arrow.y = tower.y + 50;
-                    arrow.towerCenterX = arrow.x;
-                    arrow.towerCenterY = arrow.y;
-                    arrow.atk = tower.atk;
+                if(!tower.hit && (GAME.stopwatch - tower.startTime) % tower.atkspeed == 0) {
                     tower.hit = true;
-                    arrow.currentEnemy = monsters[tower.currentEnemy]
+                    makeArrow(tower);
                 }
             }
         }
     });
 }
 
-function drawBullet() {
-    if(bullet.exist) {
-        canvasContext.fillStyle = bullet.color;
+function makeBullet(tower, mstrCenterX, mstrCenterY) {
+    bullets.push({
+        x: tower.x + 50,
+        y: tower.y + 50,
+        radius: 20,
+        blastRadius: 70,
+        init: true,
+        color: "black",
+        radiusColor: "red",
+        acceleration: 2,
+        finishX: mstrCenterX,
+        finishY: mstrCenterY,
+        speedX: 0,
+        speedY: 0,
+        atk: tower.atk
+    });
+}
+
+function drawBullets() {
+    bullets.forEach(flyingBullet => {
+        canvasContext.fillStyle = flyingBullet.color;
         canvasContext.beginPath();
-        canvasContext.arc(bullet.x, bullet.y, bullet.radius, 0, 2 * Math.PI);
+        canvasContext.arc(flyingBullet.x, flyingBullet.y, flyingBullet.radius, 0, 2 * Math.PI);
         canvasContext.closePath();
         canvasContext.fill();
 
         canvasContext.beginPath();
-        canvasContext.strokeStyle = bullet.radiusColor;
+        canvasContext.strokeStyle = flyingBullet.radiusColor;
         canvasContext.lineWidth = 2;
-        canvasContext.arc(bullet.x, bullet.y, bullet.blastRadius, 0, 2 * Math.PI);
+        canvasContext.arc(flyingBullet.x, flyingBullet.y, flyingBullet.blastRadius, 0, 2 * Math.PI);
         canvasContext.stroke();
         canvasContext.closePath();
-    }
+    })
 }
 
-function updateBullet() {
-    if(bullet.exist) {
-        const t = 30;
-
+function updateBullets() {
+    const t = 30;
+    for (var i = 0; i < bullets.length; i++) {
+        let bullet = bullets[i];
         if(bullet.init) {
             bullet.init = false;
             bullet.speedX = (bullet.finishX - bullet.x) / t;
             bullet.speedY = (2 * (bullet.finishY - bullet.y) - bullet.acceleration * Math.pow(t, 2)) / (2 * t);
-        }
-        if(!bullet.init) {
+        } else {
             bullet.x += bullet.speedX;
             bullet.y += bullet.speedY;
             bullet.speedY += bullet.acceleration;
             if (bullet.speedY > 0 && bullet.y > bullet.finishY) {
-                bullet.exist = false;
                 monsters.forEach(monster => {
-                    let mstrCenterX = monster.x + monster.width/2;
-                    let mstrCenterY = monster.y + monster.height/2;
+                    let mstrCenterX = monster.x + monster.width / 2;
+                    let mstrCenterY = monster.y + monster.height / 2;
                     let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
                     if(distance <= bullet.blastRadius) {
                         monster.hp -= bullet.atk;
-                        bullet.hit = true;
                     }
                 })
+                bullets.splice(i, 1);
             }
         } 
     }
@@ -376,33 +380,39 @@ function updateBullet() {
 function attackMortir(GAME) {
     towers.forEach(tower => {
         if(tower.type == "splash") {
-            monsters.forEach(monster => {
-                let mstrCenterX = monster.x + monster.width/2;
-                let mstrCenterY = monster.y + monster.height/2;
-                if(hittingRadius(tower, mstrCenterX, mstrCenterY) && tower.placeTime % tower.atkspeed == 0 && bullet.hit){
-                    bullet.exist = true;
-                    bullet.init = true;
-                    bullet.finishX = mstrCenterX;
-                    bullet.finishY = mstrCenterY;
-                    bullet.towerCenterX = tower.x + 50;
-                    bullet.x = tower.x + 50;
-                    bullet.towerCenterY = tower.y + 50;
-                    bullet.y = tower.y + 50;
-                    bullet.atk = tower.atk;
-                    bullet.hit = false;
+            let mstrCenterX, mstrCenterY;
+            tower.currentEnemy = -1
+            for (let i = 0; i < monsters.length; i++) {
+                mstrCenterX = monsters[i].x + monsters[i].width / 2;
+                mstrCenterY = monsters[i].y + monsters[i].height / 2;
+                if (hittingRadius(tower, mstrCenterX, mstrCenterY)) {
+                    tower.currentEnemy = i;
+                    if (tower.startTime <= 0) {
+                        tower.startTime = GAME.stopwatch;
+                    }
+                    break;
                 }
-            })
+            }
+            if (tower.currentEnemy == -1) {
+                tower.startTime = 0;
+            } else {
+                if(!((GAME.stopwatch - tower.startTime) % tower.atkspeed == 0)) {
+                    tower.hit = false;
+                }
+                if((GAME.stopwatch - tower.startTime) % tower.atkspeed == 0 && !tower.hit) {
+                    tower.hit = true;
+                    makeBullet(tower, mstrCenterX, mstrCenterY);
+                }
+            }
         }
     });
 }
-
-bashTower.addEventListener("click", () => { makeTower(bash) })
 
 mortirTower.addEventListener("click", () => { makeTower(mortir) })
 
 function attackBash() {
     towers.forEach(tower => {
-        if(tower.type == "bash") {
+        if (tower.type == "bash") {
             monsters.forEach(monster => {
                 lineToMonster = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - tower.x - 50, 2) + Math.pow(monster.y + (monster.height / 2) - tower.y - 50, 2));
                 if (!((GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0)) {
@@ -414,12 +424,14 @@ function attackBash() {
                     monster.hit = true;
                 }
             })
-            if ((GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !tower.hit) {
+            if (!tower.hit && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0) {
                 tower.hit = true;
             }
         }
     })
 }
+
+bashTower.addEventListener("click", () => { makeTower(bash) })
 
 function attackTowers(GAME) {
     attackArcher(GAME);

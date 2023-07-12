@@ -1,5 +1,4 @@
 var monsters = [];
-var notdeadmonsters = [];
 var monstercount = 0;
 
 // function updateMonster(monster){
@@ -16,6 +15,7 @@ function pushMonsters(lvl, monster) {
         color: monster.color,
         maxhp: monster.maxhp,
         finish: false,
+        delete: false,
         x: lvl.start_x,
         y: lvl.start_y,
         dir: lvl.start_dir
@@ -87,7 +87,8 @@ function monsterCorrect(lvl, monster) {
                 }
             };
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
-                monster.hp = -1000;
+                monster.hp = 0;
+                monster.delete = true;
             }
             break;
         case 'u':
@@ -105,6 +106,7 @@ function monsterCorrect(lvl, monster) {
             }
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y + monster.height))) {
                 monster.hp = 0;
+                monster.delete = true;
             }
             break;
         case 'l':
@@ -122,6 +124,7 @@ function monsterCorrect(lvl, monster) {
             }
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x + monster.width, monster.y))) {
                 monster.hp = 0;
+                monster.delete = true;
             }
             break;
         case 'd':
@@ -139,6 +142,7 @@ function monsterCorrect(lvl, monster) {
             }
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
                 monster.hp = 0;
+                monster.delete = true;
             }
             break;
     }
@@ -152,32 +156,22 @@ function addMonster() {
 }
 
 function registerCollision(monster, GAME) {
-    if (monster.hp == 0 && monster.finish == true) {
+    if (monster.hp <= 0 && monster.delete) {
         let bar = document.getElementById("hp-bar");
         if (GAME.castleHP > 0) {
             bar.children[GAME.castleHP - 1].classList.add("_hide");
         }
         GAME.castleHP -= 1;
-        monster.hp -= 1;
     }
 }
 
 function moveMonsters(GAME) {
-    let notdeadmonsters = monsters.filter(value => value.hp > 0);
-    if(monsters.length > notdeadmonsters.length)
-    {
-        for (var monster of lvl.monsters) {
-            payForMonster(monster);
-        }
-    }
-    monsters = notdeadmonsters;
+    payForMonsters();
+    monsters = monsters.filter(value => value.hp > 0);
     for (var monster of monsters) {
         drawMonster(monster);
         hpBar(monster);
-    }
-    for (var monster of monsters) {
         monsterMove(monster);
-
         monsterCorrect(lvl, monster);
         registerCollision(monster, GAME);
     }
@@ -185,7 +179,7 @@ function moveMonsters(GAME) {
         if (GAME.milisectimer > starttime) {
             addMonster();
             GAME.isPlay = 'play';
-            starttime += 200;
+            starttime += 900;
         }
     }
 }
@@ -196,24 +190,45 @@ function hpBar(monster) {
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width, 5);
     canvasContext.fillStyle = "green";
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width * percentHP, 5);
-    // canvasContext.strokeStyle = "black";
-    // canvasContext.strokeRect(monster.x, monster.y - monster.height/2 - 10, monster.width, 5);
 }
 
-function payForMonster(monster) {
-    if (monster.hp <= 0 && monster.hp > -1000) {
-        let moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
-        let moneyInfo = document.querySelector(".count-coin__value");
-        moneyInfo.innerHTML = String(Math.floor(moneyValue + monster.cost));
-        monster.hp = -1000;
+function payForMonsters(monster) {
+    for (var monster of monsters) {
+        if (monster.hp <= 0 && !monster.finish) {
+            let moneyInfo = document.querySelector(".count-coin__value");
+            GAME.money += monster.cost
+            moneyInfo.innerHTML = String(Math.floor(GAME.money));
+        }
     }
 }
 
-function addMonstersToLvls(){
+function addMonstersToLvls() {
     pushMonsters(lvl1, monster1);
     pushMonsters(lvl1, monster1);
     pushMonsters(lvl2, monster1);
     pushMonsters(lvl2, monster1);
     pushMonsters(lvl2, monster1);
     pushMonsters(lvl2, monster1);
+}
+
+function updateScoreForMob() {
+    let scoreInfo = document.querySelector(".count-score__value");
+    if (monsters.length != 0) {
+        for(var monster of monsters){
+            if (monster.delete) {
+                GAME.score -= monster.cost;
+            } else {
+                if (monster.hp <= 0) {
+                    GAME.score += monster.cost;
+                }
+            }
+            scoreInfo.innerHTML = String(Math.floor(GAME.score));
+        }
+    } 
+}
+
+function updateScoreForLvlComplete(){
+    let scoreInfo = document.querySelector(".count-score__value");
+    GAME.score += GAME.lvlCount * 100;
+    scoreInfo.innerHTML = String(Math.floor(GAME.score));
 }

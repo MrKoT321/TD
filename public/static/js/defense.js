@@ -4,6 +4,7 @@ const popupcompleteBg = document.querySelector('.popupcomplete__bg');
 const popupcomplete = document.querySelector('.popupcomplete');
 const startwave = document.getElementById("startwave");
 const restartgame = document.getElementById("restartgame");
+const backToMenuBtn = document.getElementById("back-to-menu");
 const nextBtn = document.getElementById("next-lvl-btn");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4, lvl5];
@@ -14,6 +15,8 @@ var GAME = {
     stopwatch: 0,
     milisectimer: 0,
     isPlay: 'wavepause',
+    money: 100,
+    score: 0,
     lvlCount: 1
 }
 
@@ -27,14 +30,12 @@ GAME.castleHP = lvl.castleHP;
 
 var mobamount = lvl.mobamount;
 
-var notdeadmonsters = [];
-
 var canvas = document.getElementById("canvas");
 canvas.width = GAME.width;
 canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
-var starttime = 200;
+var starttime = 900;
 
 const background = new Image();
 const castle = new Image();
@@ -90,18 +91,6 @@ function gameOver() {
     }
 }
 
-nextBtn.addEventListener("click", () => {
-    lvl = changeLvl();
-    mobamount = lvl.mobamount;
-    GAME.castleHP = lvl.castleHP;
-    changeMap();
-    updateCastleHP();
-    popupCloseComplete();
-    GAME.isPlay = 'wavepause';
-    monstercount = 0;
-    starttime = 200;
-}
-);
 function updateMoney() {
     var moneyValue = Math.floor(document.querySelector(".count-coin__value").innerHTML);
     var moneyInfo = document.querySelector(".count-coin__value");
@@ -110,6 +99,7 @@ function updateMoney() {
 
 function lvlComplete() {
     if (GAME.castleHP > 0 && monsters.length == 0) {
+        updateScoreForLvlComplete();
         popupcompleteBg.classList.add('active');
         popupcomplete.classList.add('active');
         GAME.isPlay = 'popuppause';
@@ -143,6 +133,46 @@ function updateCastleHP() {
     }
 }
 
+function updateNextLvlParams() {
+    lvl = changeLvl();
+    mobamount = lvl.mobamount;
+    GAME.castleHP = lvl.castleHP;
+    monstercount = 0;
+    starttime = 900;
+    GAME.isPlay = 'wavepause'
+}
+
+function updateRestartGameParams() {
+    GAME.lvlCount = 1;
+    lvl = lvls[GAME.lvlCount - 1];
+    mobamount = lvl.mobamount;
+    GAME.castleHP = lvl.castleHP;
+    monstercount = 0;
+    starttime = 900;
+    for (var lvl of lvls) {
+        lvl.monsters = []
+    }
+    GAME.money = 0;
+    GAME.score = 100;
+}
+
+function changeMap() {
+    castle.src = lvl.castle_src;
+    background.src = lvl.back_src;
+
+    background.onload = () => {
+        GAME.background = background;
+    }
+
+    castle.onload = () => {
+        GAME.castle = castle;
+    }
+};
+
+function sendResults() {
+
+}
+
 startwave.addEventListener(
     "click",
     () => {
@@ -164,44 +194,27 @@ startwave.addEventListener(
     }
 )
 
+nextBtn.addEventListener("click", () => {
+    updateNextLvlParams();
+    changeMap();
+    updateCastleHP();
+    popupCloseComplete();
+}
+);
+
 restartgame.addEventListener(
     "click",
     () => {
-        GAME.lvlCount = 1;
-        lvl = lvls[GAME.lvlCount - 1];
-        mobamount = lvl.mobamount;
-        GAME.castleHP = lvl.castleHP;
+        sendResults();
+        updateRestartGameParams();
         changeMap();
         updateCastleHP();
         popupCloseOver();
-        GAME.isPlay = 'wavepause';
-        monstercount = 0;
-        starttime = 200;
-        monstercount = 0;
-        lvl1.monsters = [];
-        lvl2.monsters = [];
-        pushMonsters(lvl1, monster1)
-        pushMonsters(lvl1, monster1)
-
-        pushMonsters(lvl2, monster1)
-        pushMonsters(lvl2, monster1)
-        pushMonsters(lvl2, monster1)
-        pushMonsters(lvl2, monster1)
+        addMonstersToLvls();
     }
 )
 
-function changeMap() {
-    castle.src = lvl.castle_src;
-    background.src = lvl.back_src;
-
-    background.onload = () => {
-        GAME.background = background;
-    }
-
-    castle.onload = () => {
-        GAME.castle = castle;
-    }
-};
+backToMenuBtn.addEventListener("click", () => { sendResults() })
 
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
@@ -217,6 +230,9 @@ function play() {
     if (GAME.isPlay == 'play') {
         lvlComplete();
         catchTime();
+        updateScoreForMob();
+        updateArrows();
+        updateBullets();
     }
     if (GAME.isPlay == 'menu') {
         stopTimer();
@@ -225,17 +241,14 @@ function play() {
         addMonster();
         GAME.isPlay = 'play';
     }
-    if (GAME.isPlay == 'startgame') {
-    }
     moveMonsters(GAME);
     drawCastle();
     drawTiles(GAME, lvls);
     drawTower();
-    attackTowers(GAME)
-    drawArrow();
-    updateArrow();
-    drawBullet();
-    updateBullet();
+    drawArrows();
+    drawBullets();
+    attackTowers(GAME);
+    drawBonuses();
     gameOver();
     requestAnimationFrame(play);
 }

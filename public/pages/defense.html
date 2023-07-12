@@ -28,17 +28,22 @@
             </div>
             <div class="tower-selection tower-abilities hidden">
                 <div class="choice-abilitie">
-                    <div class="delete-tower"></div>
+                    <img src="../static/images/cancel_button.png"  class="delete-tower" />
                 </div>
             </div>
             <div class="field__hp-bar hp-bar" id="hp-bar">
-                <img src="../static/images/hp.svg" alt="hp1" class="hp-bar__hp">
-                <img src="../static/images/hp.svg" alt="hp2" class="hp-bar__hp">
-                <img src="../static/images/hp.svg" alt="hp3" class="hp-bar__hp">
+                <img src="../static/images/hp.png" alt="hp1" class="hp-bar__hp">
+                <img src="../static/images/hp.png" alt="hp2" class="hp-bar__hp">
+                <img src="../static/images/hp.png" alt="hp3" class="hp-bar__hp">
             </div>
         </div>
         <div class="game__bar bar">
-            <div class="bar__bufs"></div>
+            <div class="bar__bufs">
+                <div class="fireball-buf baf-slot">
+                    <img src="../static/images/fireball_buff.png" class="fireball-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="fireball-buf__cancel hidden" />
+                </div>
+            </div>
             <div class="bar__menu">
                 <div class="bar__pause pause">
                     <div class="pause__btn pause" id="startwave"></div>
@@ -57,7 +62,7 @@
             <div class="overbuttons">
                 <img class="restart__img" src="../static/images/restart.png" id="restartgame"/>
                 <a href="../../" class="menua">
-                    <img class="menu__img" src="../static/images/menu.png" />
+                    <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
                 </a>
             </div>
         </div>
@@ -75,8 +80,9 @@
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
+    <script type="application/javascript" src="../static/js/bonus_action.js"></script>
     <script type="application/javascript" src="../static/js/tower_placement.js"></script>
-    <script type="application/javascript" src="../static/js/defence.js"></script>
+    <script type="application/javascript" src="../static/js/defense.js"></script>
 </body>
 
 </html>
