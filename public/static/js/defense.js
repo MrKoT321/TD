@@ -4,6 +4,7 @@ const popupcompleteBg = document.querySelector('.popupcomplete__bg');
 const popupcomplete = document.querySelector('.popupcomplete');
 const startwave = document.getElementById("startwave");
 const restartgame = document.getElementById("restartgame");
+const backToMenuBtn = document.getElementById("back-to-menu");
 const nextBtn = document.getElementById("next-lvl-btn");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4, lvl5];
@@ -132,27 +133,6 @@ function updateCastleHP() {
     }
 }
 
-startwave.addEventListener(
-    "click",
-    () => {
-        if (GAME.isPlay == 'wavepause') {
-            startwave.classList.remove("pause");
-            startwave.classList.add("play");
-            GAME.isPlay = 'startgame';
-        } else {
-            if (GAME.isPlay == 'menu') {
-                startwave.classList.remove("pause");
-                startwave.classList.add("play");
-                GAME.isPlay = 'play';
-            } else {
-                startwave.classList.remove("play");
-                startwave.classList.add("pause");
-                GAME.isPlay = 'menu';
-            }
-        }
-    }
-)
-
 function updateNextLvlParams() {
     lvl = changeLvl();
     mobamount = lvl.mobamount;
@@ -176,25 +156,6 @@ function updateRestartGameParams() {
     GAME.score = 100;
 }
 
-nextBtn.addEventListener("click", () => {
-    updateNextLvlParams();
-    changeMap();
-    updateCastleHP();
-    popupCloseComplete();
-}
-);
-
-restartgame.addEventListener(
-    "click",
-    () => {
-        updateRestartGameParams();
-        changeMap();
-        updateCastleHP();
-        popupCloseOver();
-        addMonstersToLvls();
-    }
-)
-
 function changeMap() {
     castle.src = lvl.castle_src;
     background.src = lvl.back_src;
@@ -207,6 +168,53 @@ function changeMap() {
         GAME.castle = castle;
     }
 };
+
+function sendResults() {
+    
+}
+
+startwave.addEventListener(
+    "click",
+    () => {
+        if (GAME.isPlay == 'wavepause') {
+            startwave.classList.remove("pause");
+            startwave.classList.add("play");
+            GAME.isPlay = 'startgame';
+        } else {
+            if (GAME.isPlay == 'menu') {
+                startwave.classList.remove("pause");
+                startwave.classList.add("play");
+                GAME.isPlay = 'play';
+            } else {
+                startwave.classList.remove("play");
+                startwave.classList.add("pause");
+                GAME.isPlay = 'menu';
+            }
+        }
+    }
+)
+
+nextBtn.addEventListener("click", () => {
+    updateNextLvlParams();
+    changeMap();
+    updateCastleHP();
+    popupCloseComplete();
+}
+);
+
+restartgame.addEventListener(
+    "click",
+    () => {
+        sendResults();
+        updateRestartGameParams();
+        changeMap();
+        updateCastleHP();
+        popupCloseOver();
+        addMonstersToLvls();
+    }
+)
+
+backToMenuBtn.addEventListener("click", () => { sendResults() })
 
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
