@@ -1,6 +1,12 @@
 body 
 {
     margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #434343;
+    overflow: hidden;
 }
 
 a
@@ -10,6 +16,7 @@ a
 
 .menu
 {
+    position: relative;
     margin: 40px 0 0 50px;
     width: 1800px;
     height: 1000px;
@@ -229,7 +236,7 @@ a
 .records {
     position: absolute;
     top: 0;
-    left: 320px;
+    left: 300px;
     font-weight: 900;
     font-size: 80px;
     color: white;

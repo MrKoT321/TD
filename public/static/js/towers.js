@@ -23,7 +23,7 @@ const mortir = {
     atk: 10,
     radius: 300,
     type: "splash",
-    atkspeed: 1,
+    atkspeed: 2,
     towerColor: "blue",
     atkColor: "red"
 }
