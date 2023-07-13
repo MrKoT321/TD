@@ -43,7 +43,7 @@ const lvl3 = {
     money: 100,
     start_dir: 'r',
     mobamount: 6,
-    background: "../static/images/BASE-MAP.png",
+    background: "../static/images/MAP3.png",
     castle_src:  "../static/images/CASTLE.svg",
     monsters: [] 
 }
@@ -57,7 +57,7 @@ const lvl4 = {
     money: 100,
     start_dir: 'r',
     mobamount: 8,
-    background: "../static/images/BASE-MAP.png",
+    background: "../static/images/MAP4.png",
     castle_src:  "../static/images/CASTLE.svg",
     monsters: [] 
 }

@@ -114,10 +114,9 @@ function drawTiles(GAME, lvls) {
 
 function drawTower() {
     towers.forEach(tile => {
-        if (tile.type == "arrow") { canvasContext.drawImage(towersImg.arrow, tile.x, tile.y, 75, 75); }
-        if (tile.type == "bash") { canvasContext.drawImage(towersImg.bash, tile.x, tile.y, 75, 75); }
-        if (tile.type == "splash") { canvasContext.drawImage(towersImg.splash, tile.x, tile.y, 75, 75); }
-
+        if (tile.type == "arrow") { canvasContext.drawImage(towersImg.arrow, tile.x, tile.y, 100, 100); }
+        if (tile.type == "bash") { canvasContext.drawImage(towersImg.bash, tile.x, tile.y, 100, 100); }
+        if (tile.type == "splash") { canvasContext.drawImage(towersImg.splash, tile.x, tile.y, 100, 100); }
 
         canvasContext.beginPath();
         canvasContext.strokeStyle = "pink";

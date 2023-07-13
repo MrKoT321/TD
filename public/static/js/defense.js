@@ -7,7 +7,7 @@ const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
 const nextBtn = document.getElementById("next-lvl-btn");
 
-const lvls = [lvl1, lvl2, lvl3, lvl4, lvl5];
+const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
     width: 1600,
@@ -258,7 +258,6 @@ function play() {
     updateMoney();
     updateScore();
     drawBackground();
-    console.log(GAME.isPlay, GAME.milisectimer, GAME.stopwatch)
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
     }

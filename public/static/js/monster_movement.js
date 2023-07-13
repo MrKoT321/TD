@@ -199,10 +199,6 @@ function payForMonsters(monster) {
     }
 }
 
-// function addMonstersToLvls(GAME, lvls) {
-//     monsters = lvls[GAME.lvlCount - 1].waves[GAME.wave - 1];
-// }
-
 function updateScoreForMob() {
     let scoreInfo = document.querySelector(".count-score__value");
     if (monsters.length != 0) {

@@ -1,5 +1,6 @@
 const fireballBonus = document.querySelector(".fireball-buf__icon");
 const fireballBonusCancel = document.querySelector(".fireball-buf__cancel");
+const fireballReloadTimer = document.querySelector(".fireball-buf__reload");
 
 fireball = {
     x: undefined,
@@ -7,13 +8,14 @@ fireball = {
     color: "red",
     radius: 10,
     blastRadius: 150,
-    reload: 60,
+    reload: 5,
     lastTimeCast: 60,
     speedX: 0,
     speedY: 0,
     finishX: undefined,
     finishY: undefined,
     isActive: false,
+    readyToExplode: true,
     atk: 60
 }
 
@@ -34,7 +36,7 @@ canvas.addEventListener(
 fireballBonus.addEventListener(
     "click",
     () => {
-        if (!fireball.isActive && GAME.isPlay == 'play') {
+        if (!fireball.isActive && fireball.readyToExplode) {
             fireballBonusCancel.classList.remove("hidden");
             fireballBonus.style.width = "100px";
             fireballBonus.style.height = "100px";
@@ -53,6 +55,8 @@ function inActiveFireBall() {
     fireballBonus.style.width = "150px";
     fireballBonus.style.height = "150px";
     fireball.isActive = false;
+    fireballReloadTimer.classList.remove("hidden");
+    fireballReloadTimer.innerHTML = "";
 }
 
 function isClickOnMap() {
@@ -83,11 +87,16 @@ function createFireBall() {
     fireball.y = gameFieldClick.y - changePos;
     fireball.speedX = -changePos / t;
     fireball.speedY = changePos / t;
+    fireball.lastTimeCast = GAME.stopwatch;
+    fireball.readyToExplode = false;
 }
 
 function updateFireball() {
     fireball.x += fireball.speedX;
     fireball.y += fireball.speedY;
+    if (GAME.stopwatch - fireball.lastTimeCast >= fireball.reload && !fireball.readyToExplode) {
+        fireball.readyToExplode = true;
+    }
     if (fireball.x < fireball.finishX && fireball.y > fireball.finishY) {
         fireball.x = undefined;
         fireball.y = undefined;
@@ -102,6 +111,16 @@ function updateFireball() {
     }
 }
 
+function drawFireballReload() {
+    if (!fireball.readyToExplode) {
+        fireballReloadTimer.classList.remove("hidden");
+        fireballReloadTimer.innerHTML = fireball.reload - GAME.stopwatch + fireball.lastTimeCast;
+    } else {
+        fireballReloadTimer.classList.add("hidden");
+        fireballReloadTimer.innerHTML = "";
+    }
+}
+
 function initFireball() {
     if (fireball.isActive && isClickOnMap()) {
         inActiveFireBall();
@@ -113,7 +132,11 @@ function drawBonuses() {
     drawFireball();
     if (GAME.isPlay == 'play') {
         updateFireball();
+        drawFireballReload();
     } else {
         inActiveFireBall();
+        if (GAME.isPlay == 'wavepause') {
+            fireball.readyToExplode = true;
+        }
     }
 }
