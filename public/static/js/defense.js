@@ -62,7 +62,7 @@ function catchTime() {
     }
     timeInLastPause = 0;
     GAME.stopwatch = Math.floor((new Date() - startTimer - timeInPause) / 1000);
-    GAME.milisectimer = Math.floor(new Date() - startTimer - timeInPause / 1000);
+    GAME.milisectimer = Math.floor(new Date() - startTimer - timeInPause);
     pauseStartTime = new Date();
 }
 
