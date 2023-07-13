@@ -40,7 +40,7 @@ class ServerController
             null, 
             $data['nickName'], 
             $data['choisenClass'], 
-            $data['score']
+            (int)$data['score']
         );
         $this->recordTable->add($record);
         return;

@@ -105,8 +105,8 @@ body {
 }
 
 .fireball-buf__icon {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
 }
 
 .fireball-buf__cancel {
@@ -332,7 +332,7 @@ body {
     width: 65px;
     height: 65px;
     position: absolute;
-} 
+}
 
 .hp-bar__hp {
     transform: scale(1);
@@ -368,7 +368,7 @@ body {
     transform: scale(0.9);
 }
 
-.restart__img{
+.restart__img {
     width: 50px;
     height: 50px;
 }
@@ -403,7 +403,7 @@ body {
     text-decoration: none;
 }
 
-.menu__img{
+.menu__img {
     width: 50px;
     height: 50px;
     padding-top: 80px;
@@ -416,7 +416,7 @@ body {
     gap: 40px;
 }
 
-.restart{
+.restart {
     cursor: pointer;
     width: 50px;
     height: 50px;

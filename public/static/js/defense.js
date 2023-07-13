@@ -139,9 +139,9 @@ function updateCastleHP() {
         bar.children[i].classList.remove("_hide");
     }
 }
-   
+
 function nextWave() {
-    if(monsters.length == 0 && GAME.wave < 3){
+    if (monsters.length == 0 && GAME.wave < 3) {
         GAME.wave += 1;
         monstercount = 0;
         // starttime += GAME.milisectimer;
@@ -191,18 +191,18 @@ async function sendResults(event) {
     const score = document.querySelector(".score__value");
     event.preventDefault();
     props = {
-      nickName: 'hahaha',
-      choisenClass: 'defense',
-      score: Math.floor(score.innerHTML)
+        nickName: 'hahaha',
+        choisenClass: 'defense',
+        score: Math.floor(score.innerHTML)
     }
     console.log(props);
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
-          method: 'POST',
-          headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-          },
-          body: json
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: json
     });
 }
 
@@ -227,7 +227,7 @@ startwave.addEventListener(
     }
 )
 
-nextBtn.addEventListener("click", 
+nextBtn.addEventListener("click",
     () => {
         updateNextLvlParams();
         changeMap();
@@ -259,7 +259,7 @@ function play() {
     updateMoney();
     updateScore();
     drawBackground();
-    
+
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
     }
@@ -277,6 +277,9 @@ function play() {
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
         GAME.isPlay = 'play';
+    }
+    if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
+        removeTowerSelectors();
     }
     moveMonsters(GAME, lvls);
     drawCastle();

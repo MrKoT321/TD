@@ -3,7 +3,7 @@ const fireballBonusCancel = document.querySelector(".fireball-buf__cancel");
 
 fireball = {
     x: undefined,
-    y: undefined,   
+    y: undefined,
     color: "red",
     radius: 10,
     blastRadius: 150,
@@ -36,8 +36,8 @@ fireballBonus.addEventListener(
     () => {
         if (!fireball.isActive && GAME.isPlay == 'play') {
             fireballBonusCancel.classList.remove("hidden");
-            fireballBonus.style.width = "75px";
-            fireballBonus.style.height   = "75px";
+            fireballBonus.style.width = "100px";
+            fireballBonus.style.height = "100px";
             fireball.isActive = true;
         } else {
             inActiveFireBall();
@@ -50,8 +50,8 @@ fireballBonusCancel.addEventListener("click", () => { inActiveFireBall(); }
 
 function inActiveFireBall() {
     fireballBonusCancel.classList.add("hidden");
-    fireballBonus.style.width = "100px";
-    fireballBonus.style.height   = "100px";
+    fireballBonus.style.width = "150px";
+    fireballBonus.style.height = "150px";
     fireball.isActive = false;
 }
 
@@ -81,9 +81,9 @@ function createFireBall() {
     fireball.finishY = gameFieldClick.y;
     fireball.x = gameFieldClick.x + changePos;
     fireball.y = gameFieldClick.y - changePos;
-    fireball.speedX = -changePos / t; 
-    fireball.speedY = changePos / t; 
-}   
+    fireball.speedX = -changePos / t;
+    fireball.speedY = changePos / t;
+}
 
 function updateFireball() {
     fireball.x += fireball.speedX;
@@ -95,7 +95,7 @@ function updateFireball() {
             let mstrCenterX = monster.x + monster.width / 2;
             let mstrCenterY = monster.y + monster.height / 2;
             let distance = Math.sqrt(Math.pow(mstrCenterX - fireball.finishX, 2) + Math.pow(mstrCenterY - fireball.finishY, 2));
-            if(distance <= fireball.blastRadius) {
+            if (distance <= fireball.blastRadius) {
                 monster.hp -= fireball.atk;
             }
         })
@@ -114,6 +114,6 @@ function drawBonuses() {
     if (GAME.isPlay == 'play') {
         updateFireball();
     } else {
-        inActiveFireBall(); 
+        inActiveFireBall();
     }
 }
