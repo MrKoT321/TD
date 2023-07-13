@@ -74,11 +74,13 @@ body {
 }
 
 .delete-tower {
-    height: 50px;
-    width: 50px;
+    border-radius: 50%;
+    height: 75px;
+    width: 75px;
+    background: red;
     position: absolute;
     bottom: -37.5px;
-    left: calc(50% - 25px);
+    left: calc(50% - 37.5px);
     cursor: pointer;
 }
 
@@ -91,77 +93,17 @@ body {
 
 .bar__bufs {
     width: 100%;
-    height: 800px;
-}
-
-.baf-slot {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    background: url("../images/BAR-SLOT.png") no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.fireball-buf__icon {
-    width: 150px;
-    height: 150px;
-}
-
-.fireball-buf__cancel {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-}
-
-
-.fireball-buf__reload {
-    position: absolute;
-    width: 200px;
-    height: 140px;
-    padding-top: 60px;
-    text-align: center;
-    font-weight: 900;
-    font-size: 80px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.3);
+    height: 900px;
 }
 
 .bar__menu {
-    background: url("../images/BAR-SLOT.png") no-repeat;
-    width: 200px;
-    height: 200px;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.bar-start {
     width: 100%;
     height: 100px;
+    background-color: green;
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.bar-start__start-btn {
-    color: white;
-    font-weight: 400;
-    font-size: 80px;
-    font-family: 'VT323';
-    cursor: pointer;
-}
-
-.active {
-    color: #6E18C0;
-    cursor: default;
 }
 
 .bar__pause {
-    height: 50%;
     width: 50%;
     display: flex;
     justify-content: center;
@@ -177,13 +119,13 @@ body {
 .pause__btn.play {
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
-    border-left: 35px solid #6E18C0;
+    border-left: 35px solid white;
 }
 
 .pause__btn.pause {
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
-    border-left: 35px solid white;
+    border-left: 35px solid #6E18C0;
 }
 
 .bar__out {
@@ -273,10 +215,7 @@ body {
 
 .over {
     color: red;
-    font-weight: 400;
-    font-size: 100px;
-    font-family: 'VT323';
-    padding: 50px 0 20px;
+    padding-top: 100px;
 }
 
 .popupcomplete__bg {
@@ -321,9 +260,6 @@ body {
     color: green;
     padding-top: 100px;
     padding-bottom: 100px;
-    font-weight: 400;
-    font-size: 100px;
-    font-family: 'VT323';
 }
 
 .hp-bar {
@@ -344,13 +280,10 @@ body {
     position: absolute;
     top: 0;
     left: 10px;
-}
-
-.count-coin__value {
-    font-weight: 400;
-    font-size: 100px;
+    font-weight: 900;
+    font-size: 80px;
     color: white;
-    font-family: 'VT323';
+
 }
 
 .count-coin__img {
@@ -376,14 +309,7 @@ body {
     width: 65px;
     height: 65px;
     position: absolute;
-}
-
-.count-score__value {
-    font-weight: 400;
-    font-size: 100px;
-    color: white;
-    font-family: 'VT323';
-}
+} 
 
 .hp-bar__hp {
     transform: scale(1);
@@ -403,15 +329,13 @@ body {
 }
 
 .next-lvl-btn {
-    width: 350px;
-    height: 120px;
+    width: 150px;
+    height: 50px;
     border: none;
     background-color: green;
     border-radius: 5px;
-    font-weight: 400;
-    color: white;
-    font-family: 'VT323';
-    font-size: 50px;
+    color: #FFFFFF;
+    font-size: 17px;
     transform: scale(1);
     transition: 0.2s all ease-in-out;
     cursor: pointer;
@@ -421,12 +345,13 @@ body {
     transform: scale(0.9);
 }
 
-.restart__img {
+.restart__img{
     width: 50px;
     height: 50px;
 }
 
 .score {
+    margin-top: 30px;
     display: flex;
     align-items: flex-end;
     gap: 10px;
@@ -435,16 +360,13 @@ body {
 .score__title {
     color: black;
     text-align: center;
+    font-size: 2.5rem;
     font-weight: 300;
-    font-size: 100px;
-    font-family: 'VT323';
 }
 
 .score__value {
-    color: black;
+    font-size: 2.5rem;
     font-weight: 300;
-    font-size: 100px;
-    font-family: 'VT323';
 }
 
 .menu {
@@ -458,20 +380,18 @@ body {
     text-decoration: none;
 }
 
-.menu__img {
+.menu__img{
     width: 50px;
     height: 50px;
-    padding-top: 80px;
-    padding-bottom: 30px;
 }
 
-.overbuttons {
+.overbuttons{
     display: flex;
     flex-direction: row;
     gap: 40px;
 }
 
-.restart {
+.restart{
     cursor: pointer;
     width: 50px;
     height: 50px;

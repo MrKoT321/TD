@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Tower Defense</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/attack_selector.css">
+</head>
+
+<body>
+    <div class="game">
+        <div class="game__field field">
+            <div class="monsters-selector">
+                <img src="../static/images/monster1_selector.png" id="mob1" class="monster-selector"/>
+                <img src="../static/images/monster2_selector.png" id="mob2" class="monster-selector"/>
+                <img src="../static/images/monster3_selector.png" id="mob3" class="monster-selector"/>
+                <img src="../static/images/monster4_selector.png" id="mob4" class="monster-selector"/>
+                <img src="../static/images/monster5_selector.png" id="mob5" class="monster-selector"/>
+            </div>
+            <div class="monsters-selected wave1">
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob1-1-selected" class="mob mob1" />
+                    <span id="mob1-1-count" class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell1-1" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob2-1-selected" class="mob mob2"/>
+                    <span id="mob2-1-count" class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell2-1" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob3-1-selected" class="mob mob3"/>
+                    <span id="mob3-1-count"  class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell3-1" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob4-1-selected" class="mob mob4"/>
+                    <span id="mob4-1-count"  class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell4-1" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob5-1-selected" class="mob mob5" />
+                    <span id="mob5-1-count"  class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell5-1" class="sell"/>
+                </div>
+            </div>
+            <div class="monsters-selected wave2">
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob1-2-selected" class="mob mob1" />
+                    <span id="mob1-2-count" class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell1-2" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob2-2-selected" class="mob mob2"/>
+                    <span id="mob2-2-count" class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell2-2" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob3-2-selected" class="mob mob3"/>
+                    <span id="mob3-2-count"  class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell3-2" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob4-2-selected" class="mob mob4"/>
+                    <span id="mob4-2-count"  class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell4-2" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob5-2-selected" class="mob mob5" />
+                    <span id="mob5-2-count"  class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell5-2" class="sell"/>
+                </div>
+            </div>
+            <div class="monsters-selected wave3">
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob1-3-selected" class="mob mob1" />
+                    <span id="mob1-3-count" class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell1-3" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob2-3-selected" class="mob mob2"/>
+                    <span id="mob2-3-count" class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell2-3" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob3-3-selected" class="mob mob3"/>
+                    <span id="mob3-3-count"  class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell3-3" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob4-3-selected" class="mob mob4"/>
+                    <span id="mob4-3-count"  class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell4-3" class="sell"/>
+                </div>
+                <div class="mob-info">
+                    <img src="../static/images/border_for_mob_selected.png" id="mob5-3-selected" class="mob mob5" />
+                    <span id="mob5-3-count"  class="mob-count">0</span>
+                    <img src="../static/images/sell_button.png" id="sell5-3" class="sell"/>
+                </div>
+            </div>
+            <img src="../static/images/map-button.png" class="map-button"/>
+            <canvas id='canvas'></canvas>
+            <span class="count-coin">100</span>
+        </div>
+    </div>
+    <script type="application/javascript" src="../static/js/monsters.js"></script>
+    <script type="application/javascript" src="../static/js/html_to_js_const.js"></script>
+    <script type="application/javascript" src="../static/js/attack_selector.js"></script>
+</body>
+
+</html>

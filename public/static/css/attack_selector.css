@@ -1,0 +1,130 @@
+.visible{
+    visibility: visible;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+body {
+    height: 1080px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #434343;
+    overflow: hidden;
+}
+
+.game {
+    position: relative;
+    width: 1800px;
+    height: 1000px;
+    display: flex;
+}
+
+.field {
+    width: 1800px;
+    position: relative;
+}
+
+.count-coin {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
+}
+
+.map-button {
+    position: absolute;
+    margin-left: 1493px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+
+.mob-count {
+    top: 0;
+    left: 10px;
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
+    width: 80px;
+    text-align: right;
+}
+
+.monsters-selector {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    margin-left: 128px;
+    gap: 135px;
+    margin-top: 180px;
+}
+
+.monster-selector {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+}
+
+.monsters-selected {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+}
+
+.wave1{
+    margin-top: 464px;
+}
+
+.wave2{
+    margin-top: 668px;
+}
+
+.wave3 {
+    margin-top: 872px;
+}
+
+.mob{
+    width: 80px;
+    height: 80px;
+    margin-left: 75px;
+}
+
+.mob-info{
+    display: flex;
+    gap: 36px;
+    align-items: center;
+    height: 132px;
+    width: 360px;
+}
+
+.sell{
+    position: absolute;
+    margin-left: 282px;
+    margin-bottom: 101px;
+    cursor: pointer;
+}
+
+.mob1{
+    background: url("../images/monster1.png");
+}
+
+.mob2{
+    background: url("../images/monster2.png");
+}
+
+.mob3{
+    background: url("../images/monster3.png");
+}
+
+.mob4{
+    background: url("../images/monster4.png");
+}
+
+.mob5{
+    background: url("../images/monster5.png");
+}

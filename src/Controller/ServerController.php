@@ -20,6 +20,32 @@ class ServerController
         $this->recordTable = new RecordTable($connection);
     }
 
+    public function addRecord(): void 
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST')
+        {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+        if ($_SERVER["CONTENT_TYPE"] ==  'application/json')
+        {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+
+        $postData = file_get_contents('php://input');
+        $data = json_decode($postData, true);
+
+        $record = new Record(
+            null, 
+            $data['nickName'], 
+            $data['choisenClass'], 
+            (int)$data['score']
+        );
+        $this->recordTable->add($record);
+        return;
+    }
+
     public  function showRecords(): void 
     {
         $records = $this->recordTable->show();
@@ -34,7 +60,7 @@ class ServerController
 
     public function singleGame(): void 
     {
-        $this->writeRedirectSeeOther("/../../pages/TD.html");
+        $this->writeRedirectSeeOther("/../../pages/defense.html");
     }
 
     public function index(): void

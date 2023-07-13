@@ -2,7 +2,7 @@ INSERT INTO
     records 
         (nick_name, choisen_class, score)
     VALUES
-        ('ez_game', 'defense', 321);
+        ('ez_game', 'defense', 1);
 
 INSERT INTO 
     records 
