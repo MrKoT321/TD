@@ -85,11 +85,11 @@ function drawCastle() {
 
 function gameOver() {
     if (GAME.castleHP == 0) {
+        popupoverBg.classList.add('active');
+        popupover.classList.add('active');
         var scoreValue = document.querySelector(".count-score__value").innerHTML;
         var endScore = document.querySelector(".score__value");
         endScore.innerHTML = scoreValue;
-        popupoverBg.classList.add('active');
-        popupover.classList.add('active');
         GAME.isPlay = 'popuppause';
     }
 }
@@ -194,7 +194,6 @@ async function sendResults(event) {
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }
-    console.log(props);
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',
@@ -203,6 +202,7 @@ async function sendResults(event) {
         },
         body: json
     });
+    window.location.href = '../../';
 }
 
 startwave.addEventListener(
