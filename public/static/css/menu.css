@@ -137,6 +137,7 @@ a
     top: 0;
     left: 0;
 }
+
 .popup__multiplay
 {
     position: absolute;
@@ -167,6 +168,7 @@ a
     transition: all 0.3s ease 0s;
     opacity: 0;    
     transform: translate(0px, -100%);
+    align-items: center;
 }
 
 .popup__close 
@@ -249,3 +251,71 @@ a
     height: 100px;
     position: absolute;
 } 
+
+.popup__multiplay
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: default;
+}
+
+.form-popup__title
+{
+    color: #EFEFEF;
+    padding-bottom: 17px;
+    font-size: 40px;
+    /* max-width: 188px; */
+    width: 100%;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.form-popup__info
+{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+.form-popup__nickname 
+{
+    box-sizing: border-box;
+    text-align: center;
+    border: 3px solid black;
+    height: 80px;
+    width: 300px;
+    padding: 0 10%;
+    border: 0;
+    border-radius: 5px 0 0 5px;
+}
+
+.form-popup__submit 
+{
+    max-width: 125px;
+    height: 80px;
+    width: 150px;
+    background: rgb(255 214 0 / 28%);
+    border-radius: 0 5px 5px 0;
+    border: 0;
+    font: 400 12px/1.17 "Roboto";
+    color: #F8F8F8;
+    cursor: pointer;
+}
+.form-popup__submit :hover {
+    background: #f44336;
+    color: white;
+  }
+
+.popup__start
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: default;
+}
+
