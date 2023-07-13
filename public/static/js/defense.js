@@ -53,6 +53,7 @@ function resetStopwatch() {
     GAME.stopwatch = 0;
     startTimer = new Date();
     GAME.milisectimer = 0;
+    timeInPause = 0;
 }
 
 function catchTime() {
@@ -61,7 +62,7 @@ function catchTime() {
     }
     timeInLastPause = 0;
     GAME.stopwatch = Math.floor((new Date() - startTimer - timeInPause) / 1000);
-    GAME.milisectimer = Math.floor(new Date() - startTimer - timeInPause);
+    GAME.milisectimer = Math.floor(new Date() - startTimer - timeInPause / 1000);
     pauseStartTime = new Date();
 }
 
@@ -144,8 +145,6 @@ function nextWave() {
     if (monsters.length == 0 && GAME.wave < 3) {
         GAME.wave += 1;
         monstercount = 0;
-        // starttime += GAME.milisectimer;
-        GAME.milisectimer = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
     }
@@ -259,7 +258,7 @@ function play() {
     updateMoney();
     updateScore();
     drawBackground();
-
+    console.log(GAME.isPlay, GAME.milisectimer, GAME.stopwatch)
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
     }
