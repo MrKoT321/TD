@@ -14,6 +14,7 @@ const nextBtn = document.getElementById("next-lvl-btn");
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
+    player: document.title,
     width: 1600,
     height: 1000,
     stopwatch: 0,
@@ -196,7 +197,7 @@ async function sendResults(event) {
     const score = document.querySelector(".score__value");
     event.preventDefault();
     props = {
-        nickName: 'hahaha',
+        nickName: GAME.player,
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }

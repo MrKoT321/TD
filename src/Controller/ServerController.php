@@ -58,9 +58,23 @@ class ServerController
         require __DIR__ . '/../../public/pages/records.php';
     }
 
-    public function singleGame(): void 
+    public function singleGame(array $queryParams): void 
     {
-        $this->writeRedirectSeeOther("/../../pages/defense.html");
+        $userNickName = $queryParams["nick_name"];
+        if (!$userNickName)
+        {
+            $this->writeRedirectSeeOther('/');
+            exit();
+        }
+        
+        $score = new Record(
+            null, 
+            $userNickName, 
+            'defense', 
+            null
+        );
+
+        require __DIR__ . '/../../public/pages/defense.php';
     }
 
     public function index(): void
