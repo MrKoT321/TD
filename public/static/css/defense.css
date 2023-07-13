@@ -98,7 +98,7 @@ body {
     position: relative;
     width: 200px;
     height: 200px;
-    background: url("../images/BAR-SLOT.svg") no-repeat;
+    background: url("../images/BAR-SLOT.png") no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -132,7 +132,7 @@ body {
 }
 
 .bar__menu {
-    background: url("../images/BAR-SLOT.svg") no-repeat;
+    background: url("../images/BAR-SLOT.png") no-repeat;
     width: 200px;
     height: 200px;
     display: flex;
@@ -148,17 +148,16 @@ body {
 }
 
 .bar-start__start-btn {
+    color: white;
     font-weight: 400;
     font-size: 80px;
     font-family: 'VT323';
-}
-
-.inactive {
-    color: #6E18C0;
+    cursor: pointer;
 }
 
 .active {
-    color: white;
+    color: #6E18C0;
+    cursor: default;
 }
 
 .bar__pause {
@@ -178,13 +177,13 @@ body {
 .pause__btn.play {
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
-    border-left: 35px solid white;
+    border-left: 35px solid #6E18C0;
 }
 
 .pause__btn.pause {
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
-    border-left: 35px solid #6E18C0;
+    border-left: 35px solid white;
 }
 
 .bar__out {

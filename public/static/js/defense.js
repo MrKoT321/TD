@@ -2,9 +2,13 @@ const popupoverBg = document.querySelector('.popupover__bg');
 const popupover = document.querySelector('.popupover');
 const popupcompleteBg = document.querySelector('.popupcomplete__bg');
 const popupcomplete = document.querySelector('.popupcomplete');
-const startwave = document.getElementById("startwave");
+
+const startWaveBtn = document.getElementById("startwave");
+const pauseGameBtn = document.getElementById("pausegame");
+
 const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
+
 const nextBtn = document.getElementById("next-lvl-btn");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4];
@@ -77,6 +81,12 @@ function drawBackground() {
     }
 }
 
+function resetButtons() {
+    startWaveBtn.classList.remove("active");
+    pauseGameBtn.classList.remove("pause");
+    pauseGameBtn.classList.add("play");
+}
+
 function drawCastle() {
     if (GAME.castle) {
         canvasContext.drawImage(GAME.castle, lvl.castle_x, lvl.castle_y, lvl.castle_w, lvl.castle_h);
@@ -117,16 +127,11 @@ function lvlComplete() {
 function popupCloseComplete() {
     popupcompleteBg.classList.remove('active');
     popupcomplete.classList.remove('active');
-    startwave.classList.remove("play");
-    startwave.classList.add("pause");
 }
 
 function popupCloseOver() {
     popupoverBg.classList.remove('active');
     popupover.classList.remove('active');
-    GAME.isPlay = 'wavepause';
-    startwave.classList.remove("play");
-    startwave.classList.add("pause");
 }
 
 function changeLvl() {
@@ -171,6 +176,7 @@ function updateRestartGameParams() {
     }
     GAME.money = 100;
     GAME.score = 0;
+    GAME.isPlay = 'wavepause';
 }
 
 function changeMap() {
@@ -205,22 +211,37 @@ async function sendResults(event) {
     window.location.href = '../../';
 }
 
-startwave.addEventListener(
+startWaveBtn.addEventListener(
     "click",
     () => {
         if (GAME.isPlay == 'wavepause') {
-            startwave.classList.remove("pause");
-            startwave.classList.add("play");
+            startWaveBtn.classList.add("active");
             GAME.isPlay = 'startgame';
+        } 
+            // if (GAME.isPlay == 'play') {
+            //     startWaveBtn.classList.remove("play");
+            //     startWaveBtn.classList.add("pause");
+            //     GAME.isPlay = 'menu';
+            // } else {
+            //     startWaveBtn.classList.remove("pause");
+            //     startWaveBtn.classList.add("play");
+            //     GAME.isPlay = 'play';
+            // }
+    }
+)
+
+pauseGameBtn.addEventListener(
+    "click",
+    () => {
+        if (GAME.isPlay == 'play') {
+            pauseGameBtn.classList.remove("play");
+            pauseGameBtn.classList.add("pause");
+            GAME.isPlay = 'menu';
         } else {
             if (GAME.isPlay == 'menu') {
-                startwave.classList.remove("pause");
-                startwave.classList.add("play");
+                pauseGameBtn.classList.remove("pause");
+                pauseGameBtn.classList.add("play");
                 GAME.isPlay = 'play';
-            } else {
-                startwave.classList.remove("play");
-                startwave.classList.add("pause");
-                GAME.isPlay = 'menu';
             }
         }
     }
@@ -260,6 +281,7 @@ function play() {
     drawBackground();
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
+        resetButtons();
     }
     if (GAME.isPlay === 'play') {
         lvlComplete();
