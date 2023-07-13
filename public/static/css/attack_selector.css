@@ -36,9 +36,17 @@ body {
     font-weight: 900;
     font-size: 80px;
     color: white;
+    margin-top: 5px;
 }
 
 .map-button {
+    position: absolute;
+    margin-left: 301px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+
+.start-button {
     position: absolute;
     margin-left: 1493px;
     margin-top: 1px;
@@ -53,6 +61,7 @@ body {
     color: white;
     width: 80px;
     text-align: right;
+    margin-left: 191px;
 }
 
 .monsters-selector {
@@ -88,12 +97,6 @@ body {
     margin-top: 872px;
 }
 
-.mob{
-    width: 80px;
-    height: 80px;
-    margin-left: 75px;
-}
-
 .sell{
     position: absolute;
     margin-left: 282px;
@@ -103,8 +106,40 @@ body {
 
 .mob-info{
     display: flex;
-    gap: 36px;
     align-items: center;
     height: 132px;
     width: 360px;
+}
+
+.wave-selector{
+    position: absolute;
+    margin-left: 960px;
+    margin-top: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.wave-selector__wave-minus{
+    margin: 0;
+    cursor: pointer;    
+}
+
+.wave-selector__1{
+    position: absolute;
+    margin-left: 37px;
+}
+
+.wave-selector__2{
+    position: absolute;
+    margin-left: 35px;
+}
+
+.wave-selector__3{
+    position: absolute;
+    margin-left: 34px;
+}
+
+.wave-selector__wave-plus{
+    margin-left: 56px;
+    cursor: pointer;
 }
