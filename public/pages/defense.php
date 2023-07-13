@@ -92,6 +92,18 @@
             </div>
         </div>
     </div>
+    <div class="popup-game-over-bg">
+        <div class="popup-game-over">
+            <span class="popup-game-over__title">GAME OVER</span>
+            <span class="popup-game-over__subtitle">YOU WIN</span>
+            <div class="overbuttons">
+                <img class="restart" src="../static/images/restart.png" id="restartgame"/>
+                <a href="../pages/menu.html" class="menua">
+                    <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
+                </a>
+            </div>
+        </div>
+    </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>

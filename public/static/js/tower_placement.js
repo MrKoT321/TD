@@ -8,9 +8,9 @@ var mouseClick = {
     y: 0
 }
 
-const field = {
-    x: document.querySelector(".game__field").getBoundingClientRect().x,
-    y: document.querySelector(".game__field").getBoundingClientRect().y
+var field = {
+    x: 0,
+    y: 0
 }
 
 const towerAbilities = document.querySelector(".tower-abilities");
@@ -52,6 +52,9 @@ mortirTowerImg.onload = () => {
 window.addEventListener(
     'mousemove',
     (event) => {
+        field.x = document.querySelector(".game__field").getBoundingClientRect().x;
+        field.y = document.querySelector(".game__field").getBoundingClientRect().y;
+        
         mouse.x = event.clientX - field.x;
         mouse.y = event.clientY - field.y;
     }
@@ -60,6 +63,9 @@ window.addEventListener(
 window.addEventListener(
     'click',
     (event) => {
+        field.x = document.querySelector(".game__field").getBoundingClientRect().x;
+        field.y = document.querySelector(".game__field").getBoundingClientRect().y;
+
         mouseClick.x = event.clientX - field.x;
         mouseClick.y = event.clientY - field.y;
         drawNewTowerSelector();

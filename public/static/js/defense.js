@@ -1,7 +1,11 @@
 const popupoverBg = document.querySelector('.popupover__bg');
 const popupover = document.querySelector('.popupover');
+
 const popupcompleteBg = document.querySelector('.popupcomplete__bg');
 const popupcomplete = document.querySelector('.popupcomplete');
+
+const popupGameOverBg = document.querySelector(".popup-game-over-bg");
+const popupGameOver = document.querySelector(".popup-game-over");
 
 const startWaveBtn = document.getElementById("startwave");
 const pauseGameBtn = document.getElementById("pausegame");
@@ -11,7 +15,7 @@ const backToMenuBtn = document.getElementById("back-to-menu");
 
 const nextBtn = document.getElementById("next-lvl-btn");
 
-const lvls = [lvl1, lvl2, lvl3, lvl4];
+const lvls = [lvl1];
 
 var GAME = {
     player: document.title,
@@ -102,6 +106,12 @@ function gameOver() {
         var endScore = document.querySelector(".score__value");
         endScore.innerHTML = scoreValue;
         GAME.isPlay = 'popuppause';
+    } else {
+        if (GAME.lvlCount + 1 == lvls.length && GAME.wave + 1 == lvls[GAME.lvlCount - 1].waves.length) {
+            GAME.isPlay = 'popuppause';
+            popupGameOverBg.classList.add('active');
+            popupGameOver.classList.add('active');
+        }
     }
 }
 
@@ -118,11 +128,17 @@ function updateScore() {
 function lvlComplete() {
     if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0) {
         GAME.score += GAME.lvlCount * 100;
-        popupcompleteBg.classList.add('active');
-        popupcomplete.classList.add('active');
         GAME.isPlay = 'popuppause';
-        GAME.money += 100;
-    }
+        if (GAME.lvlCount + 1 >= lvls.length) {
+            popupGameOverBg.classList.add('active');
+            popupGameOver.classList.add('active');
+        } else {
+            popupcompleteBg.classList.add('active');
+            popupcomplete.classList.add('active');
+            GAME.money += 100;
+        }
+    } 
+    
 }
 
 function popupCloseComplete() {
@@ -133,6 +149,11 @@ function popupCloseComplete() {
 function popupCloseOver() {
     popupoverBg.classList.remove('active');
     popupover.classList.remove('active');
+}
+
+function popupCloseGameOver() {
+    popupGameOverBg.classList.remove('active');
+    popupGameOver.classList.remove('active');
 }
 
 function changeLvl() {
@@ -157,12 +178,14 @@ function nextWave() {
 }
 
 function updateNextLvlParams() {
-    lvl = changeLvl();
-    GAME.castleHP = lvl.castleHP;
-    GAME.wave = 1;
-    monstercount = 0;
-    starttime = 900;
-    GAME.isPlay = 'wavepause';
+    if (GAME.lvlCount + 1 < lvls.length) {
+        lvl = changeLvl();
+        GAME.castleHP = lvl.castleHP;
+        GAME.wave = 1;
+        monstercount = 0;
+        starttime = 900;
+        GAME.isPlay = 'wavepause';
+    }    
 }
 
 function updateRestartGameParams() {
@@ -194,13 +217,14 @@ function changeMap() {
 };
 
 async function sendResults(event) {
-    const score = document.querySelector(".score__value");
+    const score = document.querySelector(".count-score__value");
     event.preventDefault();
     props = {
         nickName: GAME.player,
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }
+    console.log(123123)
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',
@@ -219,15 +243,6 @@ startWaveBtn.addEventListener(
             startWaveBtn.classList.add("active");
             GAME.isPlay = 'startgame';
         } 
-            // if (GAME.isPlay == 'play') {
-            //     startWaveBtn.classList.remove("play");
-            //     startWaveBtn.classList.add("pause");
-            //     GAME.isPlay = 'menu';
-            // } else {
-            //     startWaveBtn.classList.remove("pause");
-            //     startWaveBtn.classList.add("play");
-            //     GAME.isPlay = 'play';
-            // }
     }
 )
 
@@ -254,6 +269,7 @@ nextBtn.addEventListener("click",
         changeMap();
         updateCastleHP();
         popupCloseComplete();
+        popupCloseGameOver();
     }
 );
 
@@ -265,6 +281,7 @@ restartgame.addEventListener(
         changeMap();
         updateCastleHP();
         popupCloseOver();
+        popupCloseGameOver();
     }
 );
 
