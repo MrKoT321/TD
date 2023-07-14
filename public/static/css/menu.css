@@ -233,11 +233,12 @@ a {
 {
     color: #EFEFEF;
     padding-bottom: 17px;
-    font-size: 40px;
+    font-size: 50px;
     /* max-width: 188px; */
     width: 100%;
     margin: 0 0 20px 0;
     text-align: center;
+    font-family: 'Holtwood One SC', serif;
 }
 
 .form-popup__info
@@ -245,18 +246,21 @@ a {
     width: 90%;
     display: flex;
     justify-content: center;
+    /* gap: 20px; */
 }
 
 .form-popup__nickname 
 {
     box-sizing: border-box;
     text-align: center;
-    border: 3px solid black;
+    border: 8px solid black;
+    border-right: 4px solid black;
     height: 80px;
-    width: 300px;
+    width: 405px;
     padding: 0 10%;
-    border: 0;
-    border-radius: 5px 0 0 5px;
+    border-radius: 20px 0 0 20px;
+    font-size: 23px;
+    color: black;
 }
 
 .form-popup__submit 
@@ -264,12 +268,15 @@ a {
     max-width: 125px;
     height: 80px;
     width: 150px;
-    background: rgb(255 214 0 / 28%);
-    border-radius: 0 5px 5px 0;
-    border: 0;
+    padding: 0px 20px;
+    background: yellow;
+    border-radius: 0 20px 20px 0;
+    border: 8px solid black;
+    border-left: 4px solid black;
     font: 400 12px/1.17 "Roboto";
-    color: #F8F8F8;
+    color: black;
     cursor: pointer;
+    font-size: 23px;
 }
 
 .form-popup__submit :hover {
