@@ -12,7 +12,7 @@ const backToMenuBtn = document.getElementById("back-to-menu");
 
 const nextBtn = document.getElementById("next-lvl-btn");
 
-const lvls = [lvl1, lvl2, lvl3, lvl4];
+const lvls = [lvl2, lvl3, lvl4];
 
 var GAME = {
     player: document.title,
