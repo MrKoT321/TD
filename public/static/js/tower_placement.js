@@ -154,8 +154,8 @@ function drawNewTowerSelector() {
     let isFindDrawPos = false;
     towerTiles.forEach(tile => {
         if (isMouseOnTile(mouseClick, tile) && (!(isTowerOnPlace(tile)))) {
-            let menuPosX = tile[0] - 125 + 50;
-            let menuPosY = tile[1] - 125 + 50;
+            let menuPosX = tile[0] - 150 + 50;
+            let menuPosY = tile[1] - 150 + 50;
             newTowerSelector.style.left = menuPosX + "px";
             newTowerSelector.style.top = menuPosY + "px";
             newTowerSelector.classList.remove("hidden");
@@ -173,8 +173,8 @@ function drawTowerAbilities() {
     for (var i = 0; i < towers.length; i++) {
         activeTile = towers[i];
         if (isMouseOnActiveTile(mouseClick, activeTile)) {
-            let menuPosX = activeTile.x - 125 + 50;
-            let menuPosY = activeTile.y - 125 + 50;
+            let menuPosX = activeTile.x - 150 + 50;
+            let menuPosY = activeTile.y - 150 + 75;
             towerAbilities.style.left = menuPosX + "px";
             towerAbilities.style.top = menuPosY + "px";
             towerAbilities.classList.remove("hidden");

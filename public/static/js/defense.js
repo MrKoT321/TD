@@ -83,6 +83,11 @@ function drawBackground() {
     }
 }
 
+function drawPauseBackground() {
+    canvasContext.fillStyle = "rgba(0, 0, 0, 0.5)";
+    canvasContext.fillRect(0, 0, GAME.width, GAME.height);
+}
+
 function resetButtons() {
     startWaveBtn.classList.remove("active");
     pauseGameBtn.classList.remove("pause");
@@ -292,6 +297,8 @@ function play() {
     updateMoney();
     updateScore();
     drawBackground();
+    drawTiles(GAME, lvls);
+    drawCastle();
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
         resetButtons();
@@ -304,9 +311,6 @@ function play() {
         updateArrows();
         updateBullets();
     }
-    if (GAME.isPlay == 'menu') {
-        stopTimer();
-    }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
         GAME.isPlay = 'play';
@@ -315,15 +319,16 @@ function play() {
         removeTowerSelectors();
     }
     moveMonsters(GAME, lvls);
-    drawCastle();
-    drawTiles(GAME, lvls);
     drawTower();
     drawArrows();
     drawBullets();
     attackTowers(GAME);
     drawBonuses();
     gameOver();
-
+    if (GAME.isPlay == 'menu') {
+        stopTimer();
+        drawPauseBackground();
+    }
     requestAnimationFrame(play);
 }
 

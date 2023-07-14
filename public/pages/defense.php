@@ -29,9 +29,21 @@
             </div>
             <div class="tower-selection new-tower hidden">
                 <div class="choise-towers">
-                    <img src="../static/images/archer_tower.png" class="choise-tower archer" />
-                    <img src="../static/images/bash_tower.png" class="choise-tower bash" />
-                    <img src="../static/images/mortir_tower.png" class="choise-tower mortir" />
+                    <div class="archer selector">
+                        <img src="../static/images/archer_tower.png" class="choise-tower" />
+                        <img src="../static/images/archer_cost.png" class="cost-for-tower" />
+                    </div>
+                    <div class="bash selector">
+                        <img src="../static/images/bash_tower.png" class="choise-tower" />
+                        <img src="../static/images/bash_cost.png" class="cost-for-tower" />
+                    </div>
+                    <div class="mortir selector">
+                        <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
+                        <img src="../static/images/mortir_cost.png" class="cost-for-tower" />
+                    </div>
+                    
+                    
+                    
                 </div>
             </div>
             <div class="tower-selection tower-abilities hidden">

@@ -8,7 +8,7 @@ fireball = {
     color: "red",
     radius: 10,
     blastRadius: 150,
-    reload: 1,
+    reload: 6,
     lastTimeCast: 60,
     speedX: 0,
     speedY: 0,

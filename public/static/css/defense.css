@@ -21,14 +21,18 @@ body {
     position: relative;
 }
 
+.field.pause {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 .tower-selection {
     position: absolute;
     display: block;
     top: 325px;
     left: 25px;
     background: rgba(0, 0, 0, 0);
-    min-height: 250px;
-    min-width: 250px;
+    min-height: 300px;
+    min-width: 300px;
 }
 
 .new-tower {
@@ -42,27 +46,37 @@ body {
 .choise-tower {
     height: 75px;
     width: 75px;
+    cursor: pointer;
+}
+
+.selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 }
 
 .archer {
     position: absolute;
     top: 0;
     left: 0;
-    cursor: pointer;
 }
 
 .bash {
     position: absolute;
     top: 0;
     right: 0;
-    cursor: pointer;
 }
 
 .mortir {
     position: absolute;
-    bottom: -37.5px;
+    top: -37.5px;
     left: calc(50% - 37.5px);
-    cursor: pointer;
+}
+
+.cost-for-tower{
+    top: 82px;
+    cursor: default;
 }
 
 /* .tower-abilities {
