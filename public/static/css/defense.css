@@ -148,12 +148,18 @@ body {
 .bar-game-info {
     width: 200px;
     height: 200px;
+    font-family: 'VT323';
+    font-size: 60px;
 }
 
 .game-info-slot {
     background: url("../images/bar_slot_mini.png") no-repeat;
     width: 100%;
     height: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: space-around;
+    flex-wrap: wrap;
 }
 
 .bar__menu {
