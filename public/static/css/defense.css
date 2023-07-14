@@ -156,7 +156,7 @@ body {
 }
 
 .active {
-    color: #6E18C0;
+    color: black;
     cursor: default;
 }
 
@@ -169,18 +169,24 @@ body {
 }
 
 .pause__btn {
-    width: 0;
-    height: 0;
+    width: 20px;
+    height: 50px;
     cursor: pointer;
 }
 
 .pause__btn.play {
-    border-top: 25px solid transparent;
+    border-left: 9px solid black;
+    border-right: 9px solid black;
+    /* border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
-    border-left: 35px solid #6E18C0;
+    border-left: 35px solid black; */
 }
 
 .pause__btn.pause {
+    width: 0;
+    height: 0;
+    /* border-left: 3px solid white;
+    border-right: 3px solid white; */
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
     border-left: 35px solid white;
@@ -194,8 +200,8 @@ body {
 }
 
 .bar__icon {
-    width: 50px;
-    height: 30px;
+    width: 55px;
+    height: 40px;
     display: block;
     position: relative;
     cursor: pointer;
@@ -206,10 +212,9 @@ body {
 .bar__icon::after {
     position: absolute;
     left: 0;
-    height: 10%;
+    height: 7px;
     width: 100%;
-    background-color: #6E18C0;
-    ;
+    background-color: black;
 }
 
 .bar__icon::before,
