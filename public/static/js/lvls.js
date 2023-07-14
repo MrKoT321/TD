@@ -12,6 +12,7 @@ const lvl1 = {
     money: 100,
     start_dir: 'r',
     waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
+    bonuses: [],
     back_src:  "../static/images/MAP1.png",
     castle_src:  "../static/images/CASTLE.png",
 };
@@ -30,6 +31,7 @@ const lvl2 = {
     money: 200,
     start_dir: 'r',
     waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
+    bonuses: ["fireball"],
     back_src:  "../static/images/MAP2.png",
     castle_src:  "../static/images/CASTLE.png" 
 }
@@ -48,6 +50,7 @@ const lvl3 = {
     money: 100,
     start_dir: 'r',
     waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
+    bonuses: [],
     back_src: "../static/images/MAP3.png",
     castle_src:  "../static/images/CASTLE.png"
 }
@@ -66,15 +69,17 @@ const lvl4 = {
     money: 100,
     start_dir: 'r',
     waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
+    bonuses: [],
     back_src: "../static/images/MAP4.png",
     castle_src:  "../static/images/CASTLE.png"
 }
 
 const lvl5 = {
-    start_y: 700,
-    finish_cells: [],
-    towersPos: [],
-    road: [],
+    start_x: 1375,
+    start_y: 1050,
+    finish_cells: [50, 51, 66, 67],
+    towersPos: [59, 93, 102, 105],
+    road: [24, 25, 26, 27, 28, 29, 30, 31, 40, 41, 42, 43, 44, 45, 46, 47, 56, 57, 62, 63, 72, 73, 74, 75, 76, 78, 79, 82, 83, 88, 89, 90, 91, 92, 94, 95, 98, 99, 107, 108, 110, 111, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 126, 127, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 142, 143, 158, 159],
     castleHP: 3, 
     castle_x: 7,
     castle_y: 100,
@@ -82,8 +87,8 @@ const lvl5 = {
     castle_h: 400,   
     money: 100,
     start_dir: 'r',
-    mobamount: 10,
-    back_src: "../static/images/BASE-MAP.png",
-    castle_src:  "../static/images/CASTLE.png",
-    monsters: []
+    waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
+    bonuses: [],
+    back_src: "../static/images/MAP4.png",
+    castle_src:  "../static/images/CASTLE.png"
 }

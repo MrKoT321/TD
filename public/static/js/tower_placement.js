@@ -75,7 +75,7 @@ window.addEventListener(
 
 var towerTiles = [];
 var towers = [];
-var compareWithGameLvl = 0;
+var compareWithGameLvlTiles = 0;
 
 function isTowerOnPlace(tile) {
     let res = false;
@@ -96,13 +96,13 @@ function isMouseOnActiveTile(m, activeTile) {
 }
 
 function drawTiles(GAME, lvls) {
-    if (compareWithGameLvl !== GAME.lvlCount) {
+    if (compareWithGameLvlTiles !== GAME.lvlCount) {
         towerTiles = [];
         towers = [];
         lvls[GAME.lvlCount - 1].towersPos.forEach(towerPos => {
             towerTiles.push([(towerPos % 16 - 1) * 100, Math.floor(towerPos / 16) * 100]);
         })
-        compareWithGameLvl = GAME.lvlCount;
+        compareWithGameLvlTiles = GAME.lvlCount;
     }
     towerTiles.forEach(tile => {
         if (!(isTowerOnPlace(tile))) {
@@ -137,19 +137,6 @@ function canBuy(tower) {
     return GAME.money >= tower.cost
 }
 
-function checkWhatCanBuy() {
-    if (canBuy(archer)) {
-        // archerTower 
-
-    }
-    if (canBuy(bash)) {
-        // bashTower
-    }
-    if (canBuy(mortir)) {
-        // mortirTower
-    }
-}
-
 function drawNewTowerSelector() {
     let isFindDrawPos = false;
     towerTiles.forEach(tile => {
@@ -159,7 +146,6 @@ function drawNewTowerSelector() {
             newTowerSelector.style.left = menuPosX + "px";
             newTowerSelector.style.top = menuPosY + "px";
             newTowerSelector.classList.remove("hidden");
-            // checkWhatCanBuy();
             isFindDrawPos = true;
         }
     })
@@ -197,7 +183,7 @@ deleteTowerButton.addEventListener(
             }
         }
     }
-)
+);
 
 function removeTowerSelectors() {
     newTowerSelector.classList.add("hidden");
@@ -230,7 +216,7 @@ function makeTower(tower) {
     })
 }
 
-archerTower.addEventListener("click", () => { makeTower(archer) })
+archerTower.addEventListener("click", () => { makeTower(archer); });
 
 function hittingRadius(tower, mstrCenterX, mstrCenterY) {
     let distance = Math.sqrt(Math.pow(mstrCenterX - tower.x - 50, 2) + Math.pow(mstrCenterY - tower.y - 50, 2));
@@ -280,7 +266,7 @@ function updateArrows() {
                     if (flyingArrow.x >= mstrCenterX) {
                         flyingArrow.x -= flyingArrow.currentEnemy.speed;
                     } else {
-                        flyingArrow.x += flyingArrow.currentEnemy.speed;;
+                        flyingArrow.x += flyingArrow.currentEnemy.speed;
                     }
                 }
                 if (outMonsterY) {
@@ -429,7 +415,7 @@ function attackMortir(GAME) {
     });
 }
 
-mortirTower.addEventListener("click", () => { makeTower(mortir) })
+mortirTower.addEventListener("click", () => { makeTower(mortir); });
 
 function attackBash() {
     towers.forEach(tower => {
@@ -452,7 +438,7 @@ function attackBash() {
     })
 }
 
-bashTower.addEventListener("click", () => { makeTower(bash) })
+bashTower.addEventListener("click", () => { makeTower(bash); })
 
 function attackTowers(GAME) {
     attackArcher(GAME);

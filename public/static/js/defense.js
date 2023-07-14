@@ -298,6 +298,7 @@ function play() {
     updateScore();
     drawBackground();
     drawTiles(GAME, lvls);
+    moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
@@ -307,7 +308,6 @@ function play() {
         lvlComplete();
         nextWave();
         catchTime();
-        updateScoreForMob();
         updateArrows();
         updateBullets();
     }
@@ -318,7 +318,6 @@ function play() {
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
         removeTowerSelectors();
     }
-    moveMonsters(GAME, lvls);
     drawTower();
     drawArrows();
     drawBullets();

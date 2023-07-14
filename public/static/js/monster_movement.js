@@ -162,6 +162,7 @@ function registerCollision(monster, GAME) {
 
 function moveMonsters(GAME, lvls) {
     payForMonsters();
+    updateScoreForMob();
     monsters = monsters.filter(value => value.hp > 0);
     for (var monster of monsters) {
         drawMonster(monster);

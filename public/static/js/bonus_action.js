@@ -24,6 +24,9 @@ gameFieldClick = {
     y: 0,
 }
 
+lvlBonuses = [];
+compareWithGameLvlBonuses = 0;
+
 canvas.addEventListener(
     'click',
     (event) => {
@@ -36,7 +39,7 @@ canvas.addEventListener(
 fireballBonus.addEventListener(
     "click",
     () => {
-        if (!fireball.isActive && fireball.readyToExplode) {
+        if (!fireball.isActive && fireball.readyToExplode && bonuses.includes('fireball')) {
             fireballBonusCancel.classList.remove("hidden");
             fireballBonus.style.width = "100px";
             fireballBonus.style.height = "100px";
@@ -47,8 +50,12 @@ fireballBonus.addEventListener(
     }
 )
 
-fireballBonusCancel.addEventListener("click", () => { inActiveFireBall(); }
-)
+fireballBonusCancel.addEventListener("click", () => { inActiveFireBall(); })
+
+function initBonuses() {
+    bonuses = lvls[GAME.lvlCount - 1].bonuses;
+    compareWithGameLvlBonuses = GAME.lvlCount;
+}
 
 function inActiveFireBall() {
     fireballBonusCancel.classList.add("hidden");
@@ -116,8 +123,12 @@ function drawFireballReload() {
         fireballReloadTimer.classList.remove("hidden");
         fireballReloadTimer.innerHTML = fireball.reload - GAME.stopwatch + fireball.lastTimeCast;
     } else {
-        fireballReloadTimer.classList.add("hidden");
         fireballReloadTimer.innerHTML = "";
+        if (!bonuses.includes('fireball')) {
+            fireballReloadTimer.classList.remove("hidden");
+        } else {
+            fireballReloadTimer.classList.add("hidden");
+        }
     }
 }
 
@@ -129,6 +140,9 @@ function initFireball() {
 }
 
 function drawBonuses() {
+    if (compareWithGameLvlBonuses != GAME.lvlCount) {
+        initBonuses();
+    }
     drawFireball();
     if (GAME.isPlay == 'play') {
         updateFireball();
