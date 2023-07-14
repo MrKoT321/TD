@@ -12,6 +12,11 @@ const backToMenuBtn = document.getElementById("back-to-menu");
 
 const nextBtn = document.getElementById("next-lvl-btn");
 
+const currentLvl = document.getElementById("current-lvl");
+const totalLvl = document.getElementById("total-lvl");
+const currentWave = document.getElementById("current-wave");
+const totalWave = document.getElementById("total-wave");
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -54,6 +59,14 @@ background.onload = () => {
 castle.onload = () => {
     GAME.castle = castle;
 }
+
+function updateVisualLvlParams() {
+    currentLvl.innerHTML = GAME.lvlCount;
+    totalLvl.innerHTML = lvls.length;
+    currentWave.innerHTML = GAME.wave;
+    totalWave.innerHTML = lvls[GAME.lvlCount - 1].waves.length;
+}
+
 
 function resetStopwatch() {
     GAME.stopwatch = 0;
@@ -214,7 +227,7 @@ function changeMap() {
 };
 
 async function sendResults(event) {
-    const score = document.querySelector(".count-score__value");
+    const score = document.querySelector(".score__value");
     event.preventDefault();
     props = {
         nickName: GAME.player,
@@ -296,6 +309,7 @@ backToMenuBtn.addEventListener(
 function play() {
     updateMoney();
     updateScore();
+    updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
     moveMonsters(GAME, lvls);
