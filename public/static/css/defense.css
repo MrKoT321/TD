@@ -108,7 +108,7 @@ body {
     height: 800px;
 }
 
-.baf-slot {
+.buf-slot {
     position: relative;
     width: 200px;
     height: 200px;
@@ -143,6 +143,17 @@ body {
     font-size: 80px;
     color: white;
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.bar-game-info {
+    width: 200px;
+    height: 200px;
+}
+
+.game-info-slot {
+    background: url("../images/bar_slot_mini.png") no-repeat;
+    width: 100%;
+    height: 50%;
 }
 
 .bar__menu {

@@ -59,10 +59,24 @@
         </div>
         <div class="game__bar bar">
             <div class="bar__bufs">
-                <div class="fireball-buf baf-slot">
+                <div class="fireball-buf buf-slot">
                     <img src="../static/images/fireball_buff.png" class="fireball-buf__icon" />
                     <img src="../static/images/cancel_button.png"  class="fireball-buf__cancel hidden" />
                     <span class="fireball-buf__reload"></span>
+                </div>
+                <div class="buf-slot"></div>
+                <div class="buf-slot"></div>
+                <div class="bar-game-info">
+                    <div class="game-info-lvl game-info-slot">
+                        <span>LVL</span>
+                        <span>1/</span>
+                        <span>3</span>
+                    </div>
+                    <div class="game-info-wave game-info-slot">
+                        <span>WAVE</span>
+                        <span>1/</span>
+                        <span>3</span>
+                    </div>
                 </div>
             </div>
             <div class="bar__menu">
