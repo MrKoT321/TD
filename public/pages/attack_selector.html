@@ -11,7 +11,11 @@
     <div class="game">
         <div class="game__field field">
             <div class="monsters-selector">
-                <img src="../static/images/monster1_selector.png" id="mob1" class="monster-selector"/>
+                <div>
+                    <img src="../static/images/monster1_selector.png" id="mob1" class="monster-selector"/>
+                    <strong class="mob1-info hidden"></strong>
+                </div>
+                
                 <img src="../static/images/monster2_selector.png" id="mob2" class="monster-selector"/>
                 <img src="../static/images/monster3_selector.png" id="mob3" class="monster-selector"/>
                 <img src="../static/images/monster4_selector.png" id="mob4" class="monster-selector"/>
@@ -92,12 +96,21 @@
             </div>
             <img src="../static/images/start-button.png" class="start-button"/>
             <img src="../static/images/map-button.png" class="map-button"/>
-            <canvas id='canvas'></canvas>
             <span class="count-coin"></span>
+            
+            <span class="mob2-info hidden"></span>
+            <span class="mob3-info hidden"></span>
+            <span class="mob4-info hidden"></span>
+            <span class="mob5-info hidden"></span>
+            <div class="popup-map hidden">
+                <span class="popup-map__bg"></span>
+                <span class="popup-map__field"></span>
+            </div>
+            <canvas id='canvas'></canvas>
         </div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
-    <script type="application/javascript" src="../static/js/html_to_js_const.js"></script>
+    <script type="application/javascript" src="../static/js/attack_selector_html_to_js_const.js"></script>
     <script type="application/javascript" src="../static/js/selector_params.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector_events.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector.js"></script>

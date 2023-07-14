@@ -61,3 +61,13 @@ const mob5_3_count = document.getElementById('mob5-3-count');
 
 var mob_count = [mob1_1_count, mob2_1_count, mob3_1_count, mob4_1_count, mob5_1_count, mob1_2_count, mob2_2_count, mob3_2_count, mob4_2_count, mob5_2_count, mob1_3_count, mob2_3_count, mob3_3_count, mob4_3_count, mob5_3_count];
 var mob_info = [mob1_1_selected, mob2_1_selected, mob3_1_selected, mob4_1_selected, mob5_1_selected, mob1_2_selected, mob2_2_selected, mob3_2_selected, mob4_2_selected, mob5_2_selected, mob1_3_selected, mob2_3_selected, mob3_3_selected, mob4_3_selected, mob5_3_selected];
+
+const map_button = document.querySelector('.map-button');
+const popup_map_show = document.querySelector('.popup-map');
+const popup_map = document.querySelector('.popup-map__field');
+
+const mob1_info = document.querySelector('.mob1-info');
+const mob2_info = document.querySelector('.mob2-info');
+const mob3_info = document.querySelector('.mob3-info');
+const mob4_info = document.querySelector('.mob4-info');
+const mob5_info = document.querySelector('.mob5-info');

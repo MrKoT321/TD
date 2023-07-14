@@ -7,6 +7,8 @@ var GAME = {
     currwave: 'wave1'
 }
 
+var lvlcount = 1;
+
 var wave1 = [mob1_1, mob2_1, mob3_1, mob4_1, mob5_1];
 var wave2 = [mob1_2, mob2_2, mob3_2, mob4_2, mob5_2];
 var wave3 = [mob1_3, mob2_3, mob3_3, mob4_3, mob5_3];
