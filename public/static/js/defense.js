@@ -4,9 +4,6 @@ const popupover = document.querySelector('.popupover');
 const popupcompleteBg = document.querySelector('.popupcomplete__bg');
 const popupcomplete = document.querySelector('.popupcomplete');
 
-const popupGameOverBg = document.querySelector(".popup-game-over-bg");
-const popupGameOver = document.querySelector(".popup-game-over");
-
 const startWaveBtn = document.getElementById("startwave");
 const pauseGameBtn = document.getElementById("pausegame");
 
@@ -102,17 +99,13 @@ function gameOver() {
     if (GAME.castleHP == 0) {
         popupoverBg.classList.add('active');
         popupover.classList.add('active');
+        document.querySelector('.over').style.color = 'red';
+        document.querySelector('.over').innerHTML = 'GAME OVER';
         var scoreValue = document.querySelector(".count-score__value").innerHTML;
         var endScore = document.querySelector(".score__value");
         endScore.innerHTML = scoreValue;
         GAME.isPlay = 'popuppause';
-    } else {
-        if (GAME.lvlCount + 1 == lvls.length && GAME.wave + 1 == lvls[GAME.lvlCount - 1].waves.length) {
-            GAME.isPlay = 'popuppause';
-            popupGameOverBg.classList.add('active');
-            popupGameOver.classList.add('active');
-        }
-    }
+    } 
 }
 
 function updateMoney() {
@@ -130,8 +123,12 @@ function lvlComplete() {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
         if (GAME.lvlCount + 1 >= lvls.length) {
-            popupGameOverBg.classList.add('active');
-            popupGameOver.classList.add('active');
+            popupoverBg.classList.add('active');
+            popupover.classList.add('active');
+            document.querySelector('.over').style.color = 'green';
+            document.querySelector('.over').innerHTML = 'VICTORY';
+            var endScore = document.querySelector(".score__value");
+            endScore.innerHTML = GAME.score ;
         } else {
             popupcompleteBg.classList.add('active');
             popupcomplete.classList.add('active');
@@ -149,11 +146,6 @@ function popupCloseComplete() {
 function popupCloseOver() {
     popupoverBg.classList.remove('active');
     popupover.classList.remove('active');
-}
-
-function popupCloseGameOver() {
-    popupGameOverBg.classList.remove('active');
-    popupGameOver.classList.remove('active');
 }
 
 function changeLvl() {
@@ -224,7 +216,6 @@ async function sendResults(event) {
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }
-    console.log(123123)
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',
@@ -233,7 +224,6 @@ async function sendResults(event) {
         },
         body: json
     });
-    window.location.href = '../../';
 }
 
 startWaveBtn.addEventListener(
@@ -263,13 +253,13 @@ pauseGameBtn.addEventListener(
     }
 )
 
-nextBtn.addEventListener("click",
+nextBtn.addEventListener(
+    "click",
     () => {
         updateNextLvlParams();
         changeMap();
         updateCastleHP();
         popupCloseComplete();
-        popupCloseGameOver();
     }
 );
 
@@ -281,11 +271,16 @@ restartgame.addEventListener(
         changeMap();
         updateCastleHP();
         popupCloseOver();
-        popupCloseGameOver();
     }
 );
 
-backToMenuBtn.addEventListener("click", (event) => { sendResults(event) });
+backToMenuBtn.addEventListener(
+    "click", 
+    (event) => { 
+        sendResults(event);
+        window.location.href = '../../';
+    }
+);
 
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
@@ -301,7 +296,7 @@ function play() {
         resetStopwatch();
         resetButtons();
     }
-    if (GAME.isPlay === 'play') {
+    if (GAME.isPlay == 'play') {
         lvlComplete();
         nextWave();
         catchTime();
@@ -332,5 +327,4 @@ function play() {
     requestAnimationFrame(play);
 }
 
-// addMonstersToLvls();
 play();

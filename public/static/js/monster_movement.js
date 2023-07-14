@@ -1,10 +1,6 @@
 var monsters = [];
 var monstercount = 0;
 
-// function updateMonster(monster){
-//     monster.x += monster.speed;
-// }
-
 function pushMonsters(lvl, monster) {
     monsters.push({
         hp: monster.hp,
