@@ -12,3 +12,10 @@ async function sendNickname() {
         window.location.href = '/single_game.php?nick_name=' + nickname.value;
     }
 }
+
+nickname.addEventListener(
+    "input",
+    () => {
+        nickname.value = nickname.value.replace(/[^a-zA-z\s]/gi, '');
+    }
+)

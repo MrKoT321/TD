@@ -8,7 +8,7 @@
 <html lang="ru">
 
 <head>
-    <title><?= htmlspecialchars($score->getNickName()) ?></title>
+    <title><?= htmlspecialchars($score->getNickName()) ?>'s Game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/defense.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">

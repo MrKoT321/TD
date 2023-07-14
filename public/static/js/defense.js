@@ -188,7 +188,7 @@ function nextWave() {
 }
 
 function updateNextLvlParams() {
-    if (GAME.lvlCount + 1 < lvls.length) {
+    if (GAME.lvlCount + 1 <= lvls.length) {
         lvl = changeLvl();
         GAME.castleHP = lvl.castleHP;
         GAME.wave = 1;
