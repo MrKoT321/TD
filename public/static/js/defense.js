@@ -115,12 +115,12 @@ function gameOver() {
 
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
-    moneyInfo.innerHTML = String(Math.floor(GAME.money));
+    moneyInfo.innerHTML = String(GAME.money);
 }
 
 function updateScore() {
     let scoreInfo = document.querySelector(".count-score__value");
-    scoreInfo.innerHTML = String(Math.floor(GAME.score));
+    scoreInfo.innerHTML = String(GAME.score);
 }
 
 function lvlComplete() {
