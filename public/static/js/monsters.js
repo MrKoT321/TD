@@ -3,8 +3,8 @@ const monster1 = {
     maxhp: 100,
     speed: 2,
     cost: 10,
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 73,
     name: "monster1"
 }
 
@@ -13,8 +13,8 @@ const monster2 = {
     maxhp: 100,
     speed: 2,
     cost: 0,
-    width: 50,
-    height: 50,
+    width: 75,
+    height: 100,
     name: "monster2"
 }
 
@@ -48,10 +48,22 @@ const monster5 = {
     name: "monster5"
 }
 
-const image1 = new Image();
-image1.src = "../static/images/monster1.png";
-const image2 = new Image();
-image2.src = "../static/images/monster2.png";
+const monster1_step1 = new Image();
+monster1_step1.src = "../static/images/monster1_step1.png";
+const monster1_step2 = new Image();
+monster1_step2.src = "../static/images/monster1_step2.png";
+const monster1_step3 = new Image();
+monster1_step3.src = "../static/images/monster1_step3.png";
+const monster1_step4 = new Image();
+monster1_step4.src = "../static/images/monster1_step4.png";
+const monster2_step1 = new Image();
+monster2_step1.src = "../static/images/monster2_step1.png";
+const monster2_step2 = new Image();
+monster2_step2.src = "../static/images/monster2_step2.png";
+const monster2_step3 = new Image();
+monster2_step3.src = "../static/images/monster2_step3.png";
+const monster2_step4 = new Image();
+monster2_step4.src = "../static/images/monster2_step4.png";
 const image3 = new Image();
 image3.src = "../static/images/monster3.png";
 const image4 = new Image();
@@ -59,12 +71,30 @@ image4.src = "../static/images/monster4.png";
 const image5 = new Image();
 image5.src = "../static/images/monster5.png";
 
-image1.onload = () => {
-    monster1.image = image1;
+monster1_step1.onload = () => {
+    monster1.step1 = monster1_step1;
+}
+monster1_step2.onload = () => {
+    monster1.step2 = monster1_step2;
+}
+monster1_step3.onload = () => {
+    monster1.step3 = monster1_step3;
+}
+monster1_step4.onload = () => {
+    monster1.step4 = monster1_step4;
 }
 
-image2.onload = () => {
-    monster2.image = image2;
+monster2_step1.onload = () => {
+    monster2.step1 = monster2_step1;
+}
+monster2_step2.onload = () => {
+    monster2.step2 = monster2_step2;
+}
+monster2_step3.onload = () => {
+    monster2.step3 = monster2_step3;
+}
+monster2_step4.onload = () => {
+    monster2.step4 = monster2_step4;
 }
 
 image3.onload = () => {

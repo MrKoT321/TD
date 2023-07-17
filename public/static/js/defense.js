@@ -17,7 +17,7 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-const lvls = [lvl1, lvl2, lvl3, lvl4];
+const lvls = [lvl3, lvl4];
 
 var GAME = {
     player: document.title,
@@ -185,6 +185,9 @@ function nextWave() {
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }
 }
 
@@ -196,6 +199,9 @@ function updateNextLvlParams() {
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }    
 }
 
@@ -219,7 +225,10 @@ function updateRestartGameParams() {
     timeInPause = 0;
     timeInLastPause = 0;
     pauseStartTime = 0;
-
+    pushmonstercount = 0;
+    steptimer = 0;
+    stepcounter = 1;
+    monsters = [];
 }
 
 function changeMap() {
@@ -316,6 +325,7 @@ backToMenuBtn.addEventListener(
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    console.log(monsters.length)
     updateMoney();
     updateScore();
     updateVisualLvlParams();
