@@ -1,0 +1,17 @@
+{
+    "name": "vl17w/td",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "MrKoT321",
+            "email": "vladimir.fedoseev.2004@mail.ru"
+        }
+    ],
+    "require": {
+        "openswoole/core":"22.1.2"
+    }
+}

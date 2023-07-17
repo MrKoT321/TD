@@ -1,5 +1,4 @@
 var monsters = [];
-var notdeadmonsters = [];
 var monstercount = 0;
 
 // function updateMonster(monster){
@@ -16,6 +15,7 @@ function pushMonsters(lvl, monster) {
         image: monster.image,
         maxhp: monster.maxhp,
         finish: false,
+        delete: false,
         x: lvl.start_x,
         y: lvl.start_y,
         dir: lvl.start_dir
@@ -55,11 +55,11 @@ function canvasToGrid(x, y) {
     if (x < 1600 && x > 0 && y < 1000 && y > 0) {
         return Math.floor(y / 100) * 16 + Math.floor(x / 100) + 1;
     }
-    return 0
+    return 0;
 }
 
 function checkFinish(lvl, cell) {
-    return contains(lvl.finish_cells, cell)
+    return contains(lvl.finish_cells, cell);
 }
 
 function contains(arr, elem) {
@@ -88,7 +88,8 @@ function monsterCorrect(lvl, monster) {
                 }
             };
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
-                monster.hp = -1000;
+                monster.hp = 0;
+                monster.delete = true;
             }
             break;
         case 'u':
@@ -105,7 +106,8 @@ function monsterCorrect(lvl, monster) {
                 }
             }
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y + monster.height))) {
-                monster.hp = -1000;
+                monster.hp = 0;
+                monster.delete = true;
             }
             break;
         case 'l':
@@ -122,7 +124,8 @@ function monsterCorrect(lvl, monster) {
                 }
             }
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x + monster.width, monster.y))) {
-                monster.hp = -1000;
+                monster.hp = 0;
+                monster.delete = true;
             }
             break;
         case 'd':
@@ -139,7 +142,8 @@ function monsterCorrect(lvl, monster) {
                 }
             }
             if (monster.finish && checkFinish(lvl, canvasToGrid(monster.x, monster.y))) {
-                monster.hp = -1000;
+                monster.hp = 0;
+                monster.delete = true;
             }
             break;
     }
@@ -153,31 +157,22 @@ function addMonster() {
 }
 
 function registerCollision(monster, GAME) {
-    if (monster.hp <= 0 && monster.finish == true) {
+    if (monster.hp <= 0 && monster.delete) {
         let bar = document.getElementById("hp-bar");
         if (GAME.castleHP > 0) {
             bar.children[GAME.castleHP - 1].classList.add("_hide");
         }
         GAME.castleHP -= 1;
-        monster.hp = -1000;
     }
 }
 
 function moveMonsters(GAME) {
-    let notdeadmonsters = monsters.filter(value => value.hp > 0);
-    if (monsters.length > notdeadmonsters.length) {
-        for (var monster of lvl.monsters) {
-            payForMonster(monster);
-        }
-    }
-    monsters = notdeadmonsters;
+    payForMonsters();
+    monsters = monsters.filter(value => value.hp > 0);
     for (var monster of monsters) {
         drawMonster(monster);
         hpBar(monster);
-    }
-    for (var monster of monsters) {
         monsterMove(monster);
-
         monsterCorrect(lvl, monster);
         registerCollision(monster, GAME);
     }
@@ -198,10 +193,11 @@ function hpBar(monster) {
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width * percentHP, 5);
 }
 
-function payForMonster(monster) {
-    if (monster.hp <= 0 && monster.hp > -1000) {
-        GAME.money += monster.cost
-        monster.hp = -1001;
+function payForMonsters(monster) {
+    for (var monster of monsters) {
+        if (monster.hp <= 0 && !monster.finish) {
+            GAME.money += monster.cost
+        }
     }
 }
 
@@ -216,14 +212,14 @@ function addMonstersToLvls() {
 }
 
 function updateScoreForMob() {
-    for(var monster of lvl.monsters){
-        if (monsters.length != 0) {
-            if (monster.hp == -1000) {
+    if (monsters.length != 0) {
+        for(var monster of monsters){
+            if (monster.delete) {
                 GAME.score -= monster.cost;
-                monster.hp = -1001;
-            }
-            if (monster.hp > - 1000 && monster.hp <= 0) {
-                GAME.score += monster.cost
+            } else {
+                if (monster.hp <= 0) {
+                    GAME.score += monster.cost;
+                }
             }
         }
     } 

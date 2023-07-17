@@ -21,7 +21,7 @@ const bash = {
 const mortir = {
     cost: 50,
     atk: 10,
-    radius: 200,
+    radius: 300,
     type: "splash",
     atkspeed: 4,
     towerColor: "blue",
