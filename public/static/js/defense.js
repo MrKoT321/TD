@@ -334,6 +334,7 @@ function play() {
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
+        initBullets();
         resetStopwatch();
         resetButtons();
     }
