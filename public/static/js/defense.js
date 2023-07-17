@@ -17,7 +17,7 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-const lvls = [lvl3, lvl4];
+const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
     player: document.title,
