@@ -77,6 +77,11 @@ var towerTiles = [];
 var towers = [];
 var compareWithGameLvlTiles = 0;
 
+function initBullets() {
+    arrows = [];
+    bullets = [];
+}
+
 function isTowerOnPlace(tile) {
     let res = false;
     towers.forEach(activeTile => {
