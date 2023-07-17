@@ -21,14 +21,18 @@ body {
     position: relative;
 }
 
+.field.pause {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 .tower-selection {
     position: absolute;
     display: block;
     top: 325px;
     left: 25px;
     background: rgba(0, 0, 0, 0);
-    min-height: 250px;
-    min-width: 250px;
+    min-height: 300px;
+    min-width: 300px;
 }
 
 .new-tower {
@@ -42,27 +46,37 @@ body {
 .choise-tower {
     height: 75px;
     width: 75px;
+    cursor: pointer;
+}
+
+.selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 }
 
 .archer {
     position: absolute;
     top: 0;
     left: 0;
-    cursor: pointer;
 }
 
 .bash {
     position: absolute;
     top: 0;
     right: 0;
-    cursor: pointer;
 }
 
 .mortir {
     position: absolute;
-    bottom: -37.5px;
+    top: -37.5px;
     left: calc(50% - 37.5px);
-    cursor: pointer;
+}
+
+.cost-for-tower{
+    top: 82px;
+    cursor: default;
 }
 
 /* .tower-abilities {
@@ -91,41 +105,97 @@ body {
 
 .bar__bufs {
     width: 100%;
-    height: 900px;
+    height: 800px;
 }
 
-.baf-slot {
+.buf-slot {
     position: relative;
     width: 200px;
     height: 200px;
-    background: url("../images/BAR-SLOT.svg") no-repeat;
+    background: url("../images/BAR-SLOT.png") no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .fireball-buf__icon {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
 }
 
 .fireball-buf__cancel {
     position: absolute;
     top: 5px;
     right: 5px;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
 }
 
+
+.fireball-buf__reload {
+    position: absolute;
+    width: 200px;
+    height: 140px;
+    padding-top: 60px;
+    text-align: center;
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.bar-game-info {
+    width: 200px;
+    height: 200px;
+    font-family: 'VT323';
+    font-size: 60px;
+}
+
+.game-info-slot {
+    background: url("../images/bar_slot_mini.png") no-repeat;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+
+.game-info-lvl__title {
+    margin-right: 25px;
+}
+
 .bar__menu {
+    background: url("../images/BAR-SLOT.png") no-repeat;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.bar-start {
     width: 100%;
     height: 100px;
-    background-color: green;
     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bar-start__start-btn {
+    color: white;
+    font-weight: 400;
+    font-size: 80px;
+    font-family: 'VT323';
+    cursor: pointer;
+}
+
+.active {
+    color: black;
+    cursor: default;
 }
 
 .bar__pause {
+    height: 50%;
     width: 50%;
     display: flex;
     justify-content: center;
@@ -133,21 +203,27 @@ body {
 }
 
 .pause__btn {
-    width: 0;
-    height: 0;
+    width: 20px;
+    height: 50px;
     cursor: pointer;
 }
 
 .pause__btn.play {
-    border-top: 25px solid transparent;
+    border-left: 9px solid black;
+    border-right: 9px solid black;
+    /* border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
-    border-left: 35px solid white;
+    border-left: 35px solid black; */
 }
 
 .pause__btn.pause {
+    width: 0;
+    height: 0;
+    /* border-left: 3px solid white;
+    border-right: 3px solid white; */
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
-    border-left: 35px solid #6E18C0;
+    border-left: 35px solid white;
 }
 
 .bar__out {
@@ -158,8 +234,8 @@ body {
 }
 
 .bar__icon {
-    width: 50px;
-    height: 30px;
+    width: 55px;
+    height: 40px;
     display: block;
     position: relative;
     cursor: pointer;
@@ -170,10 +246,9 @@ body {
 .bar__icon::after {
     position: absolute;
     left: 0;
-    height: 10%;
+    height: 7px;
     width: 100%;
-    background-color: #6E18C0;
-    ;
+    background-color: black;
 }
 
 .bar__icon::before,
@@ -237,8 +312,10 @@ body {
 
 .over {
     color: red;
-    padding-top: 100px;
-    padding-bottom: 100px;
+    font-weight: 400;
+    font-size: 100px;
+    font-family: 'VT323';
+    padding: 50px 0 20px;
 }
 
 .popupcomplete__bg {
@@ -283,6 +360,9 @@ body {
     color: green;
     padding-top: 100px;
     padding-bottom: 100px;
+    font-weight: 400;
+    font-size: 100px;
+    font-family: 'VT323';
 }
 
 .hp-bar {
@@ -303,10 +383,13 @@ body {
     position: absolute;
     top: 0;
     left: 10px;
-    font-weight: 900;
-    font-size: 80px;
-    color: white;
+}
 
+.count-coin__value {
+    font-weight: 400;
+    font-size: 100px;
+    color: white;
+    font-family: 'VT323';
 }
 
 .count-coin__img {
@@ -332,7 +415,14 @@ body {
     width: 65px;
     height: 65px;
     position: absolute;
-} 
+}
+
+.count-score__value {
+    font-weight: 400;
+    font-size: 100px;
+    color: white;
+    font-family: 'VT323';
+}
 
 .hp-bar__hp {
     transform: scale(1);
@@ -352,13 +442,15 @@ body {
 }
 
 .next-lvl-btn {
-    width: 150px;
-    height: 50px;
+    width: 350px;
+    height: 120px;
     border: none;
     background-color: green;
     border-radius: 5px;
-    color: #FFFFFF;
-    font-size: 17px;
+    font-weight: 400;
+    color: white;
+    font-family: 'VT323';
+    font-size: 50px;
     transform: scale(1);
     transition: 0.2s all ease-in-out;
     cursor: pointer;
@@ -366,6 +458,32 @@ body {
 
 .next-lvl-btn:hover {
     transform: scale(0.9);
+}
+
+.restart__img {
+    width: 50px;
+    height: 50px;
+}
+
+.score {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.score__title {
+    color: black;
+    text-align: center;
+    font-weight: 300;
+    font-size: 100px;
+    font-family: 'VT323';
+}
+
+.score__value {
+    color: black;
+    font-weight: 300;
+    font-size: 100px;
+    font-family: 'VT323';
 }
 
 .menu {
@@ -379,19 +497,79 @@ body {
     text-decoration: none;
 }
 
-.menu__img{
+.menu__img {
     width: 50px;
     height: 50px;
+    padding-top: 80px;
+    padding-bottom: 30px;
 }
 
-.overbuttons{
+.overbuttons {
     display: flex;
     flex-direction: row;
     gap: 40px;
 }
 
-.restart{
+.restart {
     cursor: pointer;
     width: 50px;
     height: 50px;
+    padding-top: 80px;
+    padding-bottom: 30px;
+}
+
+.popup-game-over-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s all;
+}
+
+.popup-game-over-bg.active {
+    opacity: 1;
+    pointer-events: all;
+    transition: 0.5s all;
+}
+
+.popup-game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: white;
+    width: 1000px;
+    padding: 25px;
+    transition: 0.5s all;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.popup-game-over.active {
+    transform: translate(-50%, -50%)scale(1);
+    transition: 0.5s all;
+}
+
+.popup-game-over__title {
+    color: green;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    font-weight: 400;
+    font-size: 100px;
+    font-family: 'VT323';
+}
+
+.popup-game-over__subtitle {
+    color: green;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    font-weight: 400;
+    font-size: 40px;
+    font-family: 'VT323';
 }

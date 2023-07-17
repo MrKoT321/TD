@@ -8,14 +8,14 @@ class Record
     private ?int $userId;
     private string $nickName;
     private string $choisenClass;
-    private int $score;
+    private ?int $score;
 
     public function __construct
     (
         ?int    $userId,
         string  $nickName,
         string  $choisenClass,
-        int $score
+        ?int $score
     )
     {
         $this->userId = $userId;

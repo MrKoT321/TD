@@ -1,10 +1,6 @@
 var monsters = [];
 var monstercount = 0;
 
-// function updateMonster(monster){
-//     monster.x += monster.speed;
-// }
-
 function pushMonsters(lvl, monster) {
     monsters.push({
         hp: monster.hp,
@@ -166,6 +162,7 @@ function registerCollision(monster, GAME) {
 
 function moveMonsters(GAME, lvls) {
     payForMonsters();
+    updateScoreForMob();
     monsters = monsters.filter(value => value.hp > 0);
     for (var monster of monsters) {
         drawMonster(monster);
@@ -198,10 +195,6 @@ function payForMonsters(monster) {
         }
     }
 }
-
-// function addMonstersToLvls(GAME, lvls) {
-//     monsters = lvls[GAME.lvlCount - 1].waves[GAME.wave - 1];
-// }
 
 function updateScoreForMob() {
     let scoreInfo = document.querySelector(".count-score__value");

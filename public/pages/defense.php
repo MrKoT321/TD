@@ -1,8 +1,14 @@
+<?php
+/**
+ * @var App\Model\Record $user
+ */
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
-    <title>TD</title>
+    <title><?= htmlspecialchars($score->getNickName()) ?>'s Game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/defense.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -62,16 +68,16 @@
                 <div class="buf-slot"></div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">
-                        <span class="game-info-lvl__title">LVL:</span>
-                        <span id="current-lvl">1</span>
+                        <span>LVL:</span>
+                        <span>1</span>
                         <span>/</span>
-                        <span id="total-lvl"></span>
+                        <span>3</span>
                     </div>
                     <div class="game-info-wave game-info-slot">
-                        <span class="">WAVE:</span>
-                        <span id="current-wave">1</span>
+                        <span>WAVE:</span>
+                        <span>1</span>
                         <span>/</span>
-                        <span id="total-wave"></span>
+                        <span>3</span>
                     </div>
                 </div>
             </div>
