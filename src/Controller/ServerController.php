@@ -20,6 +20,32 @@ class ServerController
         $this->recordTable = new RecordTable($connection);
     }
 
+    public function addRecord(): void 
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST')
+        {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+        if ($_SERVER["CONTENT_TYPE"] ==  'application/json')
+        {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+
+        $postData = file_get_contents('php://input');
+        $data = json_decode($postData, true);
+
+        $record = new Record(
+            null, 
+            $data['nickName'], 
+            $data['choisenClass'], 
+            (int)$data['score']
+        );
+        $this->recordTable->add($record);
+        return;
+    }
+
     public  function showRecords(): void 
     {
         $records = $this->recordTable->show();
@@ -32,9 +58,23 @@ class ServerController
         require __DIR__ . '/../../public/pages/records.php';
     }
 
-    public function singleGame(): void 
+    public function singleGame(array $queryParams): void 
     {
-        $this->writeRedirectSeeOther("/../../pages/TD.html");
+        $userNickName = $queryParams["nick_name"];
+        if (!$userNickName)
+        {
+            $this->writeRedirectSeeOther('/');
+            exit();
+        }
+        
+        $score = new Record(
+            null, 
+            $userNickName, 
+            'defense', 
+            null
+        );
+
+        require __DIR__ . '/../../public/pages/defense.php';
     }
 
     public function index(): void

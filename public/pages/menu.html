@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../static/css/menu.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&family=VT323&display=swap" rel="stylesheet">
     <title>Menu</title>
 </head>
 <body>
@@ -15,11 +16,23 @@
             <img src="../static/images/menu.svg" class="background-menu">  
         </div>
         <div class="buttons">
-            <a href="#popup-multiplay"><img src="../static/images/multiplay.svg" class="button-multiplay" ></a>
-            <a href="/../single_game.php"><img src="../static/images/start.svg" class="button-start" ></a>
-            <a href="#popup-settings"><img src="../static/images/settings.svg" class="button-settings" ></a> 
+            <a href="#popup-multiplay"><img src="../static/images/multiplay.svg" class="button-multiplay"></a>
+            <a href="#popup-start"><img src="../static/images/start.svg" class="button-start"></a>
+            <a href="/../show_records.php"><img src="../static/images/records.svg" class="button-settings"></a> 
         </div>
     </div>
+    <div id="popup-start" class="popup">
+        <a href="#" class="popup__start"></a>
+        <div class="popup__body">
+            <div class="popup__content">
+                <h2 class="form-popup__title">Your nickname</h2>
+                <div class="form-popup__info">
+                    <input class="form-popup__nickname" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" />
+                    <input class="form-popup__submit" type="submit" name="submit" value="Submit"/>
+                </div> 
+            </div>
+        </div>
+    </div> 
     <div id="popup-multiplay" class="popup">
         <a href="#" class="popup__multiplay"></a>
         <div class="popup__body">
@@ -31,19 +44,5 @@
             </div>
         </div>
     </div>
-    <div id="popup-settings" class="popup">
-        <a href="#" class="popup__area"></a>
-        <div class="popup__body">
-            <div class="popup__content">
-                <a href="#" class="popup__close">X</a>
-                <span class="popup__title">QQQQ</span>
-                <span class="popup__subtitle">qqq</span>
-            </div>
-        </div>
-    </div>
-    <div class="records">
-        <a href="/../show_records.php"><img src="../static/images/score.png" class="records__img"></a>
-    </div>
 </body>
-
 </html>
