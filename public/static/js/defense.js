@@ -12,6 +12,11 @@ const backToMenuBtn = document.getElementById("back-to-menu");
 
 const nextBtn = document.getElementById("next-lvl-btn");
 
+const currentLvl = document.getElementById("current-lvl");
+const totalLvl = document.getElementById("total-lvl");
+const currentWave = document.getElementById("current-wave");
+const totalWave = document.getElementById("total-wave");
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -54,6 +59,14 @@ background.onload = () => {
 castle.onload = () => {
     GAME.castle = castle;
 }
+
+function updateVisualLvlParams() {
+    currentLvl.innerHTML = GAME.lvlCount;
+    totalLvl.innerHTML = lvls.length;
+    currentWave.innerHTML = GAME.wave;
+    totalWave.innerHTML = lvls[GAME.lvlCount - 1].waves.length;
+}
+
 
 function resetStopwatch() {
     GAME.stopwatch = 0;
@@ -115,19 +128,20 @@ function gameOver() {
 
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
-    moneyInfo.innerHTML = String(Math.floor(GAME.money));
+    moneyInfo.innerHTML = String(GAME.money);
 }
 
 function updateScore() {
     let scoreInfo = document.querySelector(".count-score__value");
-    scoreInfo.innerHTML = String(Math.floor(GAME.score));
+    scoreInfo.innerHTML = String(GAME.score);
 }
 
 function lvlComplete() {
     if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0) {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
-        if (GAME.lvlCount + 1 >= lvls.length) {
+        resetBonuses();
+        if (GAME.lvlCount + 1 > lvls.length) {
             popupoverBg.classList.add('active');
             popupover.classList.add('active');
             document.querySelector('.over').style.color = 'green';
@@ -171,17 +185,23 @@ function nextWave() {
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }
 }
 
 function updateNextLvlParams() {
-    if (GAME.lvlCount + 1 < lvls.length) {
+    if (GAME.lvlCount + 1 <= lvls.length) {
         lvl = changeLvl();
         GAME.castleHP = lvl.castleHP;
         GAME.wave = 1;
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }    
 }
 
@@ -192,12 +212,23 @@ function updateRestartGameParams() {
     GAME.wave = 1;
     monstercount = 0;
     starttime = 900;
-    for (var lvl of lvls) {
-        lvl.monsters = []
-    }
     GAME.money = 100;
     GAME.score = 0;
+    towerTiles = [];
+    towers = [];
+    monsters = [];
+    arrows = [];
+    bullets = [];
+    compareWithGameLvl = 0;
     GAME.isPlay = 'wavepause';
+    startTimer = 0;
+    timeInPause = 0;
+    timeInLastPause = 0;
+    pauseStartTime = 0;
+    pushmonstercount = 0;
+    steptimer = 0;
+    stepcounter = 1;
+    monsters = [];
 }
 
 function changeMap() {
@@ -214,7 +245,7 @@ function changeMap() {
 };
 
 async function sendResults(event) {
-    const score = document.querySelector(".count-score__value");
+    const score = document.querySelector(".score__value");
     event.preventDefault();
     props = {
         nickName: GAME.player,
@@ -294,12 +325,16 @@ backToMenuBtn.addEventListener(
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    console.log(monsters.length)
     updateMoney();
     updateScore();
+    updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
+    moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
+        initBullets();
         resetStopwatch();
         resetButtons();
     }
@@ -307,7 +342,6 @@ function play() {
         lvlComplete();
         nextWave();
         catchTime();
-        updateScoreForMob();
         updateArrows();
         updateBullets();
     }
@@ -318,7 +352,6 @@ function play() {
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
         removeTowerSelectors();
     }
-    moveMonsters(GAME, lvls);
     drawTower();
     drawArrows();
     drawBullets();

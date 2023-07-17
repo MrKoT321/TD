@@ -8,7 +8,7 @@
 <html lang="ru">
 
 <head>
-    <title><?= htmlspecialchars($score->getNickName()) ?></title>
+    <title><?= htmlspecialchars($score->getNickName()) ?>'s Game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/defense.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -20,11 +20,11 @@
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
-                <span class="count-coin__value">100</span>
+                <span class="count-coin__value"></span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
             <div class="count-score">
-                <span class="count-score__value">0</span>
+                <span class="count-score__value"></span>
                 <img src="../static/images/score.png" alt="score" class="count-score__img">
             </div>
             <div class="tower-selection new-tower hidden">
@@ -68,13 +68,15 @@
                 <div class="buf-slot"></div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">
-                        <span>LVL</span>
-                        <span>1/</span>
+                        <span>LVL:</span>
+                        <span>1</span>
+                        <span>/</span>
                         <span>3</span>
                     </div>
                     <div class="game-info-wave game-info-slot">
-                        <span>WAVE</span>
-                        <span>1/</span>
+                        <span>WAVE:</span>
+                        <span>1</span>
+                        <span>/</span>
                         <span>3</span>
                     </div>
                 </div>

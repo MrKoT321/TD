@@ -1,6 +1,6 @@
 const archer = {
     cost: 30,
-    atk:   15,
+    atk: 30,
     radius: 350,
     type: "arrow",
     atkspeed: 2,
@@ -22,7 +22,7 @@ const bash = {
 
 const mortir = {
     cost: 50,
-    atk: 10,
+    atk: 25,
     radius: 300,
     type: "splash",
     atkspeed: 2,
