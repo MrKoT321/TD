@@ -121,11 +121,13 @@
         </div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
-    <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
+    <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
     <script type="application/javascript" src="../static/js/bonus_action.js"></script>
+    <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_placement.js"></script>
+    <script type="application/javascript" src="../static/js/tower_attack.js"></script>
     <script type="application/javascript" src="../static/js/defense.js"></script>
 </body>
 

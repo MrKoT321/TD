@@ -54,9 +54,11 @@ function updatePlayer() {
     }
 }
 
+//function sendData() {
 function sendData() {
     const json = JSON.stringify(PLAYER);
-    //socket.send(json);
+    console.log(typeof(json));
+    socket.send(json);
 }
 
 function play() {
