@@ -141,7 +141,7 @@ function lvlComplete() {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
         resetBonuses();
-        if (GAME.lvlCount + 1 >= lvls.length) {
+        if (GAME.lvlCount + 1 > lvls.length) {
             popupoverBg.classList.add('active');
             popupover.classList.add('active');
             document.querySelector('.over').style.color = 'green';
