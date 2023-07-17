@@ -33,10 +33,10 @@ body {
     position: absolute;
     top: 0;
     left: 10px;
-    font-weight: 900;
-    font-size: 80px;
+    font-weight: 400;
+    font-size: 100px;
     color: white;
-    margin-top: 5px;
+    font-family: 'VT323';
 }
 
 .map-button {
@@ -56,12 +56,13 @@ body {
 .mob-count {
     top: 0;
     left: 10px;
-    font-weight: 900;
-    font-size: 80px;
+    font-weight: 400;
+    font-size: 100px;
     color: white;
     width: 80px;
     text-align: right;
     margin-left: 191px;
+    font-family: 'VT323';
 }
 
 .monsters-selector {
@@ -77,6 +78,11 @@ body {
     width: 200px;
     height: 200px;
     cursor: pointer;
+}
+
+.monster-selector-lock {
+    position: absolute;
+    margin-left: -200px;
 }
 
 .monsters-selected {
@@ -184,18 +190,22 @@ body {
     position: absolute;
     width: 150px;
     height: 150px;
-    background: white;
-    margin-left: -97px;
-    margin-top: -50px;
+    background: url('../images/monster1_info.png');
+    margin-left: 110px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
 }
 
 .mob2-info{
     position: absolute;
     width: 150px;
     height: 150px;
-    background: white;
-    margin-left: 563px;
-    margin-top: 116px;
+    background: url('../images/monster2_info.png');
+    margin-left: 110px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
 }
 
 .mob3-info{
@@ -203,8 +213,10 @@ body {
     width: 150px;
     height: 150px;
     background: white;
-    margin-left: 900px;
-    margin-top: 116px;
+    margin-left: 110px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
 }
 
 .mob4-info{
@@ -212,8 +224,10 @@ body {
     width: 150px;
     height: 150px;
     background: white;
-    margin-left: 1231px;
-    margin-top: 116px;
+    margin-left: 110px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
 }
 
 .mob5-info{
@@ -221,6 +235,28 @@ body {
     width: 150px;
     height: 150px;
     background: white;
-    margin-left: 1565px;
-    margin-top: 116px;
+    margin-left: 110px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-cost{
+    font-family: 'VT323';
+    margin-top: 35px;
+    margin-left: 17px;
+    height: 34px;
+    width: 75px;
+    text-align: right;
+    font-size: 40px;
+}
+
+.info-hp{
+    font-family: 'VT323';
+    margin-top: 28px;
+    margin-left: 17px;
+    text-align: right;
+    font-size: 40px;
+    height: 34px;
+    width: 75px;
 }

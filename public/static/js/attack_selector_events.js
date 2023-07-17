@@ -106,41 +106,42 @@ mob3_info.addEventListener(
     }
 )
 
-mob4_selector.addEventListener(
-    "click",
-    () => {
-        curr_mob = monster4;
-        addMobsToWaves();
-    }
-)
-
-mob4_selector.addEventListener(
-    "mouseover",
-    () => {
-        mob4_info.classList.remove('hidden')
-    }
-)
-
-mob4_selector.addEventListener(
-    "mouseout",
-    () => {
-        mob4_info.classList.add('hidden')
-    }
-)
-
-mob4_info.addEventListener(
-    "mouseover",
-    () => {
-        mob4_info.classList.remove('hidden')
-    }
-)
-
-mob4_info.addEventListener(
-    "mouseout",
-    () => {
-        mob4_info.classList.add('hidden');
-    }
-)
+if (mob4_selector) {
+    mob4_selector.addEventListener(
+        "click",
+        () => {
+            curr_mob = monster4;
+            addMobsToWaves();
+        }
+    )
+    mob4_selector.addEventListener(
+        "mouseover",
+        () => {
+            mob4_info.classList.remove('hidden')
+        }
+    )
+    
+    mob4_selector.addEventListener(
+        "mouseout",
+        () => {
+            mob4_info.classList.add('hidden')
+        }
+    )
+    
+    mob4_info.addEventListener(
+        "mouseover",
+        () => {
+            mob4_info.classList.remove('hidden')
+        }
+    )
+    
+    mob4_info.addEventListener(
+        "mouseout",
+        () => {
+            mob4_info.classList.add('hidden');
+        }
+    )
+}
 
 mob5_selector.addEventListener(
     "click",
@@ -302,11 +303,11 @@ map_button.addEventListener(
     "click",
     () => {
         popup_map_show.classList.remove('hidden');
-        if(lvlcount == 1){
-            popup_map.classList.add(maps[lvlcount-1]);
+        if (lvlcount == 1) {
+            popup_map.classList.add(maps[lvlcount - 1]);
         } else {
-            popup_map.classList.remove(maps[lvlcount-2]);
-            popup_map.classList.add(maps[lvlcount-1])
+            popup_map.classList.remove(maps[lvlcount - 2]);
+            popup_map.classList.add(maps[lvlcount - 1])
         }
     }
 )

@@ -71,6 +71,11 @@ image4.src = "../static/images/monster4.png";
 const image5 = new Image();
 image5.src = "../static/images/monster5.png";
 
+const monster1_image = new Image();
+monster1_image.src = "../static/images/monster1.png";
+const monster2_image = new Image();
+monster2_image.src = "../static/images/monster2.png";
+
 monster1_step1.onload = () => {
     monster1.step1 = monster1_step1;
 }
@@ -107,4 +112,12 @@ image4.onload = () => {
 
 image5.onload = () => {
     monster5.image = image5;
+}
+
+monster1_image.onload = () => {
+    monster1.icon = monster1_image
+}
+
+monster2_image.onload = () => {
+    monster2.icon = monster2_image
 }
