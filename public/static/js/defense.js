@@ -325,7 +325,6 @@ backToMenuBtn.addEventListener(
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    console.log(monsters.length)
     updateMoney();
     updateScore();
     updateVisualLvlParams();
