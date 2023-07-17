@@ -17,10 +17,10 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-const lvls = [lvl1, lvl2, lvl3, lvl4];
+const lvls = [lvl3, lvl1, lvl2, lvl4];
 
 var GAME = {
-    player: document.title,
+    player: document.getElementById("nick-name"),
     width: 1600,
     height: 1000,
     stopwatch: 0,
@@ -141,7 +141,7 @@ function lvlComplete() {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
         resetBonuses();
-        if (GAME.lvlCount + 1 >= lvls.length) {
+        if (GAME.lvlCount + 1 > lvls.length) {
             popupoverBg.classList.add('active');
             popupover.classList.add('active');
             document.querySelector('.over').style.color = 'green';
@@ -326,7 +326,6 @@ backToMenuBtn.addEventListener(
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    console.log(monsters.length)
     updateMoney();
     updateScore();
     updateVisualLvlParams();
