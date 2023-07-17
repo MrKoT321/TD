@@ -211,6 +211,7 @@ function updateRestartGameParams() {
     GAME.castleHP = lvl.castleHP;
     GAME.wave = 1;
     monstercount = 0;
+    monsters = [];
     starttime = 900;
     GAME.money = 100;
     GAME.score = 0;
@@ -252,6 +253,7 @@ async function sendResults(event) {
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }
+    console.log(props)
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',

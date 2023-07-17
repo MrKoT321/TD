@@ -42,9 +42,6 @@
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
                         <img src="../static/images/mortir_cost.png" class="cost-for-tower" />
                     </div>
-                    
-                    
-                    
                 </div>
             </div>
             <div class="tower-selection tower-abilities hidden">
