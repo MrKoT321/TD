@@ -16,7 +16,7 @@ function pushMonsters(lvl, monster) {
         maxhp: monster.maxhp,
         finish: false,
         delete: false,
-        x: lvl.start_x,
+        x: lvl.start_x - monster.height/2,
         y: lvl.start_y,
         dir: lvl.start_dir
     })
@@ -203,7 +203,7 @@ function payForMonsters(monster) {
 
 function addMonstersToLvls() {
     console.log(monster1.image);
-    pushMonsters(lvl1, monster1);
+    pushMonsters(lvl1, monster2);
     pushMonsters(lvl1, monster1);
     pushMonsters(lvl2, monster1);
     pushMonsters(lvl2, monster1);
