@@ -335,7 +335,7 @@ function play() {
         updateBullets();
     }
     if (GAME.isPlay == 'startgame') {
-        addMonster(GAME, lvls);
+        setTowers(GAME, lvl);
         GAME.isPlay = 'play';
     }
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
