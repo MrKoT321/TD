@@ -141,7 +141,7 @@ function lvlComplete() {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
         resetBonuses();
-        if (GAME.lvlCount + 1 >= lvls.length) {
+        if (GAME.lvlCount + 1 > lvls.length) {
             popupoverBg.classList.add('active');
             popupover.classList.add('active');
             document.querySelector('.over').style.color = 'green';
@@ -185,6 +185,9 @@ function nextWave() {
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }
 }
 
@@ -196,6 +199,9 @@ function updateNextLvlParams() {
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }    
 }
 
@@ -219,7 +225,10 @@ function updateRestartGameParams() {
     timeInPause = 0;
     timeInLastPause = 0;
     pauseStartTime = 0;
-
+    pushmonstercount = 0;
+    steptimer = 0;
+    stepcounter = 1;
+    monsters = [];
 }
 
 function changeMap() {
@@ -316,6 +325,7 @@ backToMenuBtn.addEventListener(
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    console.log(monsters.length)
     updateMoney();
     updateScore();
     updateVisualLvlParams();
@@ -335,7 +345,7 @@ function play() {
         updateBullets();
     }
     if (GAME.isPlay == 'startgame') {
-        setTowers(GAME, lvl);
+        addMonster(GAME, lvls);
         GAME.isPlay = 'play';
     }
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {

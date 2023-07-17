@@ -20,11 +20,11 @@
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
-                <span class="count-coin__value">100</span>
+                <span class="count-coin__value"></span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
             <div class="count-score">
-                <span class="count-score__value">0</span>
+                <span class="count-score__value"></span>
                 <img src="../static/images/score.png" alt="score" class="count-score__img">
             </div>
             <div class="tower-selection new-tower hidden">
@@ -121,11 +121,13 @@
         </div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
-    <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
+    <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
     <script type="application/javascript" src="../static/js/bonus_action.js"></script>
+    <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_placement.js"></script>
+    <script type="application/javascript" src="../static/js/tower_attack.js"></script>
     <script type="application/javascript" src="../static/js/defense.js"></script>
 </body>
 
