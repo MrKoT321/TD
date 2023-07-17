@@ -1,25 +1,36 @@
 var monsters = [];
 var monstercount = 0;
-
-// function updateMonster(monster){
-//     monster.x += monster.speed;
-// }
+var pushmonstercount = 0;
+var steptimer = 0;
+var stepcounter = 1;
 
 function pushMonsters(lvl, monster) {
-    (lvl.monsters).push({
+    monsters.push({
         hp: monster.hp,
         speed: monster.speed,
         cost: monster.cost,
         width: monster.width,
         height: monster.height,
-        image: monster.image,
+        step1: monster.step1,
+        step2: monster.step2,
+        step3: monster.step3,
+        step4: monster.step4,
+        image: monster.step1,
         maxhp: monster.maxhp,
         finish: false,
         delete: false,
         x: lvl.start_x,
-        y: lvl.start_y,
+        y: lvl.start_y - monster.height / 2,
         dir: lvl.start_dir
     })
+    if (lvl.start_x < 0 || lvl.start_x > 1600) {
+        monsters[pushmonstercount].x = lvl.start_x;
+        monsters[pushmonstercount].y = lvl.start_y - monster.height / 2;
+    } else {
+        monsters[pushmonstercount].y = lvl.start_y;
+        monsters[pushmonstercount].x = lvl.start_x - monster.width / 2;
+    }
+    pushmonstercount += 1;
 }
 
 function drawMonster(monster) {
@@ -150,10 +161,9 @@ function monsterCorrect(lvl, monster) {
 
 }
 
-function addMonster() {
-    monsters.push(lvl.monsters[monstercount]);
+function addMonster(GAME, lvls) {
+    pushMonsters(lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
     monstercount += 1;
-    mobamount -= 1;
 }
 
 function registerCollision(monster, GAME) {
@@ -166,9 +176,11 @@ function registerCollision(monster, GAME) {
     }
 }
 
-function moveMonsters(GAME) {
+function moveMonsters(GAME, lvls) {
     payForMonsters();
+    updateScoreForMob();
     monsters = monsters.filter(value => value.hp > 0);
+    updateMonstersStep();
     for (var monster of monsters) {
         drawMonster(monster);
         hpBar(monster);
@@ -176,9 +188,9 @@ function moveMonsters(GAME) {
         monsterCorrect(lvl, monster);
         registerCollision(monster, GAME);
     }
-    if (mobamount > 0 && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play')) {
+    if (monstercount < lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play')) {
         if (GAME.milisectimer > starttime) {
-            addMonster();
+            addMonster(GAME, lvls);
             GAME.isPlay = 'play';
             starttime += 900;
         }
@@ -201,19 +213,9 @@ function payForMonsters(monster) {
     }
 }
 
-function addMonstersToLvls() {
-    console.log(monster1.image);
-    pushMonsters(lvl1, monster1);
-    pushMonsters(lvl1, monster1);
-    pushMonsters(lvl2, monster1);
-    pushMonsters(lvl2, monster1);
-    pushMonsters(lvl2, monster1);
-    pushMonsters(lvl2, monster1);
-}
-
 function updateScoreForMob() {
-    if (monsters.length != 0) {
-        for(var monster of monsters){
+    if (monsters.length != 0 && GAME.isPlay != 'popuppause') {
+        for (var monster of monsters) {
             if (monster.delete) {
                 GAME.score -= monster.cost;
             } else {
@@ -222,5 +224,30 @@ function updateScoreForMob() {
                 }
             }
         }
-    } 
+    }
+}
+
+function updateMonstersStep() {
+    if (GAME.milisectimer > steptimer) {
+        for (let monster of monsters) {
+
+            if (stepcounter == 1) {
+                monster.image = monster.step1
+            }
+            if (stepcounter == 2) {
+                monster.image = monster.step2
+            }
+            if (stepcounter == 3) {
+                monster.image = monster.step3
+            }
+            if (stepcounter == 4) {
+                monster.image = monster.step4
+            }
+        }
+        steptimer += 200;
+        stepcounter += 1;
+    }
+    if (steptimer % 800 == 0) {
+        stepcounter = 1
+    }
 }

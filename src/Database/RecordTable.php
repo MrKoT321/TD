@@ -14,8 +14,8 @@ class RecordTable {
         $this->connection = $connection;
     }
 
-    public function show(): ?array {
-        $query = "SELECT `user_id`, nick_name, choisen_class, score FROM records ORDER BY `score` DESC LIMIT 10";
+    public function show(): array {
+        $query = "SELECT user_id, nick_name, choisen_class, score FROM records WHERE score > 0 ORDER BY score DESC LIMIT 10";
         $score_stack = [];
         if ($statement = $this->connection->query($query)) {
             foreach($statement as $row) {
@@ -36,10 +36,10 @@ class RecordTable {
         );
     }
 
-    public function add(Record $record): int {
+    public function add(Record $record): void {
         $query = <<<SQL
-        INSERT INTO records (id, nick_name, choisen_class, score)
-        VALUES (:id, :nick_name, :choisen_class, :score)
+        INSERT INTO records (nick_name, choisen_class, score)
+        VALUES (:nick_name, :choisen_class, :score)
         SQL;
         $statement = $this->connection->prepare($query);
         try 
@@ -59,6 +59,6 @@ class RecordTable {
             echo "General Error: The record could not be able added. <br />".$err->getMessage();
         }
         
-        return (int)$this->connection->lastInsertId();
+        return;
     }
 }
