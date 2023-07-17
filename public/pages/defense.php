@@ -20,11 +20,11 @@
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
-                <span class="count-coin__value">100</span>
+                <span class="count-coin__value"></span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
             <div class="count-score">
-                <span class="count-score__value">0</span>
+                <span class="count-score__value"></span>
                 <img src="../static/images/score.png" alt="score" class="count-score__img">
             </div>
             <div class="tower-selection new-tower hidden">

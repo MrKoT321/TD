@@ -36,9 +36,17 @@ body {
     font-weight: 900;
     font-size: 80px;
     color: white;
+    margin-top: 5px;
 }
 
 .map-button {
+    position: absolute;
+    margin-left: 301px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+
+.start-button {
     position: absolute;
     margin-left: 1493px;
     margin-top: 1px;
@@ -53,6 +61,7 @@ body {
     color: white;
     width: 80px;
     text-align: right;
+    margin-left: 191px;
 }
 
 .monsters-selector {
@@ -88,20 +97,6 @@ body {
     margin-top: 872px;
 }
 
-.mob{
-    width: 80px;
-    height: 80px;
-    margin-left: 75px;
-}
-
-.mob-info{
-    display: flex;
-    gap: 36px;
-    align-items: center;
-    height: 132px;
-    width: 360px;
-}
-
 .sell{
     position: absolute;
     margin-left: 282px;
@@ -109,22 +104,123 @@ body {
     cursor: pointer;
 }
 
-.mob1{
-    background: url("../images/monster1.png");
+.mob-info{
+    display: flex;
+    align-items: center;
+    height: 132px;
+    width: 360px;
 }
 
-.mob2{
-    background: url("../images/monster2.png");
+.wave-selector{
+    position: absolute;
+    margin-left: 960px;
+    margin-top: 45px;
+    display: flex;
+    align-items: center;
 }
 
-.mob3{
-    background: url("../images/monster3.png");
+.wave-selector__wave-minus{
+    margin: 0;
+    cursor: pointer;    
 }
 
-.mob4{
-    background: url("../images/monster4.png");
+.wave-selector__1{
+    position: absolute;
+    margin-left: 37px;
 }
 
-.mob5{
-    background: url("../images/monster5.png");
+.wave-selector__2{
+    position: absolute;
+    margin-left: 35px;
+}
+
+.wave-selector__3{
+    position: absolute;
+    margin-left: 34px;
+}
+
+.wave-selector__wave-plus{
+    margin-left: 56px;
+    cursor: pointer;
+}
+
+.popup-map__field{
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    background: white;
+    margin-top: 15vh;
+    margin-left: 50vh;
+}
+
+.popup-map__bg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.map1{
+    background: url("map1_selector");
+}
+
+.map2{
+    background: url("map1_selector");
+}
+
+.map3{
+    background: url("map1_selector");
+}
+
+.map4{
+    background: url("map1_selector");
+}
+
+.map5{
+    background: url("map1_selector");
+}
+
+.mob1-info{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: white;
+    margin-left: -97px;
+    margin-top: -50px;
+}
+
+.mob2-info{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: white;
+    margin-left: 563px;
+    margin-top: 116px;
+}
+
+.mob3-info{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: white;
+    margin-left: 900px;
+    margin-top: 116px;
+}
+
+.mob4-info{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: white;
+    margin-left: 1231px;
+    margin-top: 116px;
+}
+
+.mob5-info{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: white;
+    margin-left: 1565px;
+    margin-top: 116px;
 }

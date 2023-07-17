@@ -132,6 +132,17 @@ function drawFireballReload() {
     }
 }
 
+function resetFireball() {
+    fireball.isActive = false;
+    fireball.readyToExplode = true;
+    fireball.x = undefined;
+    fireball.y = undefined;
+}
+
+function resetBonuses() {
+    resetFireball();
+}
+
 function initFireball() {
     if (fireball.isActive && isClickOnMap()) {
         inActiveFireBall();
