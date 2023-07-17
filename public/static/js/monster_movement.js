@@ -12,7 +12,7 @@ function pushMonsters(lvl, monster) {
         cost: monster.cost,
         width: monster.width,
         height: monster.height,
-        color: monster.color,
+        image: monster.image,
         maxhp: monster.maxhp,
         finish: false,
         delete: false,
@@ -23,8 +23,9 @@ function pushMonsters(lvl, monster) {
 }
 
 function drawMonster(monster) {
-    canvasContext.fillStyle = monster.color;
-    canvasContext.fillRect(monster.x, monster.y, monster.width, monster.height);
+    if (monster.image) {
+        canvasContext.drawImage(monster.image, monster.x, monster.y, monster.width, monster.height);
+    }
 }
 
 function monsterMove(monster) {
@@ -195,14 +196,13 @@ function hpBar(monster) {
 function payForMonsters(monster) {
     for (var monster of monsters) {
         if (monster.hp <= 0 && !monster.finish) {
-            let moneyInfo = document.querySelector(".count-coin__value");
             GAME.money += monster.cost
-            moneyInfo.innerHTML = String(Math.floor(GAME.money));
         }
     }
 }
 
 function addMonstersToLvls() {
+    console.log(monster1.image);
     pushMonsters(lvl1, monster1);
     pushMonsters(lvl1, monster1);
     pushMonsters(lvl2, monster1);
@@ -212,7 +212,6 @@ function addMonstersToLvls() {
 }
 
 function updateScoreForMob() {
-    let scoreInfo = document.querySelector(".count-score__value");
     if (monsters.length != 0) {
         for(var monster of monsters){
             if (monster.delete) {
@@ -222,13 +221,6 @@ function updateScoreForMob() {
                     GAME.score += monster.cost;
                 }
             }
-            scoreInfo.innerHTML = String(Math.floor(GAME.score));
         }
     } 
-}
-
-function updateScoreForLvlComplete(){
-    let scoreInfo = document.querySelector(".count-score__value");
-    GAME.score += GAME.lvlCount * 100;
-    scoreInfo.innerHTML = String(Math.floor(GAME.score));
 }
