@@ -20,7 +20,7 @@ const totalWave = document.getElementById("total-wave");
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
-    player: document.title,
+    player: document.getElementById("nick-name").innerHTML,
     width: 1600,
     height: 1000,
     stopwatch: 0,
