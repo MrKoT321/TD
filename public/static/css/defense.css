@@ -136,11 +136,12 @@ body {
 .fireball-buf__reload {
     position: absolute;
     width: 200px;
-    height: 140px;
-    padding-top: 60px;
+    height: 150px;
+    padding-top: 50px;
     text-align: center;
+    font-family: 'VT323';
     font-weight: 900;
-    font-size: 80px;
+    font-size: 100px;
     color: white;
     background-color: rgba(0, 0, 0, 0.3);
 }

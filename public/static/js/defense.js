@@ -204,10 +204,8 @@ function updateRestartGameParams() {
     GAME.castleHP = lvl.castleHP;
     GAME.wave = 1;
     monstercount = 0;
+    monsters = [];
     starttime = 900;
-    for (var lvl of lvls) {
-        lvl.monsters = []
-    }
     GAME.money = 100;
     GAME.score = 0;
     GAME.isPlay = 'wavepause';
