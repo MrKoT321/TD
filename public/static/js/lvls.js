@@ -11,7 +11,7 @@ const lvl1 = {
     castle_h: 400,
     money: 100,
     start_dir: 'r',
-    waves: [[monster1, monster2], [monster2, monster1, monster1, monster1], [monster2, monster1, monster1, monster1, monster1]],
+    waves: [[monster1, monster1], [monster2, monster1, monster1, monster1], [monster2, monster1, monster1, monster1, monster1]],
     atk_towers: [[archer, bash], [archer, bash, archer], [mortir, archer, archer]],
     bonuses: ["fireball"],
     back_src:  "../static/images/MAP1.png",
@@ -70,7 +70,7 @@ const lvl4 = {
     castle_w: 386,
     castle_h: 400,   
     money: 100,
-    start_dir: 'r',
+    start_dir: 'u',
     waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
     atk_towers: [bash, mortir, bash, mortir],
     bonuses: [],
@@ -79,7 +79,7 @@ const lvl4 = {
 }
 
 const lvl5 = {
-    start_x: 1375,
+    start_x: 1400,
     start_y: 1050,
     finish_cells: [50, 51, 66, 67],
     towersPos: [59, 93, 102, 105],

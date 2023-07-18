@@ -15,6 +15,10 @@ function pushMonsters(lvl, monster) {
         step2: monster.step2,
         step3: monster.step3,
         step4: monster.step4,
+        step1_rev: monster.step1_rev,
+        step2_rev: monster.step2_rev,
+        step3_rev: monster.step3_rev,
+        step4_rev: monster.step4_rev,
         image: monster.step1,
         maxhp: monster.maxhp,
         finish: false,
@@ -230,17 +234,32 @@ function updateScoreForMob() {
 function updateMonstersStep() {
     if (GAME.milisectimer > steptimer) {
         for (let monster of monsters) {
-            if (stepcounter == 1) {
-                monster.image = monster.step1
-            }
-            if (stepcounter == 2) {
-                monster.image = monster.step2
-            }
-            if (stepcounter == 3) {
-                monster.image = monster.step3
-            }
-            if (stepcounter == 4) {
-                monster.image = monster.step4
+            if (monster.dir == 'r' || monster.dir == 'u') {
+                if (stepcounter == 1) {
+                    monster.image = monster.step1
+                }
+                if (stepcounter == 2) {
+                    monster.image = monster.step2
+                }
+                if (stepcounter == 3) {
+                    monster.image = monster.step3
+                }
+                if (stepcounter == 4) {
+                    monster.image = monster.step4
+                }
+            } else {
+                if (stepcounter == 1) {
+                    monster.image = monster.step1_rev
+                }
+                if (stepcounter == 2) {
+                    monster.image = monster.step2_rev
+                }
+                if (stepcounter == 3) {
+                    monster.image = monster.step3_rev
+                }
+                if (stepcounter == 4) {
+                    monster.image = monster.step4_rev
+                }
             }
         }
         steptimer += 200;
