@@ -17,7 +17,7 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-const lvls = [lvl1, lvl2, lvl3, lvl4];
+const lvls = [lvl2, lvl3, lvl4];
 
 var GAME = {
     player: document.getElementById("nick-name").innerHTML,
@@ -137,7 +137,7 @@ function updateScore() {
 }
 
 function lvlComplete() {
-    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0) {
+    if (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0) {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
         resetBonuses();
@@ -180,7 +180,7 @@ function updateCastleHP() {
 }
 
 function nextWave() {
-    if (monsters.length == 0 && GAME.wave < 3) {
+    if (monsters.length == 0 && GAME.wave < lvls[GAME.lvlCount - 1].waves.length) {
         GAME.wave += 1;
         monstercount = 0;
         starttime = 900;

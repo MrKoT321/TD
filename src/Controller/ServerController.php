@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Database\ConnectionProvider;
 use App\Database\RecordTable;
 use App\Model\Record;
+use App\Model\AttackInfo;
 
 class ServerController
 {
@@ -58,9 +59,37 @@ class ServerController
         require __DIR__ . '/../../public/pages/records.php';
     }
 
+    // public function singleGame(array $queryParams): void 
+    // {
+    //     $userNickName = $queryParams['nick_name'];
+    //     $choisenClass = $queryParams['choisen_class'];
+    //     if (!$userNickName)
+    //     {
+    //         $this->writeRedirectSeeOther('/');
+    //         exit();
+    //     }
+        
+    //     $score = new Record(
+    //         null, 
+    //         $userNickName, 
+    //         $choisenClass, 
+    //         null
+    //     );
+    //     if ($choisenClass == 'defense') {
+    //         require __DIR__ . '/../../public/pages/defense.php';
+    //     } else {
+    //         if ($choisenClass == 'attack') {
+    //             require __DIR__ . '/../../public/pages/attack_selector.html';
+    //         } else {
+    //             $this->writeRedirectSeeOther('/');
+    //             exit();  
+    //         }
+    //     }
+    // }
+
     public function singleGame(array $queryParams): void 
     {
-        $userNickName = $queryParams["nick_name"];
+        $userNickName = $queryParams['nick_name'];
         if (!$userNickName)
         {
             $this->writeRedirectSeeOther('/');
@@ -73,8 +102,47 @@ class ServerController
             'defense', 
             null
         );
+        require __DIR__ . '/../../public/pages/defense.php'; 
+    }
 
-        require __DIR__ . '/../../public/pages/defense.php';
+    //---------------------------------------------------   
+    public function sendWaves(): void 
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST')
+        {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+        if ($_SERVER["CONTENT_TYPE"] ==  'application/json')
+        {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+
+        $postData = file_get_contents('php://input');
+        $data = json_decode($postData, true);
+
+       
+        require __DIR__ . '/../../public/pages/attack.php';
+    }
+    
+    public function makeWaves(): void 
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST')
+        {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+        if ($_SERVER["CONTENT_TYPE"] ==  'application/json')
+        {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+
+        $postData = file_get_contents('php://input');
+        $data = json_decode($postData, true);
+
+        require __DIR__ . '/../../public/pages/attack_selector.php';
     }
 
     public function index(): void
