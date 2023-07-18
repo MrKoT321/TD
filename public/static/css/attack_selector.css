@@ -260,3 +260,42 @@ body {
     height: 34px;
     width: 75px;
 }
+
+.money-info-wave1{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    margin-top: 404px;
+    margin-left: 290px;
+    gap: 13px;
+}
+
+.money-info-wave2{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    margin-top: 608px;
+    margin-left: 290px;
+    gap: 13px;
+}
+
+.money-info-wave3{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    margin-top: 812px;
+    margin-left: 290px;
+    gap: 13px;
+}
+
+.money-wave-count{
+    font-size: 44px;
+    font-family: 'VT323';
+    text-align: right;
+    width: 60px;
+}
+
+.money-text{
+    font-size: 44px;
+    font-family: 'VT323';
+}
