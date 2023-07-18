@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var App\Model\AttackInfo $selector
+ */
+?>
+
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -35,10 +42,7 @@
                     <div class="mortir selector">
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
                         <img src="../static/images/mortir_cost.png" class="cost-for-tower" />
-                    </div>
-                    
-                    
-                    
+                    </div>                    
                 </div>
             </div>
             <div class="tower-selection tower-abilities hidden">
@@ -54,11 +58,12 @@
         </div>
         <div class="game__bar bar">
             <div class="bar__bufs">
-                <div class="fireball-buf buf-slot">
+                <!-- <div class="fireball-buf buf-slot"> 
                     <img src="../static/images/fireball_buff.png" class="fireball-buf__icon" />
                     <img src="../static/images/cancel_button.png"  class="fireball-buf__cancel hidden" />
-                    <span class="fireball-buf__reload"></span>
-                </div>
+                    <span class="fireball-buf__reload"></span> 
+                </div> -->
+                <div class="buf-slot"></div>
                 <div class="buf-slot"></div>
                 <div class="buf-slot"></div>
                 <div class="bar-game-info">
@@ -119,7 +124,7 @@
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
-    <script type="application/javascript" src="../static/js/bonus_action.js"></script>
+    <!-- <script type="application/javascript" src="../static/js/bonus_action.js"></script> -->
     <script type="application/javascript" src="../static/js/tower_attack_config.js"></script>
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_attack.js"></script>

@@ -4,7 +4,7 @@ var pushmonstercount = 0;
 var steptimer = 0;
 var stepcounter = 1;
 
-function pushMonsters(lvl, monster) {
+function pushMonsters(GAME, lvl, monster) {
     monsters.push({
         hp: monster.hp,
         speed: monster.speed,
@@ -15,13 +15,19 @@ function pushMonsters(lvl, monster) {
         step2: monster.step2,
         step3: monster.step3,
         step4: monster.step4,
+        step1_rev: monster.step1_rev,
+        step2_rev: monster.step2_rev,
+        step3_rev: monster.step3_rev,
+        step4_rev: monster.step4_rev,
         image: monster.step1,
         maxhp: monster.maxhp,
         finish: false,
         delete: false,
         x: lvl.start_x,
         y: lvl.start_y - monster.height / 2,
-        dir: lvl.start_dir
+        dir: lvl.start_dir,
+        bornTime: GAME.stopwatch,
+        baseTime: monster.baseTime,
     })
     if (lvl.start_x < 0 || lvl.start_x > 1600) {
         monsters[pushmonstercount].x = lvl.start_x;
@@ -158,11 +164,10 @@ function monsterCorrect(lvl, monster) {
             }
             break;
     }
-
 }
 
 function addMonster(GAME, lvls) {
-    pushMonsters(lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
+    pushMonsters(GAME, lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
     monstercount += 1;
 }
 
@@ -177,8 +182,6 @@ function registerCollision(monster, GAME) {
 }
 
 function moveMonsters(GAME, lvls) {
-    payForMonsters();
-    updateScoreForMob();
     monsters = monsters.filter(value => value.hp > 0);
     updateMonstersStep();
     for (var monster of monsters) {
@@ -205,7 +208,7 @@ function hpBar(monster) {
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width * percentHP, 5);
 }
 
-function payForMonsters(monster) {
+function payForMonstersDef() {
     for (var monster of monsters) {
         if (monster.hp <= 0 && !monster.finish) {
             GAME.money += monster.cost
@@ -213,7 +216,7 @@ function payForMonsters(monster) {
     }
 }
 
-function updateScoreForMob() {
+function updateScoreForMobDef() {
     if (monsters.length != 0 && GAME.isPlay != 'popuppause') {
         for (var monster of monsters) {
             if (monster.delete) {
@@ -226,21 +229,54 @@ function updateScoreForMob() {
         }
     }
 }
+function updateMobDataDef() {
+    payForMonstersDef();
+    updateScoreForMobDef();
+}
+
+function updateMobDataAtk() {
+    for (var monster of monsters) {
+        if(monster.hp <= 0 ) {
+            console.log(GAME.stopwatch - monster.bornTime);
+            if (monster.finish) {
+                GAME.money += monster.cost;
+            } else {
+                GAME.money += Math.floor(monster.cost * 0.3);
+            }
+            GAME.score += Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount-1]));
+        }
+    }
+}
 
 function updateMonstersStep() {
     if (GAME.milisectimer > steptimer) {
         for (let monster of monsters) {
-            if (stepcounter == 1) {
-                monster.image = monster.step1
-            }
-            if (stepcounter == 2) {
-                monster.image = monster.step2
-            }
-            if (stepcounter == 3) {
-                monster.image = monster.step3
-            }
-            if (stepcounter == 4) {
-                monster.image = monster.step4
+            if (monster.dir == 'r' || monster.dir == 'u') {
+                if (stepcounter == 1) {
+                    monster.image = monster.step1
+                }
+                if (stepcounter == 2) {
+                    monster.image = monster.step2
+                }
+                if (stepcounter == 3) {
+                    monster.image = monster.step3
+                }
+                if (stepcounter == 4) {
+                    monster.image = monster.step4
+                }
+            } else {
+                if (stepcounter == 1) {
+                    monster.image = monster.step1_rev
+                }
+                if (stepcounter == 2) {
+                    monster.image = monster.step2_rev
+                }
+                if (stepcounter == 3) {
+                    monster.image = monster.step3_rev
+                }
+                if (stepcounter == 4) {
+                    monster.image = monster.step4_rev
+                }
             }
         }
         steptimer += 200;

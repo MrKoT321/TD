@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "53aad471d43079076fd12558ad8ddecc",
     "packages": [
         {
@@ -1362,6 +1363,10 @@
             "time": "2023-06-05T15:30:22+00:00"
         }
     ],
+=======
+    "content-hash": "4e3ef31f114a8eef60c545abfc3c937e",
+    "packages": [],
+>>>>>>> origin/Nikita
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
@@ -1370,5 +1375,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

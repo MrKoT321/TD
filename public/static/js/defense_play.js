@@ -302,6 +302,9 @@ socket.addEventListener('message', function(event) {
             GAME.isPlay = data.status;
             changeGameStatusButtons();
             break;
+        case 'fireball':
+            fireball = data.fireball_bonus;
+            break;
     }
 });
 
@@ -376,6 +379,7 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
+    updateMobDataDef();
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {

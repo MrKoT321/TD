@@ -114,7 +114,7 @@ function drawCastle() {
 }
 
 function gameOver() {
-    if (GAME.castleHP == 0) {
+    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0 && starttime > 900) {
         popupoverBg.classList.add('active');
         popupover.classList.add('active');
         document.querySelector('.over').style.color = 'red';
@@ -137,11 +137,11 @@ function updateScore() {
 }
 
 function lvlComplete() {
-    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0) {
+    if (GAME.castleHP == 0) {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
-        resetBonuses();
-        if (GAME.lvlCount + 1 >= lvls.length) {
+        // resetBonuses();
+        if (GAME.lvlCount + 1 > lvls.length) {
             popupoverBg.classList.add('active');
             popupover.classList.add('active');
             document.querySelector('.over').style.color = 'green';
@@ -155,6 +155,24 @@ function lvlComplete() {
         }
     } 
     
+}
+
+async function sendNextlvlParams(event) {
+    const data = {
+        money: GAME.money,
+        score: GAME.score,
+        currLvl: GAME.lvlCount,
+        nickname: GAME.player,
+    }
+    event.preventDefault();
+    const json = JSON.stringify(data);
+    let response = await fetch('/make_waves.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: json
+    });
 }
 
 function popupCloseComplete() {
@@ -185,6 +203,9 @@ function nextWave() {
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }
 }
 
@@ -196,6 +217,9 @@ function updateNextLvlParams() {
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }    
 }
 
@@ -208,18 +232,19 @@ function updateRestartGameParams() {
     starttime = 900;
     GAME.money = 100;
     GAME.score = 0;
-    towerTiles = [];
     towers = [];
     monsters = [];
     arrows = [];
     bullets = [];
     compareWithGameLvl = 0;
-    GAME.isPlay = 'wavepause';
     startTimer = 0;
     timeInPause = 0;
     timeInLastPause = 0;
     pauseStartTime = 0;
-
+    pushmonstercount = 0;
+    steptimer = 0;
+    stepcounter = 1;
+    GAME.isPlay = 'wavepause';
 }
 
 function changeMap() {
@@ -283,6 +308,7 @@ pauseGameBtn.addEventListener(
 nextBtn.addEventListener(
     "click",
     () => {
+        sendNextlvlParams();
         updateNextLvlParams();
         changeMap();
         updateCastleHP();
@@ -309,6 +335,28 @@ backToMenuBtn.addEventListener(
     }
 );
 
+function takeWaveFromSelector(){
+    for(i = 0; i < take_waves.length; i++){
+        for(x = 0; x < take_waves[i].length; x++){
+            if(take_waves[i[x]] == 'monster1'){
+                lvl[i].push(monster1)
+            }
+            if(take_waves[i[x]] == 'monster2'){
+                lvl[i].push(monster2)
+            }
+            if(take_waves[i[x]] == 'monster3'){
+                lvl[i].push(monster3)
+            }
+            if(take_waves[i[x]] == 'monster4'){
+                lvl[i].push(monster4)
+            }
+            if(take_waves[i[x]] == 'monster5'){
+                lvl[i].push(monster5)
+            }
+        }
+    }
+}
+
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
 //           'menu' - мобы не идут, башни не ставятся
@@ -320,7 +368,7 @@ function play() {
     updateScore();
     updateVisualLvlParams();
     drawBackground();
-    // drawTiles(GAME, lvls);
+    updateMobDataAtk();
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -339,14 +387,11 @@ function play() {
         addMonster(GAME, lvls);
         GAME.isPlay = 'play';
     }
-    if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
-        removeTowerSelectors();
-    }
     drawTower();
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    drawBonuses();
+    // drawBonuses();
     gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();

@@ -6,17 +6,17 @@ namespace App\Model;
 class AttackInfo
 {
     private ?string $nickName;
-    private ?int $money;
-    private ?int $score;    
-    private ?int $currLvl;
+    private ?string $money;
+    private ?string $score;    
+    private ?string $currLvl;
     private ?array $waves;
 
     public function __construct
     (
         ?string  $nickName,
-        ?int  $money,
-        ?int $score,
-        ?int $currLvl,
+        ?string  $money,
+        ?string $score,
+        ?string $currLvl,
         ?array $waves,
     )
     {
@@ -32,17 +32,17 @@ class AttackInfo
         return $this->nickName;
     }
 
-    public function getMoney(): ?int
+    public function getMoney(): ?string
     {
         return $this->money;
     }
 
-    public function getScore(): ?int
+    public function getScore(): ?string
     {
         return $this->score;
     }
 
-    public function getCurrentLvl(): ?int
+    public function getCurrentLvl(): ?string
     {
         return $this->currLvl;
     }

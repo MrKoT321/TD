@@ -150,7 +150,7 @@ class ServerController
             null,
             $waves
         );
-
+        
         require __DIR__ . '/../../public/pages/attack.php';
     }
     
