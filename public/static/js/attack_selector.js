@@ -153,7 +153,7 @@ function updatePosMonsters() {
             wave1[i + 1].image = null;
             wave1[i].name = wave1[i + 1].name;
             wave1[i + 1].name = "?";
-            console.log(count_sell)
+            wave1[i].cost = wave1[i+1].cost;
             if(count_sell == 0){
                 selected_count_wave1 -= 1;
                 count_sell = 1
@@ -168,6 +168,7 @@ function updatePosMonsters() {
             wave2[i + 1].image = null;
             wave2[i].name = wave2[i + 1].name;
             wave2[i + 1].name = "?";
+            wave2[i].cost = wave2[i+1].cost;
             if(count_sell == 0){
                 selected_count_wave2 -= 1;
                 count_sell = 1;
@@ -182,6 +183,7 @@ function updatePosMonsters() {
             wave3[i + 1].image = null;
             wave3[i].name = wave3[i + 1].name;
             wave3[i + 1].name = "?";
+            wave3[i].cost = wave3[i+1].cost;
             if(count_sell == 0){
                 selected_count_wave3 -= 1;
                 count_sell = 1
