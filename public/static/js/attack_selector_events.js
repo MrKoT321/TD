@@ -332,6 +332,7 @@ sell5_3.addEventListener(
 map_button.addEventListener(
     "click",
     () => {
+        popup_map_bg.classList.remove("hidden");
         popup_map_show.classList.remove('hidden');
         if (lvlcount == 1) {
             popup_map.classList.add(maps[lvlcount - 1]);
@@ -339,6 +340,14 @@ map_button.addEventListener(
             popup_map.classList.remove(maps[lvlcount - 2]);
             popup_map.classList.add(maps[lvlcount - 1])
         }
+    }
+)
+
+popup_map_bg.addEventListener(
+    "click",
+    () => {
+        popup_map_bg.classList.add("hidden");
+        popup_map_show.classList.add("hidden");
     }
 )
 
@@ -375,5 +384,29 @@ wave_plus.addEventListener(
             wave_1.classList.add('hidden');
             wave_2.classList.remove('hidden');
         }
+    }
+)
+
+start_button.addEventListener(
+    "click",
+    () => {
+        let waves_send = [];
+        sendWaves(waves_send);
+        let data = {
+            waves: waves_send,
+            money: GAME.money,
+            score: score.innerHTML,
+            nick_name: nick_name.innerHTML
+        }
+        let json = JSON.stringify(data);
+        console.log(data)
+        console.log(JSON.stringify(data))
+        // let response = await fetch('/send_waves.php', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json;charset=utf-8'
+        //     },
+        //     body: json
+        // });
     }
 )
