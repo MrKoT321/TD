@@ -335,6 +335,28 @@ backToMenuBtn.addEventListener(
     }
 );
 
+function takeWaveFromSelector(){
+    for(i = 0; i < take_waves.length; i++){
+        for(x = 0; x < take_waves[i].length; x++){
+            if(take_waves[i[x]] == 'monster1'){
+                lvl[i].push(monster1)
+            }
+            if(take_waves[i[x]] == 'monster2'){
+                lvl[i].push(monster2)
+            }
+            if(take_waves[i[x]] == 'monster3'){
+                lvl[i].push(monster3)
+            }
+            if(take_waves[i[x]] == 'monster4'){
+                lvl[i].push(monster4)
+            }
+            if(take_waves[i[x]] == 'monster5'){
+                lvl[i].push(monster5)
+            }
+        }
+    }
+}
+
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
 //           'menu' - мобы не идут, башни не ставятся

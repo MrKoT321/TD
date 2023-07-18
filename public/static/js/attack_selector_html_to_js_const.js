@@ -65,6 +65,9 @@ var mob_info = [mob1_1_selected, mob2_1_selected, mob3_1_selected, mob4_1_select
 const map_button = document.querySelector('.map-button');
 const popup_map_show = document.querySelector('.popup-map');
 const popup_map = document.querySelector('.popup-map__field');
+const popup_map_bg = document.querySelector('.popup-map__bg');
+
+const start_button = document.querySelector('.start-button');
 
 const mob1_info = document.querySelector('.mob1-info');
 const mob2_info = document.querySelector('.mob2-info');
@@ -75,3 +78,6 @@ const mob5_info = document.querySelector('.mob5-info');
 const money_wave1 = document.getElementById('money-wave1');
 const money_wave2 = document.getElementById('money-wave2');
 const money_wave3 = document.getElementById('money-wave3');
+
+const score = document.getElementById('score');
+const nick_name = document.getElementById('nick-name');

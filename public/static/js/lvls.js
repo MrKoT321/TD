@@ -79,7 +79,7 @@ const lvl4 = {
 }
 
 const lvl5 = {
-    start_x: 1375,
+    start_x: 1400,
     start_y: 1050,
     finish_cells: [50, 51, 66, 67],
     towersPos: [59, 93, 102, 105],
