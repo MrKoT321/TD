@@ -1,5 +1,5 @@
 {
-    "name": "zimin/td",
+    "name": "maskim.ivanov/td",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -7,11 +7,9 @@
     },
     "authors": [
         {
-            "name": "Woland-prj",
-            "email": "nzimin93@gmail.com"
+            "name": "SVLOGer",
+            "email": "max443584@gmail.com"
         }
     ],
-    "require": {
-        "cboden/ratchet": "^0.4.4"
-    }
+    "require": {}
 }
