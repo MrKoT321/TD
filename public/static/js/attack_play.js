@@ -319,6 +319,7 @@ backToMenuBtn.addEventListener(
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    console.log(    );
     updateMoney();
     updateScore();
     updateVisualLvlParams();
