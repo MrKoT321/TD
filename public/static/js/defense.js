@@ -264,6 +264,22 @@ async function sendResults(event) {
     });
 }
 
+const socket = new WebSocket('ws://localhost:8080');
+
+socket.addEventListener('open', function(event) {
+    console.log('Connected to server.');
+});
+
+socket.addEventListener('message', function(event) {
+    data = JSON.parse(event.data);
+    switch (data.type) {
+        case 'tower_add':
+            towers = data.towers;
+            GAME.money = data.money;    
+            break;
+    }
+});
+
 startWaveBtn.addEventListener(
     "click",
     () => {

@@ -122,7 +122,35 @@ class ServerController
         $postData = file_get_contents('php://input');
         $data = json_decode($postData, true);
 
-       
+        if (!empty($data['nickname'])) {
+            $nickname = $data['nickname'];
+        } else {
+            $nickname = '';
+        }
+        if (!empty($data['money'])) {
+            $money = $data['money'];
+        } else {
+            $money = '';
+        }
+        if (!empty($data['score'])) {
+            $score = $data['score'];
+        } else {
+            $score = '';
+        }
+        if (!empty($data['waves'])) {
+            $waves = $data['waves'];
+        } else {
+            $waves = '';
+        }
+
+        $infoFromLvl = new AttackInfo(
+            $nickname,
+            $money,
+            $score, 
+            null,
+            $waves
+        );
+
         require __DIR__ . '/../../public/pages/attack.php';
     }
     
@@ -141,6 +169,35 @@ class ServerController
 
         $postData = file_get_contents('php://input');
         $data = json_decode($postData, true);
+
+        if (!empty($data['nickname'])) {
+            $nickname = $data['nickname'];
+        } else {
+            $nickname = '';
+        }
+        if (!empty($data['money'])) {
+            $money = $data['money'];
+        } else {
+            $money = '';
+        }
+        if (!empty($data['score'])) {
+            $score = $data['score'];
+        } else {
+            $score = '';
+        }
+        if (!empty($data['currLvl'])) {
+            $currLvl = $data['currLvl'];
+        } else {
+            $currLvl = '';
+        }
+
+        $infoFromLvl = new AttackInfo(
+            $nickname,
+            $money,
+            $score, 
+            $currLvl,
+            null
+        );
 
         require __DIR__ . '/../../public/pages/attack_selector.php';
     }

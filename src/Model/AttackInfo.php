@@ -5,7 +5,7 @@ namespace App\Model;
 
 class AttackInfo
 {
-    private string $nickName;
+    private ?string $nickName;
     private ?int $money;
     private ?int $score;    
     private ?int $currLvl;
@@ -13,7 +13,7 @@ class AttackInfo
 
     public function __construct
     (
-        string  $nickName,
+        ?string  $nickName,
         ?int  $money,
         ?int $score,
         ?int $currLvl,
@@ -27,7 +27,7 @@ class AttackInfo
         $this->waves = $waves;
     }
 
-    public function getNickName(): string
+    public function getNickName(): ?string
     {
         return $this->nickName;
     }
