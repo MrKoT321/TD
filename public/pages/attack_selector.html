@@ -5,6 +5,9 @@
     <title>Tower Defense</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/attack_selector.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -13,13 +16,33 @@
             <div class="monsters-selector">
                 <div>
                     <img src="../static/images/monster1_selector.png" id="mob1" class="monster-selector"/>
-                    <strong class="mob1-info hidden"></strong>
+                    <strong class="mob1-info hidden">
+                        <span class="info-cost">30</span>
+                        <span class="info-hp">100</span>
+                    </strong>
                 </div>
-                
-                <img src="../static/images/monster2_selector.png" id="mob2" class="monster-selector"/>
-                <img src="../static/images/monster3_selector.png" id="mob3" class="monster-selector"/>
-                <img src="../static/images/monster4_selector.png" id="mob4" class="monster-selector"/>
-                <img src="../static/images/monster5_selector.png" id="mob5" class="monster-selector"/>
+                <div>
+                    <img src="../static/images/monster2_selector.png" id="mob2" class="monster-selector"/>
+                    <strong class="mob2-info hidden">
+                        <span class="info-cost">40</span>
+                        <span class="info-hp">75</span>
+                    </strong>
+                </div>
+                <div>
+                    <img src="../static/images/monster3_selector.png" id="mob3" class="monster-selector hidden"/>
+                    <img src="../static/images/lock_selector.png" class="monster-selector-lock"/>
+                    <strong class="mob3-info hidden"></strong>
+                </div>
+                <div>
+                    <img src="../static/images/monster4_selector.png" id="mob3" class="monster-selector hidden"/>
+                    <img src="../static/images/lock_selector.png" class="monster-selector-lock"/>
+                    <strong class="mob4-info hidden"></strong>
+                </div>
+                <div>
+                    <img src="../static/images/monster5_selector.png" id="mob5" class="monster-selector hidden"/>
+                    <img src="../static/images/lock_selector.png" class="monster-selector-lock"/>
+                    <strong class="mob5-info hidden"></strong>
+                </div>
             </div>
             <div class="monsters-selected wave1">
                 <div class="mob-info hidden" id="mob1-1-selected">

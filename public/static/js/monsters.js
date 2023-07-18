@@ -12,7 +12,7 @@ const monster2 = {
     hp: 100,
     maxhp: 100,
     speed: 2,
-    cost: 0,
+    cost: 10,
     width: 75,
     height: 100,
     name: "monster2"
@@ -22,7 +22,7 @@ const monster3 = {
     hp: 100,
     maxhp: 100,
     speed: 3,
-    cost: 0,
+    cost: 10,
     width: 50,
     height: 50,
     name: "monster3"
@@ -32,7 +32,7 @@ const monster4 = {
     hp: 100,
     maxhp: 100,
     speed: 3,
-    cost: 0,
+    cost: 10,
     width: 50,
     height: 50,
     name: "monster4"
@@ -42,7 +42,7 @@ const monster5 = {
     hp: 100,
     maxhp: 100,
     speed: 3,
-    cost: 0,
+    cost: 10,
     width: 50,
     height: 50,
     name: "monster5"
@@ -70,6 +70,11 @@ const image4 = new Image();
 image4.src = "../static/images/monster4.png";
 const image5 = new Image();
 image5.src = "../static/images/monster5.png";
+
+const monster1_image = new Image();
+monster1_image.src = "../static/images/monster1.png";
+const monster2_image = new Image();
+monster2_image.src = "../static/images/monster2.png";
 
 monster1_step1.onload = () => {
     monster1.step1 = monster1_step1;
@@ -107,4 +112,12 @@ image4.onload = () => {
 
 image5.onload = () => {
     monster5.image = image5;
+}
+
+monster1_image.onload = () => {
+    monster1.icon = monster1_image
+}
+
+monster2_image.onload = () => {
+    monster2.icon = monster2_image
 }

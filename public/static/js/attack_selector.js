@@ -15,7 +15,7 @@ var wave3 = [mob1_3, mob2_3, mob3_3, mob4_3, mob5_3];
 
 var curr_mob = {
     name: "?",
-    image: null
+    icon: null
 };
 
 var count_sell = 0;
@@ -52,7 +52,7 @@ var isNewMonster = 'no';
 
 function addMobToWave(wave, selected_count) {
     if (selected_count == 0) {
-        wave[selected_count].image = curr_mob.image;
+        wave[selected_count].image = curr_mob.icon;
         wave[selected_count].name = curr_mob.name;
         wave[selected_count].amount += 1;
         selected_count += 1;
@@ -68,7 +68,7 @@ function addMobToWave(wave, selected_count) {
         }
     }
     if (isNewMonster == 'yes') {
-        wave[selected_count].image = curr_mob.image;
+        wave[selected_count].image = curr_mob.icon;
         wave[selected_count].name = curr_mob.name;
         wave[selected_count].amount += 1;
         selected_count += 1;
