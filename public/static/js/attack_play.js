@@ -114,7 +114,7 @@ function drawCastle() {
 }
 
 function gameOver() {
-    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0) {
+    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0 && starttime > 900) {
         popupoverBg.classList.add('active');
         popupover.classList.add('active');
         document.querySelector('.over').style.color = 'red';
@@ -180,7 +180,7 @@ function updateCastleHP() {
 }
 
 function nextWave() {
-    if (monsters.length == 0 && GAME.wave <= 3) {
+    if (monsters.length == 0 && GAME.wave < 3) {
         GAME.wave += 1;
         monstercount = 0;
         starttime = 900;
@@ -199,6 +199,9 @@ function updateNextLvlParams() {
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }    
 }
 
@@ -217,11 +220,14 @@ function updateRestartGameParams() {
     arrows = [];
     bullets = [];
     compareWithGameLvl = 0;
-    GAME.isPlay = 'wavepause';
     startTimer = 0;
     timeInPause = 0;
     timeInLastPause = 0;
     pauseStartTime = 0;
+    pushmonstercount = 0;
+    steptimer = 0;
+    stepcounter = 1;
+    monsters = [];
 
 }
 
@@ -319,12 +325,11 @@ backToMenuBtn.addEventListener(
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    console.log(    );
+    console.log(GAME.isPlay);
     updateMoney();
     updateScore();
     updateVisualLvlParams();
     drawBackground();
-    // drawTiles(GAME, lvls);
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {

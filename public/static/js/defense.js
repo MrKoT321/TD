@@ -17,6 +17,17 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
+// document.addEventListener("DOMContentLoaded", function() {
+//     const devBtn1 = document.getElementById("dev-btn-1");
+//     const devBtn2 = document.getElementById("dev-btn-2");
+//     const devBtn3 = document.getElementById("dev-btn-3");
+//     const devBtn4 = document.getElementById("dev-btn-4");
+//     devBtn1.onclick = changeLvlDev(devBtn1);
+//     devBtn2.onclick = changeLvlDev(devBtn2);
+//     devBtn3.onclick = changeLvlDev(devBtn3);
+//     devBtn4.onclick = changeLvlDev(devBtn4);
+// });
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -244,6 +255,20 @@ function changeMap() {
         GAME.castle = castle;
     }
 };
+
+function changeLvlDev(devlvl) {
+    GAME.lvlCount = parseInt(devlvl.value);
+    lvl = lvls[GAME.lvlCount - 1];
+    GAME.castleHP = lvl.castleHP;
+    GAME.wave = 1;
+    monstercount = 0;
+    starttime = 900;
+    GAME.isPlay = 'wavepause';
+    pushmonstercount = 0;
+    steptimer = 0;
+    stepcounter = 1;
+    changeMap();
+}
 
 async function sendResults(event) {
     const score = document.querySelector(".score__value");

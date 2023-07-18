@@ -56,6 +56,14 @@ const monster1_step3 = new Image();
 monster1_step3.src = "../static/images/monster1_step3.png";
 const monster1_step4 = new Image();
 monster1_step4.src = "../static/images/monster1_step4.png";
+const monster1_step1_rev = new Image();
+monster1_step1_rev.src = "../static/images/monster1_step1_rev.png";
+const monster1_step2_rev = new Image();
+monster1_step2_rev.src = "../static/images/monster1_step2_rev.png";
+const monster1_step3_rev = new Image();
+monster1_step3_rev.src = "../static/images/monster1_step3_rev.png";
+const monster1_step4_rev = new Image();
+monster1_step4_rev.src = "../static/images/monster1_step4_rev.png";
 const monster2_step1 = new Image();
 monster2_step1.src = "../static/images/monster2_step1.png";
 const monster2_step2 = new Image();
@@ -87,6 +95,18 @@ monster1_step3.onload = () => {
 }
 monster1_step4.onload = () => {
     monster1.step4 = monster1_step4;
+}
+monster1_step1_rev.onload = () => {
+    monster1.step1_rev = monster1_step1_rev;
+}
+monster1_step2_rev.onload = () => {
+    monster1.step2_rev = monster1_step2_rev;
+}
+monster1_step3_rev.onload = () => {
+    monster1.step3_rev = monster1_step3_rev;
+}
+monster1_step4_rev.onload = () => {
+    monster1.step4_rev = monster1_step4_rev;
 }
 
 monster2_step1.onload = () => {

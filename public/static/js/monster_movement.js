@@ -158,7 +158,6 @@ function monsterCorrect(lvl, monster) {
             }
             break;
     }
-
 }
 
 function addMonster(GAME, lvls) {
@@ -230,17 +229,33 @@ function updateScoreForMob() {
 function updateMonstersStep() {
     if (GAME.milisectimer > steptimer) {
         for (let monster of monsters) {
-            if (stepcounter == 1) {
-                monster.image = monster.step1
-            }
-            if (stepcounter == 2) {
-                monster.image = monster.step2
-            }
-            if (stepcounter == 3) {
-                monster.image = monster.step3
-            }
-            if (stepcounter == 4) {
-                monster.image = monster.step4
+            if (monster.dir == 'r' || monster.dir == 'u') {
+                if (stepcounter == 1) {
+                    monster.image = monster.step1
+                }
+                if (stepcounter == 2) {
+                    monster.image = monster.step2
+                }
+                if (stepcounter == 3) {
+                    monster.image = monster.step3
+                }
+                if (stepcounter == 4) {
+                    monster.image = monster.step4
+                }
+            } else {
+                if (stepcounter == 1) {
+                    monster.image = monster.step1_rev
+                    console.log(monster.step1_rev);
+                }
+                if (stepcounter == 2) {
+                    monster.image = monster.step2_rev
+                }
+                if (stepcounter == 3) {
+                    monster.image = monster.step3_rev
+                }
+                if (stepcounter == 4) {
+                    monster.image = monster.step4_rev
+                }
             }
         }
         steptimer += 200;
