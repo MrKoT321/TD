@@ -157,7 +157,7 @@ function updateBullets() {
                     let mstrCenterX = monster.x + monster.width / 2;
                     let mstrCenterY = monster.y + monster.height / 2;
                     let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
-                    if (distance <= bullet.blastRadius) {
+                    if (distance <= bullet.blastRadius && monster.type != "flying") {
                         monster.hp -= bullet.atk;
                     }
                 })
@@ -175,7 +175,7 @@ function attackMortir(GAME) {
             for (let i = 0; i < monsters.length; i++) {
                 mstrCenterX = monsters[i].x + monsters[i].width / 2;
                 mstrCenterY = monsters[i].y + monsters[i].height / 2;
-                if (hittingRadius(tower, mstrCenterX, mstrCenterY)) {
+                if (hittingRadius(tower, mstrCenterX, mstrCenterY) && monsters[i].type != "flying") {
                     tower.currentEnemy = i;
                     if (tower.startTime <= 0) {
                         tower.startTime = GAME.stopwatch;
@@ -207,7 +207,7 @@ function attackBash() {
                     monster.hit = false;
                     tower.hit = false;
                 }
-                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !monster.hit && !tower.hit) {
+                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !monster.hit && !tower.hit && monster.type != "flying") {
                     monster.hp -= tower.atk;
                     monster.hit = true;
                 }

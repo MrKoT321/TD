@@ -11,6 +11,7 @@ function pushMonsters(GAME, lvl, monster) {
         cost: monster.cost,
         width: monster.width,
         height: monster.height,
+        type: monster.type,
         step1: monster.step1,
         step2: monster.step2,
         step3: monster.step3,

@@ -6,6 +6,7 @@ const monster1 = {
     width: 60,
     height: 73,
     name: "monster1",
+    type: "walking",
     baseTime: [20, 27, 25, 30],
 }
 
@@ -17,6 +18,7 @@ const monster2 = {
     width: 75,
     height: 100,
     name: "monster2",
+    type: "flying",
     baseTime: [20, 27, 25, 30],
 }
 
