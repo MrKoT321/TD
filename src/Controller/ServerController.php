@@ -28,7 +28,7 @@ class ServerController
             $this->writeRedirectSeeOther('/');
             return;
         }
-        if ($_SERVER["CONTENT_TYPE"] ==  'application/json')
+        if ($_SERVER["CONTENT_TYPE"] == 'application/json')
         {
             $this->writeRedirectSeeOther('/');
             return;
@@ -113,7 +113,7 @@ class ServerController
             $this->writeRedirectSeeOther('/');
             return;
         }
-        if ($_SERVER["CONTENT_TYPE"] ==  'application/json')
+        if ($_SERVER["CONTENT_TYPE"] == 'application/json')
         {
             $this->writeRedirectSeeOther('/');
             return;
@@ -140,7 +140,7 @@ class ServerController
         if (!empty($data['waves'])) {
             $waves = $data['waves'];
         } else {
-            $waves = '';
+            $waves = [];
         }
 
         $infoFromLvl = new AttackInfo(
