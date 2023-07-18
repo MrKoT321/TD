@@ -101,10 +101,22 @@ function drawPauseBackground() {
     canvasContext.fillRect(0, 0, GAME.width, GAME.height);
 }
 
-function resetButtons() {
-    startWaveBtn.classList.remove("active");
+function changeGameStatusButtons() {
+    startWaveBtn.classList.add("active");
     pauseGameBtn.classList.remove("pause");
     pauseGameBtn.classList.add("play");
+    if (GAME.isPlay == 'play') {
+        pauseGameBtn.classList.add("play");
+        pauseGameBtn.classList.remove("pause");
+    } else {
+        if (GAME.isPlay == 'menu') {
+            pauseGameBtn.classList.add("pause");
+            pauseGameBtn.classList.remove("play");
+        }
+    }
+    if (GAME.isPlay == 'wavepause') {
+        startWaveBtn.classList.remove("active");
+    } 
 }
 
 function drawCastle() {
@@ -245,6 +257,15 @@ function changeMap() {
     }
 };
 
+function sendGameStatus() {
+    data = {
+        type: 'game_status',
+        status: GAME.isPlay
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
 async function sendResults(event) {
     const score = document.querySelector(".score__value");
     event.preventDefault();
@@ -277,6 +298,10 @@ socket.addEventListener('message', function(event) {
             towers = data.towers;
             GAME.money = data.money;    
             break;
+        case 'game_status':
+            GAME.isPlay = data.status;
+            changeGameStatusButtons();
+            break;
     }
 });
 
@@ -286,6 +311,7 @@ startWaveBtn.addEventListener(
         if (GAME.isPlay == 'wavepause') {
             startWaveBtn.classList.add("active");
             GAME.isPlay = 'startgame';
+            sendGameStatus();
         } 
     }
 )
@@ -297,11 +323,13 @@ pauseGameBtn.addEventListener(
             pauseGameBtn.classList.remove("play");
             pauseGameBtn.classList.add("pause");
             GAME.isPlay = 'menu';
+            sendGameStatus();
         } else {
             if (GAME.isPlay == 'menu') {
                 pauseGameBtn.classList.remove("pause");
                 pauseGameBtn.classList.add("play");
                 GAME.isPlay = 'play';
+                sendGameStatus();
             }
         }
     }
@@ -353,7 +381,6 @@ function play() {
     if (GAME.isPlay == 'wavepause') {
         initBullets();
         resetStopwatch();
-        resetButtons();
     }
     if (GAME.isPlay == 'play') {
         lvlComplete();
@@ -374,6 +401,7 @@ function play() {
     drawBullets();
     attackTowers(GAME);
     drawBonuses();
+    changeGameStatusButtons();
     gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();
