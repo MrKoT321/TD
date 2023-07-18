@@ -9,6 +9,10 @@ var GAME = {
 
 var lvlcount = 1;
 
+var maxcostwave1 = 100;
+var maxcostwave2 = 150;
+var maxcostwave3 = 200;
+
 var wave1 = [mob1_1, mob2_1, mob3_1, mob4_1, mob5_1];
 var wave2 = [mob1_2, mob2_2, mob3_2, mob4_2, mob5_2];
 var wave3 = [mob1_3, mob2_3, mob3_3, mob4_3, mob5_3];
@@ -55,6 +59,7 @@ function addMobToWave(wave, selected_count) {
         wave[selected_count].image = curr_mob.icon;
         wave[selected_count].name = curr_mob.name;
         wave[selected_count].amount += 1;
+        wave[selected_count].cost = curr_mob.cost;
         selected_count += 1;
     } else {
         for (let i = 0; i < selected_count; i++) {
@@ -71,6 +76,7 @@ function addMobToWave(wave, selected_count) {
         wave[selected_count].image = curr_mob.icon;
         wave[selected_count].name = curr_mob.name;
         wave[selected_count].amount += 1;
+        wave[selected_count].cost = curr_mob.cost;
         selected_count += 1;
         isNewMonster = 'no';
     }
@@ -184,44 +190,27 @@ function updatePosMonsters() {
     }
 }
 
-wave_minus.addEventListener(
-    "click",
-    () => {
-        if (GAME.currwave == 'wave2') {
-            GAME.currwave = 'wave1';
-            wave_minus.classList.add('hidden');
-            wave_2.classList.add('hidden');
-            wave_1.classList.remove('hidden');
-        }
-        if (GAME.currwave == 'wave3') {
-            GAME.currwave = 'wave2';
-            wave_plus.classList.remove('hidden');
-            wave_2.classList.remove('hidden');
-            wave_3.classList.add('hidden');
-        }
-    }
-)
+function updateWavesMoney(){
+    money_wave1.innerHTML = String(maxcostwave1);
+    money_wave2.innerHTML = String(maxcostwave2);
+    money_wave3.innerHTML = String(maxcostwave3);
+}
 
-wave_plus.addEventListener(
-    "click",
-    () => {
-        if (GAME.currwave == 'wave2') {
-            GAME.currwave = 'wave3';
-            wave_plus.classList.add('hidden');
-            wave_2.classList.add('hidden');
-            wave_3.classList.remove('hidden');
-        }
-        if (GAME.currwave == 'wave1') {
-            GAME.currwave = 'wave2';
-            wave_minus.classList.remove('hidden');
-            wave_1.classList.add('hidden');
-            wave_2.classList.remove('hidden');
-        }
+function updateWaveMoney(){
+    if(GAME.currwave == 'wave1'){
+        maxcostwave1 -= curr_mob.cost
     }
-)
+    if(GAME.currwave == 'wave2'){
+        maxcostwave2 -= curr_mob.cost
+    }
+    if(GAME.currwave == 'wave3'){
+        maxcostwave3 -= curr_mob.cost
+    }
+}
 
 function play() {
     updateMoney();
+    updateWavesMoney();
     updateMonsterCountsWave1();
     updateMonsterCountsWave2();
     updateMonsterCountsWave3();

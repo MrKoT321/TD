@@ -2,17 +2,17 @@ const monster1 = {
     hp: 100,
     maxhp: 100,
     speed: 2,
-    cost: 10,
+    cost: 30,
     width: 60,
     height: 73,
     name: "monster1"
 }
 
 const monster2 = {
-    hp: 100,
-    maxhp: 100,
+    hp: 75,
+    maxhp: 75,
     speed: 2,
-    cost: 0,
+    cost: 40,
     width: 75,
     height: 100,
     name: "monster2"
