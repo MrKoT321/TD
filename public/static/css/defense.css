@@ -136,8 +136,8 @@ body {
 .fireball-buf__reload {
     position: absolute;
     width: 200px;
-    height: 140px;
-    padding-top: 60px;
+    height: 150px;
+    padding-top: 50px;
     text-align: center;
     font-weight: 400;
     font-size: 100px;

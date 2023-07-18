@@ -22,7 +22,7 @@ const monster3 = {
     hp: 100,
     maxhp: 100,
     speed: 3,
-    cost: 0,
+    cost: 10,
     width: 50,
     height: 50,
     name: "monster3"
@@ -32,7 +32,7 @@ const monster4 = {
     hp: 100,
     maxhp: 100,
     speed: 3,
-    cost: 0,
+    cost: 10,
     width: 50,
     height: 50,
     name: "monster4"
@@ -42,7 +42,7 @@ const monster5 = {
     hp: 100,
     maxhp: 100,
     speed: 3,
-    cost: 0,
+    cost: 10,
     width: 50,
     height: 50,
     name: "monster5"

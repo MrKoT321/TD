@@ -230,7 +230,6 @@ function updateScoreForMob() {
 function updateMonstersStep() {
     if (GAME.milisectimer > steptimer) {
         for (let monster of monsters) {
-
             if (stepcounter == 1) {
                 monster.image = monster.step1
             }
