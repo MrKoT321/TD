@@ -157,6 +157,24 @@ function lvlComplete() {
     
 }
 
+async function sendNextlvlParams(event) {
+    const data = {
+        money: GAME.money,
+        score: GAME.score,
+        currLvl: GAME.lvlCount,
+        nickname: GAME.player,
+    }
+    event.preventDefault();
+    const json = JSON.stringify(data);
+    let response = await fetch('/make_waves.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: json
+    });
+}
+
 function popupCloseComplete() {
     popupcompleteBg.classList.remove('active');
     popupcomplete.classList.remove('active');
@@ -212,9 +230,8 @@ function updateRestartGameParams() {
     GAME.wave = 1;
     monstercount = 0;
     starttime = 900;
-    GAME.money = 0;
+    GAME.money = 100;
     GAME.score = 0;
-    towerTiles = [];
     towers = [];
     monsters = [];
     arrows = [];
@@ -227,8 +244,7 @@ function updateRestartGameParams() {
     pushmonstercount = 0;
     steptimer = 0;
     stepcounter = 1;
-    monsters = [];
-
+    GAME.isPlay = 'wavepause';
 }
 
 function changeMap() {
@@ -292,6 +308,7 @@ pauseGameBtn.addEventListener(
 nextBtn.addEventListener(
     "click",
     () => {
+        sendNextlvlParams();
         updateNextLvlParams();
         changeMap();
         updateCastleHP();
