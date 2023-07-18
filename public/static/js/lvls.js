@@ -36,6 +36,7 @@ const lvl2 = {
     bonuses: ["fireball"],
     back_src:  "../static/images/MAP2.png",
     castle_src:  "../static/images/CASTLE.png" 
+    
 }
 
 const lvl3 = {
