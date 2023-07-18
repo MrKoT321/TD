@@ -1,17 +1,9 @@
 {
-    "name": "zimin/td",
+    "name": "nikita.zimin/td-2",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "Woland-prj",
-            "email": "nzimin93@gmail.com"
-        }
-    ],
-    "require": {
-        "cboden/ratchet": "^0.4.4"
-    }
+    "require": {}
 }

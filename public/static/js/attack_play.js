@@ -140,7 +140,7 @@ function lvlComplete() {
     if (GAME.castleHP == 0) {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
-        resetBonuses();
+        // resetBonuses();
         if (GAME.lvlCount + 1 > lvls.length) {
             popupoverBg.classList.add('active');
             popupover.classList.add('active');
@@ -212,7 +212,7 @@ function updateRestartGameParams() {
     GAME.wave = 1;
     monstercount = 0;
     starttime = 900;
-    GAME.money = 100;
+    GAME.money = 0;
     GAME.score = 0;
     towerTiles = [];
     towers = [];
@@ -325,11 +325,11 @@ backToMenuBtn.addEventListener(
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    console.log(GAME.isPlay);
     updateMoney();
     updateScore();
     updateVisualLvlParams();
     drawBackground();
+    updateMobDataAtk();
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -352,7 +352,7 @@ function play() {
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    drawBonuses();
+    // drawBonuses();
     gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();
