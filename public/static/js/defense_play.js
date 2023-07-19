@@ -268,8 +268,10 @@ function sendGameStatus() {
 
 async function sendResults(event) {
     const score = document.querySelector(".score__value");
+    const gameID = document.getElementById("game-id");
     event.preventDefault();
     props = {
+        gameId: gameID.innerHTML,
         nickName: GAME.player,
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)

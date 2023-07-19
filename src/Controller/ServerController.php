@@ -36,7 +36,7 @@ class ServerController
         $data = json_decode($postData, true);
 
         $record = new Game(
-            null,
+            (int) $data['gameId'],
             $data['nickName'],
             $data['choisenClass'],
             (int) $data['score']
@@ -56,38 +56,37 @@ class ServerController
         require __DIR__ . '/../../public/pages/records.php';
     }
 
-    public function createGame(): void
+    public function createSingleGame(array $requestData): void
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST')
-        {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->writeRedirectSeeOther('/');
             return;
         }
 
-        $postData = file_get_contents('php://input');
-        $data = json_decode($postData, true);
-
         $game = new Game(
-            null, 
-            $data['nick_name'], 
-            $data['choisen_class'], 
+            null,
+            $requestData['username'],
+            $requestData['choisenClass'],
             null
         );
         $gameId = $this->gameTable->create($game);
-        $this->writeRedirectSeeOther("/single_game_defense.php?game_id=$gameId");
+        if ($requestData['choisenClass'] === 'defense') {
+            $this->writeRedirectSeeOther("/single_game_defense.php?game_id=$gameId");
+            exit();
+        }
+        $this->writeRedirectSeeOther("/single_game_attack.php?game_id=$gameId");
     }
 
     public function singleGameDefense(array $queryParams): void
     {
-        $gameId = (int)$queryParams['game_id'];
+        $gameId = (int) $queryParams['game_id'];
         if (!$gameId) {
             $this->writeRedirectSeeOther('/');
             exit();
         }
         $game = $this->gameTable->find($gameId);
-        if (!$game)
-        {
-            $this->writeRedirectSeeOther('/');  
+        if (!$game) {
+            $this->writeRedirectSeeOther('/');
             exit();
         }
         require __DIR__ . '/../../public/pages/defense.php';
@@ -95,112 +94,63 @@ class ServerController
 
     public function singleGameAttack(array $queryParams): void
     {
-        $userNickName = $queryParams['nick_name'];
-        if (!$userNickName) {
+        $gameId = (int) $queryParams['game_id'];
+        if (!$gameId) {
             $this->writeRedirectSeeOther('/');
             exit();
         }
-
-        $score = new Game(
-            null,
-            $userNickName,
-            'defense',
-            null
-        );
+        $game = $this->gameTable->find($gameId);
+        if (!$game) {
+            $this->writeRedirectSeeOther('/');
+            exit();
+        }
         require __DIR__ . '/../../public/pages/attack_selector.php';
     }
 
-    //---------------------------------------------------   
-    public function sendWaves(): void
+    //--/\------------------------------------------------- 
+    //  ||   поменять gameTable на requestTable
+    public function sendWaves(array $requestData): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->writeRedirectSeeOther('/');
             return;
         }
-        if ($_SERVER["CONTENT_TYPE"] == 'application/json') {
-            $this->writeRedirectSeeOther('/');
-            return;
-        }
 
-        $postData = file_get_contents('php://input');
-        $data = json_decode($postData, true);
-
-        if (!empty($data['nickname'])) {
-            $nickname = $data['nickname'];
-        } else {
-            $nickname = '';
-        }
-        if (!empty($data['money'])) {
-            $money = $data['money'];
-        } else {
-            $money = '';
-        }
-        if (!empty($data['score'])) {
-            $score = $data['score'];
-        } else {
-            $score = '';
-        }
-        if (!empty($data['waves'])) {
-            $waves = $data['waves'];
-        } else {
-            $waves = [];
-        }
-
-        $infoFromLvl = new AttackInfo(
-            $nickname,
-            $money,
-            $score,
+        $info = new AttackInfo(
             null,
-            $waves
+            $requestData['gameId'],
+            $requestData['money'],
+            $requestData['score'],
+            $requestData['currLvl'],
+            $requestData['wave1'],
+            $requestData['wave2'],
+            $requestData['wave3'],
+            $requestData['mobsUnlock']
         );
-
-        require __DIR__ . '/../../public/pages/attack.php';
+        $gameId = $requestData['gameId'];
+        $this->writeRedirectSeeOther("/attack.php?game_id=$gameId");
     }
 
-    public function makeWaves(): void
+    public function makeWaves(array $requestData): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->writeRedirectSeeOther('/');
             return;
         }
-        if ($_SERVER["CONTENT_TYPE"] == 'application/json') {
-            $this->writeRedirectSeeOther('/');
-            return;
-        }
 
-        $postData = file_get_contents('php://input');
-        $data = json_decode($postData, true);
-
-        if (!empty($data['nickname'])) {
-            $nickname = $data['nickname'];
-        } else {
-            $nickname = '';
-        }
-        if (!empty($data['money'])) {
-            $money = $data['money'];
-        } else {
-            $money = '';
-        }
-        if (!empty($data['score'])) {
-            $score = $data['score'];
-        } else {
-            $score = '';
-        }
-        if (!empty($data['currLvl'])) {
-            $currLvl = $data['currLvl'];
-        } else {
-            $currLvl = '';
-        }
-
-        $infoFromLvl = new AttackInfo(
-            $nickname,
-            $money,
-            $score,
-            $currLvl,
-            null
+        $info = new AttackInfo(
+            null,
+            $requestData['gameId'],
+            $requestData['money'],
+            $requestData['score'],
+            $requestData['currLvl'],
+            null,
+            null,
+            null,
+            $requestData['mobsUnlock']
         );
-
-        require __DIR__ . '/../../public/pages/attack_selector.php';
+        $gameId = $requestData['gameId'];
+        $this->writeRedirectSeeOther("/attack_selector.php?game_id=$gameId");
     }
 
     public function index(): void

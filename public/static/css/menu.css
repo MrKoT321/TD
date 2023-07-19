@@ -233,6 +233,11 @@ a {
     cursor: default;
 }
 
+.form-popup
+{
+    display: flex;
+}
+
 .form-popup__title
 {
     color: #EFEFEF;
@@ -253,7 +258,21 @@ a {
     /* gap: 20px; */
 }
 
-.form-popup__nickname 
+.form-popup__nickname-single 
+{
+    box-sizing: border-box;
+    text-align: center;
+    border: 8px solid black;
+    border-right: 4px solid black;
+    height: 80px;
+    width: 405px;
+    padding: 0 10%;
+    border-radius: 20px 0 0 20px;
+    font-size: 23px;
+    color: black;
+}
+
+.form-popup__nickname-multi 
 {
     box-sizing: border-box;
     text-align: center;

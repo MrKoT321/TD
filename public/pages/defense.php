@@ -17,6 +17,7 @@
 
 <body>
     <span id="nick-name" class="hidden"><?= htmlspecialchars($game->getNickName()) ?></span>
+    <span id="game-id" class="hidden"><?= $gameId ?></span>
     <div class="game">
         <div class="game__field field">
             <canvas id='canvas'></canvas>

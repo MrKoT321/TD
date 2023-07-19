@@ -1,7 +1,10 @@
 const startBtn = document.querySelector(".button-start");
+const multiplayBtn = document.querySelector(".button-multiplay")
 
-const submitButton = document.querySelector('.form-popup__submit');
-const nickname = document.querySelector('.form-popup__nickname');
+const nicknameSingle = document.querySelector('.form-popup__nickname-single');
+const nicknameMulti = document.querySelector('.form-popup__nickname-multi');
+const choisenClassSingle = document.querySelector('.form-popup__single');
+const choisenClassMulti = document.querySelector('.form-popup__multi');
 
 const attackChoisenStart = document.getElementById('attack-choisen-start');
 const defenseChoisenStart = document.getElementById('defense-choisen-start');
@@ -12,9 +15,10 @@ const attackSubmitStart = document.getElementById('attack-submit-start');
 const defenseSubmitMultiplay = document.getElementById('defense-submit-multiplay');
 const attackSubmitMultiplay = document.getElementById('attack-submit-multiplay');
 
-startBtn.addEventListener('click', () => { nickname.value = ''; })
+const startGameForm = document.getElementById('start-game-form');
 
-submitButton.addEventListener('click', () => { sendNickname(event) });
+startBtn.addEventListener('click', () => { nicknameSingle.value = ''; })
+multiplayBtn.addEventListener('click', () => { nicknameMulti.value = ''; })
 
 async function sendNickname(event) {
     if (nickname.value != '') {
@@ -27,26 +31,22 @@ async function sendNickname(event) {
         
         const json = JSON.stringify(props);
         console.log(json)
-        let response = await fetch('/create_game.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: json
-        });
-        if (!response.ok) {
-            alert("Ошибка HTTP: " + response.status);
-        }
-            // window.location.href = '/single_game_defense.php?game_id=' + nickname.value;
+        // let response = await fetch('/create_game.php', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json;charset=utf-8'
+        //     },
+        //     body: json
+        // });
+        // if (!response.ok) {
+        //     alert("Ошибка HTTP: " + response.status);
+        // }
+        //     // window.location.href = '/single_game_defense.php?game_id=' + nickname.value;
     }
 }
 
-nickname.addEventListener(
-    "input",
-    () => {
-        nickname.value = nickname.value.replace(/[^a-zA-z\s]/gi, '');
-    }
-)
+nicknameSingle.addEventListener("input", () => { nicknameSingle.value = nicknameSingle.value.replace(/[^a-zA-z\s]/gi, ''); });
+nicknameMulti.addEventListener("input", () => { nicknameMulti.value = nicknameMulti.value.replace(/[^a-zA-z\s]/gi, ''); });
 
 attackChoisenMultiplay.addEventListener(
     "click",
@@ -79,3 +79,11 @@ defenseChoisenStart.addEventListener(
         attackSubmitStart.classList.add('hidden'); 
     }
 )
+
+function sendSingleGameForm(Class) {
+    choisenClassSingle.value = Class;
+    $('#start-game-form').attr('action', '../create_single_game.php');
+}
+
+defenseSubmitStart.addEventListener('click', () => { sendSingleGameForm('defense') })
+attackSubmitStart.addEventListener('click', () => { sendSingleGameForm('attack') })

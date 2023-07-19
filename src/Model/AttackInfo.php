@@ -5,50 +5,82 @@ namespace App\Model;
 
 class AttackInfo
 {
-    private ?string $nickName;
-    private ?string $money;
-    private ?string $score;    
+    private ?int $requestId;
+    private int $gameId;
+    private int $money;
+    private int $score;    
     private ?string $currLvl;
-    private ?array $waves;
+    private ?string $wave1;
+    private ?string $wave2;
+    private ?string $wave3;
+    private string $mobsUnlock;
 
     public function __construct
     (
-        ?string  $nickName,
-        ?string  $money,
-        ?string $score,
+        ?int $requestId,
+        int $gameId,
+        int $money,
+        int $score,
         ?string $currLvl,
-        ?array $waves,
+        ?string $wave1,
+        ?string $wave2,
+        ?string $wave3,
+        string $mobsUnlock,
     )
     {
-        $this->nickName = $nickName;
+        $this->requestId = $requestId;
+        $this->gameId = $gameId;
         $this->money = $money;
         $this->score = $score;
         $this->currLvl = $currLvl;
-        $this->waves = $waves;
+        $this->wave1 = $wave1;
+        $this->wave2 = $wave2;
+        $this->wave3 = $wave3;
+        $this->mobsUnlock = $mobsUnlock;
     }
 
-    public function getNickName(): ?string
+    public function getRequestId(): ?int
     {
-        return $this->nickName;
+        return $this->requestId;
     }
 
-    public function getMoney(): ?string
+    public function getGameId(): int
+    {
+        return $this->gameId;
+    }
+
+    public function getMoney(): int
     {
         return $this->money;
     }
 
-    public function getScore(): ?string
+    public function getScore(): int
     {
         return $this->score;
     }
 
-    public function getCurrentLvl(): ?string
+    public function getCurrentLvl(): string
     {
         return $this->currLvl;
     }
 
-    public function getWaves(): ?array
+    public function getWave1(): ?string
     {
-        return $this->waves;
+        return $this->wave1;
+    }
+
+    public function getWave2(): ?string
+    {
+        return $this->wave2;
+    }
+
+    public function getWave3(): ?string
+    {
+        return $this->wave3;
+    }
+
+    public function getMobsUnlock(): string
+    {
+        return $this->mobsUnlock;
     }
 }

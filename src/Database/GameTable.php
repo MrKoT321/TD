@@ -70,13 +70,12 @@ class GameTable
 
     public function add(Game $record): void
     {
-        $query = "INSERT INTO games (nick_name, choisen_class, score) VALUES (:nick_name, :choisen_class, :score)";
+        $query = "UPDATE games SET score = :score WHERE game_id = :game_id";
         $statement = $this->connection->prepare($query);
         try {
             $statement->execute([
-                ':nick_name' => $record->getNickName(),
-                ':choisen_class' => $record->getChoisenClass(),
-                ':score' => $record->getScore()
+                ':score' => $record->getScore(),
+                ':game_id' => $record->getGameId()
             ]);
         } catch (PDOException $err) {
             echo "Database Error: The record could not be able added. <br />" . $err->getMessage();
