@@ -180,7 +180,7 @@ class ServerController
             null,
             $requestData['mobsUnlock']
         );
-        $requestId = $this->requestTable->publish();
+        $requestId = $this->requestTable->publish($gameInfo);
         $this->writeRedirectSeeOther("/single_game_attack.php?request_id=$requestId");
     }
 

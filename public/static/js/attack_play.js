@@ -187,7 +187,7 @@ function sendNextlvlParams() {
     score.value = String(GAME.score);
     currLvl.value = String(GAME.lvlCount);
     // mobsUnlock.value = ...;
-    // отправка формы
+    $('#next-lvl-form').attr('action', '../make_waves.php');
 }
 
 function popupCloseComplete() {
