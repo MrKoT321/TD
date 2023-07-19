@@ -11,6 +11,7 @@ const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
 
 const nextBtn = document.getElementById("next-lvl-btn");
+const nextLvlForm = document.getElementById("next-lvl-form");
 
 const currentLvl = document.getElementById("current-lvl");
 const totalLvl = document.getElementById("total-lvl");
@@ -157,22 +158,36 @@ function lvlComplete() {
     
 }
 
-async function sendNextlvlParams(event) {
-    const data = {
-        money: GAME.money,
-        score: GAME.score,
-        currLvl: GAME.lvlCount,
-        nickname: GAME.player,
-    }
-    event.preventDefault();
-    const json = JSON.stringify(data);
-    let response = await fetch('/make_waves.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: json
-    });
+// async function sendNextlvlParams(event) {
+//     const data = {
+//         money: GAME.money,
+//         score: GAME.score,
+//         currLvl: GAME.lvlCount,
+//         nickname: GAME.player,
+//     }
+//     event.preventDefault();
+//     const json = JSON.stringify(data);
+//     let response = await fetch('/make_waves.php', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json;charset=utf-8'
+//         },
+//         body: json
+//     });
+// }
+
+function sendNextlvlParams() {
+    let nikcname = nextLvlForm.elements.nickname;
+    let money = nextLvlForm.elements.money;
+    let score = nextLvlForm.elements.score;
+    let currLvl = nextLvlForm.elements.currLvl;
+    let mobsUnlock = nextLvlForm.elements.mobs_unlock;
+    nikcname.value = String(GAME.player);
+    money.value = String(GAME.money);
+    score.value = String(GAME.score);
+    currLvl.value = String(GAME.lvlCount);
+    // mobsUnlock.value = ...;
+    // отправка формы
 }
 
 function popupCloseComplete() {
@@ -236,6 +251,7 @@ function updateRestartGameParams() {
     monsters = [];
     arrows = [];
     bullets = [];
+    strikes = [];
     compareWithGameLvl = 0;
     startTimer = 0;
     timeInPause = 0;
@@ -306,13 +322,14 @@ pauseGameBtn.addEventListener(
 )
 
 nextBtn.addEventListener(
-    "click",
-    () => {
+    "submit",
+    (event) => {
+        event.preventDefault();
         sendNextlvlParams();
-        updateNextLvlParams();
-        changeMap();
-        updateCastleHP();
-        popupCloseComplete();
+        // updateNextLvlParams();
+        // changeMap();
+        // updateCastleHP();
+        // popupCloseComplete();
     }
 );
 
@@ -382,6 +399,7 @@ function play() {
         catchTime();
         updateArrows();
         updateBullets();
+        updateStrikes();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
@@ -390,6 +408,7 @@ function play() {
     drawTower();
     drawArrows();
     drawBullets();
+    drawStrikes();
     attackTowers(GAME);
     // drawBonuses();
     gameOver();

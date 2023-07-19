@@ -1,5 +1,6 @@
 var arrows = [];
 var bullets = [];
+var strikes = [];
 
 function hittingRadius(tower, mstrCenterX, mstrCenterY) {
     let distance = Math.sqrt(Math.pow(mstrCenterX - tower.x - 50, 2) + Math.pow(mstrCenterY - tower.y - 50, 2));
@@ -16,7 +17,38 @@ function makeArrow(tower) {
         towerCenterY: 0,
         speed: 5,
         atk: tower.atk,
-        currentEnemy: monsters[tower.currentEnemy]
+        currentEnemy: monsters[tower.currentEnemy],
+    })
+}
+
+function makeBullet(tower, mstrCenterX, mstrCenterY) {
+    bullets.push({
+        x: tower.x + 50,
+        y: tower.y + 50,
+        radius: 20,
+        blastRadius: 70,
+        init: true,
+        color: "black",
+        radiusColor: "red",
+        acceleration: 2,
+        finishX: mstrCenterX,
+        finishY: mstrCenterY,
+        speedX: 0,
+        speedY: 0,
+        atk: tower.atk,
+    });
+}
+
+function makeStrike(tower) {
+    strikes.push({
+        x: tower.x + 50,
+        y: tower.y + 50,
+        color: "black",
+        atk: tower.atk,
+        speed: 5,
+        radius: 0,
+        maxRadius: tower.radius,
+        thickness: 30,
     })
 }
 
@@ -105,24 +137,6 @@ function attackArcher(GAME) {
     });
 }
 
-function makeBullet(tower, mstrCenterX, mstrCenterY) {
-    bullets.push({
-        x: tower.x + 50,
-        y: tower.y + 50,
-        radius: 20,
-        blastRadius: 70,
-        init: true,
-        color: "black",
-        radiusColor: "red",
-        acceleration: 2,
-        finishX: mstrCenterX,
-        finishY: mstrCenterY,
-        speedX: 0,
-        speedY: 0,
-        atk: tower.atk
-    });
-}
-
 function drawBullets() {
     bullets.forEach(flyingBullet => {
         canvasContext.fillStyle = flyingBullet.color;
@@ -157,7 +171,7 @@ function updateBullets() {
                     let mstrCenterX = monster.x + monster.width / 2;
                     let mstrCenterY = monster.y + monster.height / 2;
                     let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
-                    if (distance <= bullet.blastRadius) {
+                    if (distance <= bullet.blastRadius && monster.type != "flying") {
                         monster.hp -= bullet.atk;
                     }
                 })
@@ -175,7 +189,7 @@ function attackMortir(GAME) {
             for (let i = 0; i < monsters.length; i++) {
                 mstrCenterX = monsters[i].x + monsters[i].width / 2;
                 mstrCenterY = monsters[i].y + monsters[i].height / 2;
-                if (hittingRadius(tower, mstrCenterX, mstrCenterY)) {
+                if (hittingRadius(tower, mstrCenterX, mstrCenterY) && monsters[i].type != "flying") {
                     tower.currentEnemy = i;
                     if (tower.startTime <= 0) {
                         tower.startTime = GAME.stopwatch;
@@ -198,18 +212,57 @@ function attackMortir(GAME) {
     });
 }
 
+function drawStrikes() {
+    strikes.forEach(strike => {
+        canvasContext.beginPath();
+        canvasContext.strokeStyle = strike.color;
+        canvasContext.lineWidth = strike.thickness;
+        canvasContext.arc(strike.x, strike.y, strike.radius, 0, 2 * Math.PI);
+        canvasContext.stroke();
+        canvasContext.closePath();
+    });
+}
+
+function updateStrikes() {
+    for(var i=0; i < strikes.length; i++) {
+        strikes[i].radius += strikes[i].speed;
+        strikes[i].thickness -= strikes[i].speed / 10;
+        monsters.forEach(monster => {
+            var distance = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - strikes[i].x, 2) + Math.pow(monster.y + (monster.height / 2) - strikes[i].y, 2));
+            if(distance <= strikes[i].radius && monster.type != "flying" && !monster.hit) {
+                monster.hp -= strikes[i].atk;
+                monster.hit = true;
+            }
+        });
+        if(strikes[i].radius >= strikes[i].maxRadius) {
+            strikes.splice(i, 1);
+            monsters.forEach(monster => {
+                monster.hit = false;
+            })
+        }
+    }
+}
+
+function checkStrikes(tower) {
+    var ex = false;
+    strikes.forEach(strike => {
+        if(strike.x == (tower.x + 50) && strike.y == (tower.y + 50)) {
+            ex = true;
+        }
+    })
+    return ex;
+}
+
 function attackBash() {
     towers.forEach(tower => {
         if (tower.type == "bash") {
             monsters.forEach(monster => {
                 lineToMonster = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - tower.x - 50, 2) + Math.pow(monster.y + (monster.height / 2) - tower.y - 50, 2));
-                if (!((GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0)) {
-                    monster.hit = false;
-                    tower.hit = false;
+                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower)) {
+                    makeStrike(tower);
                 }
-                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !monster.hit && !tower.hit) {
-                    monster.hp -= tower.atk;
-                    monster.hit = true;
+                if (!((GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0)) {
+                    tower.hit = false;
                 }
             })
             if (!tower.hit && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0) {

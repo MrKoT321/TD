@@ -20,31 +20,6 @@ const startGameForm = document.getElementById('start-game-form');
 startBtn.addEventListener('click', () => { nicknameSingle.value = ''; })
 multiplayBtn.addEventListener('click', () => { nicknameMulti.value = ''; })
 
-async function sendNickname(event) {
-    if (nickname.value != '') {
-        const score = document.querySelector(".score__value");
-        event.preventDefault();
-        props = {
-            nick_name: nickname.value,
-            choisen_class: 'defense'
-        }
-        
-        const json = JSON.stringify(props);
-        console.log(json)
-        // let response = await fetch('/create_game.php', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset=utf-8'
-        //     },
-        //     body: json
-        // });
-        // if (!response.ok) {
-        //     alert("Ошибка HTTP: " + response.status);
-        // }
-        //     // window.location.href = '/single_game_defense.php?game_id=' + nickname.value;
-    }
-}
-
 nicknameSingle.addEventListener("input", () => { nicknameSingle.value = nicknameSingle.value.replace(/[^a-zA-z\s]/gi, ''); });
 nicknameMulti.addEventListener("input", () => { nicknameMulti.value = nicknameMulti.value.replace(/[^a-zA-z\s]/gi, ''); });
 

@@ -11,6 +11,7 @@ function pushMonsters(GAME, lvl, monster) {
         cost: monster.cost,
         width: monster.width,
         height: monster.height,
+        type: monster.type,
         step1: monster.step1,
         step2: monster.step2,
         step3: monster.step3,
@@ -28,6 +29,7 @@ function pushMonsters(GAME, lvl, monster) {
         dir: lvl.start_dir,
         bornTime: GAME.stopwatch,
         baseTime: monster.baseTime,
+        hit: false,
     })
     if (lvl.start_x < 0 || lvl.start_x > 1600) {
         monsters[pushmonstercount].x = lvl.start_x;
@@ -237,7 +239,6 @@ function updateMobDataDef() {
 function updateMobDataAtk() {
     for (var monster of monsters) {
         if(monster.hp <= 0 ) {
-            console.log(GAME.stopwatch - monster.bornTime);
             if (monster.finish) {
                 GAME.money += monster.cost;
             } else {
