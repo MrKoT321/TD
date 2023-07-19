@@ -245,12 +245,13 @@ function updateStrikes() {
 }
 
 function checkStrikes(tower) {
+    var ex = false;
     strikes.forEach(strike => {
-        if(strike.x == tower.x + 50 && strike.y == tower.y + 50) {
-            return true;
+        if(strike.x == (tower.x + 50) && strike.y == (tower.y + 50)) {
+            ex = true;
         }
     })
-    return false;
+    return ex;
 }
 
 function attackBash() {
@@ -258,6 +259,7 @@ function attackBash() {
         if (tower.type == "bash") {
             monsters.forEach(monster => {
                 lineToMonster = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - tower.x - 50, 2) + Math.pow(monster.y + (monster.height / 2) - tower.y - 50, 2));
+                // console.log(checkStrikes(tower));
                 if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower)) {
                     makeStrike(tower);
                 }
