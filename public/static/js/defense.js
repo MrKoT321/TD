@@ -244,20 +244,6 @@ function changeMap() {
     }
 };
 
-function changeLvlDev(devlvl) {
-    GAME.lvlCount = parseInt(devlvl.value);
-    lvl = lvls[GAME.lvlCount - 1];
-    GAME.castleHP = lvl.castleHP;
-    GAME.wave = 1;
-    monstercount = 0;
-    starttime = 900;
-    GAME.isPlay = 'wavepause';
-    pushmonstercount = 0;
-    steptimer = 0;
-    stepcounter = 1;
-    changeMap();
-}
-
 async function sendResults(event) {
     const score = document.querySelector(".score__value");
     event.preventDefault();
@@ -277,32 +263,39 @@ async function sendResults(event) {
     });
 }
 
-startWaveBtn.addEventListener(
-    "click",
-    () => {
-        if (GAME.isPlay == 'wavepause') {
-            startWaveBtn.classList.add("active");
-            GAME.isPlay = 'startgame';
-        } 
-    }
-)
+function startWave() {
+    if (GAME.isPlay == 'wavepause') {
+        startWaveBtn.classList.add("active");
+        GAME.isPlay = 'startgame';
+    } 
+}
 
-pauseGameBtn.addEventListener(
-    "click",
-    () => {
-        if (GAME.isPlay == 'play') {
-            pauseGameBtn.classList.remove("play");
-            pauseGameBtn.classList.add("pause");
-            GAME.isPlay = 'menu';
-        } else {
-            if (GAME.isPlay == 'menu') {
-                pauseGameBtn.classList.remove("pause");
-                pauseGameBtn.classList.add("play");
-                GAME.isPlay = 'play';
-            }
+function pauseGame() {
+    if (GAME.isPlay == 'play') {
+        pauseGameBtn.classList.remove("play");
+        pauseGameBtn.classList.add("pause");
+        GAME.isPlay = 'menu';
+    } else {
+        if (GAME.isPlay == 'menu') {
+            pauseGameBtn.classList.remove("pause");
+            pauseGameBtn.classList.add("play");
+            GAME.isPlay = 'play';
         }
     }
-)
+}
+
+startWaveBtn.addEventListener("click", () => { startWave() });
+pauseGameBtn.addEventListener("click", () => { pauseGame() });
+document.addEventListener("keydown", (event) => {
+    switch(event.code) {
+        case 'Space':
+            pauseGame();
+            break;
+        case 'Enter':
+            startWave();
+            break;
+    }
+})
 
 nextBtn.addEventListener(
     "click",
