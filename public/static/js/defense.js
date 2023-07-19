@@ -17,17 +17,6 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     const devBtn1 = document.getElementById("dev-btn-1");
-//     const devBtn2 = document.getElementById("dev-btn-2");
-//     const devBtn3 = document.getElementById("dev-btn-3");
-//     const devBtn4 = document.getElementById("dev-btn-4");
-//     devBtn1.onclick = changeLvlDev(devBtn1);
-//     devBtn2.onclick = changeLvlDev(devBtn2);
-//     devBtn3.onclick = changeLvlDev(devBtn3);
-//     devBtn4.onclick = changeLvlDev(devBtn4);
-// });
-
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -228,9 +217,9 @@ function updateRestartGameParams() {
     GAME.score = 0;
     towerTiles = [];
     towers = [];
-    monsters = [];
     arrows = [];
     bullets = [];
+    strikes = [];
     compareWithGameLvl = 0;
     GAME.isPlay = 'wavepause';
     startTimer = 0;
@@ -240,7 +229,6 @@ function updateRestartGameParams() {
     pushmonstercount = 0;
     steptimer = 0;
     stepcounter = 1;
-    monsters = [];
 }
 
 function changeMap() {
@@ -371,6 +359,7 @@ function play() {
         catchTime();
         updateArrows();
         updateBullets();
+        updateStrikes();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
@@ -382,6 +371,7 @@ function play() {
     drawTower();
     drawArrows();
     drawBullets();
+    drawStrikes();
     attackTowers(GAME);
     drawBonuses();
     gameOver();

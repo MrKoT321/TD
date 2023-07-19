@@ -29,6 +29,7 @@ function pushMonsters(GAME, lvl, monster) {
         dir: lvl.start_dir,
         bornTime: GAME.stopwatch,
         baseTime: monster.baseTime,
+        hit: false,
     })
     if (lvl.start_x < 0 || lvl.start_x > 1600) {
         monsters[pushmonstercount].x = lvl.start_x;
