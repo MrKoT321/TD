@@ -220,7 +220,7 @@ function updateRestartGameParams() {
     arrows = [];
     bullets = [];
     strikes = [];
-    compareWithGameLvl = 0;
+    compareWithGameLvlTiles = 0;
     GAME.isPlay = 'wavepause';
     startTimer = 0;
     timeInPause = 0;
