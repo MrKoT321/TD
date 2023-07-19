@@ -5,30 +5,60 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Database\ConnectionProvider;
-use App\Database\RecordTable;
-use App\Model\Record;
+use App\Database\GameTable;
+use App\Model\Game;
 use App\Model\AttackInfo;
 
 class ServerController
 {
     private const HTTP_STATUS_303_SEE_OTHER = 303;
 
-    private RecordTable $recordTable;
+    private GameTable $gameTable;
 
     public function __construct()
     {
         $connection = ConnectionProvider::connectDatabase();
-        $this->recordTable = new RecordTable($connection);
+        $this->gameTable = new GameTable($connection);
     }
 
-    public function addRecord(): void 
+    public function addRecord(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST')
-        {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->writeRedirectSeeOther('/');
             return;
         }
-        if ($_SERVER["CONTENT_TYPE"] == 'application/json')
+        if ($_SERVER["CONTENT_TYPE"] == 'application/json') {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+
+        $postData = file_get_contents('php://input');
+        $data = json_decode($postData, true);
+
+        $record = new Game(
+            null,
+            $data['nickName'],
+            $data['choisenClass'],
+            (int) $data['score']
+        );
+        $this->gameTable->add($record);
+        return;
+    }
+
+    public function showRecords(): void
+    {
+        $records = $this->gameTable->show();
+        if (!$records) {
+            $this->writeRedirectSeeOther('/');
+            exit();
+        }
+
+        require __DIR__ . '/../../public/pages/records.php';
+    }
+
+    public function createGame(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST')
         {
             $this->writeRedirectSeeOther('/');
             return;
@@ -37,84 +67,57 @@ class ServerController
         $postData = file_get_contents('php://input');
         $data = json_decode($postData, true);
 
-        $record = new Record(
+        $game = new Game(
             null, 
-            $data['nickName'], 
-            $data['choisenClass'], 
-            (int)$data['score']
-        );
-        $this->recordTable->add($record);
-        return;
-    }
-
-    public  function showRecords(): void 
-    {
-        $records = $this->recordTable->show();
-        if (!$records)
-        {
-            $this->writeRedirectSeeOther('/');
-            exit();
-        }
-
-        require __DIR__ . '/../../public/pages/records.php';
-    }
-
-    // public function singleGame(array $queryParams): void 
-    // {
-    //     $userNickName = $queryParams['nick_name'];
-    //     $choisenClass = $queryParams['choisen_class'];
-    //     if (!$userNickName)
-    //     {
-    //         $this->writeRedirectSeeOther('/');
-    //         exit();
-    //     }
-        
-    //     $score = new Record(
-    //         null, 
-    //         $userNickName, 
-    //         $choisenClass, 
-    //         null
-    //     );
-    //     if ($choisenClass == 'defense') {
-    //         require __DIR__ . '/../../public/pages/defense.php';
-    //     } else {
-    //         if ($choisenClass == 'attack') {
-    //             require __DIR__ . '/../../public/pages/attack_selector.html';
-    //         } else {
-    //             $this->writeRedirectSeeOther('/');
-    //             exit();  
-    //         }
-    //     }
-    // }
-
-    public function singleGame(array $queryParams): void 
-    {
-        $userNickName = $queryParams['nick_name'];
-        if (!$userNickName)
-        {
-            $this->writeRedirectSeeOther('/');
-            exit();
-        }
-        
-        $score = new Record(
-            null, 
-            $userNickName, 
-            'defense', 
+            $data['nick_name'], 
+            $data['choisen_class'], 
             null
         );
-        require __DIR__ . '/../../public/pages/defense.php'; 
+        $gameId = $this->gameTable->create($game);
+        $this->writeRedirectSeeOther("/single_game_defense.php?game_id=$gameId");
+    }
+
+    public function singleGameDefense(array $queryParams): void
+    {
+        $gameId = (int)$queryParams['game_id'];
+        if (!$gameId) {
+            $this->writeRedirectSeeOther('/');
+            exit();
+        }
+        $game = $this->gameTable->find($gameId);
+        if (!$game)
+        {
+            $this->writeRedirectSeeOther('/');  
+            exit();
+        }
+        require __DIR__ . '/../../public/pages/defense.php';
+    }
+
+    public function singleGameAttack(array $queryParams): void
+    {
+        $userNickName = $queryParams['nick_name'];
+        if (!$userNickName) {
+            $this->writeRedirectSeeOther('/');
+            exit();
+        }
+
+        $score = new Game(
+            null,
+            $userNickName,
+            'defense',
+            null
+        );
+        require __DIR__ . '/../../public/pages/attack_selector.php';
     }
 
     //---------------------------------------------------   
-    public function sendWaves(): void 
+    public function sendWaves(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST')
-        {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->writeRedirectSeeOther('/');
             return;
         }
-        if ($_SERVER["CONTENT_TYPE"] == 'application/json')
-        {
+        if ($_SERVER["CONTENT_TYPE"] == 'application/json') {
             $this->writeRedirectSeeOther('/');
             return;
         }
@@ -146,23 +149,21 @@ class ServerController
         $infoFromLvl = new AttackInfo(
             $nickname,
             $money,
-            $score, 
+            $score,
             null,
             $waves
         );
-        
+
         require __DIR__ . '/../../public/pages/attack.php';
     }
-    
-    public function makeWaves(): void 
+
+    public function makeWaves(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST')
-        {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->writeRedirectSeeOther('/');
             return;
         }
-        if ($_SERVER["CONTENT_TYPE"] ==  'application/json')
-        {
+        if ($_SERVER["CONTENT_TYPE"] == 'application/json') {
             $this->writeRedirectSeeOther('/');
             return;
         }
@@ -194,7 +195,7 @@ class ServerController
         $infoFromLvl = new AttackInfo(
             $nickname,
             $money,
-            $score, 
+            $score,
             $currLvl,
             null
         );

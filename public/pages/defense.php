@@ -1,6 +1,6 @@
 <?php
 /**
- * @var App\Model\Record $user
+ * @var App\Model\Game $game
  */
 ?>
 
@@ -8,7 +8,7 @@
 <html lang="ru">
 
 <head>
-    <title><?= htmlspecialchars($score->getNickName()) ?>'s Game</title>
+    <title><?= htmlspecialchars($game->getNickName()) ?>'s Game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/defense.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <span id="nick-name" class="hidden"><?= htmlspecialchars($score->getNickName()) ?></span>
+    <span id="nick-name" class="hidden"><?= htmlspecialchars($game->getNickName()) ?></span>
     <div class="game">
         <div class="game__field field">
             <canvas id='canvas'></canvas>
