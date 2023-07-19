@@ -309,35 +309,42 @@ socket.addEventListener('message', function(event) {
     }
 });
 
-startWaveBtn.addEventListener(
-    "click",
-    () => {
-        if (GAME.isPlay == 'wavepause') {
-            startWaveBtn.classList.add("active");
-            GAME.isPlay = 'startgame';
-            sendGameStatus();
-        } 
-    }
-)
+function startWave() {
+    if (GAME.isPlay == 'wavepause') {
+        startWaveBtn.classList.add("active");
+        GAME.isPlay = 'startgame';
+        sendGameStatus();
+    } 
+}
 
-pauseGameBtn.addEventListener(
-    "click",
-    () => {
-        if (GAME.isPlay == 'play') {
-            pauseGameBtn.classList.remove("play");
-            pauseGameBtn.classList.add("pause");
-            GAME.isPlay = 'menu';
+function pauseGame() {
+    if (GAME.isPlay == 'play') {
+        pauseGameBtn.classList.remove("play");
+        pauseGameBtn.classList.add("pause");
+        GAME.isPlay = 'menu';
+        sendGameStatus();
+    } else {
+        if (GAME.isPlay == 'menu') {
+            pauseGameBtn.classList.remove("pause");
+            pauseGameBtn.classList.add("play");
+            GAME.isPlay = 'play';
             sendGameStatus();
-        } else {
-            if (GAME.isPlay == 'menu') {
-                pauseGameBtn.classList.remove("pause");
-                pauseGameBtn.classList.add("play");
-                GAME.isPlay = 'play';
-                sendGameStatus();
-            }
         }
     }
-)
+}
+
+startWaveBtn.addEventListener("click", () => { startWave() });
+pauseGameBtn.addEventListener("click", () => { pauseGame() });
+document.addEventListener("keydown", (event) => {
+    switch(event.code) {
+        case 'Space':
+            pauseGame();
+            break;
+        case 'Enter':
+            startWave();
+            break;
+    }
+})
 
 nextBtn.addEventListener(
     "click",

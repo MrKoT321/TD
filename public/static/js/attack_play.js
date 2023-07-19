@@ -177,12 +177,12 @@ function lvlComplete() {
 // }
 
 function sendNextlvlParams() {
-    let nikcname = nextLvlForm.elements.nickname;
+    let gameId = nextLvlForm.elements.gameId;
     let money = nextLvlForm.elements.money;
     let score = nextLvlForm.elements.score;
     let currLvl = nextLvlForm.elements.currLvl;
     let mobsUnlock = nextLvlForm.elements.mobs_unlock;
-    nikcname.value = String(GAME.player);
+    gameId.value = String(GAME.player);
     money.value = String(GAME.money);
     score.value = String(GAME.score);
     currLvl.value = String(GAME.lvlCount);
@@ -294,32 +294,39 @@ async function sendResults(event) {
     });
 }
 
-startWaveBtn.addEventListener(
-    "click",
-    () => {
-        if (GAME.isPlay == 'wavepause') {
-            startWaveBtn.classList.add("active");
-            GAME.isPlay = 'startgame';
-        } 
-    }
-)
+function startWave() {
+    if (GAME.isPlay == 'wavepause') {
+        startWaveBtn.classList.add("active");
+        GAME.isPlay = 'startgame';
+    } 
+}
 
-pauseGameBtn.addEventListener(
-    "click",
-    () => {
-        if (GAME.isPlay == 'play') {
-            pauseGameBtn.classList.remove("play");
-            pauseGameBtn.classList.add("pause");
-            GAME.isPlay = 'menu';
-        } else {
-            if (GAME.isPlay == 'menu') {
-                pauseGameBtn.classList.remove("pause");
-                pauseGameBtn.classList.add("play");
-                GAME.isPlay = 'play';
-            }
+function pauseGame() {
+    if (GAME.isPlay == 'play') {
+        pauseGameBtn.classList.remove("play");
+        pauseGameBtn.classList.add("pause");
+        GAME.isPlay = 'menu';
+    } else {
+        if (GAME.isPlay == 'menu') {
+            pauseGameBtn.classList.remove("pause");
+            pauseGameBtn.classList.add("play");
+            GAME.isPlay = 'play';
         }
     }
-)
+}
+
+startWaveBtn.addEventListener("click", () => { startWave() });
+pauseGameBtn.addEventListener("click", () => { pauseGame() });
+document.addEventListener("keydown", (event) => {
+    switch(event.code) {
+        case 'Space':
+            pauseGame();
+            break;
+        case 'Enter':
+            startWave();
+            break;
+    }
+})
 
 nextBtn.addEventListener(
     "submit",
