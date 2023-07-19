@@ -420,24 +420,14 @@ unlock_monster5.addEventListener(
 start_button.addEventListener(
     "click",
     () => {
-        let waves_send = [];
-        sendWaves(waves_send);
-        let data = {
-            waves: waves_send,
-            money: GAME.money,
-            score: score.innerHTML,
-            nick_name: nick_name.innerHTML,
-            mobs_unlock: mobs_unlock
-        }
-        let json = JSON.stringify(data);
-        console.log(data)
-        console.log(JSON.stringify(data))
-        // let response = await fetch('/send_waves.php', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset=utf-8'
-        //     },
-        //     body: json
-        // });
+        let wave1_to_send = [], wave2_to_send = [], wave3_to_send = []
+        sendWaves(wave1_to_send, wave2_to_send, wave3_to_send);
+        wave1_send.value = String(wave1_to_send);
+        wave2_send.value = String(wave2_to_send);
+        wave3_send.value = String(wave3_to_send);
+        money_send.value = GAME.money;
+        gameId_send.value = GAME.gameId;
+        currentLvl_send.value = GAME.lvlCount;
+        score_send.value = GAME.score
     }
 )

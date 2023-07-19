@@ -50,7 +50,11 @@ body {
     position: absolute;
     margin-left: 1493px;
     margin-top: 1px;
+    background: url("../images/start-button.png");
+    width: 307px;
+    height: 104px;
     cursor: pointer;
+    border: 0;
 }
 
 .mob-count {
@@ -299,4 +303,8 @@ body {
 .money-text{
     font-size: 44px;
     font-family: 'VT323';
+}
+
+.form{
+    position: absolute;
 }
