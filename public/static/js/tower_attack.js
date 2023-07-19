@@ -1,5 +1,6 @@
 var arrows = [];
 var bullets = [];
+var explosions = [];
 
 function hittingRadius(tower, mstrCenterX, mstrCenterY) {
     let distance = Math.sqrt(Math.pow(mstrCenterX - tower.x - 50, 2) + Math.pow(mstrCenterY - tower.y - 50, 2));
@@ -140,6 +141,19 @@ function drawBullets() {
     })
 }
 
+function makeExplosion(bullet){
+    console.log('make')
+    explosions.push({
+        x: bullet.finishX,
+        x: bullet.finishY,
+        explosionRadius: bullet.blastRadius,
+        speed: 5,
+        thickness: 30,
+        radius: 0,
+        color: "red"
+    })
+}
+
 function updateBullets() {
     const t = 30;
     for (var i = 0; i < bullets.length; i++) {
@@ -161,8 +175,7 @@ function updateBullets() {
                         monster.hp -= bullet.atk;
                     }
                 })
-                makeExplosion()
-                // if()
+                makeExplosion(bullet);
                 bullets.splice(i, 1);
             }
         }
@@ -198,6 +211,38 @@ function attackMortir(GAME) {
             }
         }
     });
+}
+
+function drawExplosion(){
+    explosions.forEach(explosion => {
+        canvasContext.beginPath();
+        canvasContext.strokeStyle = explosion.color;
+        canvasContext.lineWidth = explosion.thickness;
+        canvasContext.arc(explosion.x, explosion.y, explosion.radius, 0, 2 * Math.PI);
+        canvasContext.stroke();
+        canvasContext.closePath();
+    })
+}
+
+function updateExplosions() {
+    console.log(1)
+    for(var i = 0; i < explosions.length; i++) {
+        explosions[i].radius += explosions[i].speed;
+        explosions[i].thickness -= explosions[i].speed / 10;
+        monsters.forEach(monster => {
+            var distance = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - explosions[i].x, 2) + Math.pow(monster.y + (monster.height / 2) - explosions[i].y, 2));
+            if(distance <= explosions[i].radius && monster.type != "flying" && !monster.hit) {
+                monster.hp -= explosions[i].atk;
+                monster.hit = true;
+            }
+        });
+        if(explosions[i].radius >= explosions[i].explosionRadius) {
+            explosions.splice(i, 1);
+            monsters.forEach(monster => {
+                monster.hit = false;
+            })
+        }
+    }
 }
 
 function attackBash() {
