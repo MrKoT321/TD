@@ -11,9 +11,7 @@
 </head>
 
 <body>
-    <span id="score" class="hidden"></span>
-    <span id="nick-name" class="hidden"></span>
-    <div class="game">
+<div class="game">
         <div class="game__field field">
             <div class="monsters-selector">
                 <div>
@@ -32,17 +30,17 @@
                 </div>
                 <div>
                     <img src="../static/images/monster3_selector.png" id="mob3" class="monster-selector hidden"/>
-                    <img src="../static/images/lock_selector.png" class="monster-selector-lock"/>
+                    <img src="../static/images/lock_selector3.png" class="monster-selector-lock" id="unlock-monster3"/>
                     <strong class="mob3-info hidden"></strong>
                 </div>
                 <div>
-                    <img src="../static/images/monster4_selector.png" id="mob3" class="monster-selector hidden"/>
-                    <img src="../static/images/lock_selector.png" class="monster-selector-lock"/>
+                    <img src="../static/images/monster4_selector.png" id="mob4" class="monster-selector hidden"/>
+                    <img src="../static/images/lock_selector4.png" class="monster-selector-lock" id="unlock-monster4"/>
                     <strong class="mob4-info hidden"></strong>
                 </div>
                 <div>
                     <img src="../static/images/monster5_selector.png" id="mob5" class="monster-selector hidden"/>
-                    <img src="../static/images/lock_selector.png" class="monster-selector-lock"/>
+                    <img src="../static/images/lock_selector5.png" class="monster-selector-lock" id="unlock-monster5"/>
                     <strong class="mob5-info hidden"></strong>
                 </div>
             </div>
@@ -131,7 +129,17 @@
                 <img src="../static/images/3.png" class="wave-selector__3 hidden"/>
                 <img src="../static/images/wave+.png" class="wave-selector__wave-plus"/>
             </div>
-            <img src="../static/images/start-button.png" class="start-button"/>
+            <form method="POST" enctype="multipart/form-data" class="form">
+                <input type="submit" class="start-button" value="" />
+                <input type="text" class="hidden" name="score" id="score"/>
+                <input type="text" class="hidden" name="money" id="money"/>
+                <input type="text" class="hidden" name="wave1" id="wave1"/>
+                <input type="text" class="hidden" name="wave2" id="wave2"/>
+                <input type="text" class="hidden" name="wave3" id="wave3"/>
+                <input type="text" class="hidden" name="mobsUnlock" id="mobs_unlock"/>
+                <input type="text" class="hidden" name="gameId" id="gameId"/>
+                <input type="text" class="hidden" name="currentLvl" id="currentLvl"/>
+            </form>
             <img src="../static/images/map-button.png" class="map-button"/>
             <span class="count-coin"></span>
             

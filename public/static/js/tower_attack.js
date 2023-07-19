@@ -175,6 +175,8 @@ function updateBullets() {
                         monster.hp -= bullet.atk;
                     }
                 })
+                makeExplosion()
+                // if()
                 bullets.splice(i, 1);
             }
         }

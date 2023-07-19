@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div class="game">
+<div class="game">
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
@@ -42,7 +42,7 @@
                     <div class="mortir selector">
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
                         <img src="../static/images/mortir_cost.png" class="cost-for-tower" />
-                    </div>                    
+                    </div>   
                 </div>
             </div>
             <div class="tower-selection tower-abilities hidden">
@@ -115,9 +115,17 @@
     <div class="popupcomplete__bg">
         <div class="popupcomplete">
             <h1 class="complete">LEVEL COMPLETE</h1>
-            <div class="next-lvl-container">
-                <button class="next-lvl-btn" id="next-lvl-btn">Next level</button>
-            </div>
+            <form id="next-lvl-form" class="hidden" method="POST" enctype="multipart/form-data">
+                <input type="text" name="gameId" required />
+                <input type="text" name="money" required />
+                <input type="text" name="score" required />
+                <input type="text" name="currentLvl" required />
+                <input type="text" name="nikcname" required />
+                <input type="text" name="mobs_unlock" required />
+                <div class="next-lvl-container">
+                    <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level">
+                </div>
+            </form>
         </div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>

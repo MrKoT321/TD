@@ -81,3 +81,16 @@ const money_wave3 = document.getElementById('money-wave3');
 
 const score = document.getElementById('score');
 const nick_name = document.getElementById('nick-name');
+
+const unlock_monster3 = document.getElementById('unlock-monster3');
+const unlock_monster4 = document.getElementById('unlock-monster4');
+const unlock_monster5 = document.getElementById('unlock-monster5');
+
+const score_send = document.getElementById('score');
+const wave1_send = document.getElementById('wave1');
+const wave2_send = document.getElementById('wave2');
+const wave3_send = document.getElementById('wave3');
+const mobs_unblock_send = document.getElementById('mobs_unblock');
+const money_send = document.getElementById('money');
+const gameId_send = document.getElementById('gameId');
+const currentLvl_send = document.getElementById('currentLvl');
