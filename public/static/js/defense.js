@@ -217,10 +217,9 @@ function updateRestartGameParams() {
     GAME.score = 0;
     towerTiles = [];
     towers = [];
-    monsters = [];
     arrows = [];
     bullets = [];
-    compareWithGameLvl = 0;
+    compareWithGameLvlTiles = 0;
     GAME.isPlay = 'wavepause';
     startTimer = 0;
     timeInPause = 0;
@@ -229,7 +228,6 @@ function updateRestartGameParams() {
     pushmonstercount = 0;
     steptimer = 0;
     stepcounter = 1;
-    monsters = [];
 }
 
 function changeMap() {
