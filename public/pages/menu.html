@@ -26,8 +26,8 @@
         <div class="popup__body">
             <div class="popup__content">
                 <div class="popup-buttons">
-                    <a href="#form" class="popup-button__attack">ATTACK</a>
-                    <a href="#form" class="popup-button__defense">DEFENSE</a>
+                    <a href="#form" class="popup-button__attack" id="attack-choisen-start">ATTACK</a>
+                    <a href="#form" class="popup-button__defense" id="defense-choisen-start">DEFENSE</a>
                 </div>
             </div>
         </div>
@@ -37,21 +37,37 @@
         <div class="popup__body">
             <div class="popup__content">
                 <div class="popup-buttons">
-                <a href="#" class="popup-button__attack">ATTACK</a>
-                <a href="#" class="popup-button__defense">DEFENSE</a>
+                    <a href="#form-multiplay" class="popup-button__attack" id="attack-choisen-multiplay">ATTACK</a>
+                    <a href="#form-multiplay" class="popup-button__defense" id="defense-choisen-multiplay">DEFENSE</a>
                 </div>
             </div>
         </div>
     </div>
     <div id="form" class="popup">
+        <a href="#" class="popup__area"></a>
         <div class="popup__body">
             <div class="popup__content">
-        <h2 class="form-popup__title">Your nickname</h2>
-        <div class="form-popup__info">
-            <input class="form-popup__nickname" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" />
-            <input class="form-popup__submit" type="submit" name="submit" value="Submit"/>
+                <h2 class="form-popup__title">Your nickname</h2>
+                <div class="form-popup__info">
+                    <input class="form-popup__nickname" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" />
+                    <input class="form-popup__submit" id="defense-submit-start" type="submit" name="submit" value="Submit"/>
+                    <input class="form-popup__submit" id="attack-submit-start" type="submit" name="submit" value="Submit"/>
+                </div>
+            </div>
         </div>
     </div>
-        </div></div>
+    <div id="form-multiplay" class="popup">
+        <a href="#" class="popup__area"></a>
+        <div class="popup__body">
+            <div class="popup__content">
+                <h2 class="form-popup__title">Your nickname</h2>
+                <div class="form-popup__info">
+                    <input class="form-popup__nickname" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" />
+                    <input class="form-popup__submit" id="defense-submit-multiplay" type="submit" name="submit" value="Submit"/>
+                    <input class="form-popup__submit" id="attack-submit-multiplay" type="submit" name="submit" value="Submit"/>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
