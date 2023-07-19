@@ -177,7 +177,17 @@ function lvlComplete() {
 // }
 
 function sendNextlvlParams() {
-    // nextLvlForm
+    let nikcname = nextLvlForm.elements.nickname;
+    let money = nextLvlForm.elements.money;
+    let score = nextLvlForm.elements.score;
+    let currLvl = nextLvlForm.elements.currLvl;
+    let mobsUnlock = nextLvlForm.elements.mobs_unlock;
+    nikcname.value = String(GAME.player);
+    money.value = String(GAME.money);
+    score.value = String(GAME.score);
+    currLvl.value = String(GAME.lvlCount);
+    // mobsUnlock.value = ...;
+    // отправка формы
 }
 
 function popupCloseComplete() {
