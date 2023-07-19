@@ -71,3 +71,7 @@ const mob2_info = document.querySelector('.mob2-info');
 const mob3_info = document.querySelector('.mob3-info');
 const mob4_info = document.querySelector('.mob4-info');
 const mob5_info = document.querySelector('.mob5-info');
+
+const money_wave1 = document.getElementById('money-wave1');
+const money_wave2 = document.getElementById('money-wave2');
+const money_wave3 = document.getElementById('money-wave3');

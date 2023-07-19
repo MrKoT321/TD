@@ -20,7 +20,7 @@ const totalWave = document.getElementById("total-wave");
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
-    player: document.title,
+    player: document.getElementById("nick-name").innerHTML,
     width: 1600,
     height: 1000,
     stopwatch: 0,
@@ -211,6 +211,7 @@ function updateRestartGameParams() {
     GAME.castleHP = lvl.castleHP;
     GAME.wave = 1;
     monstercount = 0;
+    monsters = [];
     starttime = 900;
     GAME.money = 100;
     GAME.score = 0;
@@ -252,6 +253,7 @@ async function sendResults(event) {
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }
+    console.log(props)
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',
@@ -325,7 +327,6 @@ backToMenuBtn.addEventListener(
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    console.log(monsters.length)
     updateMoney();
     updateScore();
     updateVisualLvlParams();

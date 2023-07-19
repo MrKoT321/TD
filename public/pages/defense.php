@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    <span id="nick-name" class="hidden"><?= htmlspecialchars($score->getNickName()) ?></span>
     <div class="game">
         <div class="game__field field">
             <canvas id='canvas'></canvas>
@@ -41,9 +42,6 @@
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
                         <img src="../static/images/mortir_cost.png" class="cost-for-tower" />
                     </div>
-                    
-                    
-                    
                 </div>
             </div>
             <div class="tower-selection tower-abilities hidden">
@@ -67,7 +65,7 @@
                 <div class="buf-slot"></div>
                 <div class="buf-slot"></div>
                 <div class="bar-game-info">
-                <div class="game-info-lvl game-info-slot">
+                    <div class="game-info-lvl game-info-slot">
                         <span class="game-info-lvl__title">LVL:</span>
                         <span id="current-lvl">1</span>
                         <span>/</span>
@@ -121,11 +119,13 @@
         </div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
-    <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
+    <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
     <script type="application/javascript" src="../static/js/bonus_action.js"></script>
+    <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_placement.js"></script>
+    <script type="application/javascript" src="../static/js/tower_attack.js"></script>
     <script type="application/javascript" src="../static/js/defense.js"></script>
 </body>
 
