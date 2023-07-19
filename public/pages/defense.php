@@ -65,7 +65,7 @@
                 <div class="buf-slot"></div>
                 <div class="buf-slot"></div>
                 <div class="bar-game-info">
-                    <div class="game-info-lvl game-info-slot">
+                <div class="game-info-lvl game-info-slot">
                         <span class="game-info-lvl__title">LVL:</span>
                         <span id="current-lvl">1</span>
                         <span>/</span>
