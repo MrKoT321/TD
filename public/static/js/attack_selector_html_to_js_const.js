@@ -81,3 +81,7 @@ const money_wave3 = document.getElementById('money-wave3');
 
 const score = document.getElementById('score');
 const nick_name = document.getElementById('nick-name');
+
+const unlock_monster3 = document.getElementById('unlock-monster3');
+const unlock_monster4 = document.getElementById('unlock-monster4');
+const unlock_monster5 = document.getElementById('unlock-monster5');

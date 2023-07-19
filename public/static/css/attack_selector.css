@@ -83,6 +83,7 @@ body {
 .monster-selector-lock {
     position: absolute;
     margin-left: -200px;
+    cursor: pointer;
 }
 
 .monsters-selected {

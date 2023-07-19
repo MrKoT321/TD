@@ -9,6 +9,8 @@ var GAME = {
 
 var lvlcount = 1;
 
+var mobs_unlock = ['monster1', 'monster2']
+
 var maxcostwave1 = 100;
 var maxcostwave2 = 150;
 var maxcostwave3 = 200;
@@ -239,7 +241,25 @@ function sendWaves(waves_send) {
     waves_send.push(wave1_send, wave2_send, wave3_send);
 }
 
+function unblockMonsters(){
+    for(mob of mobs_unlock){
+        if(mob == 'monster3'){
+            unlock_monster3.classList.add('hidden');
+            mob3_selector.classList.remove('hidden');
+        }
+        if(mob == 'monster4'){
+            unlock_monster4.classList.add('hidden');
+            mob4_selector.classList.remove('hidden');
+        }
+        if(mob == 'monster5'){
+            unlock_monster5.classList.add('hidden');
+            mob5_selector.classList.remove('hidden');
+        }
+    }
+}
+
 function play() {
+    unblockMonsters();
     updateMoney();
     updateWavesMoney();
     updateMonsterCountsWave1();

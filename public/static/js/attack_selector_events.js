@@ -387,6 +387,36 @@ wave_plus.addEventListener(
     }
 )
 
+unlock_monster3.addEventListener(
+    "click",
+    () => {
+        if(GAME.money >= 200){
+            GAME.money -= 200;
+            mobs_unlock.push('monster3');
+        }
+    }
+)
+
+unlock_monster4.addEventListener(
+    "click",
+    () => {
+        if(GAME.money >= 300){
+            GAME.money -= 300;
+            mobs_unlock.push('monster4');
+        }
+    }
+)
+
+unlock_monster5.addEventListener(
+    "click",
+    () => {
+        if(GAME.money >= 400){
+            GAME.money -= 400;
+            mobs_unlock.push('monster5');
+        }
+    }
+)
+
 start_button.addEventListener(
     "click",
     () => {
@@ -396,7 +426,8 @@ start_button.addEventListener(
             waves: waves_send,
             money: GAME.money,
             score: score.innerHTML,
-            nick_name: nick_name.innerHTML
+            nick_name: nick_name.innerHTML,
+            mobs_unlock: mobs_unlock
         }
         let json = JSON.stringify(data);
         console.log(data)
