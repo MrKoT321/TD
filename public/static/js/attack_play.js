@@ -394,7 +394,7 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     updateMobDataAtk();
-    drawStrikes();
+    drawStrikes();  
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
