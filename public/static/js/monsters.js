@@ -35,13 +35,15 @@ const monster3 = {
 }
 
 const monster4 = {
-    hp: 100,
-    maxhp: 100,
-    speed: 3,
-    cost: 10,
-    width: 50,
-    height: 50,
-    name: "monster4"
+    hp: 200,
+    maxhp: 200,
+    speed: 1,
+    cost: 80,
+    width: 136,
+    height: 133,
+    type: "walking",
+    name: "monster4",
+    baseTime: [40, 54, 48, 60],
 }
 
 const monster5 = {
@@ -102,6 +104,22 @@ const monster3_step3_rev = new Image();
 monster3_step3_rev.src = "../static/images/monster3_step3_rev.png";
 const monster3_step4_rev = new Image();
 monster3_step4_rev.src = "../static/images/monster3_step4_rev.png";
+const monster4_step1 = new Image();
+monster4_step1.src = "../static/images/monster4_step1.png";
+const monster4_step2 = new Image();
+monster4_step2.src = "../static/images/monster4_step2.png";
+const monster4_step3 = new Image();
+monster4_step3.src = "../static/images/monster4_step3.png";
+const monster4_step4 = new Image();
+monster4_step4.src = "../static/images/monster4_step4.png";
+const monster4_step1_rev = new Image();
+monster4_step1_rev.src = "../static/images/monster4_step1_rev.png";
+const monster4_step2_rev = new Image();
+monster4_step2_rev.src = "../static/images/monster4_step2_rev.png";
+const monster4_step3_rev = new Image();
+monster4_step3_rev.src = "../static/images/monster4_step3_rev.png";
+const monster4_step4_rev = new Image();
+monster4_step4_rev.src = "../static/images/monster4_step4_rev.png";
 
 
 const image3 = new Image();
@@ -189,6 +207,31 @@ monster3_step3_rev.onload = () => {
 }
 monster3_step4_rev.onload = () => {
     monster3.step4_rev = monster3_step4_rev;
+}
+
+monster4_step1.onload = () => {
+    monster4.step1 = monster4_step1;
+}
+monster4_step2.onload = () => {
+    monster4.step2 = monster4_step2;
+}
+monster4_step3.onload = () => {
+    monster4.step3 = monster4_step3;
+}
+monster4_step4.onload = () => {
+    monster4.step4 = monster4_step4;
+}
+monster4_step1_rev.onload = () => {
+    monster4.step1_rev = monster4_step1_rev;
+}
+monster4_step2_rev.onload = () => {
+    monster4.step2_rev = monster4_step2_rev;
+}
+monster4_step3_rev.onload = () => {
+    monster4.step3_rev = monster4_step3_rev;
+}
+monster4_step4_rev.onload = () => {
+    monster4.step4_rev = monster4_step4_rev;
 }
 
 image3.onload = () => {

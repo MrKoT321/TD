@@ -338,6 +338,7 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
+    drawStrikes();
     updateMobDataDef();
     moveMonsters(GAME, lvls);
     drawCastle();
@@ -364,7 +365,6 @@ function play() {
     drawTower();
     drawArrows();
     drawBullets();
-    drawStrikes();
     attackTowers(GAME);
     drawBonuses();
     gameOver();

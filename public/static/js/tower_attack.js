@@ -26,7 +26,7 @@ function makeBullet(tower, mstrCenterX, mstrCenterY) {
         x: tower.x + 50,
         y: tower.y + 50,
         radius: 20,
-        blastRadius: 70,
+        blastRadius: 90,
         init: true,
         color: "black",
         radiusColor: "red",

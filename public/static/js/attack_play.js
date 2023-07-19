@@ -186,6 +186,7 @@ function sendNextlvlParams() {
     money.value = String(GAME.money);
     score.value = String(GAME.score);
     currLvl.value = String(GAME.lvlCount);
+    console.log(gameId.value)
     // mobsUnlock.value = ...;
     // отправка формы
 }
@@ -393,6 +394,7 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     updateMobDataAtk();
+    drawStrikes();
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -415,7 +417,6 @@ function play() {
     drawTower();
     drawArrows();
     drawBullets();
-    drawStrikes();
     attackTowers(GAME);
     // drawBonuses();
     gameOver();
