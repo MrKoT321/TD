@@ -5,7 +5,7 @@ var GAME = {
     score: 0,
     lvl: 1,
     currwave: 'wave1',
-    gameId: 1
+    gameId: gameIdResponse.innerHTML
 }
 
 var lvlcount = 1;
@@ -213,7 +213,7 @@ function updateWaveMoney() {
     }
 }
 
-function sendWave(wave1_send, wave2_send, wave3_send) {
+function sendWaves(wave1_send, wave2_send, wave3_send) {
     for (mob of wave1) {
         if(mob.name != '?'){
             while (mob.amount != 0){

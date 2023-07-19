@@ -94,3 +94,5 @@ const mobs_unblock_send = document.getElementById('mobs_unblock');
 const money_send = document.getElementById('money');
 const gameId_send = document.getElementById('gameId');
 const currentLvl_send = document.getElementById('currentLvl');
+
+const gameIdResponse = document.querySelector('.game-info__gameId');

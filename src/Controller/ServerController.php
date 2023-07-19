@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Database\ConnectionProvider;
 use App\Database\GameTable;
+use App\Database\RequestTable;
 use App\Model\Game;
 use App\Model\AttackInfo;
 
@@ -14,11 +15,13 @@ class ServerController
     private const HTTP_STATUS_303_SEE_OTHER = 303;
 
     private GameTable $gameTable;
+    private RequestTable $requestTable;
 
     public function __construct()
     {
         $connection = ConnectionProvider::connectDatabase();
         $this->gameTable = new GameTable($connection);
+        $this->requestTable = new RequestTable($connection);
     }
 
     public function addRecord(): void
@@ -63,7 +66,7 @@ class ServerController
             return;
         }
 
-        $game = new Game(
+        $game = new Game (
             null,
             $requestData['username'],
             $requestData['choisenClass'],
@@ -94,21 +97,47 @@ class ServerController
 
     public function singleGameAttack(array $queryParams): void
     {
-        $gameId = (int) $queryParams['game_id'];
-        if (!$gameId) {
-            $this->writeRedirectSeeOther('/');
-            exit();
+        if (empty($queryParams['game_id'])) {
+            if (empty($queryParams['request_id'])) {
+                $this->writeRedirectSeeOther('/');
+                exit();
+            } else {
+                $requestId = (int) $queryParams['request_id'];
+                $requestStatus = $this->requestTable->getStatus($requestId);
+                if (!$requestStatus) {
+                    $this->writeRedirectSeeOther('/');
+                    exit();
+                }
+                $gameInfo = $this->requestTable->find($requestId);
+                if ($requestStatus == 'send') {
+                    require __DIR__ . '/../../public/pages/attack.php';
+                    exit();
+                } else {
+                    require __DIR__ . '/../../public/pages/attack_selector.php';
+                }
+            } 
+        } else {
+            $gameId = (int) $queryParams['game_id'];
+            $gameInfo = new AttackInfo (
+                null,
+                'start',
+                $gameId,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+            );
+    
+            require __DIR__ . '/../../public/pages/attack_selector.php';
         }
-        $game = $this->gameTable->find($gameId);
-        if (!$game) {
-            $this->writeRedirectSeeOther('/');
-            exit();
-        }
-        require __DIR__ . '/../../public/pages/attack_selector.php';
+        
     }
 
-    //--/\------------------------------------------------- 
-    //  ||   поменять gameTable на requestTable
+    //--------------------------------------------------- 
+
     public function sendWaves(array $requestData): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -116,19 +145,20 @@ class ServerController
             return;
         }
 
-        $info = new AttackInfo(
+        $gameInfo = new AttackInfo(
             null,
-            $requestData['gameId'],
-            $requestData['money'],
-            $requestData['score'],
-            $requestData['currLvl'],
+            'send',
+            (int) $requestData['gameId'],
+            (int) $requestData['money'],
+            (int) $requestData['score'],
+            $requestData['currentLvl'],
             $requestData['wave1'],
             $requestData['wave2'],
             $requestData['wave3'],
             $requestData['mobsUnlock']
         );
-        $gameId = $requestData['gameId'];
-        $this->writeRedirectSeeOther("/attack.php?game_id=$gameId");
+        $requestId = $this->requestTable->publish($gameInfo);
+        $this->writeRedirectSeeOther("/single_game_attack.php?request_id=$requestId");
     }
 
     public function makeWaves(array $requestData): void
@@ -138,19 +168,20 @@ class ServerController
             return;
         }
 
-        $info = new AttackInfo(
+        $gameInfo = new AttackInfo(
             null,
-            $requestData['gameId'],
-            $requestData['money'],
-            $requestData['score'],
-            $requestData['currLvl'],
+            'make',
+            (int) $requestData['gameId'],
+            (int) $requestData['money'],
+            (int) $requestData['score'],
+            $requestData['currentLvl'],
             null,
             null,
             null,
             $requestData['mobsUnlock']
         );
-        $gameId = $requestData['gameId'];
-        $this->writeRedirectSeeOther("/attack_selector.php?game_id=$gameId");
+        $requestId = $this->requestTable->publish();
+        $this->writeRedirectSeeOther("/single_game_attack.php?request_id=$requestId");
     }
 
     public function index(): void

@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var App\Model\AttackInfo $gameInfo
+ */
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -12,6 +18,9 @@
 
 <body>
 <div class="game">
+    <div class="hidden game-info">  
+        <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
+    </div>
         <div class="game__field field">
             <div class="monsters-selector">
                 <div>
@@ -129,16 +138,16 @@
                 <img src="../static/images/3.png" class="wave-selector__3 hidden"/>
                 <img src="../static/images/wave+.png" class="wave-selector__wave-plus"/>
             </div>
-            <form method="POST" enctype="multipart/form-data" class="form">
+            <form method="POST" enctype="multipart/form-data" id="form">
                 <input type="submit" class="start-button" value="" />
-                <input type="text" class="hidden" name="score" id="score"/>
+                <input type="text" class="hidden" name="gameId" id="gameId"/>
                 <input type="text" class="hidden" name="money" id="money"/>
+                <input type="text" class="hidden" name="score" id="score"/>
+                <input type="text" class="hidden" name="currentLvl" id="currentLvl"/>
                 <input type="text" class="hidden" name="wave1" id="wave1"/>
                 <input type="text" class="hidden" name="wave2" id="wave2"/>
                 <input type="text" class="hidden" name="wave3" id="wave3"/>
                 <input type="text" class="hidden" name="mobsUnlock" id="mobs_unlock"/>
-                <input type="text" class="hidden" name="gameId" id="gameId"/>
-                <input type="text" class="hidden" name="currentLvl" id="currentLvl"/>
             </form>
             <img src="../static/images/map-button.png" class="map-button"/>
             <span class="count-coin"></span>
@@ -154,6 +163,7 @@
             <canvas id='canvas'></canvas>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector_html_to_js_const.js"></script>
     <script type="application/javascript" src="../static/js/selector_params.js"></script>

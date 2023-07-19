@@ -1,9 +1,8 @@
 <?php
 /**
- * @var App\Model\AttackInfo $selector
+ * @var App\Model\AttackInfo $gameInfo
  */
 ?>
-
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -18,7 +17,12 @@
 </head>
 
 <body>
-<div class="game">
+    <div class="hidden game-info">
+        <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
+        <span class="game-info__gameId"><?= $gameInfo->getWave1() ?></span>
+
+    </div>
+    <div class="game">
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
@@ -128,6 +132,7 @@
             </form>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
