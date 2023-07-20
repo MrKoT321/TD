@@ -118,10 +118,16 @@ class ServerController
             } 
         } else {
             $gameId = (int) $queryParams['game_id'];
+            $userName = $this->requestTable->getNickNameByGameId($gameId);
+            if (is_null($userName)) {
+                $this->writeRedirectSeeOther('/');
+                return;
+            }
             $gameInfo = new AttackInfo (
                 null,
                 'start',
                 $gameId,
+                $userName,
                 null,
                 null,
                 null,
@@ -145,10 +151,16 @@ class ServerController
             return;
         }
 
+        $userName = $this->requestTable->getNickNameByGameId((int) $requestData['gameId']);
+        if (is_null($userName)) {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
         $gameInfo = new AttackInfo(
             null,
             'send',
             (int) $requestData['gameId'],
+            $userName,
             (int) $requestData['money'],
             (int) $requestData['score'],
             $requestData['currentLvl'],
@@ -168,10 +180,16 @@ class ServerController
             return;
         }
 
+        $userName = $this->requestTable->getNickNameByGameId((int) $requestData['gameId']);
+        if (is_null($userName)) {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
         $gameInfo = new AttackInfo(
             null,
             'make',
             (int) $requestData['gameId'],
+            $userName,
             (int) $requestData['money'],
             (int) $requestData['score'],
             $requestData['currentLvl'],
