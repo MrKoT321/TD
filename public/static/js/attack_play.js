@@ -408,12 +408,14 @@ function createWaves() {
 }
 
 function initGameParams() {
+    GAME.lvlCount = parseInt(currLvlInfo.innerHTML);
+    lvl = lvls[GAME.lvlCount - 1];
     createWaves();
     GAME.id = parseInt(gameIdInfo.innerHTML);
     GAME.money = parseInt(moneyInitInfo.innerHTML);
     GAME.score = parseInt(scoreInfo.innerHTML);
-    GAME.lvlCount = parseInt(currLvlInfo.innerHTML);
     GAME.mobsUnlock = mobsUnlockInfo.innerHTML;
+    changeMap();
 }
 
 // состояния 'play' - мобы идут, башни ставятся
