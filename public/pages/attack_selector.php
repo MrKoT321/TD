@@ -20,6 +20,7 @@
 <div class="game">
     <div class="hidden game-info">  
         <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
+        <span class="game-info__gameId"><?= $gameInfo->getNickName() ?></span>
     </div>
         <div class="game__field field">
             <div class="monsters-selector">

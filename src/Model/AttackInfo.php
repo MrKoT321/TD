@@ -8,8 +8,9 @@ class AttackInfo
     private ?int $requestId;
     private ?string $requestStatus;
     private int $gameId;
+    private string $nickName;
     private ?int $money;
-    private ?int $score;    
+    private ?int $score;
     private ?string $currLvl;
     private ?string $wave1;
     private ?string $wave2;
@@ -21,6 +22,7 @@ class AttackInfo
         ?int $requestId,
         ?string $requestStatus,
         int $gameId,
+        string $nickName,
         ?int $money,
         ?int $score,
         ?string $currLvl,
@@ -28,11 +30,11 @@ class AttackInfo
         ?string $wave2,
         ?string $wave3,
         ?string $mobsUnlock,
-    )
-    {
+    ) {
         $this->requestId = $requestId;
         $this->requestStatus = $requestStatus;
         $this->gameId = $gameId;
+        $this->nickName = $nickName;
         $this->money = $money;
         $this->score = $score;
         $this->currLvl = $currLvl;
@@ -55,6 +57,11 @@ class AttackInfo
     public function getGameId(): int
     {
         return $this->gameId;
+    }
+
+    public function getNickName(): string
+    {
+        return $this->nickName;
     }
 
     public function getMoney(): ?int

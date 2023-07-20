@@ -1,9 +1,10 @@
-.visible{
+.visible {
     visibility: visible;
 }
 
-.hidden{
+.hidden {
     visibility: hidden;
+    /* overflow: hidden; */
 }
 
 body {
