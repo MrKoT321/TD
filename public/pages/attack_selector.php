@@ -1,6 +1,8 @@
 <?php
 /**
+ * @var string $parsedJson
  * @var App\Model\AttackInfo $gameInfo
+ * 
  */
 ?>
 
@@ -21,6 +23,9 @@
     <div class="hidden game-info">  
         <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
         <span class="game-info__gameId"><?= $gameInfo->getNickName() ?></span>
+        <span class="game-info__gameId"><? print_r($parsedJson) ?></span>
+        <span class="game-info__gameId"><? echo((string)json_encode($parsedJson)) ?></span>
+
     </div>
         <div class="game__field field">
             <div class="monsters-selector">
@@ -149,6 +154,7 @@
                 <input type="text" class="hidden" name="wave2" id="wave2"/>
                 <input type="text" class="hidden" name="wave3" id="wave3"/>
                 <input type="text" class="hidden" name="mobsUnlock" id="mobs_unlock"/>
+                <input type="text" class="hidden" name="mobsUnlock" id="json_string"/>
             </form>
             <img src="../static/images/map-button.png" class="map-button"/>
             <span class="count-coin"></span>

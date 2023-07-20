@@ -14,7 +14,7 @@ CREATE TABLE attack_requests
     game_id INT UNSIGNED,
     money INT UNSIGNED,
     score SMALLINT,
-    current_lvl VARCHAR(200) NOT NULL,
+    current_lvl VARCHAR(4) NOT NULL,
     wave1 VARCHAR(200) NOT NULL,
     wave2 VARCHAR(200) NOT NULL,
     wave3 VARCHAR(200) NOT NULL,

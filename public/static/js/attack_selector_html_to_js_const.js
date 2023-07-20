@@ -90,9 +90,11 @@ const score_send = document.getElementById('score');
 const wave1_send = document.getElementById('wave1');
 const wave2_send = document.getElementById('wave2');
 const wave3_send = document.getElementById('wave3');
-const mobs_unblock_send = document.getElementById('mobs_unblock');
+const mobs_unlock_send = document.getElementById('mobs_unlock');
 const money_send = document.getElementById('money');
 const gameId_send = document.getElementById('gameId');
 const currentLvl_send = document.getElementById('currentLvl');
 
 const gameIdResponse = document.querySelector('.game-info__gameId');
+
+const jsonInput = document.getElementById('json_string');
