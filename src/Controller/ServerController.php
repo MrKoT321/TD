@@ -104,10 +104,10 @@ class ServerController
             } else {
                 $requestId = (int) $queryParams['request_id'];
                 $requestStatus = $this->requestTable->getStatus($requestId);
-                if (!$requestStatus) {
-                    $this->writeRedirectSeeOther('/');
-                    exit();
-                }
+                // if (!$requestStatus) {
+                //     $this->writeRedirectSeeOther('/');
+                //     exit();
+                // }
                 $gameInfo = $this->requestTable->find($requestId);
                 if ($requestStatus == 'send') {
                     require __DIR__ . '/../../public/pages/attack.php';
@@ -183,10 +183,10 @@ class ServerController
         }
 
         $userName = $this->requestTable->getNickNameByGameId((int) $requestData['gameId']);
-        if (is_null($userName)) {
-            $this->writeRedirectSeeOther('/');
-            return;
-        }
+        // if (is_null($userName)) {
+        //     $this->writeRedirectSeeOther('/');
+        //     return;
+        // }
         $gameInfo = new AttackInfo(
             null,
             'make',

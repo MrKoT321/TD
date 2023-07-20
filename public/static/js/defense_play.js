@@ -359,7 +359,7 @@ nextBtn.addEventListener(
 restartgame.addEventListener(
     "click",
     (event) => {
-        sendResults(event);
+        sendResults(event);s
         updateRestartGameParams();
         changeMap();
         updateCastleHP();
@@ -387,6 +387,7 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
+    drawStrikes();
     updateMobDataDef();
     moveMonsters(GAME, lvls);
     drawCastle();
@@ -412,7 +413,6 @@ function play() {
     drawTower();
     drawArrows();
     drawBullets();
-    drawStrikes();
     attackTowers(GAME);
     drawBonuses();
     changeGameStatusButtons();

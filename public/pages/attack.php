@@ -8,7 +8,7 @@
 <html lang="ru">
 
 <head>
-    <title>Attack</title>
+    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/defense.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,12 +17,17 @@
 </head>
 
 <body>
-    <div class="hidden game-info">
-        <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
-        <span class="game-info__gameId"><?= $gameInfo->getWave1() ?></span>
-
-    </div>
     <div class="game">
+        <div class="hidden game-info">
+            <span class="game-info__gameId" id="game-info-gameid"><?= $gameInfo->getGameId() ?></span>
+            <span class="game-info__gameId" id="game-info-wave-1"><?= $gameInfo->getWave1() ?></span>
+            <span class="game-info__gameId" id="game-info-wave-2"><?= $gameInfo->getWave2() ?></span>
+            <span class="game-info__gameId" id="game-info-wave-3"><?= $gameInfo->getWave3() ?></span>
+            <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>
+            <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
+            <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
+            <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
+        </div>
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
@@ -119,15 +124,16 @@
     <div class="popupcomplete__bg">
         <div class="popupcomplete">
             <h1 class="complete">LEVEL COMPLETE</h1>
-            <form id="next-lvl-form" class="hidden" method="POST" enctype="multipart/form-data">
-                <input type="text" name="gameId" required />
-                <input type="text" name="money" required />
-                <input type="text" name="score" required />
-                <input type="text" name="currentLvl" required />
-                <input type="text" name="nikcname" required />
-                <input type="text" name="mobs_unlock" required />
+            <form method="POST" enctype="multipart/form-data" id="form">
+                <input type="text" name="gameId" class="hidden" />
+                <input type="text" name="money" class="hidden" />
+                <input type="text" name="score" class="hidden" />
+                <input type="text" name="currentLvl" class="hidden" />
+                <input type="text" name="mobsUnlock" class="hidden" />
+                <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" /></div>
+
                 <div class="next-lvl-container">
-                    <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level">
+                    <!-- <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" /></div> -->
                 </div>
             </form>
         </div>

@@ -20,8 +20,8 @@ const startGameForm = document.getElementById('start-game-form');
 startBtn.addEventListener('click', () => { nicknameSingle.value = ''; })
 multiplayBtn.addEventListener('click', () => { nicknameMulti.value = ''; })
 
-nicknameSingle.addEventListener("input", () => { nicknameSingle.value = nicknameSingle.value.replace(/[^a-zA-z\s]/gi, ''); });
-nicknameMulti.addEventListener("input", () => { nicknameMulti.value = nicknameMulti.value.replace(/[^a-zA-z\s]/gi, ''); });
+nicknameSingle.addEventListener("input", () => { nicknameSingle.value = nicknameSingle.value.replace(/[^a-zA-Z0-9\s]/gi, ''); });
+nicknameMulti.addEventListener("input", () => { nicknameMulti.value = nicknameMulti.value.replace(/[^a-zA-Z0-9\s]/gi, ''); });
 
 attackChoisenMultiplay.addEventListener(
     "click",
