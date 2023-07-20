@@ -8,7 +8,7 @@
 <html lang="ru">
 
 <head>
-    <title>Tower Defense</title>
+    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/attack_selector.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,10 @@
 <div class="game">
     <div class="hidden game-info">  
         <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
-        <span class="game-info__gameId"><?= $gameInfo->getNickName() ?></span>
+        <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>
+        <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
+        <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
+        <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
     </div>
         <div class="game__field field">
             <div class="monsters-selector">
@@ -139,7 +142,7 @@
                 <img src="../static/images/3.png" class="wave-selector__3 hidden"/>
                 <img src="../static/images/wave+.png" class="wave-selector__wave-plus"/>
             </div>
-            <form method="POST" enctype="multipart/form-data" id="form">
+            <form method="POST" enctype="multipart/form-data" id="form" class="form">
                 <input type="submit" class="start-button" value="" />
                 <input type="text" class="hidden" name="gameId" id="gameId"/>
                 <input type="text" class="hidden" name="money" id="money"/>

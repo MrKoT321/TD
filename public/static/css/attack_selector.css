@@ -70,6 +70,14 @@ body {
     font-family: 'VT323';
 }
 
+.game-info {
+    display: none;
+}
+
+.form {
+    display: none;
+}
+
 .monsters-selector {
     position: absolute;
     display: flex;

@@ -35,14 +35,14 @@ const monster3 = {
 }
 
 const monster4 = {
-    hp: 200,
-    maxhp: 200,
+    hp: 250,
+    maxhp: 250,
     speed: 1,
     cost: 80,
     width: 136,
     height: 133,
-    type: "walking",
-    name: "monster4",
+    type: "monster4",
+    name: "Grog",
     baseTime: [40, 54, 48, 60],
 }
 
@@ -53,7 +53,8 @@ const monster5 = {
     cost: 10,
     width: 50,
     height: 50,
-    name: "monster5"
+    name: "monster5",
+    type: "protector",
 }
 
 const monster1_step1 = new Image();
