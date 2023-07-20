@@ -54,7 +54,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50px;
+    border-radius: 56px;
 }
 
 .button-start:hover {
@@ -164,15 +164,17 @@ a {
     display: inline-block;
     color: black;
     font-size: 125%;
-    font-weight: 900;
+    /* font-weight: 900; */
     text-decoration: none;
     user-select: none;
-    padding: 3.25em 6.5em;
+    padding: 1.1em 3em;
     outline: none;
     border: 10px solid black;
     border-radius: 35px;
     background: #FAFF00;
     margin: 0;
+    font-family: 'Holtwood One SC', serif;
+    font-size: 40px;
 }
 
 .popup-button__defense {
@@ -180,16 +182,18 @@ a {
     display: inline-block;
     color: black;
     font-size: 125%;
-    font-weight: 900;
+    /* font-weight: 900; */
     text-decoration: none;
     user-select: none;
-    padding: 3.25em 6.5em;
+    padding: 1.1em 2.5em;
     outline: none;
     border: 10px solid black;
     border-radius: 35px;
     background: #FAFF00;
     margin: 0;
     margin-top: 50px;
+    font-family: 'Holtwood One SC', serif;
+    font-size: 40px;
 }
 
 .popup-button__attack:hover {
@@ -229,6 +233,11 @@ a {
     cursor: default;
 }
 
+.form-popup
+{
+    display: flex;
+}
+
 .form-popup__title
 {
     color: #EFEFEF;
@@ -249,7 +258,22 @@ a {
     /* gap: 20px; */
 }
 
-.form-popup__nickname 
+.form-popup__nickname-single 
+{
+    box-sizing: border-box;
+    text-align: center;
+    border: 8px solid black;
+    border-right: 4px solid black;
+    height: 80px;
+    width: 405px;
+    padding: 0 10%;
+    border-radius: 20px 0 0 20px;
+    font-size: 23px;
+    color: black;
+    outline: none;
+}
+
+.form-popup__nickname-multi 
 {
     box-sizing: border-box;
     text-align: center;
@@ -295,3 +319,18 @@ a {
     cursor: default;
 }
 
+.close {
+    /* блок с крестиком или ссылкой на закрытие окна */
+    position: absolute;
+    right: 8px;
+    top: 0px;
+    cursor: pointer;
+    color: red;
+    width:15px;
+    height:15px;
+    font-weight:bold;
+  }
+
+.hidden {
+    display: none;
+}

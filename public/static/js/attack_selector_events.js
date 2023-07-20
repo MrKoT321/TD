@@ -389,24 +389,26 @@ wave_plus.addEventListener(
 
 start_button.addEventListener(
     "click",
-    () => {
-        let waves_send = [];
-        sendWaves(waves_send);
-        let data = {
-            waves: waves_send,
-            money: GAME.money,
-            score: score.innerHTML,
-            nick_name: nick_name.innerHTML
-        }
-        let json = JSON.stringify(data);
-        console.log(data)
-        console.log(JSON.stringify(data))
-        // let response = await fetch('/send_waves.php', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset=utf-8'
-        //     },
-        //     body: json
-        // });
-    }
+    () => { sendWavesOnBack() }
 )
+
+async function sendWavesOnBack() {
+    let waves_send = [];
+    sendWaves(waves_send);
+    let data = {
+        waves: waves_send,
+        money: (GAME.money).toString(),
+        score: score.innerHTML,
+        nick_name: nick_name.innerHTML
+    }
+    let json = JSON.stringify(data);
+    console.log(data)
+    console.log(JSON.stringify(data))
+    let response = await fetch('/send_waves.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: json
+    });
+}

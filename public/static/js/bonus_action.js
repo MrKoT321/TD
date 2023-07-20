@@ -143,10 +143,20 @@ function resetBonuses() {
     resetFireball();
 }
 
+function sendFireballStatus() {
+    data = {
+        type: 'fireball',
+        fireball_bonus: fireball
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
 function initFireball() {
     if (fireball.isActive && isClickOnMap()) {
         inActiveFireBall();
         createFireBall();
+        sendFireballStatus();
     }
 }
 
