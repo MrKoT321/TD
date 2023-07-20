@@ -11,7 +11,7 @@ const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
 
 const nextBtn = document.getElementById("next-lvl-btn");
-const nextLvlForm = document.getElementById("next-lvl-form");
+const nextLvlForm = document.getElementById("form");
 
 const currentLvl = document.getElementById("current-lvl");
 const totalLvl = document.getElementById("total-lvl");
@@ -22,6 +22,12 @@ const wave1Info = document.getElementById("game-info-wave-1");
 const wave2Info = document.getElementById("game-info-wave-2");
 const wave3Info = document.getElementById("game-info-wave-3");
 
+const gameIdInfo = document.getElementById("game-info-gameid");
+const moneyInitInfo = document.getElementById("game-info-money");
+const scoreInfo = document.getElementById("game-info-score");
+const currLvlInfo = document.getElementById("game-info-currLvl");
+const mobsUnlockInfo = document.getElementById("game-info-mobsUnlock");
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -31,7 +37,7 @@ var GAME = {
     stopwatch: 0,
     milisectimer: 0,
     isPlay: 'wavepause',
-    money: 100,
+    money: 0,
     score: 0,
     lvlCount: 1,
     wave: 1
@@ -184,15 +190,15 @@ function sendNextlvlParams() {
     let gameId = nextLvlForm.elements.gameId;
     let money = nextLvlForm.elements.money;
     let score = nextLvlForm.elements.score;
-    let currLvl = nextLvlForm.elements.currLvl;
-    let mobsUnlock = nextLvlForm.elements.mobs_unlock;
-    gameId.value = String(GAME.player);
+    let currLvl = nextLvlForm.elements.currentLvl;
+    let mobsUnlock = nextLvlForm.elements.mobsUnlock;
+    gameId.value = String(GAME.id);
     money.value = String(GAME.money);
     score.value = String(GAME.score);
     currLvl.value = String(GAME.lvlCount);
-    console.log(gameId.value)
-    // mobsUnlock.value = ...;
-    $('#next-lvl-form').attr('action', '../make_waves.php');
+    mobsUnlock.value = String(GAME.mobsUnlock);
+    console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
+    $('#form').attr('action', '../make_waves.php');
 }
 
 function popupCloseComplete() {
@@ -334,9 +340,8 @@ document.addEventListener("keydown", (event) => {
 })
 
 nextBtn.addEventListener(
-    "submit",
-    (event) => {
-        event.preventDefault();
+    "click",
+    () => {
         sendNextlvlParams();
         // updateNextLvlParams();
         // changeMap();
@@ -364,8 +369,47 @@ backToMenuBtn.addEventListener(
     }
 );
 
-function createWaves() {
+function convertStrToArray(waveStr) {
+    let resWave = []
+    let monstersStrArr = waveStr.split(',');
+    monstersStrArr.forEach(monsterStr => {
+        switch (monsterStr) {
+            case "monster1":
+                resWave.push(monster1);
+                break;
+            case "monster2":
+                resWave.push(monster2);
+                break;
+            case "monster3":
+                resWave.push(monster3);
+                break;
+            case "monster4":
+                resWave.push(monster4);
+                break;
+            case "monster5":
+                resWave.push(monster5);
+                break;
+        }
+    });
+    return resWave;
+}
 
+function createWaves() {
+    let waveStrs = [wave1Info.innerHTML, wave2Info.innerHTML, wave3Info.innerHTML];
+    lvl.waves = [];
+    waveStrs.forEach(waveStr => {
+        lvl.waves.splice(-1, 0, ...lvl.waves.splice(-1, 1, convertStrToArray(waveStr)));
+    });
+    console.log(lvl.waves);
+}
+
+function initGameParams() {
+    createWaves();
+    GAME.id = parseInt(gameIdInfo.innerHTML);
+    GAME.money = parseInt(moneyInitInfo.innerHTML);
+    GAME.score = parseInt(scoreInfo.innerHTML);
+    GAME.lvlCount = parseInt(currLvlInfo.innerHTML);
+    GAME.mobsUnlock = mobsUnlockInfo.innerHTML;
 }
 
 // состояния 'play' - мобы идут, башни ставятся
@@ -380,7 +424,7 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     updateMobDataAtk();
-    drawStrikes();  
+    drawStrikes();      
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -412,5 +456,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
-// createWaves();
+initGameParams();
 play();
