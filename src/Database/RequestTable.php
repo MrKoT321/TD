@@ -50,16 +50,21 @@ class RequestTable
         $query = "SELECT game_id, money, score, current_lvl, wave1, wave2, wave3, mobs_unlock FROM attack_requests WHERE request_id = $requestId";
         $statement = $this->connection->query($query);
         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
-            return $this->createRequestFromRow($row);
+            $userName = $this->getNickNameByGameId((int)$row['game_id']);
+            if (is_null($userName)) {
+                return null;
+            }
+            return $this->createRequestFromRowWithUserName($row, $userName);
         }
         return null;
     }
 
-    private function createRequestFromRow(array $row): AttackInfo {
+    private function createRequestFromRowWithUserName(array $row, string $userName): AttackInfo {
         return new AttackInfo (
             null,
             null,
             (int)$row['game_id'],
+            $userName,
             (int)$row['money'],
             (int)$row['score'],
             $row['current_lvl'],
@@ -76,6 +81,16 @@ class RequestTable
         $statement = $this->connection->query($query);
         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
             return $row['request_type'];
+        }
+        return null;
+    }
+
+    public function getNickNameByGameId(int $gameId): ?string
+    {
+        $query = "SELECT nick_name FROM games WHERE game_id = $gameId";
+        $statement = $this->connection->query($query);
+        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+            return $row['nick_name'];
         }
         return null;
     }

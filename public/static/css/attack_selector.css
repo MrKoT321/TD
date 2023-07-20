@@ -1,9 +1,10 @@
-.visible{
+.visible {
     visibility: visible;
 }
 
-.hidden{
+.hidden {
     visibility: hidden;
+    /* overflow: hidden; */
 }
 
 body {
@@ -67,6 +68,14 @@ body {
     text-align: right;
     margin-left: 191px;
     font-family: 'VT323';
+}
+
+.game-info {
+    display: none;
+}
+
+.form {
+    display: none;
 }
 
 .monsters-selector {

@@ -439,12 +439,11 @@ start_button.addEventListener(
         wave1_send.value = String(wave1_to_send);
         wave2_send.value = String(wave2_to_send);
         wave3_send.value = String(wave3_to_send);
-        mobs_unlock_send = String(mobs_unlock)
+        mobs_unlock_send.value = String(mobs_unlock);
         money_send.value = GAME.money;
         gameId_send.value = GAME.gameId;
         currentLvl_send.value = GAME.lvl;
         score_send.value = GAME.score;
-        console.log(wave1_send.value, wave2_send.value, wave3_send.value);
         $('#form').attr('action', '../send_waves.php');
     }
 )
