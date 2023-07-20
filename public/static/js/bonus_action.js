@@ -26,8 +26,8 @@ fireball = {
 freeze = {
     x: undefined,
     y: undefined,
-    color: "#00BFFF",
-    blastRadius: 150,
+    color: "#007fef",
+    blastRadius: 100,
     reload: 10,
     lastTimeCast: 60,
     speedX: 0,
@@ -77,7 +77,7 @@ freezeBonus.addEventListener(
         if (!freeze.isActive && freeze.readyToExplode && bonuses.includes('freeze')) {
             freezeBonusCancel.classList.remove("hidden");
             freezeBonus.style.width = "100px";
-            firebalfreezeBonus.style.height = "100px";
+            freezeBonus.style.height = "100px";
             freeze.isActive = true;
         } else {
             inActiveFreeze();
@@ -133,7 +133,7 @@ function drawFireball() {
 function drawFreeze() {
     canvasContext.beginPath();
     canvasContext.strokeStyle = freeze.color;
-    canvasContext.lineWidth = 2;
+    canvasContext.lineWidth = 4;
     canvasContext.arc(freeze.x, freeze.y, freeze.blastRadius, 0, 2 * Math.PI);
     canvasContext.stroke();
     canvasContext.closePath();
@@ -155,6 +155,7 @@ function createFireBall() {
 function createFreeze() {
     const t = 30;
     const changePos = 500;
+    freeze.x = gameFieldClick.x;
     freeze.finishX = gameFieldClick.x;
     freeze.finishY = gameFieldClick.y;
     freeze.y = gameFieldClick.y - changePos;
@@ -197,6 +198,7 @@ function updateFreeze() {
             let distance = Math.sqrt(Math.pow(mstrCenterX - freeze.finishX, 2) + Math.pow(mstrCenterY - freeze.finishY, 2));
             if (distance <= freeze.blastRadius) {
                 monster.hp -= freeze.atk;
+                monster.speed /= 2;
             }
         })
     }
@@ -217,7 +219,7 @@ function drawFireballReload() {
 }
 
 function drawFreezeReload() {
-    if (!fireball.readyToExplode) {
+    if (!freeze.readyToExplode) {
         freezeReloadTimer.classList.remove("hidden");
         freezeReloadTimer.innerHTML = freeze.reload - GAME.stopwatch + freeze.lastTimeCast;
     } else {
@@ -288,6 +290,7 @@ function drawBonuses() {
         initBonuses();
     }
     drawFireball();
+    drawFreeze();
     if (GAME.isPlay == 'play') {
         updateFireball();
         updateFreeze();
