@@ -232,6 +232,8 @@ function nextWave() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
+        strikes = [];
+        explosions = [];
     }
 }
 
@@ -246,6 +248,8 @@ function updateNextLvlParams() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
+        strikes = [];
+        explosions = [];
     }    
 }
 

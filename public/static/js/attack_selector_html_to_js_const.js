@@ -99,4 +99,4 @@ const money_take = document.getElementById('game-info-money');
 const score_take = document.getElementById('game-info-score');
 const id_take = document.getElementById('game-info-gameid');
 const lvl_take = document.getElementById('game-info-currLvl');
-const mobsUnlock_take = document.getElementById('ame-info-mobsUnlock');
+const mobsUnlock_take = document.getElementById('game-info-mobsUnlock');

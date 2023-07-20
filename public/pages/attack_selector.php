@@ -151,20 +151,19 @@
             </div>
             <img src="../static/images/start_lock.png" class="start-button" id="start-lock" />
             <span class="popup-start hidden">Add at least one monster per wave</span>
-            <form method="POST" enctype="multipart/form-data" id="form" class="form">
+            <form method="POST" enctype="multipart/form-data" id="form">
                 <input type="submit" class="start-button" id="start-unlock" value="" />
-                <input type="text" class="hidden" name="gameId" id="gameId"/>
-                <input type="text" class="hidden" name="money" id="money"/>
-                <input type="text" class="hidden" name="score" id="score"/>
-                <input type="text" class="hidden" name="currentLvl" id="currentLvl"/>
-                <input type="text" class="hidden" name="wave1" id="wave1"/>
-                <input type="text" class="hidden" name="wave2" id="wave2"/>
-                <input type="text" class="hidden" name="wave3" id="wave3"/>
-                <input type="text" class="hidden" name="mobsUnlock" id="mobs_unlock"/>
+                <input type="text" class="hidden form" name="gameId" id="gameId"/>
+                <input type="text" class="hidden form" name="money" id="money"/>
+                <input type="text" class="hidden form" name="score" id="score"/>
+                <input type="text" class="hidden form" name="currentLvl" id="currentLvl"/>
+                <input type="text" class="hidden form" name="wave1" id="wave1"/>
+                <input type="text" class="hidden form" name="wave2" id="wave2"/>
+                <input type="text" class="hidden form" name="wave3" id="wave3"/>
+                <input type="text" class="hidden form" name="mobsUnlock" id="mobs_unlock"/>
             </form>
             <img src="../static/images/map-button.png" class="map-button"/>
             <span class="count-coin"></span>
-            
             <span class="mob2-info hidden"></span>
             <span class="mob3-info hidden"></span>
             <span class="mob4-info hidden"></span>

@@ -158,11 +158,11 @@ monster1_image.src = "../static/images/monster1.png";
 const monster2_image = new Image();
 monster2_image.src = "../static/images/monster2.png";
 const monster3_image = new Image();
-monster1_image.src = "../static/images/monster3.png";
+monster3_image.src = "../static/images/monster3.png";
 const monster4_image = new Image();
-monster2_image.src = "../static/images/monster4.png";
+monster4_image.src = "../static/images/monster4.png";
 const monster5_image = new Image();
-monster1_image.src = "../static/images/monster5.png";
+monster5_image.src = "../static/images/monster5.png";
 
 monster1_step1.onload = () => {
     monster1.step1 = monster1_step1;
