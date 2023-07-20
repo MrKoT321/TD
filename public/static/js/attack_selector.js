@@ -257,7 +257,18 @@ function unblockMonsters(){
     }
 }
 
+function canStart(){
+    if (wave1[0].amount != 0 && wave2[0].amount != 0 && wave3[0].amount != 0) {
+        start_button.classList.remove('hidden');
+        start_lock.classList.add('hidden')
+    } else{
+        start_lock.classList.remove('hidden');
+        start_button.classList.add('hidden') 
+    }
+}
+
 function play() {
+    canStart();
     unblockMonsters();
     updateMoney();
     updateWavesMoney();
