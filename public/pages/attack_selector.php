@@ -142,16 +142,16 @@
                 <img src="../static/images/3.png" class="wave-selector__3 hidden"/>
                 <img src="../static/images/wave+.png" class="wave-selector__wave-plus"/>
             </div>
-            <form method="POST" enctype="multipart/form-data" id="form" class="form">
-                <input type="submit" class="start-button" value="" />
-                <input type="text" class="hidden" name="gameId" id="gameId"/>
-                <input type="text" class="hidden" name="money" id="money"/>
-                <input type="text" class="hidden" name="score" id="score"/>
-                <input type="text" class="hidden" name="currentLvl" id="currentLvl"/>
-                <input type="text" class="hidden" name="wave1" id="wave1"/>
-                <input type="text" class="hidden" name="wave2" id="wave2"/>
-                <input type="text" class="hidden" name="wave3" id="wave3"/>
-                <input type="text" class="hidden" name="mobsUnlock" id="mobs_unlock"/>
+            <form method="POST" enctype="multipart/form-data" id="form">
+                <input type="submit" class="start-button" value="" class="form"/>
+                <input type="text" class="hidden form" name="gameId" id="gameId"/>
+                <input type="text" class="hidden form" name="money" id="money"/>
+                <input type="text" class="hidden form" name="score" id="score"/>
+                <input type="text" class="hidden form" name="currentLvl" id="currentLvl"/>
+                <input type="text" class="hidden form" name="wave1" id="wave1"/>
+                <input type="text" class="hidden form" name="wave2" id="wave2"/>
+                <input type="text" class="hidden form" name="wave3" id="wave3"/>
+                <input type="text" class="hidden form" name="mobsUnlock" id="mobs_unlock"/>
             </form>
             <img src="../static/images/map-button.png" class="map-button"/>
             <span class="count-coin"></span>
