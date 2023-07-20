@@ -1,6 +1,6 @@
 <?php
 /**
- * @var App\Model\Game $game
+ * @var App\Model\AttackInfo $gameInfo
  */
 ?>
 
@@ -8,25 +8,30 @@
 <html lang="ru">
 
 <head>
-    <title><?= htmlspecialchars($game->getNickName()) ?>'s Game</title>
+    <title>Attack</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/defense.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
-    <span id="nick-name" class="hidden"><?= htmlspecialchars($game->getNickName()) ?></span>
-    <span id="game-id" class="hidden"><?= $gameId ?></span>
     <div class="game">
+        <div class="hidden game-info">
+            <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
+            <span class="game-info__gameId" id="game-info-wave-1"><?= $gameInfo->getWave1() ?></span>
+            <span class="game-info__gameId" id="game-info-wave-2"><?= $gameInfo->getWave2() ?></span>
+            <span class="game-info__gameId" id="game-info-wave-3"><?= $gameInfo->getWave3() ?></span>
+        </div>
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
-                <span class="count-coin__value"></span>
+                <span class="count-coin__value">100</span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
             <div class="count-score">
-                <span class="count-score__value"></span>
+                <span class="count-score__value">0</span>
                 <img src="../static/images/score.png" alt="score" class="count-score__img">
             </div>
             <div class="tower-selection new-tower hidden">
@@ -42,7 +47,7 @@
                     <div class="mortir selector">
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
                         <img src="../static/images/mortir_cost.png" class="cost-for-tower" />
-                    </div>
+                    </div>   
                 </div>
             </div>
             <div class="tower-selection tower-abilities hidden">
@@ -58,11 +63,12 @@
         </div>
         <div class="game__bar bar">
             <div class="bar__bufs">
-                <div class="fireball-buf buf-slot">
+                <!-- <div class="fireball-buf buf-slot"> 
                     <img src="../static/images/fireball_buff.png" class="fireball-buf__icon" />
                     <img src="../static/images/cancel_button.png"  class="fireball-buf__cancel hidden" />
-                    <span class="fireball-buf__reload"></span>
-                </div>
+                    <span class="fireball-buf__reload"></span> 
+                </div> -->
+                <div class="buf-slot"></div>
                 <div class="buf-slot"></div>
                 <div class="buf-slot"></div>
                 <div class="bar-game-info">
@@ -114,20 +120,27 @@
     <div class="popupcomplete__bg">
         <div class="popupcomplete">
             <h1 class="complete">LEVEL COMPLETE</h1>
-            <div class="next-lvl-container">
-                <button class="next-lvl-btn" id="next-lvl-btn">Next level</button>
-            </div>
+            <form id="next-lvl-form" method="POST" enctype="multipart/form-data">
+                <input type="text" name="gameId" class="hidden" />
+                <input type="text" name="money" class="hidden" />
+                <input type="text" name="score" class="hidden" />
+                <input type="text" name="currentLvl" class="hidden" />
+                <input type="text" name="mobs_unlock" class="hidden" />
+                <div class="next-lvl-container">
+                    <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level">
+                </div>
+            </form>
         </div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
-    <script type="application/javascript" src="../static/js/bonus_action.js"></script>
+    <!-- <script type="application/javascript" src="../static/js/bonus_action.js"></script> -->
+    <script type="application/javascript" src="../static/js/tower_attack_config.js"></script>
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
-    <script type="application/javascript" src="../static/js/tower_placement.js"></script>
     <script type="application/javascript" src="../static/js/tower_attack.js"></script>
-    <script type="application/javascript" src="../static/js/defense_play.js"></script>
+    <script type="application/javascript" src="../static/js/attack_play.js"></script>
 </body>
 
 </html>

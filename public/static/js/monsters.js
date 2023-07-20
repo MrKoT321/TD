@@ -7,7 +7,8 @@ const monster1 = {
     height: 73,
     name: "monster1",
     type: "walking",
-    shield: 10
+    shield: 10,
+    baseTime: [20, 27, 25, 30],
 }
 
 const monster2 = {
@@ -19,12 +20,13 @@ const monster2 = {
     height: 100,
     name: "monster2",
     type: "flying",
-    shield: 0
+    shield: 0,
+    baseTime: [20, 27, 25, 30],
 }
 
 const monster3 = {
-    hp: 100,
-    maxhp: 100,
+    hp: 60,
+    maxhp: 60,
     speed: 3,
     cost: 10,
     width: 50,
@@ -43,7 +45,8 @@ const monster4 = {
     height: 50,
     name: "monster4",
     type: "walking",
-    shield: 0
+    shield: 0,
+    baseTime: [10, 13, 12, 15],
 }
 
 const monster5 = {
@@ -83,6 +86,48 @@ const monster2_step3 = new Image();
 monster2_step3.src = "../static/images/monster2_step3.png";
 const monster2_step4 = new Image();
 monster2_step4.src = "../static/images/monster2_step4.png";
+const monster2_step1_rev = new Image();
+monster2_step1_rev.src = "../static/images/monster2_step1_rev.png";
+const monster2_step2_rev = new Image();
+monster2_step2_rev.src = "../static/images/monster2_step2_rev.png";
+const monster2_step3_rev = new Image();
+monster2_step3_rev.src = "../static/images/monster2_step3_rev.png";
+const monster2_step4_rev = new Image();
+monster2_step4_rev.src = "../static/images/monster2_step4_rev.png";
+const monster3_step1 = new Image();
+monster3_step1.src = "../static/images/monster3_step1.png";
+const monster3_step2 = new Image();
+monster3_step2.src = "../static/images/monster3_step2.png";
+const monster3_step3 = new Image();
+monster3_step3.src = "../static/images/monster3_step3.png";
+const monster3_step4 = new Image();
+monster3_step4.src = "../static/images/monster3_step4.png";
+const monster3_step1_rev = new Image();
+monster3_step1_rev.src = "../static/images/monster3_step1_rev.png";
+const monster3_step2_rev = new Image();
+monster3_step2_rev.src = "../static/images/monster3_step2_rev.png";
+const monster3_step3_rev = new Image();
+monster3_step3_rev.src = "../static/images/monster3_step3_rev.png";
+const monster3_step4_rev = new Image();
+monster3_step4_rev.src = "../static/images/monster3_step4_rev.png";
+const monster4_step1 = new Image();
+monster4_step1.src = "../static/images/monster4_step1.png";
+const monster4_step2 = new Image();
+monster4_step2.src = "../static/images/monster4_step2.png";
+const monster4_step3 = new Image();
+monster4_step3.src = "../static/images/monster4_step3.png";
+const monster4_step4 = new Image();
+monster4_step4.src = "../static/images/monster4_step4.png";
+const monster4_step1_rev = new Image();
+monster4_step1_rev.src = "../static/images/monster4_step1_rev.png";
+const monster4_step2_rev = new Image();
+monster4_step2_rev.src = "../static/images/monster4_step2_rev.png";
+const monster4_step3_rev = new Image();
+monster4_step3_rev.src = "../static/images/monster4_step3_rev.png";
+const monster4_step4_rev = new Image();
+monster4_step4_rev.src = "../static/images/monster4_step4_rev.png";
+
+
 const image3 = new Image();
 image3.src = "../static/images/monster3.png";
 const image4 = new Image();
@@ -131,6 +176,68 @@ monster2_step3.onload = () => {
 }
 monster2_step4.onload = () => {
     monster2.step4 = monster2_step4;
+}
+monster2_step1_rev.onload = () => {
+    monster2.step1_rev = monster2_step1_rev;
+}
+monster2_step2_rev.onload = () => {
+    monster2.step2_rev = monster2_step2_rev;
+}
+monster2_step3_rev.onload = () => {
+    monster2.step3_rev = monster2_step3_rev;
+}
+monster2_step4_rev.onload = () => {
+    monster2.step4_rev = monster2_step4_rev;
+}
+
+monster3_step1.onload = () => {
+    monster3.step1 = monster3_step1;
+}
+monster3_step2.onload = () => {
+    monster3.step2 = monster3_step2;
+}
+monster3_step3.onload = () => {
+    monster3.step3 = monster3_step3;
+}
+monster3_step4.onload = () => {
+    monster3.step4 = monster3_step4;
+}
+monster3_step1_rev.onload = () => {
+    monster3.step1_rev = monster3_step1_rev;
+}
+monster3_step2_rev.onload = () => {
+    monster3.step2_rev = monster3_step2_rev;
+}
+monster3_step3_rev.onload = () => {
+    monster3.step3_rev = monster3_step3_rev;
+}
+monster3_step4_rev.onload = () => {
+    monster3.step4_rev = monster3_step4_rev;
+}
+
+monster4_step1.onload = () => {
+    monster4.step1 = monster4_step1;
+}
+monster4_step2.onload = () => {
+    monster4.step2 = monster4_step2;
+}
+monster4_step3.onload = () => {
+    monster4.step3 = monster4_step3;
+}
+monster4_step4.onload = () => {
+    monster4.step4 = monster4_step4;
+}
+monster4_step1_rev.onload = () => {
+    monster4.step1_rev = monster4_step1_rev;
+}
+monster4_step2_rev.onload = () => {
+    monster4.step2_rev = monster4_step2_rev;
+}
+monster4_step3_rev.onload = () => {
+    monster4.step3_rev = monster4_step3_rev;
+}
+monster4_step4_rev.onload = () => {
+    monster4.step4_rev = monster4_step4_rev;
 }
 
 image3.onload = () => {

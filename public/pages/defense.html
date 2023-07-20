@@ -13,6 +13,12 @@
 <body>
     <div class="game">
         <span id="nick-name" class="hidden"></span>
+        <div class="dev-menu hidden">
+            <input type="button" class="dev-btn" id="dev-btn-1" value="1">
+            <input type="button" class="dev-btn" id="dev-btn-2" value="2">
+            <input type="button" class="dev-btn" id="dev-btn-3" value="3">
+            <input type="button" class="dev-btn" id="dev-btn-4" value="4">
+        </div>
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
@@ -116,6 +122,14 @@
             </div>
         </div>
     </div>
+    <div class="popupcomplete__bg">
+        <div class="popupcomplete">
+            <h1 class="complete">LEVEL COMPLETE</h1>
+            <div class="next-lvl-container">
+                <button class="next-lvl-btn" id="next-lvl-btn">Next level</button>
+            </div>
+        </div>
+    </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
@@ -124,7 +138,7 @@
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_placement.js"></script>
     <script type="application/javascript" src="../static/js/tower_attack.js"></script>
-    <script type="application/javascript" src="../static/js/defense.js"></script>
+    <script type="application/javascript" src="../static/js/defense_play.js"></script>
 </body>
 
 </html>

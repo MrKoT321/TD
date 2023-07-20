@@ -443,6 +443,8 @@ start_button.addEventListener(
         money_send.value = GAME.money;
         gameId_send.value = GAME.gameId;
         currentLvl_send.value = GAME.lvl;
-        score_send.value = GAME.score
+        score_send.value = GAME.score;
+        console.log(wave1_send.value, wave2_send.value, wave3_send.value);
+        $('#form').attr('action', '../send_waves.php');
     }
 )

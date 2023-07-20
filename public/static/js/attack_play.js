@@ -11,11 +11,16 @@ const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
 
 const nextBtn = document.getElementById("next-lvl-btn");
+const nextLvlForm = document.getElementById("next-lvl-form");
 
 const currentLvl = document.getElementById("current-lvl");
 const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
+
+const wave1Info = document.getElementById("game-info-wave-1");
+const wave2Info = document.getElementById("game-info-wave-2");
+const wave3Info = document.getElementById("game-info-wave-3");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
@@ -114,7 +119,7 @@ function drawCastle() {
 }
 
 function gameOver() {
-    if (GAME.castleHP == 0) {
+    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0 && starttime > 900) {
         popupoverBg.classList.add('active');
         popupover.classList.add('active');
         document.querySelector('.over').style.color = 'red';
@@ -137,11 +142,11 @@ function updateScore() {
 }
 
 function lvlComplete() {
-    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0) {
+    if (GAME.castleHP == 0) {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
-        resetBonuses();
-        if (GAME.lvlCount + 1 >= lvls.length) {
+        // resetBonuses();
+        if (GAME.lvlCount + 1 > lvls.length) {
             popupoverBg.classList.add('active');
             popupover.classList.add('active');
             document.querySelector('.over').style.color = 'green';
@@ -155,6 +160,39 @@ function lvlComplete() {
         }
     } 
     
+}
+
+// async function sendNextlvlParams(event) {
+//     const data = {
+//         money: GAME.money,
+//         score: GAME.score,
+//         currLvl: GAME.lvlCount,
+//         nickname: GAME.player,
+//     }
+//     event.preventDefault();
+//     const json = JSON.stringify(data);
+//     let response = await fetch('/make_waves.php', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json;charset=utf-8'
+//         },
+//         body: json
+//     });
+// }
+
+function sendNextlvlParams() {
+    let gameId = nextLvlForm.elements.gameId;
+    let money = nextLvlForm.elements.money;
+    let score = nextLvlForm.elements.score;
+    let currLvl = nextLvlForm.elements.currLvl;
+    let mobsUnlock = nextLvlForm.elements.mobs_unlock;
+    gameId.value = String(GAME.player);
+    money.value = String(GAME.money);
+    score.value = String(GAME.score);
+    currLvl.value = String(GAME.lvlCount);
+    console.log(gameId.value)
+    // mobsUnlock.value = ...;
+    $('#next-lvl-form').attr('action', '../make_waves.php');
 }
 
 function popupCloseComplete() {
@@ -185,6 +223,9 @@ function nextWave() {
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }
 }
 
@@ -196,6 +237,9 @@ function updateNextLvlParams() {
         monstercount = 0;
         starttime = 900;
         GAME.isPlay = 'wavepause';
+        pushmonstercount = 0;
+        steptimer = 0;
+        stepcounter = 1;
     }    
 }
 
@@ -208,18 +252,20 @@ function updateRestartGameParams() {
     starttime = 900;
     GAME.money = 100;
     GAME.score = 0;
-    towerTiles = [];
     towers = [];
     monsters = [];
     arrows = [];
     bullets = [];
+    strikes = [];
     compareWithGameLvl = 0;
-    GAME.isPlay = 'wavepause';
     startTimer = 0;
     timeInPause = 0;
     timeInLastPause = 0;
     pauseStartTime = 0;
-
+    pushmonstercount = 0;
+    steptimer = 0;
+    stepcounter = 1;
+    GAME.isPlay = 'wavepause';
 }
 
 function changeMap() {
@@ -253,40 +299,49 @@ async function sendResults(event) {
     });
 }
 
-startWaveBtn.addEventListener(
-    "click",
-    () => {
-        if (GAME.isPlay == 'wavepause') {
-            startWaveBtn.classList.add("active");
-            GAME.isPlay = 'startgame';
-        } 
-    }
-)
+function startWave() {
+    if (GAME.isPlay == 'wavepause') {
+        startWaveBtn.classList.add("active");
+        GAME.isPlay = 'startgame';
+    } 
+}
 
-pauseGameBtn.addEventListener(
-    "click",
-    () => {
-        if (GAME.isPlay == 'play') {
-            pauseGameBtn.classList.remove("play");
-            pauseGameBtn.classList.add("pause");
-            GAME.isPlay = 'menu';
-        } else {
-            if (GAME.isPlay == 'menu') {
-                pauseGameBtn.classList.remove("pause");
-                pauseGameBtn.classList.add("play");
-                GAME.isPlay = 'play';
-            }
+function pauseGame() {
+    if (GAME.isPlay == 'play') {
+        pauseGameBtn.classList.remove("play");
+        pauseGameBtn.classList.add("pause");
+        GAME.isPlay = 'menu';
+    } else {
+        if (GAME.isPlay == 'menu') {
+            pauseGameBtn.classList.remove("pause");
+            pauseGameBtn.classList.add("play");
+            GAME.isPlay = 'play';
         }
     }
-)
+}
+
+startWaveBtn.addEventListener("click", () => { startWave() });
+pauseGameBtn.addEventListener("click", () => { pauseGame() });
+document.addEventListener("keydown", (event) => {
+    switch(event.code) {
+        case 'Space':
+            pauseGame();
+            break;
+        case 'Enter':
+            startWave();
+            break;
+    }
+})
 
 nextBtn.addEventListener(
-    "click",
-    () => {
-        updateNextLvlParams();
-        changeMap();
-        updateCastleHP();
-        popupCloseComplete();
+    "submit",
+    (event) => {
+        event.preventDefault();
+        sendNextlvlParams();
+        // updateNextLvlParams();
+        // changeMap();
+        // updateCastleHP();
+        // popupCloseComplete();
     }
 );
 
@@ -309,26 +364,8 @@ backToMenuBtn.addEventListener(
     }
 );
 
-function takeWaveFromSelector(){
-    for(i = 0; i < take_waves.length; i++){
-        for(x = 0; x < take_waves[i].length; x++){
-            if(take_waves[i[x]] == 'monster1'){
-                lvl[i].push(monster1)
-            }
-            if(take_waves[i[x]] == 'monster2'){
-                lvl[i].push(monster2)
-            }
-            if(take_waves[i[x]] == 'monster3'){
-                lvl[i].push(monster3)
-            }
-            if(take_waves[i[x]] == 'monster4'){
-                lvl[i].push(monster4)
-            }
-            if(take_waves[i[x]] == 'monster5'){
-                lvl[i].push(monster5)
-            }
-        }
-    }
+function createWaves() {
+
 }
 
 // состояния 'play' - мобы идут, башни ставятся
@@ -342,7 +379,8 @@ function play() {
     updateScore();
     updateVisualLvlParams();
     drawBackground();
-    // drawTiles(GAME, lvls);
+    updateMobDataAtk();
+    drawStrikes();  
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -356,19 +394,16 @@ function play() {
         catchTime();
         updateArrows();
         updateBullets();
+        updateStrikes();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
         GAME.isPlay = 'play';
     }
-    if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
-        removeTowerSelectors();
-    }
     drawTower();
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    drawBonuses();
     gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();
@@ -377,4 +412,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
+// createWaves();
 play();

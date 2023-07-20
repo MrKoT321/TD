@@ -11,8 +11,8 @@ const lvl1 = {
     castle_h: 400,
     money: 100,
     start_dir: 'r',
-    waves: [[monster1, monster1], [monster2, monster1, monster1, monster1], [monster2, monster1, monster1, monster1, monster1]],
-    atk_towers: [[archer, bash], [archer, bash, archer], [mortir, archer, archer]],
+    waves: [[monster1, monster4], [monster1, monster1, monster3, monster2], [monster2, monster1, monster1, monster1, monster1]],
+    atk_towers: [[archer], [archer, bash], [bash, archer]],
     bonuses: ["fireball"],
     back_src:  "../static/images/MAP1.png",
     castle_src:  "../static/images/CASTLE.png",
@@ -32,10 +32,11 @@ const lvl2 = {
     money: 200,
     start_dir: 'r',
     waves: [[monster1, monster2], [monster2, monster1, monster2, monster1], [monster1, monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1, monster1, monster1]],
-    atk_towers: [archer, mortir, mortir],
+    atk_towers: [[bash], [archer, bash], [archer, bash, archer]],
     bonuses: ["fireball"],
     back_src:  "../static/images/MAP2.png",
     castle_src:  "../static/images/CASTLE.png" 
+    
 }
 
 const lvl3 = {
@@ -51,7 +52,7 @@ const lvl3 = {
     castle_h: 400,   
     money: 100,
     start_dir: 'r',
-    atk_towers: [archer, bash, mortir, archer],
+    atk_towers: [[bash, archer], [bash, archer, bash], [archer, bash, mortir]],
     waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
     bonuses: [],
     back_src: "../static/images/MAP3.png",
@@ -60,7 +61,7 @@ const lvl3 = {
 
 const lvl4 = {
     start_x: 1400,
-    start_y: 1100,
+    start_y: 1050,
     finish_cells: [50, 51, 66, 67],
     towersPos: [59, 93, 102, 105],
     road: [24, 25, 26, 27, 28, 29, 30, 31, 40, 41, 42, 43, 44, 45, 46, 47, 56, 57, 62, 63, 72, 73, 74, 75, 76, 78, 79, 82, 83, 88, 89, 90, 91, 92, 94, 95, 98, 99, 107, 108, 110, 111, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 126, 127, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 142, 143, 158, 159],
@@ -72,7 +73,7 @@ const lvl4 = {
     money: 100,
     start_dir: 'u',
     waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
-    atk_towers: [bash, mortir, bash, mortir],
+    atk_towers: [[bash, bash, archer], [archer, mortir, bash], [mortir, bash, mortir]],
     bonuses: [],
     back_src: "../static/images/MAP4.png",
     castle_src:  "../static/images/CASTLE.png"

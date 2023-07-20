@@ -1,15 +1,9 @@
 {
-    "name": "maskim.ivanov/td",
+    "name": "alina.dmitrieva/td",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "SVLOGer",
-            "email": "max443584@gmail.com"
-        }
-    ],
     "require": {}
 }

@@ -3,7 +3,7 @@ var towers = [];
 function setTowers(GAME, lvl) {
     towers = [];
     let waveTowers = lvl.atk_towers[GAME.wave - 1];
-    for(i=0;i<waveTowers.length;i++){
+    for(i = 0; i < waveTowers.length; i++){
         let tower = waveTowers[i];
         towers.push({
             x: (lvl.towersPos[i] % 16 - 1) * 100,
