@@ -123,6 +123,7 @@ class ServerController
                 $this->writeRedirectSeeOther('/');
                 return;
             }
+            $startLvl = '0';
             $gameInfo = new AttackInfo (
                 null,
                 'start',
@@ -130,7 +131,7 @@ class ServerController
                 $userName,
                 null,
                 null,
-                null,
+                $startLvl,
                 null,
                 null,
                 null,
