@@ -195,7 +195,7 @@ function sendNextlvlParams() {
     gameId.value = String(GAME.id);
     money.value = String(GAME.money);
     score.value = String(GAME.score);
-    currLvl.value = String(GAME.lvlCount);
+    currLvl.value = String(GAME.lvlCount + 1);
     mobsUnlock.value = String(GAME.mobsUnlock);
     console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
     $('#form').attr('action', '../make_waves.php');
