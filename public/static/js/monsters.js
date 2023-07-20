@@ -6,7 +6,8 @@ const monster1 = {
     width: 60,
     height: 73,
     name: "monster1",
-    type: "walking"
+    type: "walking",
+    shield: 10
 }
 
 const monster2 = {
@@ -17,7 +18,8 @@ const monster2 = {
     width: 75,
     height: 100,
     name: "monster2",
-    type: "flying"
+    type: "flying",
+    shield: 0
 }
 
 const monster3 = {
@@ -28,7 +30,8 @@ const monster3 = {
     width: 50,
     height: 50,
     name: "monster3",
-    type: "walking"
+    type: "walking",
+    shield: 0
 }
 
 const monster4 = {
@@ -39,7 +42,8 @@ const monster4 = {
     width: 50,
     height: 50,
     name: "monster4",
-    type: "walking"
+    type: "walking",
+    shield: 0
 }
 
 const monster5 = {
@@ -49,7 +53,10 @@ const monster5 = {
     cost: 10,
     width: 50,
     height: 50,
-    name: "monster5"
+    name: "monster5",
+    shield: 150,
+    giveShield: 75,
+    type: "walking"
 }
 
 const monster1_step1 = new Image();

@@ -268,7 +268,6 @@ function canStart(){
 }
 
 function play() {
-    canStart();
     unblockMonsters();
     updateMoney();
     updateWavesMoney();
@@ -279,6 +278,7 @@ function play() {
     updatePosMonsters();
     drawWaves();
     showMobInfo();
+    canStart();
 
     requestAnimationFrame(play);
 }

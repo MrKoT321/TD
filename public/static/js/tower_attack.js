@@ -1,6 +1,7 @@
 var arrows = [];
 var bullets = [];
 var explosions = [];
+var strikes = [];
 
 function hittingRadius(tower, mstrCenterX, mstrCenterY) {
     let distance = Math.sqrt(Math.pow(mstrCenterX - tower.x - 50, 2) + Math.pow(mstrCenterY - tower.y - 50, 2));
@@ -67,7 +68,11 @@ function updateArrows() {
                     }
                 }
             } else {
-                flyingArrow.currentEnemy.hp -= flyingArrow.atk;
+                if(flyingArrow.currentEnemy.shield > 0){
+                    flyingArrow.currentEnemy.shield -= flyingArrow.atk;
+                } else {
+                    flyingArrow.currentEnemy.hp -= flyingArrow.atk;
+                }
                 arrows.splice(i, 1);
             }
         } else {
@@ -232,14 +237,17 @@ function drawExplosion(){
 }
 
 function updateExplosions() {
-    console.log(1)
     for(var i = 0; i < explosions.length; i++) {
         explosions[i].radius += explosions[i].speed;
         explosions[i].thickness -= explosions[i].speed / 10;
         monsters.forEach(monster => {
             var distance = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - explosions[i].x, 2) + Math.pow(monster.y + (monster.height / 2) - explosions[i].y, 2));
             if(distance <= explosions[i].radius && monster.type != "flying" && !monster.hit) {
-                monster.hp -= explosions[i].atk;
+                if(monster.shield > 0){
+                    monster.shield -= explosions[i].atk;
+                } else {
+                    monster.hp -= explosions[i].atk;
+                }
                 monster.hit = true;
             }
         });
@@ -257,13 +265,11 @@ function attackBash() {
         if (tower.type == "bash") {
             monsters.forEach(monster => {
                 lineToMonster = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - tower.x - 50, 2) + Math.pow(monster.y + (monster.height / 2) - tower.y - 50, 2));
-                if (!((GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0)) {
-                    monster.hit = false;
-                    tower.hit = false;
+                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower)) {
+                    makeStrike(tower);
                 }
-                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !monster.hit && !tower.hit) {
-                    monster.hp -= tower.atk;
-                    monster.hit = true;
+                if (!((GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0)) {
+                    tower.hit = false;
                 }
             })
             if (!tower.hit && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0) {

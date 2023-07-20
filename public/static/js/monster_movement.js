@@ -26,8 +26,12 @@ function pushMonsters(lvl, monster) {
         x: lvl.start_x,
         y: lvl.start_y - monster.height / 2,
         dir: lvl.start_dir,
-        type: monster.type
+        type: monster.type,
+        shield: monster.shield
     })
+    if (monster.name == 'monster5') {
+        monsters[pushmonstercount].giveShield = monster.giveShield
+    }
     if (lvl.start_x < 0 || lvl.start_x > 1600) {
         monsters[pushmonstercount].x = lvl.start_x;
         monsters[pushmonstercount].y = lvl.start_y - monster.height / 2;
@@ -41,6 +45,26 @@ function pushMonsters(lvl, monster) {
 function drawMonster(monster) {
     if (monster.image) {
         canvasContext.drawImage(monster.image, monster.x, monster.y, monster.width, monster.height);
+    }
+}
+
+function drawShield(monster) {
+    if (monster.shield > 0) {
+        canvasContext.beginPath();
+        canvasContext.strokeStyle = "#0C90DB"
+        canvasContext.lineWidth = 1;
+        let monsterCenterX = monster.x + monster.width / 2;
+        let monsterCenterY = monster.y + monster.height / 2;
+        canvasContext.arc(monsterCenterX, monsterCenterY, Math.sqrt(monster.width * monster.width + monster.height * monster.height) / 2, 0, 2 * Math.PI);
+        canvasContext.stroke();
+        const gradient = canvasContext.createRadialGradient(monsterCenterX, monsterCenterY, 20, monsterCenterX, monsterCenterY, 50);
+        gradient.addColorStop("0", "#01E1FF");
+        gradient.addColorStop("1", "#0C90DB");
+        canvasContext.fillStyle = gradient;
+        
+        canvasContext.fill();
+        canvasContext.stroke();
+        canvasContext.closePath();
     }
 }
 
@@ -187,6 +211,7 @@ function moveMonsters(GAME, lvls) {
     monsters = monsters.filter(value => value.hp > 0);
     updateMonstersStep();
     for (var monster of monsters) {
+        drawShield(monster);
         drawMonster(monster);
         hpBar(monster);
         monsterMove(monster);
