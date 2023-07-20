@@ -65,6 +65,7 @@ fireballBonus.addEventListener(
             fireballBonus.style.width = "100px";
             fireballBonus.style.height = "100px";
             fireball.isActive = true;
+            inActiveFreeze();
         } else {
             inActiveFireBall();
         }
@@ -79,6 +80,7 @@ freezeBonus.addEventListener(
             freezeBonus.style.width = "100px";
             freezeBonus.style.height = "100px";
             freeze.isActive = true;
+            inActiveFireBall();
         } else {
             inActiveFreeze();
         }
