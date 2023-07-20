@@ -7,8 +7,9 @@ const monster1 = {
     height: 73,
     name: "monster1",
     type: "walking",
-    shield: 10,
+    shield: 0,
     baseTime: [20, 27, 25, 30],
+    countShield: 0
 }
 
 const monster2 = {
@@ -22,6 +23,7 @@ const monster2 = {
     type: "flying",
     shield: 0,
     baseTime: [20, 27, 25, 30],
+    countShield: 0
 }
 
 const monster3 = {
@@ -29,24 +31,27 @@ const monster3 = {
     maxhp: 60,
     speed: 3,
     cost: 10,
-    width: 50,
-    height: 50,
+    width: 96,
+    height: 86,
     name: "monster3",
     type: "walking",
-    shield: 0
+    shield: 0,
+    baseTime: [10, 13, 12, 15],
+    countShield: 0
 }
 
 const monster4 = {
-    hp: 100,
-    maxhp: 100,
-    speed: 3,
+    hp: 200,
+    maxhp: 200,
+    speed: 1,
     cost: 10,
-    width: 50,
-    height: 50,
+    width: 136,
+    height: 133,
     name: "monster4",
     type: "walking",
     shield: 0,
     baseTime: [10, 13, 12, 15],
+    countShield: 0
 }
 
 const monster5 = {

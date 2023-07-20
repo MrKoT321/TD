@@ -291,7 +291,11 @@ function updateStrikes() {
         monsters.forEach(monster => {
             var distance = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - strikes[i].x, 2) + Math.pow(monster.y + (monster.height / 2) - strikes[i].y, 2));
             if(distance <= strikes[i].radius && monster.type != "flying" && !monster.hit) {
-                monster.hp -= strikes[i].atk;
+                if(monster.shield > 0){
+                    monster.shield -= strikes[i].atk;
+                } else {
+                    monster.hp -= strikes[i].atk;
+                }
                 monster.hit = true;
             }
         });
