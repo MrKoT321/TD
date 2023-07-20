@@ -267,6 +267,16 @@ function canStart(){
     }
 }
 
+function initParams(){
+    if(lvl_take.innerHTML != 0){
+        GAME.money = parseInt(money_take.innerHTML);
+        GAME.score = parseInt(score_send.innerHTML);
+        GAME.id = parseInt(id_take.innerHTML);
+        GAME.lvl = parseInt(lvl_take.innerHTML);
+        mobs_unlock = mobsUnlock_take.split(',');
+    }
+}
+
 function play() {
     unblockMonsters();
     updateMoney();
@@ -283,4 +293,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
+initParams();
 play();
