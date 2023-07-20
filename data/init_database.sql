@@ -15,9 +15,9 @@ CREATE TABLE attack_requests
     money INT UNSIGNED,
     score SMALLINT,
     current_lvl VARCHAR(4) NOT NULL,
-    wave1 VARCHAR(200) NOT NULL,
-    wave2 VARCHAR(200) NOT NULL,
-    wave3 VARCHAR(200) NOT NULL,
+    wave1 VARCHAR(200) DEFAULT NULL,
+    wave2 VARCHAR(200) DEFAULT NULL,
+    wave3 VARCHAR(200) DEFAULT NULL,
     mobs_unlock VARCHAR(200) NOT NULL,
     PRIMARY KEY (request_id),
     FOREIGN KEY (game_id) REFERENCES games(game_id)
