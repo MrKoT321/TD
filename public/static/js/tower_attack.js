@@ -145,12 +145,13 @@ function makeExplosion(bullet){
     console.log('make')
     explosions.push({
         x: bullet.finishX,
-        x: bullet.finishY,
+        y: bullet.finishY,
         explosionRadius: bullet.blastRadius,
-        speed: 5,
+        speed: 7,
         thickness: 30,
         radius: 0,
-        color: "red"
+        color: "red",
+        atk: mortir.atk
     })
 }
 
@@ -167,14 +168,6 @@ function updateBullets() {
             bullet.y += bullet.speedY;
             bullet.speedY += bullet.acceleration;
             if (bullet.speedY > 0 && bullet.y > bullet.finishY) {
-                monsters.forEach(monster => {
-                    let mstrCenterX = monster.x + monster.width / 2;
-                    let mstrCenterY = monster.y + monster.height / 2;
-                    let distance = Math.sqrt(Math.pow(mstrCenterX - bullet.finishX, 2) + Math.pow(mstrCenterY - bullet.finishY, 2));
-                    if (distance <= bullet.blastRadius) {
-                        monster.hp -= bullet.atk;
-                    }
-                })
                 makeExplosion(bullet);
                 bullets.splice(i, 1);
             }
@@ -188,9 +181,23 @@ function attackMortir(GAME) {
             let mstrCenterX, mstrCenterY;
             tower.currentEnemy = -1
             for (let i = 0; i < monsters.length; i++) {
-                mstrCenterX = monsters[i].x + monsters[i].width / 2;
-                mstrCenterY = monsters[i].y + monsters[i].height / 2;
-                if (hittingRadius(tower, mstrCenterX, mstrCenterY)) {
+                if(monsters[i].dir == 'r'){
+                    mstrCenterX = monsters[i].x + monsters[i].width;
+                    mstrCenterY = monsters[i].y + monsters[i].height / 2; 
+                }
+                if(monsters[i].dir == 'l'){
+                    mstrCenterX = monsters[i].x - monsters[i].width;
+                    mstrCenterY = monsters[i].y + monsters[i].height / 2; 
+                }
+                if(monsters[i].dir == 'u'){
+                    mstrCenterX = monsters[i].x + monsters[i].width / 2;
+                    mstrCenterY = monsters[i].y; 
+                }
+                if(monsters[i].dir == 'd'){
+                    mstrCenterX = monsters[i].x + monsters[i].width / 2;
+                    mstrCenterY = monsters[i].y + monsters[i].height; 
+                }
+                if (hittingRadius(tower, mstrCenterX, mstrCenterY) && monsters[i].type != "flying") {
                     tower.currentEnemy = i;
                     if (tower.startTime <= 0) {
                         tower.startTime = GAME.stopwatch;

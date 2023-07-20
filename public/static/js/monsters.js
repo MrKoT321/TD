@@ -5,7 +5,8 @@ const monster1 = {
     cost: 30,
     width: 60,
     height: 73,
-    name: "monster1"
+    name: "monster1",
+    type: "walking"
 }
 
 const monster2 = {
@@ -15,7 +16,8 @@ const monster2 = {
     cost: 40,
     width: 75,
     height: 100,
-    name: "monster2"
+    name: "monster2",
+    type: "flying"
 }
 
 const monster3 = {
@@ -25,7 +27,8 @@ const monster3 = {
     cost: 10,
     width: 50,
     height: 50,
-    name: "monster3"
+    name: "monster3",
+    type: "walking"
 }
 
 const monster4 = {
@@ -35,7 +38,8 @@ const monster4 = {
     cost: 10,
     width: 50,
     height: 50,
-    name: "monster4"
+    name: "monster4",
+    type: "walking"
 }
 
 const monster5 = {

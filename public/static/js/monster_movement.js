@@ -25,7 +25,8 @@ function pushMonsters(lvl, monster) {
         delete: false,
         x: lvl.start_x,
         y: lvl.start_y - monster.height / 2,
-        dir: lvl.start_dir
+        dir: lvl.start_dir,
+        type: monster.type
     })
     if (lvl.start_x < 0 || lvl.start_x > 1600) {
         monsters[pushmonstercount].x = lvl.start_x;

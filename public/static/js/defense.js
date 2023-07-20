@@ -188,6 +188,7 @@ function nextWave() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
+        explosions = [];
     }
 }
 
@@ -202,6 +203,7 @@ function updateNextLvlParams() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
+        explosions = [];
     }    
 }
 
@@ -228,6 +230,7 @@ function updateRestartGameParams() {
     pushmonstercount = 0;
     steptimer = 0;
     stepcounter = 1;
+    explosions = [];
 }
 
 function changeMap() {
@@ -330,9 +333,9 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
+    drawExplosion();
     moveMonsters(GAME, lvls);
     drawCastle();
-    drawExplosion();
     if (GAME.isPlay == 'wavepause') {
         initBullets();
         resetStopwatch();
