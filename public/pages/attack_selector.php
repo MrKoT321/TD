@@ -18,6 +18,13 @@
 
 <body>
 <div class="game">
+    <div class="hidden game-info">
+        <span class="game-info__gameId" id="game-info-gameid"><?= $gameInfo->getGameId() ?></span>
+        <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>
+        <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
+        <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
+        <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
+    </div>
     <div class="hidden game-info">  
         <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
         <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>

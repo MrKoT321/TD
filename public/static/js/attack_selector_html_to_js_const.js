@@ -94,3 +94,9 @@ const gameIdResponse = document.querySelector('.game-info__gameId');
 const start_lock = document.getElementById('start-lock');
 const start_button = document.getElementById('start-unlock');
 const start_info = document.querySelector('.popup-start')
+
+const money_take = document.getElementById('game-info-money');
+const score_take = document.getElementById('game-info-score');
+const id_take = document.getElementById('game-info-gameid');
+const lvl_take = document.getElementById('game-info-currLvl');
+const mobsUnlock_take = document.getElementById('ame-info-mobsUnlock');
