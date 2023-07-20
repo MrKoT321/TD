@@ -201,6 +201,7 @@ function nextWave() {
         steptimer = 0;
         stepcounter = 1;
         explosions = [];
+        strikes = [];
     }
 }
 
@@ -216,6 +217,7 @@ function updateNextLvlParams() {
         steptimer = 0;
         stepcounter = 1;
         explosions = [];
+        strikes = [];
     }    
 }
 

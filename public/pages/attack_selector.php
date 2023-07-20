@@ -164,7 +164,6 @@
             </form>
             <img src="../static/images/map-button.png" class="map-button"/>
             <span class="count-coin"></span>
-            
             <span class="mob2-info hidden"></span>
             <span class="mob3-info hidden"></span>
             <span class="mob4-info hidden"></span>

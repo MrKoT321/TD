@@ -273,7 +273,7 @@ function initParams(){
         GAME.score = parseInt(score_send.innerHTML);
         GAME.id = parseInt(id_take.innerHTML);
         GAME.lvl = parseInt(lvl_take.innerHTML);
-        mobs_unlock = mobsUnlock_take.split(',');
+        mobs_unlock = (mobsUnlock_take.innerHTML).split(',');
     }
 }
 
