@@ -239,7 +239,6 @@ function updateMobDataDef() {
 function updateMobDataAtk() {
     for (var monster of monsters) {
         if(monster.hp <= 0 ) {
-            console.log(GAME.stopwatch - monster.bornTime);
             if (monster.finish) {
                 GAME.money += monster.cost;
             } else {

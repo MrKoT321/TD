@@ -175,6 +175,8 @@ function updateBullets() {
                         monster.hp -= bullet.atk;
                     }
                 })
+                makeExplosion()
+                // if()
                 bullets.splice(i, 1);
             }
         }
@@ -227,7 +229,6 @@ function updateStrikes() {
     for(var i=0; i < strikes.length; i++) {
         strikes[i].radius += strikes[i].speed;
         strikes[i].thickness -= strikes[i].speed / 10;
-        console.log(strikes)
         monsters.forEach(monster => {
             var distance = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - strikes[i].x, 2) + Math.pow(monster.y + (monster.height / 2) - strikes[i].y, 2));
             if(distance <= strikes[i].radius && monster.type != "flying" && !monster.hit) {
@@ -259,7 +260,6 @@ function attackBash() {
         if (tower.type == "bash") {
             monsters.forEach(monster => {
                 lineToMonster = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - tower.x - 50, 2) + Math.pow(monster.y + (monster.height / 2) - tower.y - 50, 2));
-                // console.log(checkStrikes(tower));
                 if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower)) {
                     makeStrike(tower);
                 }

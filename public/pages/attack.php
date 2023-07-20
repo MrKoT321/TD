@@ -1,9 +1,8 @@
 <?php
 /**
- * @var App\Model\AttackInfo $selector
+ * @var App\Model\AttackInfo $gameInfo
  */
 ?>
-
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -18,6 +17,11 @@
 </head>
 
 <body>
+    <div class="hidden game-info">
+        <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
+        <span class="game-info__gameId"><?= $gameInfo->getWave1() ?></span>
+
+    </div>
     <div class="game">
         <div class="game__field field">
             <canvas id='canvas'></canvas>
@@ -42,7 +46,7 @@
                     <div class="mortir selector">
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
                         <img src="../static/images/mortir_cost.png" class="cost-for-tower" />
-                    </div>                    
+                    </div>   
                 </div>
             </div>
             <div class="tower-selection tower-abilities hidden">
@@ -115,11 +119,20 @@
     <div class="popupcomplete__bg">
         <div class="popupcomplete">
             <h1 class="complete">LEVEL COMPLETE</h1>
-            <div class="next-lvl-container">
-                <button class="next-lvl-btn" id="next-lvl-btn">Next level</button>
-            </div>
+            <form id="next-lvl-form" class="hidden" method="POST" enctype="multipart/form-data">
+                <input type="text" name="gameId" required />
+                <input type="text" name="money" required />
+                <input type="text" name="score" required />
+                <input type="text" name="currentLvl" required />
+                <input type="text" name="nikcname" required />
+                <input type="text" name="mobs_unlock" required />
+                <div class="next-lvl-container">
+                    <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level">
+                </div>
+            </form>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>

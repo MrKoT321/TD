@@ -387,28 +387,49 @@ wave_plus.addEventListener(
     }
 )
 
-start_button.addEventListener(
+unlock_monster3.addEventListener(
     "click",
-    () => { sendWavesOnBack() }
+    () => {
+        if(GAME.money >= 200){
+            GAME.money -= 200;
+            mobs_unlock.push('monster3');
+        }
+    }
 )
 
-async function sendWavesOnBack() {
-    let waves_send = [];
-    sendWaves(waves_send);
-    let data = {
-        waves: waves_send,
-        money: (GAME.money).toString(),
-        score: score.innerHTML,
-        nick_name: nick_name.innerHTML
+unlock_monster4.addEventListener(
+    "click",
+    () => {
+        if(GAME.money >= 300){
+            GAME.money -= 300;
+            mobs_unlock.push('monster4');
+        }
     }
-    let json = JSON.stringify(data);
-    console.log(data)
-    console.log(JSON.stringify(data))
-    let response = await fetch('/send_waves.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: json
-    });
-}
+)
+
+unlock_monster5.addEventListener(
+    "click",
+    () => {
+        if(GAME.money >= 400){
+            GAME.money -= 400;
+            mobs_unlock.push('monster5');
+        }
+    }
+)
+
+start_button.addEventListener(
+    "click",
+    () => {
+        let wave1_to_send = [], wave2_to_send = [], wave3_to_send = []
+        sendWaves(wave1_to_send, wave2_to_send, wave3_to_send);
+        wave1_send.value = String(wave1_to_send);
+        wave2_send.value = String(wave2_to_send);
+        wave3_send.value = String(wave3_to_send);
+        money_send.value = GAME.money;
+        gameId_send.value = GAME.gameId;
+        currentLvl_send.value = GAME.lvlCount;
+        score_send.value = GAME.score;
+        console.log(wave1_send.value, wave2_send.value, wave3_send.value);
+        $('#form').attr('action', '../send_waves.php');
+    }
+)
