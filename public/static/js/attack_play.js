@@ -295,8 +295,9 @@ async function sendResults(event) {
     const score = document.querySelector(".score__value");
     event.preventDefault();
     props = {
+        gameId: gameIdInfo.innerHTML,
         nickName: GAME.player,
-        choisenClass: 'defense',
+        choisenClass: 'attack',
         score: Math.floor(score.innerHTML)
     }
     const json = JSON.stringify(props);
