@@ -33,7 +33,8 @@ function pushMonsters(GAME, lvl, monster) {
         bornTime: GAME.stopwatch,
         baseTime: monster.baseTime,
         hit: false,
-        name: monster.name
+        name: monster.name,
+        maxShield: monster.maxShield
     })
     if (monster.name == 'monster5') {
         monsters[pushmonstercount].giveShield = monster.giveShield
@@ -241,6 +242,7 @@ function moveMonsters(GAME, lvls) {
         addShield(monster);
         drawShield(monster);
         drawMonster(monster);
+        shieldBar(monster);
         hpBar(monster);
         monsterMove(monster);
         monsterCorrect(lvl, monster);
@@ -261,6 +263,16 @@ function hpBar(monster) {
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width, 5);
     canvasContext.fillStyle = "green";
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width * percentHP, 5);
+}
+
+function shieldBar(monster) {
+    if (monster.shield > 0) {
+        var percentShield = monster.shield / monster.maxShield;
+        canvasContext.fillStyle = "grey";
+        canvasContext.fillRect(monster.x, monster.y - 20, monster.width, 5);
+        canvasContext.fillStyle = "blue";
+        canvasContext.fillRect(monster.x, monster.y - 20, monster.width * percentShield, 5);
+    }
 }
 
 function payForMonstersDef() {

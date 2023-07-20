@@ -142,15 +142,10 @@
                 <img src="../static/images/3.png" class="wave-selector__3 hidden"/>
                 <img src="../static/images/wave+.png" class="wave-selector__wave-plus"/>
             </div>
-<<<<<<< HEAD
             <img src="../static/images/start_lock.png" class="start-button" id="start-lock" />
             <span class="popup-start hidden">Add at least one monster per wave</span>
             <form method="POST" enctype="multipart/form-data" id="form" class="form">
                 <input type="submit" class="start-button" id="start-unlock" value="" />
-=======
-            <form method="POST" enctype="multipart/form-data" id="form" class="form">
-                <input type="submit" class="start-button" value="" />
->>>>>>> origin/nikita
                 <input type="text" class="hidden" name="gameId" id="gameId"/>
                 <input type="text" class="hidden" name="money" id="money"/>
                 <input type="text" class="hidden" name="score" id="score"/>

@@ -99,11 +99,9 @@ function updateArrows() {
                     }
                 }
             } else {
-                if(flyingArrow.currentEnemy.shield > 0){
-                    flyingArrow.currentEnemy.shield -= flyingArrow.atk;
-                } else {
+                if(flyingArrow.currentEnemy.shield <= 0){
                     flyingArrow.currentEnemy.hp -= flyingArrow.atk;
-                }
+                } 
                 arrows.splice(i, 1);
             }
         } else {
