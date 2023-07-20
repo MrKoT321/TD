@@ -18,6 +18,10 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
+const wave1Info = document.getElementById("game-info-wave-1");
+const wave2Info = document.getElementById("game-info-wave-2");
+const wave3Info = document.getElementById("game-info-wave-3");
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -360,26 +364,8 @@ backToMenuBtn.addEventListener(
     }
 );
 
-function takeWaveFromSelector(){
-    for(i = 0; i < take_waves.length; i++){
-        for(x = 0; x < take_waves[i].length; x++){
-            if(take_waves[i[x]] == 'monster1'){
-                lvl[i].push(monster1)
-            }
-            if(take_waves[i[x]] == 'monster2'){
-                lvl[i].push(monster2)
-            }
-            if(take_waves[i[x]] == 'monster3'){
-                lvl[i].push(monster3)
-            }
-            if(take_waves[i[x]] == 'monster4'){
-                lvl[i].push(monster4)
-            }
-            if(take_waves[i[x]] == 'monster5'){
-                lvl[i].push(monster5)
-            }
-        }
-    }
+function createWaves() {
+
 }
 
 // состояния 'play' - мобы идут, башни ставятся
@@ -418,7 +404,6 @@ function play() {
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    // drawBonuses();
     gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();
@@ -427,4 +412,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
+// createWaves();
 play();

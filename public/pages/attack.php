@@ -17,12 +17,13 @@
 </head>
 
 <body>
-    <div class="hidden game-info">
-        <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
-        <span class="game-info__gameId"><?= $gameInfo->getWave1() ?></span>
-
-    </div>
     <div class="game">
+        <div class="hidden game-info">
+            <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
+            <span class="game-info__gameId" id="game-info-wave-1"><?= $gameInfo->getWave1() ?></span>
+            <span class="game-info__gameId" id="game-info-wave-2"><?= $gameInfo->getWave2() ?></span>
+            <span class="game-info__gameId" id="game-info-wave-3"><?= $gameInfo->getWave3() ?></span>
+        </div>
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
@@ -119,20 +120,18 @@
     <div class="popupcomplete__bg">
         <div class="popupcomplete">
             <h1 class="complete">LEVEL COMPLETE</h1>
-            <form id="next-lvl-form" class="hidden" method="POST" enctype="multipart/form-data">
-                <input type="text" name="gameId" required />
-                <input type="text" name="money" required />
-                <input type="text" name="score" required />
-                <input type="text" name="currentLvl" required />
-                <input type="text" name="nikcname" required />
-                <input type="text" name="mobs_unlock" required />
+            <form id="next-lvl-form" method="POST" enctype="multipart/form-data">
+                <input type="text" name="gameId" class="hidden" />
+                <input type="text" name="money" class="hidden" />
+                <input type="text" name="score" class="hidden" />
+                <input type="text" name="currentLvl" class="hidden" />
+                <input type="text" name="mobs_unlock" class="hidden" />
                 <div class="next-lvl-container">
                     <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level">
                 </div>
             </form>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
