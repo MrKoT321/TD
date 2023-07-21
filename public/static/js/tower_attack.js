@@ -114,6 +114,16 @@ function attackArcher(GAME) {
     towers.forEach(tower => {
         if (tower.type == "arrow") {
             tower.currentEnemy = -1;
+            monsters.sort(function(mstrA, mstrB) {
+                if(mstrA.distance > mstrB.distance) {
+                    return -1;
+                }
+                if(mstrA.distance < mstrB.distance) {
+                    return 1;
+                }
+                return 0;
+            });
+            console.log(monsters);
             for (let i = 0; i < monsters.length; i++) {
                 let mstrCenterX = monsters[i].x + monsters[i].width / 2;
                 let mstrCenterY = monsters[i].y + monsters[i].height / 2;

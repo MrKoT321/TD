@@ -34,7 +34,8 @@ function pushMonsters(GAME, lvl, monster) {
         baseTime: monster.baseTime,
         hit: false,
         name: monster.name,
-        maxShield: monster.maxShield
+        maxShield: monster.maxShield,
+        distance: 0,
     })
     if (monster.name == 'monster5') {
         monsters[pushmonstercount].giveShield = monster.giveShield
@@ -120,6 +121,7 @@ function monsterMove(monster) {
             monster.y += speed;
             break;
     }
+    monster.distance += speed;
 }
 
 function canvasToGrid(x, y) {

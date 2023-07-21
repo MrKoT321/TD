@@ -451,7 +451,7 @@ function initGameParams() {
 function play() {
     updateMoney();
     updateScore();
-    // updateVisualLvlParams();
+    updateVisualLvlParams();
     drawBackground();
     updateMobDataAtk();
     drawStrikes(); 
