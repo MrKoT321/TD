@@ -364,7 +364,7 @@ nextBtn.addEventListener(
 restartgame.addEventListener(
     "click",
     (event) => {
-        sendResults(event);s
+        sendResults(event);
         updateRestartGameParams();
         changeMap();
         updateCastleHP();

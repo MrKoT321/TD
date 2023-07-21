@@ -10,7 +10,7 @@
 <head>
     <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s game</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/css/defense.css">
+    <link rel="stylesheet" href="../static/css/attack_play.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -113,7 +113,15 @@
                 <span class="score__value"></span>
             </div>
             <div class="overbuttons">
-                <img class="restart" src="../static/images/restart.png" id="restartgame"/>
+            <form method="POST" enctype="multipart/form-data" id="form-restart">
+                <input type="text" name="gameId" class="hidden" />
+                <input type="text" name="money" class="hidden" />
+                <input type="text" name="score" class="hidden" />
+                <input type="text" name="currentLvl" class="hidden" />
+                <input type="text" name="mobsUnlock" class="hidden" />
+                <input class="restart" type="submit" id="restartgame" value="" />
+            </form>
+                <!-- <img class="restart" src="../static/images/restart.png" id="restartgame"/> -->
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
                 </a>
@@ -130,7 +138,7 @@
                 <input type="text" name="score" class="hidden" />
                 <input type="text" name="currentLvl" class="hidden" />
                 <input type="text" name="mobsUnlock" class="hidden" />
-                <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" /></div>
+                <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" />
 
                 <div class="next-lvl-container">
                     <!-- <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" /></div> -->
