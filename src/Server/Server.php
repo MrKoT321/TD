@@ -44,7 +44,6 @@ class WebSocketHandler implements MessageComponentInterface {
     }
   }
 
-
   // Обработчик закрытия соединения клиента
   public function onClose(ConnectionInterface $conn) {
     $this->clients->detach($conn);
@@ -80,7 +79,7 @@ class WebSocketHandler implements MessageComponentInterface {
   }
 }
 
-  // Создаем новый WebSocket-сервер на порту 8080
+// Создаем новый WebSocket-сервер на порту 8080
 $server = IoServer::factory(
 new HttpServer(
   new WsServer(
