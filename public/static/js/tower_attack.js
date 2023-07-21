@@ -3,6 +3,14 @@ var bullets = [];
 var explosions = [];
 var strikes = [];
 
+const arrowImg = new Image();
+var arrowLoadImg;
+arrowImg.src = '../static/images/arrow.png';
+
+arrowImg.onload = () => {
+    arrowLoadImg = arrowImg;
+}
+
 function hittingRadius(tower, mstrCenterX, mstrCenterY) {
     let distance = Math.sqrt(Math.pow(mstrCenterX - tower.x - 50, 2) + Math.pow(mstrCenterY - tower.y - 50, 2));
     return (distance <= tower.radius);
@@ -12,13 +20,16 @@ function makeArrow(tower) {
     arrows.push({
         x: tower.x + 50,
         y: tower.y + 50,
-        radius: 10,
+        width: 65,
+        height: 65,
         color: "black",
         towerCenterX: 0,
         towerCenterY: 0,
         speed: 5,
         atk: tower.atk,
         currentEnemy: monsters[tower.currentEnemy],
+        image: arrowLoadImg,
+        angel: 0,
     })
 }
 
@@ -55,11 +66,11 @@ function makeStrike(tower) {
 
 function drawArrows() {
     arrows.forEach(flyingArrow => {
-        canvasContext.fillStyle = flyingArrow.color;
-        canvasContext.beginPath();
-        canvasContext.arc(flyingArrow.x, flyingArrow.y, flyingArrow.radius, 0, 2 * Math.PI);
-        canvasContext.closePath();
-        canvasContext.fill();
+        canvasContext.save();
+        canvasContext.translate(flyingArrow.x, flyingArrow.y);
+        canvasContext.rotate(flyingArrow.angel*Math.PI/180);
+        canvasContext.drawImage(flyingArrow.image, -flyingArrow.width/2, -flyingArrow.height/2, flyingArrow.width, flyingArrow.height);
+        canvasContext.restore();
     })
 }
 
@@ -71,16 +82,19 @@ function updateArrows() {
             let mstrCenterY = flyingArrow.currentEnemy.y + flyingArrow.currentEnemy.height / 2;
             let outMonsterX = flyingArrow.x < flyingArrow.currentEnemy.x || flyingArrow.x > flyingArrow.currentEnemy.x + flyingArrow.currentEnemy.width;
             let outMonsterY = flyingArrow.y < flyingArrow.currentEnemy.y || flyingArrow.y > flyingArrow.currentEnemy.y + flyingArrow.currentEnemy.height;
+            flyingArrow.angel = Math.atan(Math.abs(mstrCenterY - flyingArrow.y) / Math.abs(mstrCenterX - flyingArrow.x)) * 180/Math.PI;
             if (outMonsterX || outMonsterY) {
                 if (outMonsterX) {
                     if (flyingArrow.x >= mstrCenterX) {
                         flyingArrow.x -= flyingArrow.speed;
+                        flyingArrow.angel = 180 - flyingArrow.angel;
                     } else {
                         flyingArrow.x += flyingArrow.speed;
                     }
                 } else {
                     if (flyingArrow.x >= mstrCenterX) {
                         flyingArrow.x -= flyingArrow.currentEnemy.speed;
+                        flyingArrow.angel = 180 - flyingArrow.angel;
                     } else {
                         flyingArrow.x += flyingArrow.currentEnemy.speed;
                     }
@@ -88,12 +102,14 @@ function updateArrows() {
                 if (outMonsterY) {
                     if (flyingArrow.y >= mstrCenterY) {
                         flyingArrow.y -= flyingArrow.speed;
+                        flyingArrow.angel = flyingArrow.angel * -1;
                     } else {
                         flyingArrow.y += flyingArrow.speed;
                     }
                 } else {
                     if (flyingArrow.y >= mstrCenterY) {
                         flyingArrow.y -= flyingArrow.currentEnemy.speed;
+                        flyingArrow.angel = flyingArrow.angel * -1;
                     } else {
                         flyingArrow.y += flyingArrow.currentEnemy.speed;
                     }
@@ -104,6 +120,7 @@ function updateArrows() {
                 } 
                 arrows.splice(i, 1);
             }
+            // console.log(flyingArrow.angel);
         } else {
             arrows.splice(i, 1);
         }
@@ -123,7 +140,6 @@ function attackArcher(GAME) {
                 }
                 return 0;
             });
-            console.log(monsters);
             for (let i = 0; i < monsters.length; i++) {
                 let mstrCenterX = monsters[i].x + monsters[i].width / 2;
                 let mstrCenterY = monsters[i].y + monsters[i].height / 2;
