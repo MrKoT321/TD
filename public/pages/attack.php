@@ -10,7 +10,7 @@
 <head>
     <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s game</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/css/attack_play.css">
+    <link rel="stylesheet" href="../static/css/defense.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
