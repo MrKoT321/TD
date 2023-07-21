@@ -23,3 +23,12 @@ CREATE TABLE attack_requests
     FOREIGN KEY (game_id) REFERENCES games(game_id)
 ) ENGINE=INNODB;
 
+CREATE TABLE multiplay_search
+(
+    player_id INT UNSIGNED AUTO_INCREMENT,
+    nick_name VARCHAR(20) NOT NULL,
+    choisen_class VARCHAR(10),
+    waiting_status VARCHAR(20),
+    PRIMARY KEY (player_id)
+)
+
