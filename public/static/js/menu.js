@@ -17,6 +17,10 @@ const attackSubmitMultiplay = document.getElementById('attack-submit-multiplay')
 
 const startGameForm = document.getElementById('start-game-form');
 
+const waitingScreen = document.getElementById('waiting-screen');
+const waitingScreenPopup = document.getElementById('waiting-screen-img');
+const waitingScreenArea = document.getElementById('waiting-screen-area');
+
 startBtn.addEventListener('click', () => { nicknameSingle.value = ''; })
 multiplayBtn.addEventListener('click', () => { nicknameMulti.value = ''; })
 
@@ -62,3 +66,47 @@ function sendSingleGameForm(Class) {
 
 defenseSubmitStart.addEventListener('click', () => { sendSingleGameForm('defense') })
 attackSubmitStart.addEventListener('click', () => { sendSingleGameForm('attack') })
+
+function sendMultiplayGameForm(event, Class) {
+    // choisenClassSingle.value = Class;
+    // $('#mutiplay-game-form').attr('action', '../create_multiplay_game.php');
+    event.preventDefault();
+    waitingScreen.classList.add("active");
+    waitingScreenPopup.style.opacity = "1";
+    waitingScreenPopup.style.transform = "translate(0px, 0px)";
+    data = {
+        type: 'add_to_search', 
+        choisen_class: Class
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
+waitingScreenArea.addEventListener('click', () => {
+    waitingScreen.classList.remove("active");
+    waitingScreenPopup.style.opacity = "0";
+    waitingScreenPopup.style.transform = "translate(0px, -100%)";
+    data = {
+        type: 'remove_from_search', 
+        choisen_class: Class
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+})
+
+defenseSubmitMultiplay.addEventListener('click', (event) => { sendMultiplayGameForm(event, 'defense') });
+attackSubmitMultiplay.addEventListener('click', (event) => { sendMultiplayGameForm(event, 'attack') });
+
+const socket = new WebSocket('ws://localhost:8080');
+
+socket.addEventListener('open', function(event) {
+    console.log('Connected to server.');
+});
+
+socket.addEventListener('message', function(event) {
+    data = JSON.parse(event.data);
+    switch (data.type) {
+        case 'add_to_search':
+            console.log(data.choisen_class);
+    }
+});

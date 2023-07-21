@@ -18,25 +18,29 @@ class WebSocketHandler implements MessageComponentInterface {
 
   // Обработчик нового подключения клиента
   public function onOpen(ConnectionInterface $conn) {
-    $lastConnId = 0;
-    foreach ($this->clients as $client) {
-      $lastConnId = $lastConnId ^ $client->connId;
-    }
-    if ($lastConnId != 0) {
-      $conn->connId = $lastConnId;
-    } else {
-      $conn->connId = $conn->resourceId;
-    }
+    // $lastConnId = 0;
+    // foreach ($this->clients as $client) {
+    //   $lastConnId = $lastConnId ^ $client->connId;
+    // }
+    // if ($lastConnId != 0) {
+    //   $conn->connId = $lastConnId;
+    // } else {
+    //   $conn->connId = $conn->resourceId;
+    // }
+    $conn->status = 'menu';
     $this->clients->attach($conn);
-    echo "-- New client connected: {$conn->resourceId} {$conn->connId}" . PHP_EOL;
+    echo "-- New client connected: {$conn->resourceId}" . PHP_EOL;
   }
 
   // Обработчик получения сообщения от клиента
   public function onMessage(ConnectionInterface $from, $msg) {
-    foreach ($this->clients as $client) {
-        if ($client->connId == $from->connId && $client->resourceId !== $from->resourceId) {
-          $client->send($msg);
-        }
+    $data = json_decode($msg);
+    if ($data->type == 'add_to_search') {
+      $this->findOpponent($from, $data);
+    } else {
+      if ($data->type == 'remove_from_search') {
+        $from->status = 'menu';
+      }
     }
   }
 
@@ -45,13 +49,28 @@ class WebSocketHandler implements MessageComponentInterface {
   public function onClose(ConnectionInterface $conn) {
     $this->clients->detach($conn);
     echo "Client disconnected: {$conn->resourceId}" . PHP_EOL;
-    foreach ($this->clients as $client) {
-      if ($client->connId == $conn->connId) {
-        // $client->send("Your opponent has passed out");
-        $this->clients->detach($client);
-        echo "Client disconnected: {$client->resourceId}" . PHP_EOL;
-      }
+    // foreach ($this->clients as $client) {
+    //   if ($client->connId == $conn->connId) {
+    //     // $client->send("Your opponent has passed out");
+    //     $this->clients->detach($client);
+    //     echo "Client disconnected: {$client->resourceId}" . PHP_EOL;
+    //   }
+    // }
   }
+
+  private function findOpponent(ConnectionInterface $from, $data) {
+    $from->status = 'search';
+    $from->class = $data->choisen_class;
+    foreach ($this->clients as $client) {
+      if ($client->resourceId !== $from->resourceId && $client->status == 'search' && $client->class !== $from->class) {
+        $client->status = 'ready_to_play';
+        $from->status = 'ready_to_play';
+        echo '--- Connection success! Both players ready to play' . PHP_EOL;
+        $data->resourceId = $from->resourceId;
+        break;
+        // $client->send(json_encode($data));
+      }
+    }
   }
 
   // Обработчик ошибок соединения
