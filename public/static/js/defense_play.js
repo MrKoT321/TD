@@ -17,7 +17,13 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-const lvls = [lvl1, lvl2, lvl3, lvl4];
+const loading_text = document.querySelector('.loading__text');
+const loading_0 = document.querySelector('.loading__0');
+const loading_100 = document.querySelector('.loading__100');
+const loading_bg = document.querySelector('.loading-bg');
+const loading_image = document.querySelector('.loading-image');
+
+const lvls = [lvl3, lvl4];
 
 var GAME = {
     player: document.getElementById("nick-name").innerHTML,
@@ -26,7 +32,7 @@ var GAME = {
     stopwatch: 0,
     milisectimer: 0,
     isPlay: 'wavepause',
-    money: 100,
+    money: 50,
     score: 0,
     lvlCount: 1,
     wave: 1
@@ -116,7 +122,7 @@ function changeGameStatusButtons() {
     }
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.remove("active");
-    } 
+    }
 }
 
 function drawCastle() {
@@ -135,7 +141,7 @@ function gameOver() {
         var endScore = document.querySelector(".score__value");
         endScore.innerHTML = scoreValue;
         GAME.isPlay = 'popuppause';
-    } 
+    }
 }
 
 function updateMoney() {
@@ -159,14 +165,14 @@ function lvlComplete() {
             document.querySelector('.over').style.color = 'green';
             document.querySelector('.over').innerHTML = 'VICTORY';
             var endScore = document.querySelector(".score__value");
-            endScore.innerHTML = GAME.score ;
+            endScore.innerHTML = GAME.score;
         } else {
             popupcompleteBg.classList.add('active');
             popupcomplete.classList.add('active');
             GAME.money += 100;
         }
-    } 
-    
+    }
+
 }
 
 function popupCloseComplete() {
@@ -181,6 +187,7 @@ function popupCloseOver() {
 
 function changeLvl() {
     GAME.lvlCount += 1;
+    GAME.money = lvls[GAME.lvlCount - 1].money
     return lvls[GAME.lvlCount - 1];
 }
 
@@ -218,7 +225,7 @@ function updateNextLvlParams() {
         stepcounter = 1;
         explosions = [];
         strikes = [];
-    }    
+    }
 }
 
 function updateRestartGameParams() {
@@ -293,16 +300,16 @@ async function sendResults(event) {
 
 const socket = new WebSocket('ws://localhost:8080');
 
-socket.addEventListener('open', function(event) {
+socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
 });
 
-socket.addEventListener('message', function(event) {
+socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     switch (data.type) {
         case 'tower_add':
             towers = data.towers;
-            GAME.money = data.money;    
+            GAME.money = data.money;
             break;
         case 'game_status':
             GAME.isPlay = data.status;
@@ -319,7 +326,7 @@ function startWave() {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
         sendGameStatus();
-    } 
+    }
 }
 
 function pauseGame() {
@@ -341,7 +348,7 @@ function pauseGame() {
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
 document.addEventListener("keydown", (event) => {
-    switch(event.code) {
+    switch (event.code) {
         case 'Space':
             pauseGame();
             break;
@@ -373,12 +380,20 @@ restartgame.addEventListener(
 );
 
 backToMenuBtn.addEventListener(
-    "click", 
-    (event) => { 
+    "click",
+    (event) => {
         sendResults(event);
         window.location.href = '../../';
     }
 );
+
+function closeLoading() {
+    loading_text.classList.add('hidden');
+    loading_0.classList.add('hidden');
+    loading_100.classList.add('hidden');
+    loading_bg.classList.add('hidden');
+    loading_image.classList.add('hidden');
+}
 
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
@@ -431,4 +446,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
-play();
+setTimeout(() => { closeLoading() }, 5000)
+setTimeout(() => { play() }, 5000)

@@ -11,8 +11,8 @@ const archer = {
 
 const bash = {
     cost: 40,
-    atk: 25,
-    radius: 300,
+    atk: 20,
+    radius: 400,
     type: "bash",
     atkspeed: 3,
     towerColor: "yellow",
