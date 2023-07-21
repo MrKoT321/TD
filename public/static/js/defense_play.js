@@ -200,6 +200,8 @@ function nextWave() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
+        explosions = [];
+        strikes = [];
     }
 }
 
@@ -214,6 +216,8 @@ function updateNextLvlParams() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
+        explosions = [];
+        strikes = [];
     }    
 }
 
@@ -241,6 +245,7 @@ function updateRestartGameParams() {
     pushmonstercount = 0;
     steptimer = 0;
     stepcounter = 1;
+    explosions = [];
 }
 
 function changeMap() {
@@ -387,6 +392,7 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
+    drawExplosion();
     drawStrikes();
     updateMobDataDef();
     moveMonsters(GAME, lvls);
@@ -401,6 +407,7 @@ function play() {
         catchTime();
         updateArrows();
         updateBullets();
+        updateExplosions();
         updateStrikes();
     }
     if (GAME.isPlay == 'startgame') {

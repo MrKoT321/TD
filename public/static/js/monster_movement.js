@@ -2,7 +2,9 @@ var monsters = [];
 var monstercount = 0;
 var pushmonstercount = 0;
 var steptimer = 0;
+var steptimertank = 0;
 var stepcounter = 1;
+var stepcountertank = 1;
 
 function pushMonsters(GAME, lvl, monster) {
     monsters.push({
@@ -27,10 +29,18 @@ function pushMonsters(GAME, lvl, monster) {
         x: lvl.start_x,
         y: lvl.start_y - monster.height / 2,
         dir: lvl.start_dir,
+        shield: monster.shield,
         bornTime: GAME.stopwatch,
         baseTime: monster.baseTime,
         hit: false,
+        name: monster.name,
+        maxShield: monster.maxShield
     })
+    if (monster.name == 'monster5') {
+        monsters[pushmonstercount].giveShield = monster.giveShield
+    } else {
+        monsters[pushmonstercount].countShield = monster.countShield
+    }
     if (lvl.start_x < 0 || lvl.start_x > 1600) {
         monsters[pushmonstercount].x = lvl.start_x;
         monsters[pushmonstercount].y = lvl.start_y - monster.height / 2;
@@ -44,6 +54,48 @@ function pushMonsters(GAME, lvl, monster) {
 function drawMonster(monster) {
     if (monster.image) {
         canvasContext.drawImage(monster.image, monster.x, monster.y, monster.width, monster.height);
+    }
+}
+
+function addShield(monster) {
+    if (monster.name == 'monster5') {
+        let monsterCenterX = monster.x + monster.width / 2;
+        let monsterCenterY = monster.y + monster.height / 2;
+        for (mob of monsters) {
+            if (mob.name != 'monster5') {
+                let mobCenterX = mob.x + mob.width / 2;
+                let mobCenterY = mob.y + mob.height / 2;
+                console.log(Math.sqrt(Math.pow(mobCenterX - monsterCenterX, 2) + Math.pow(monsterCenterY - mobCenterY, 2)))
+                if (Math.sqrt(Math.pow(mobCenterX - monsterCenterX, 2) + Math.pow(monsterCenterY - mobCenterY, 2)) <= 300) {
+                    if (mob.countShield == 0) {
+                        mob.shield = monster.giveShield;
+                        mob.countShield += 1;
+                    }
+                } else {
+                    mob.shield = 0
+                }
+            }
+        }
+    }
+}
+
+function drawShield(monster) {
+    if (monster.shield > 0) {
+        canvasContext.beginPath();
+        canvasContext.strokeStyle = "#0C90DB"
+        canvasContext.lineWidth = 1;
+        let monsterCenterX = monster.x + monster.width / 2;
+        let monsterCenterY = monster.y + monster.height / 2;
+        canvasContext.arc(monsterCenterX, monsterCenterY, Math.sqrt(monster.width * monster.width + monster.height * monster.height) / 2, 0, 2 * Math.PI);
+        canvasContext.stroke();
+        let gradient = canvasContext.createRadialGradient(monsterCenterX, monsterCenterY, monster.width / 3, monsterCenterX, monsterCenterY, Math.sqrt(monster.width * monster.width + monster.height * monster.height) / 2);
+        gradient.addColorStop("0", "#01E1FF");
+        gradient.addColorStop("1", "#0C90DB");
+        canvasContext.fillStyle = gradient;
+
+        canvasContext.fill();
+        canvasContext.stroke();
+        canvasContext.closePath();
     }
 }
 
@@ -187,7 +239,10 @@ function moveMonsters(GAME, lvls) {
     monsters = monsters.filter(value => value.hp > 0);
     updateMonstersStep();
     for (var monster of monsters) {
+        addShield(monster);
+        drawShield(monster);
         drawMonster(monster);
+        shieldBar(monster);
         hpBar(monster);
         monsterMove(monster);
         monsterCorrect(lvl, monster);
@@ -208,6 +263,16 @@ function hpBar(monster) {
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width, 5);
     canvasContext.fillStyle = "green";
     canvasContext.fillRect(monster.x, monster.y - 10, monster.width * percentHP, 5);
+}
+
+function shieldBar(monster) {
+    if (monster.shield > 0) {
+        var percentShield = monster.shield / monster.maxShield;
+        canvasContext.fillStyle = "grey";
+        canvasContext.fillRect(monster.x, monster.y - 20, monster.width, 5);
+        canvasContext.fillStyle = "blue";
+        canvasContext.fillRect(monster.x, monster.y - 20, monster.width * percentShield, 5);
+    }
 }
 
 function payForMonstersDef() {
@@ -238,13 +303,13 @@ function updateMobDataDef() {
 
 function updateMobDataAtk() {
     for (var monster of monsters) {
-        if(monster.hp <= 0 ) {
+        if (monster.hp <= 0) {
             if (monster.finish) {
                 GAME.money += monster.cost;
             } else {
                 GAME.money += Math.floor(monster.cost * 0.3);
             }
-            GAME.score += Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount-1]));
+            GAME.score += Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount - 1]));
         }
     }
 }
@@ -252,38 +317,67 @@ function updateMobDataAtk() {
 function updateMonstersStep() {
     if (GAME.milisectimer > steptimer) {
         for (let monster of monsters) {
-            if (monster.dir == 'r' || monster.dir == 'u') {
-                if (stepcounter == 1) {
-                    monster.image = monster.step1
-                }
-                if (stepcounter == 2) {
-                    monster.image = monster.step2
-                }
-                if (stepcounter == 3) {
-                    monster.image = monster.step3
-                }
-                if (stepcounter == 4) {
-                    monster.image = monster.step4
+            if (monster.name != 'monster4') {
+                if (monster.dir == 'r' || monster.dir == 'u') {
+                    if (stepcounter == 1) {
+                        monster.image = monster.step1
+                    }
+                    if (stepcounter == 2) {
+                        monster.image = monster.step2
+                    }
+                    if (stepcounter == 3) {
+                        monster.image = monster.step3
+                    }
+                    if (stepcounter == 4) {
+                        monster.image = monster.step4
+                    }
+                } else {
+                    if (stepcounter == 1) {
+                        monster.image = monster.step1_rev
+                    }
+                    if (stepcounter == 2) {
+                        monster.image = monster.step2_rev
+                    }
+                    if (stepcounter == 3) {
+                        monster.image = monster.step3_rev
+                    }
+                    if (stepcounter == 4) {
+                        monster.image = monster.step4_rev
+                    }
                 }
             } else {
-                if (stepcounter == 1) {
-                    monster.image = monster.step1_rev
-                }
-                if (stepcounter == 2) {
-                    monster.image = monster.step2_rev
-                }
-                if (stepcounter == 3) {
-                    monster.image = monster.step3_rev
-                }
-                if (stepcounter == 4) {
-                    monster.image = monster.step4_rev
+                if (monster.dir == 'r' || monster.dir == 'u') {
+                    if (stepcountertank == 1) {
+                        monster.image = monster.step1
+                    }
+                    if (stepcountertank == 2) {
+                        monster.image = monster.step2
+                    }
+                    if (stepcountertank == 3) {
+                        monster.image = monster.step3
+                    }
+                } else {
+                    if (stepcountertank == 1) {
+                        monster.image = monster.step1_rev
+                    }
+                    if (stepcountertank == 2) {
+                        monster.image = monster.step2_rev
+                    }
+                    if (stepcountertank == 3) {
+                        monster.image = monster.step3_rev
+                    }
                 }
             }
         }
         steptimer += 200;
         stepcounter += 1;
-    }
-    if (steptimer % 800 == 0) {
-        stepcounter = 1
+        steptimertank += 200;
+        stepcountertank += 1;
+        if (steptimer % 800 == 0) {
+            stepcounter = 1
+        }
+        if (steptimertank % 600 == 0) {
+            stepcountertank = 1
+        }
     }
 }

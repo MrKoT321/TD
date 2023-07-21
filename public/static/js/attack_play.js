@@ -125,7 +125,7 @@ function drawCastle() {
 }
 
 function gameOver() {
-    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0 && starttime > 900) {
+    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0) {
         popupoverBg.classList.add('active');
         popupover.classList.add('active');
         document.querySelector('.over').style.color = 'red';
@@ -195,7 +195,7 @@ function sendNextlvlParams() {
     gameId.value = String(GAME.id);
     money.value = String(GAME.money);
     score.value = String(GAME.score);
-    currLvl.value = String(GAME.lvlCount);
+    currLvl.value = String(GAME.lvlCount + 1);
     mobsUnlock.value = String(GAME.mobsUnlock);
     console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
     $('#form').attr('action', '../make_waves.php');
@@ -232,6 +232,8 @@ function nextWave() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
+        strikes = [];
+        explosions = [];
     }
 }
 
@@ -246,6 +248,8 @@ function updateNextLvlParams() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
+        strikes = [];
+        explosions = [];
     }    
 }
 
@@ -291,8 +295,9 @@ async function sendResults(event) {
     const score = document.querySelector(".score__value");
     event.preventDefault();
     props = {
+        gameId: gameIdInfo.innerHTML,
         nickName: GAME.player,
-        choisenClass: 'defense',
+        choisenClass: 'attack',
         score: Math.floor(score.innerHTML)
     }
     const json = JSON.stringify(props);
@@ -404,12 +409,14 @@ function createWaves() {
 }
 
 function initGameParams() {
+    GAME.lvlCount = parseInt(currLvlInfo.innerHTML);
+    lvl = lvls[GAME.lvlCount - 1];
     createWaves();
     GAME.id = parseInt(gameIdInfo.innerHTML);
     GAME.money = parseInt(moneyInitInfo.innerHTML);
     GAME.score = parseInt(scoreInfo.innerHTML);
-    GAME.lvlCount = parseInt(currLvlInfo.innerHTML);
     GAME.mobsUnlock = mobsUnlockInfo.innerHTML;
+    changeMap();
 }
 
 // состояния 'play' - мобы идут, башни ставятся

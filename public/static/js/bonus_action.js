@@ -180,7 +180,11 @@ function updateFireball() {
             let mstrCenterY = monster.y + monster.height / 2;
             let distance = Math.sqrt(Math.pow(mstrCenterX - fireball.finishX, 2) + Math.pow(mstrCenterY - fireball.finishY, 2));
             if (distance <= fireball.blastRadius) {
-                monster.hp -= fireball.atk;
+                if (monster.shield > 0) {
+                    monster.shield -= fireball.atk;
+                } else {
+                    monster.hp -= fireball.atk;
+                }
             }
         })
     }

@@ -390,7 +390,7 @@ wave_plus.addEventListener(
 unlock_monster3.addEventListener(
     "click",
     () => {
-        if(GAME.money >= 200){
+        if (GAME.money >= 200) {
             GAME.money -= 200;
             mobs_unlock.push('monster3');
         }
@@ -400,7 +400,7 @@ unlock_monster3.addEventListener(
 unlock_monster4.addEventListener(
     "click",
     () => {
-        if(GAME.money >= 300){
+        if (GAME.money >= 300) {
             GAME.money -= 300;
             mobs_unlock.push('monster4');
         }
@@ -410,10 +410,24 @@ unlock_monster4.addEventListener(
 unlock_monster5.addEventListener(
     "click",
     () => {
-        if(GAME.money >= 400){
+        if (GAME.money >= 400) {
             GAME.money -= 400;
             mobs_unlock.push('monster5');
         }
+    }
+)
+
+start_lock.addEventListener(
+    "mouseover",
+    () => {
+        start_info.classList.remove('hidden')
+    }
+)
+
+start_lock.addEventListener(
+    "mouseout",
+    () => {
+        start_info.classList.add('hidden')
     }
 )
 

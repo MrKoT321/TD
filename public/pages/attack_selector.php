@@ -1,6 +1,6 @@
 <?php
 /**
- * @var string $parsedJson
+ * 
  * @var App\Model\AttackInfo $gameInfo
  * 
  */
@@ -10,7 +10,7 @@
 <html lang="ru">
 
 <head>
-    <title>Tower Defense</title>
+    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/attack_selector.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,12 +20,12 @@
 
 <body>
 <div class="game">
-    <div class="hidden game-info">  
-        <span class="game-info__gameId"><?= $gameInfo->getGameId() ?></span>
-        <span class="game-info__gameId"><?= $gameInfo->getNickName() ?></span>
-        <span class="game-info__gameId"><? print_r($parsedJson) ?></span>
-        <span class="game-info__gameId"><? echo((string)json_encode($parsedJson)) ?></span>
-
+    <div class="hidden game-info">
+        <span class="game-info__gameId" id="game-info-gameid"><?= $gameInfo->getGameId() ?></span>
+        <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>
+        <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
+        <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
+        <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
     </div>
         <div class="game__field field">
             <div class="monsters-selector">
@@ -144,21 +144,21 @@
                 <img src="../static/images/3.png" class="wave-selector__3 hidden"/>
                 <img src="../static/images/wave+.png" class="wave-selector__wave-plus"/>
             </div>
+            <img src="../static/images/start_lock.png" class="start-button" id="start-lock" />
+            <span class="popup-start hidden">Add at least one monster per wave</span>
             <form method="POST" enctype="multipart/form-data" id="form">
-                <input type="submit" class="start-button" value="" />
-                <input type="text" class="hidden" name="gameId" id="gameId"/>
-                <input type="text" class="hidden" name="money" id="money"/>
-                <input type="text" class="hidden" name="score" id="score"/>
-                <input type="text" class="hidden" name="currentLvl" id="currentLvl"/>
-                <input type="text" class="hidden" name="wave1" id="wave1"/>
-                <input type="text" class="hidden" name="wave2" id="wave2"/>
-                <input type="text" class="hidden" name="wave3" id="wave3"/>
-                <input type="text" class="hidden" name="mobsUnlock" id="mobs_unlock"/>
-                <input type="text" class="hidden" name="mobsUnlock" id="json_string"/>
+                <input type="submit" class="start-button" id="start-unlock" value="" />
+                <input type="text" class="hidden form" name="gameId" id="gameId"/>
+                <input type="text" class="hidden form" name="money" id="money"/>
+                <input type="text" class="hidden form" name="score" id="score"/>
+                <input type="text" class="hidden form" name="currentLvl" id="currentLvl"/>
+                <input type="text" class="hidden form" name="wave1" id="wave1"/>
+                <input type="text" class="hidden form" name="wave2" id="wave2"/>
+                <input type="text" class="hidden form" name="wave3" id="wave3"/>
+                <input type="text" class="hidden form" name="mobsUnlock" id="mobs_unlock"/>
             </form>
             <img src="../static/images/map-button.png" class="map-button"/>
             <span class="count-coin"></span>
-            
             <span class="mob2-info hidden"></span>
             <span class="mob3-info hidden"></span>
             <span class="mob4-info hidden"></span>

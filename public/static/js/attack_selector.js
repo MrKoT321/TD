@@ -257,6 +257,26 @@ function unblockMonsters(){
     }
 }
 
+function canStart(){
+    if (wave1[0].amount != 0 && wave2[0].amount != 0 && wave3[0].amount != 0) {
+        start_button.classList.remove('hidden');
+        start_lock.classList.add('hidden')
+    } else{
+        start_lock.classList.remove('hidden');
+        start_button.classList.add('hidden') 
+    }
+}
+
+function initParams(){
+    if(lvl_take.innerHTML != 0){
+        GAME.money = parseInt(money_take.innerHTML);
+        GAME.score = parseInt(score_send.innerHTML);
+        GAME.id = parseInt(id_take.innerHTML);
+        GAME.lvl = parseInt(lvl_take.innerHTML);
+        mobs_unlock = (mobsUnlock_take.innerHTML).split(',');
+    }
+}
+
 function play() {
     unblockMonsters();
     updateMoney();
@@ -268,8 +288,10 @@ function play() {
     updatePosMonsters();
     drawWaves();
     showMobInfo();
+    canStart();
 
     requestAnimationFrame(play);
 }
 
+initParams();
 play();

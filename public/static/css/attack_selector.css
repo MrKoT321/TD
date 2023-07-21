@@ -70,6 +70,14 @@ body {
     font-family: 'VT323';
 }
 
+.game-info {
+    display: none;
+}
+
+.form {
+    display: none;
+}
+
 .monsters-selector {
     position: absolute;
     display: flex;
@@ -306,6 +314,15 @@ body {
     font-family: 'VT323';
 }
 
-.form{
+.form {
     position: absolute;
+}
+
+.popup-start{
+    position: absolute;
+    font-family: 'VT323';
+    color: red;
+    margin-left: 1520px;
+    margin-top: 99px;
+    font-size: 40px;
 }
