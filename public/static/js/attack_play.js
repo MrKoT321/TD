@@ -12,6 +12,7 @@ const backToMenuBtn = document.getElementById("back-to-menu");
 
 const nextBtn = document.getElementById("next-lvl-btn");
 const nextLvlForm = document.getElementById("form");
+const restartGameForm = document.getElementById("form-restart");
 
 const currentLvl = document.getElementById("current-lvl");
 const totalLvl = document.getElementById("total-lvl");
@@ -202,22 +203,18 @@ function sendNextLvlParams() {
 }
 
 function sendBaseLvlParams() {
-    let gameId = nextLvlForm.elements.gameId;
-    let money = nextLvlForm.elements.money;
-    let score = nextLvlForm.elements.score;
-    let currLvl = nextLvlForm.elements.currentLvl;
-    let mobsUnlock = nextLvlForm.elements.mobsUnlock;
-    GAME.mobsUnlock = 'monster1,monster2';
-    GAME.lvlCount = 0;
-    GAME.score = 0;
-    GAME.money = 100;
+    let gameId = restartGameForm.elements.gameId;
+    let money = restartGameForm.elements.money;
+    let score = restartGameForm.elements.score;
+    let currLvl = restartGameForm.elements.currentLvl;
+    let mobsUnlock = restartGameForm.elements.mobsUnlock;
     gameId.value = String(GAME.id);
-    money.value = String(GAME.money);
-    score.value = String(GAME.score);
-    currLvl.value = String(GAME.lvlCount + 1);
-    mobsUnlock.value = String(GAME.mobsUnlock);
-    console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
-    $('#form').attr('action', '../make_waves.php');
+    money.value = String(100);
+    score.value = String(0);
+    currLvl.value = String(0);
+    mobsUnlock.value = String('monster1,monster2');
+    console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value, restartGameForm.elements);
+    $('#form-restart').attr('action', '../make_waves.php');
 }
 
 function popupCloseComplete() {
@@ -380,7 +377,7 @@ nextBtn.addEventListener(
 restartgame.addEventListener(
     "click",
     () => {
-        // sendResults(event);
+        sendResults(event);
         sendBaseLvlParams();
         // updateRestartGameParams();
         // changeMap();

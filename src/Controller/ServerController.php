@@ -137,6 +137,8 @@ class ServerController
                 null,
                 null
             );
+            $data = '{"wave_data": {"wave1": {"monster1": {"count": 2},"monster2": {"count": 50}},"wave2": {"monster3": {"count": 4},"monster1": {"count": 25}}}}';
+            $parsedJson = json_decode($data, true);
     
             require __DIR__ . '/../../public/pages/attack_selector.php';
         }

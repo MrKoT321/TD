@@ -444,6 +444,7 @@ start_button.addEventListener(
         gameId_send.value = GAME.gameId;
         currentLvl_send.value = GAME.lvl;
         score_send.value = GAME.score;
+        // jsonInput.value = '{"wave_data": {"wave1": {"monster1": {"count": 2},"monster2": {"count": 50}},"wave2": {"monster3": {"count": 4},"monster1": {"count": 25}}}}';
         $('#form').attr('action', '../send_waves.php');
     }
 )

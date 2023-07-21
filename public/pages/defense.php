@@ -63,7 +63,11 @@
                     <img src="../static/images/cancel_button.png"  class="fireball-buf__cancel hidden" />
                     <span class="fireball-buf__reload"></span>
                 </div>
-                <div class="buf-slot"></div>
+                <div class="freeze-buf buf-slot">
+                    <img src="../static/images/freeze_buff.png" class="freeze-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="freeze-buf__cancel hidden" />
+                    <span class="freeze-buf__reload"></span>
+                </div>
                 <div class="buf-slot"></div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">

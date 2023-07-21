@@ -331,14 +331,14 @@ function attackBash() {
         if (tower.type == "bash") {
             monsters.forEach(monster => {
                 lineToMonster = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - tower.x - 50, 2) + Math.pow(monster.y + (monster.height / 2) - tower.y - 50, 2));
-                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower)) {
+                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower)) {
                     makeStrike(tower);
                 }
-                if (!((GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0)) {
+                if (!((GAME.stopwatch - tower.placeTime) % tower.atkspeed == 0)) {
                     tower.hit = false;
                 }
             })
-            if (!tower.hit && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0) {
+            if (!tower.hit && (GAME.stopwatch - tower.placeTime) % tower.atkspeed == 0) {
                 tower.hit = true;
             }
         }

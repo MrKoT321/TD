@@ -13,7 +13,7 @@ const lvl1 = {
     start_dir: 'r',
     waves: [[monster1, monster1, monster2, monster2, monster3], [monster1, monster1, monster3, monster2], [monster2, monster3, monster5, monster1, monster1]],
     atk_towers: [[archer], [archer, bash], [bash, archer]],
-    bonuses: ["fireball"],
+    bonuses: ["fireball", "freeze"],
     back_src:  "../static/images/MAP1.png",
     castle_src:  "../static/images/CASTLE.png",
 };
@@ -33,7 +33,7 @@ const lvl2 = {
     start_dir: 'r',
     waves: [[monster5, monster5], [monster2, monster1, monster2, monster1], [monster1, monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1, monster1, monster1]],
     atk_towers: [[bash], [archer, bash], [archer, bash, archer]],
-    bonuses: ["fireball"],
+    bonuses: ["fireball", "freeze"],
     back_src:  "../static/images/MAP2.png",
     castle_src:  "../static/images/CASTLE.png" 
     
