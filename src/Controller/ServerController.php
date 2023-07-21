@@ -182,10 +182,10 @@ class ServerController
         }
 
         $userName = $this->requestTable->getNickNameByGameId((int) $requestData['gameId']);
-        // if (is_null($userName)) {
-        //     $this->writeRedirectSeeOther('/');
-        //     return;
-        // }
+        if (is_null($userName)) {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
         $gameInfo = new AttackInfo(
             null,
             'make',

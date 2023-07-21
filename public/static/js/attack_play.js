@@ -125,7 +125,7 @@ function drawCastle() {
 }
 
 function gameOver() {
-    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0 && starttime > 900) {
+    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0 && starttime == 0) {
         popupoverBg.classList.add('active');
         popupover.classList.add('active');
         document.querySelector('.over').style.color = 'red';
@@ -186,12 +186,31 @@ function lvlComplete() {
 //     });
 // }
 
-function sendNextlvlParams() {
+function sendNextLvlParams() {
     let gameId = nextLvlForm.elements.gameId;
     let money = nextLvlForm.elements.money;
     let score = nextLvlForm.elements.score;
     let currLvl = nextLvlForm.elements.currentLvl;
     let mobsUnlock = nextLvlForm.elements.mobsUnlock;
+    gameId.value = String(GAME.id);
+    money.value = String(GAME.money);
+    score.value = String(GAME.score);
+    currLvl.value = String(GAME.lvlCount + 1);
+    mobsUnlock.value = String(GAME.mobsUnlock);
+    console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
+    $('#form').attr('action', '../make_waves.php');
+}
+
+function sendBaseLvlParams() {
+    let gameId = nextLvlForm.elements.gameId;
+    let money = nextLvlForm.elements.money;
+    let score = nextLvlForm.elements.score;
+    let currLvl = nextLvlForm.elements.currentLvl;
+    let mobsUnlock = nextLvlForm.elements.mobsUnlock;
+    GAME.mobsUnlock = 'monster1,monster2';
+    GAME.lvlCount = 0;
+    GAME.score = 0;
+    GAME.money = 100;
     gameId.value = String(GAME.id);
     money.value = String(GAME.money);
     score.value = String(GAME.score);
@@ -234,6 +253,9 @@ function nextWave() {
         stepcounter = 1;
         strikes = [];
         explosions = [];
+    }
+    if (monsters.length == 0 && GAME.wave == 3 && GAME.isPlay == 'play') {
+        starttime = 0;
     }
 }
 
@@ -347,7 +369,7 @@ document.addEventListener("keydown", (event) => {
 nextBtn.addEventListener(
     "click",
     () => {
-        sendNextlvlParams();
+        sendNextLvlParams();
         // updateNextLvlParams();
         // changeMap();
         // updateCastleHP();
@@ -357,12 +379,13 @@ nextBtn.addEventListener(
 
 restartgame.addEventListener(
     "click",
-    (event) => {
-        sendResults(event);
-        updateRestartGameParams();
-        changeMap();
-        updateCastleHP();
-        popupCloseOver();
+    () => {
+        // sendResults(event);
+        sendBaseLvlParams();
+        // updateRestartGameParams();
+        // changeMap();
+        // updateCastleHP();
+        // popupCloseOver();
     }
 );
 
@@ -428,10 +451,10 @@ function initGameParams() {
 function play() {
     updateMoney();
     updateScore();
-    updateVisualLvlParams();
+    // updateVisualLvlParams();
     drawBackground();
     updateMobDataAtk();
-    drawStrikes();      
+    drawStrikes(); 
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -455,7 +478,7 @@ function play() {
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    gameOver();
+    gameOver();    
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();
