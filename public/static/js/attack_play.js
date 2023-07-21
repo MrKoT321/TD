@@ -376,7 +376,7 @@ nextBtn.addEventListener(
 restartgame.addEventListener(
     "click",
     () => {
-        sendResults(event);
+        // sendResults(event);
         sendBaseLvlParams();
         // updateRestartGameParams();
         // changeMap();
