@@ -101,10 +101,22 @@ function drawPauseBackground() {
     canvasContext.fillRect(0, 0, GAME.width, GAME.height);
 }
 
-function resetButtons() {
-    startWaveBtn.classList.remove("active");
+function changeGameStatusButtons() {
+    startWaveBtn.classList.add("active");
     pauseGameBtn.classList.remove("pause");
     pauseGameBtn.classList.add("play");
+    if (GAME.isPlay == 'play') {
+        pauseGameBtn.classList.add("play");
+        pauseGameBtn.classList.remove("pause");
+    } else {
+        if (GAME.isPlay == 'menu') {
+            pauseGameBtn.classList.add("pause");
+            pauseGameBtn.classList.remove("play");
+        }
+    }
+    if (GAME.isPlay == 'wavepause') {
+        startWaveBtn.classList.remove("active");
+    } 
 }
 
 function drawCastle() {
@@ -137,7 +149,7 @@ function updateScore() {
 }
 
 function lvlComplete() {
-    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0) {
+    if (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0) {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
         resetBonuses();
@@ -180,7 +192,7 @@ function updateCastleHP() {
 }
 
 function nextWave() {
-    if (monsters.length == 0 && GAME.wave < 3) {
+    if (monsters.length == 0 && GAME.wave < lvls[GAME.lvlCount - 1].waves.length) {
         GAME.wave += 1;
         monstercount = 0;
         starttime = 900;
@@ -188,6 +200,8 @@ function nextWave() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
+        explosions = [];
+        strikes = [];
     }
 }
 
@@ -202,6 +216,8 @@ function updateNextLvlParams() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
+        explosions = [];
+        strikes = [];
     }    
 }
 
@@ -229,6 +245,7 @@ function updateRestartGameParams() {
     pushmonstercount = 0;
     steptimer = 0;
     stepcounter = 1;
+    explosions = [];
 }
 
 function changeMap() {
@@ -244,10 +261,21 @@ function changeMap() {
     }
 };
 
+function sendGameStatus() {
+    data = {
+        type: 'game_status',
+        status: GAME.isPlay
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
 async function sendResults(event) {
     const score = document.querySelector(".score__value");
+    const gameID = document.getElementById("game-id");
     event.preventDefault();
     props = {
+        gameId: gameID.innerHTML,
         nickName: GAME.player,
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
@@ -263,10 +291,34 @@ async function sendResults(event) {
     });
 }
 
+const socket = new WebSocket('ws://localhost:8080');
+
+socket.addEventListener('open', function(event) {
+    console.log('Connected to server.');
+});
+
+socket.addEventListener('message', function(event) {
+    data = JSON.parse(event.data);
+    switch (data.type) {
+        case 'tower_add':
+            towers = data.towers;
+            GAME.money = data.money;    
+            break;
+        case 'game_status':
+            GAME.isPlay = data.status;
+            changeGameStatusButtons();
+            break;
+        case 'fireball':
+            fireball = data.fireball_bonus;
+            break;
+    }
+});
+
 function startWave() {
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
+        sendGameStatus();
     } 
 }
 
@@ -275,11 +327,13 @@ function pauseGame() {
         pauseGameBtn.classList.remove("play");
         pauseGameBtn.classList.add("pause");
         GAME.isPlay = 'menu';
+        sendGameStatus();
     } else {
         if (GAME.isPlay == 'menu') {
             pauseGameBtn.classList.remove("pause");
             pauseGameBtn.classList.add("play");
             GAME.isPlay = 'play';
+            sendGameStatus();
         }
     }
 }
@@ -338,6 +392,7 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
+    drawExplosion();
     drawStrikes();
     updateMobDataDef();
     moveMonsters(GAME, lvls);
@@ -345,7 +400,6 @@ function play() {
     if (GAME.isPlay == 'wavepause') {
         initBullets();
         resetStopwatch();
-        resetButtons();
     }
     if (GAME.isPlay == 'play') {
         lvlComplete();
@@ -353,6 +407,7 @@ function play() {
         catchTime();
         updateArrows();
         updateBullets();
+        updateExplosions();
         updateStrikes();
     }
     if (GAME.isPlay == 'startgame') {
@@ -367,6 +422,7 @@ function play() {
     drawBullets();
     attackTowers(GAME);
     drawBonuses();
+    changeGameStatusButtons();
     gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();

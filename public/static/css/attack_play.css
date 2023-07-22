@@ -392,9 +392,12 @@ body {
 }
 
 .restart{
+    border: 0;
+    background: url('../images/restart.png') no-repeat;
+    background-size: 50px 50px;
     cursor: pointer;
     width: 50px;
     height: 50px;
-    padding-top: 80px;
-    padding-bottom: 30px;
+    margin-top: 80px;
+    margin-bottom: 30px;
 }

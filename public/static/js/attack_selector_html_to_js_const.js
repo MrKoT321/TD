@@ -67,8 +67,6 @@ const popup_map_show = document.querySelector('.popup-map');
 const popup_map = document.querySelector('.popup-map__field');
 const popup_map_bg = document.querySelector('.popup-map__bg');
 
-const start_button = document.querySelector('.start-button');
-
 const mob1_info = document.querySelector('.mob1-info');
 const mob2_info = document.querySelector('.mob2-info');
 const mob3_info = document.querySelector('.mob3-info');
@@ -79,5 +77,26 @@ const money_wave1 = document.getElementById('money-wave1');
 const money_wave2 = document.getElementById('money-wave2');
 const money_wave3 = document.getElementById('money-wave3');
 
-const score = document.getElementById('score');
-const nick_name = document.getElementById('nick-name');
+const unlock_monster3 = document.getElementById('unlock-monster3');
+const unlock_monster4 = document.getElementById('unlock-monster4');
+const unlock_monster5 = document.getElementById('unlock-monster5');
+
+const score_send = document.getElementById('score');
+const wave1_send = document.getElementById('wave1');
+const wave2_send = document.getElementById('wave2');
+const wave3_send = document.getElementById('wave3');
+const mobs_unlock_send = document.getElementById('mobs_unlock');
+const money_send = document.getElementById('money');
+const gameId_send = document.getElementById('gameId');
+const currentLvl_send = document.getElementById('currentLvl');
+const gameIdResponse = document.querySelector('.game-info__gameId');
+
+const start_lock = document.getElementById('start-lock');
+const start_button = document.getElementById('start-unlock');
+const start_info = document.querySelector('.popup-start')
+
+const money_take = document.getElementById('game-info-money');
+const score_take = document.getElementById('game-info-score');
+const id_take = document.getElementById('game-info-gameid');
+const lvl_take = document.getElementById('game-info-currLvl');
+const mobsUnlock_take = document.getElementById('game-info-mobsUnlock');

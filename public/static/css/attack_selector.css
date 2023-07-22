@@ -1,9 +1,10 @@
-.visible{
+.visible {
     visibility: visible;
 }
 
-.hidden{
+.hidden {
     visibility: hidden;
+    /* overflow: hidden; */
 }
 
 body {
@@ -50,7 +51,11 @@ body {
     position: absolute;
     margin-left: 1493px;
     margin-top: 1px;
+    background: url("../images/start-button.png");
+    width: 307px;
+    height: 104px;
     cursor: pointer;
+    border: 0;
 }
 
 .mob-count {
@@ -63,6 +68,14 @@ body {
     text-align: right;
     margin-left: 191px;
     font-family: 'VT323';
+}
+
+.game-info {
+    display: none;
+}
+
+.form {
+    display: none;
 }
 
 .monsters-selector {
@@ -83,6 +96,7 @@ body {
 .monster-selector-lock {
     position: absolute;
     margin-left: -200px;
+    cursor: pointer;
 }
 
 .monsters-selected {
@@ -298,4 +312,17 @@ body {
 .money-text{
     font-size: 44px;
     font-family: 'VT323';
+}
+
+.form {
+    position: absolute;
+}
+
+.popup-start{
+    position: absolute;
+    font-family: 'VT323';
+    color: red;
+    margin-left: 1520px;
+    margin-top: 99px;
+    font-size: 40px;
 }

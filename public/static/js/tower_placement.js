@@ -145,6 +145,7 @@ deleteTowerButton.addEventListener(
                 GAME.money += activeTile.cost / 2;
             }
         }
+        sendNewTowerPlace();
     }
 );
 
@@ -170,11 +171,22 @@ function pushToTowers(tower, posX, posY) {
     })
 }
 
+function sendNewTowerPlace() {
+    data = {
+        type: 'tower_add',
+        towers: towers,
+        money: GAME.money
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
 function makeTower(tower) {
     towerTiles.forEach(tile => {
         if (isMouseOnTile(mouseClick, tile) && canBuy(tower)) {
             pushToTowers(tower, tile[0], tile[1]);
             GAME.money -= tower.cost;
+            sendNewTowerPlace();
         }
     })
 }

@@ -387,26 +387,64 @@ wave_plus.addEventListener(
     }
 )
 
+unlock_monster3.addEventListener(
+    "click",
+    () => {
+        if (GAME.money >= 200) {
+            GAME.money -= 200;
+            mobs_unlock.push('monster3');
+        }
+    }
+)
+
+unlock_monster4.addEventListener(
+    "click",
+    () => {
+        if (GAME.money >= 300) {
+            GAME.money -= 300;
+            mobs_unlock.push('monster4');
+        }
+    }
+)
+
+unlock_monster5.addEventListener(
+    "click",
+    () => {
+        if (GAME.money >= 400) {
+            GAME.money -= 400;
+            mobs_unlock.push('monster5');
+        }
+    }
+)
+
+start_lock.addEventListener(
+    "mouseover",
+    () => {
+        start_info.classList.remove('hidden')
+    }
+)
+
+start_lock.addEventListener(
+    "mouseout",
+    () => {
+        start_info.classList.add('hidden')
+    }
+)
+
 start_button.addEventListener(
     "click",
     () => {
-        let waves_send = [];
-        sendWaves(waves_send);
-        let data = {
-            waves: waves_send,
-            money: GAME.money,
-            score: score.innerHTML,
-            nick_name: nick_name.innerHTML
-        }
-        let json = JSON.stringify(data);
-        console.log(data)
-        console.log(JSON.stringify(data))
-        // let response = await fetch('/send_waves.php', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json;charset=utf-8'
-        //     },
-        //     body: json
-        // });
+        let wave1_to_send = [], wave2_to_send = [], wave3_to_send = []
+        sendWaves(wave1_to_send, wave2_to_send, wave3_to_send);
+        wave1_send.value = String(wave1_to_send);
+        wave2_send.value = String(wave2_to_send);
+        wave3_send.value = String(wave3_to_send);
+        mobs_unlock_send.value = String(mobs_unlock);
+        money_send.value = GAME.money;
+        gameId_send.value = GAME.gameId;
+        currentLvl_send.value = GAME.lvl;
+        score_send.value = GAME.score;
+        // jsonInput.value = '{"wave_data": {"wave1": {"monster1": {"count": 2},"monster2": {"count": 50}},"wave2": {"monster3": {"count": 4},"monster1": {"count": 25}}}}';
+        $('#form').attr('action', '../send_waves.php');
     }
 )

@@ -3,30 +3,29 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Record
+class Game
 {
-    private ?int $userId;
+    private ?int $gameId;
     private string $nickName;
     private string $choisenClass;
     private ?int $score;
 
     public function __construct
     (
-        ?int    $userId,
-        string  $nickName,
-        string  $choisenClass,
+        ?int $gameId,
+        string $nickName,
+        string $choisenClass,
         ?int $score
-    )
-    {
-        $this->userId = $userId;
+    ) {
+        $this->gameId = $gameId;
         $this->nickName = $nickName;
         $this->choisenClass = $choisenClass;
         $this->score = $score;
     }
 
-    public function getUserId(): ?int
+    public function getGameId(): ?int
     {
-        return $this->userId;
+        return $this->gameId;
     }
 
     public function getNickName(): string

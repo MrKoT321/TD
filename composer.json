@@ -1,9 +1,11 @@
 {
-    "name": "nikita.zimin/td-2",
+    "name": "alina.dmitrieva/td",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "cboden/ratchet": "^0.4"
+    }
 }

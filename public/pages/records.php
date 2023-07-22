@@ -1,6 +1,6 @@
 <?php
 /**
- * @var App\Model\Record $record
+ * @var App\Model\Game $record
  */
 ?>
 
