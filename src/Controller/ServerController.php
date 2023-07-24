@@ -9,6 +9,7 @@ use App\Database\GameTable;
 use App\Database\RequestTable;
 use App\Model\Game;
 use App\Model\AttackInfo;
+use App\Model\MultiplayGame;
 
 class ServerController
 {
@@ -16,6 +17,7 @@ class ServerController
 
     private GameTable $gameTable;
     private RequestTable $requestTable;
+    private MultiplayGame $multiplayGame;
 
     public function __construct()
     {
@@ -104,10 +106,10 @@ class ServerController
             } else {
                 $requestId = (int) $queryParams['request_id'];
                 $requestStatus = $this->requestTable->getStatus($requestId);
-                // if (!$requestStatus) {
-                //     $this->writeRedirectSeeOther('/');
-                //     exit();
-                // }
+                if (!$requestStatus) {
+                    $this->writeRedirectSeeOther('/');
+                    exit();
+                }
                 $gameInfo = $this->requestTable->find($requestId);
                 if ($requestStatus == 'send') {
                     require __DIR__ . '/../../public/pages/attack.php';
@@ -118,7 +120,7 @@ class ServerController
             } 
         } else {
             $gameId = (int) $queryParams['game_id'];
-            $userName = $this->requestTable->getNickNameByGameId($gameId);
+            $userName = $this->gameTable->getNickNameByGameId($gameId);
             if (is_null($userName)) {
                 $this->writeRedirectSeeOther('/');
                 return;
@@ -128,6 +130,7 @@ class ServerController
                 null,
                 'start',
                 $gameId,
+                null,
                 $userName,
                 null,
                 null,
@@ -137,12 +140,11 @@ class ServerController
                 null,
                 null
             );
-            $data = '{"wave_data": {"wave1": {"monster1": {"count": 2},"monster2": {"count": 50}},"wave2": {"monster3": {"count": 4},"monster1": {"count": 25}}}}';
-            $parsedJson = json_decode($data, true);
+            // $data = '{"wave_data": {"wave1": {"monster1": {"count": 2},"monster2": {"count": 50}},"wave2": {"monster3": {"count": 4},"monster1": {"count": 25}}}}';
+            // $parsedJson = json_decode($data, true);
     
             require __DIR__ . '/../../public/pages/attack_selector.php';
-        }
-        
+        }        
     }
 
     public function createMultiplayGame(array $requestData) : void
@@ -151,19 +153,89 @@ class ServerController
             $this->writeRedirectSeeOther('/');
             return;
         }
-
-        $game = new Game (
+        $roomId = (int) $requestData['roomId'];
+        $game = new MultiplayGame (
             null,
             $requestData['username'],
-            $requestData['choisenClass'],
-            null
+            $requestData['choisen_class'],
+            'game_start',
+            $roomId
         );
-        $gameId = $this->gameTable->create($game);
-        if ($requestData['choisenClass'] === 'defense') {
-            $this->writeRedirectSeeOther("/single_game_defense.php?game_id=$gameId");
+        $playerId = $this->gameTable->createMultiplayGame($game);
+        if ($requestData['choisen_class'] === 'defense') {
+            $this->writeRedirectSeeOther("/multiplay_game_defense.php?player_id=$playerId");
             exit();
         }
-        $this->writeRedirectSeeOther("/single_game_attack.php?game_id=$gameId");
+        $this->writeRedirectSeeOther("/multiplay_game_attack.php?player_id=$playerId");
+    }
+
+    public function multiplayGameDefense(array $queryParams): void
+    {
+        $playerId = (int) $queryParams['player_id'];
+        if (!$playerId) {
+            $this->writeRedirectSeeOther('/');
+            exit();
+        }
+        $game = $this->gameTable->findPlayer($playerId);
+        if (!$game) {
+            $this->writeRedirectSeeOther('/');
+            exit();
+        }
+        require __DIR__ . '/../../public/pages/defense_multiplay.php';
+    }
+
+
+    public function multiplayGameAttack(array $queryParams): void
+    {
+        if (!empty($queryParams['player_id'])) {
+            $playerId = (int) $queryParams['player_id'];
+            if (!empty($queryParams['request_id'])) {
+                $requestId = (int) $queryParams['request_id'];
+                $roomId = $this->gameTable->getRoomIdByRequestId($requestId);
+                $requestStatus = $this->requestTable->getStatus($requestId);
+                if (!$requestStatus) {
+                    $this->writeRedirectSeeOther('/');
+                    exit();
+                }
+                $gameInfo = $this->requestTable->find($requestId);
+                // if (is_null($gameInfo)) {
+                //     $this->writeRedirectSeeOther('/');
+                //     return;
+                // }
+                if ($requestStatus == 'send') {
+                    require __DIR__ . '/../../public/pages/attack_multiplay.php';
+                    exit();
+                } else {
+                    require __DIR__ . '/../../public/pages/attack_selector_multiplay.php';
+                }
+            } else {
+                $userName = $this->gameTable->getNickNameByPlayerId($playerId);
+                $roomId = $this->gameTable->getRoomIdByPlayerId($playerId);
+                if (is_null($userName)) {
+                    $this->writeRedirectSeeOther('/');
+                    return;
+                }
+                $startLvl = '0';
+                $gameInfo = new AttackInfo (
+                    null,
+                    'start',
+                    null,
+                    $playerId,
+                    $userName,
+                    null,
+                    null,
+                    $startLvl,
+                    null,
+                    null,
+                    null,
+                    null
+                );
+                require __DIR__ . '/../../public/pages/attack_selector_multiplay.php';
+            }
+        } else {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }        
     }
 
     //--------------------------------------------------- 
@@ -175,7 +247,7 @@ class ServerController
             return;
         }
 
-        $userName = $this->requestTable->getNickNameByGameId((int) $requestData['gameId']);
+        $userName = $this->gameTable->getNickNameByGameId((int) $requestData['gameId']);
         if (is_null($userName)) {
             $this->writeRedirectSeeOther('/');
             return;
@@ -184,6 +256,7 @@ class ServerController
             null,
             'send',
             (int) $requestData['gameId'],
+            null,
             $userName,
             (int) $requestData['money'],
             (int) $requestData['score'],
@@ -197,6 +270,38 @@ class ServerController
         $this->writeRedirectSeeOther("/single_game_attack.php?request_id=$requestId");
     }
 
+    public function sendWavesMultiplay(array $requestData): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+
+        $playerId = (int) $requestData['playerId'];
+        $userName = $this->gameTable->getNickNameByPlayerId($playerId);
+        if (is_null($userName)) {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+        
+        $gameInfo = new AttackInfo(
+            null,
+            'send',
+            null,
+            $playerId,
+            $userName,
+            null,
+            null,
+            $requestData['currentLvl'],
+            $requestData['wave1'],
+            $requestData['wave2'],
+            $requestData['wave3'],
+            $requestData['mobsUnlock']
+        );
+        $requestId = $this->requestTable->publish($gameInfo);
+        $this->writeRedirectSeeOther("/multiplay_game_attack.php?request_id=$requestId&player_id=$playerId");
+    }
+
     public function makeWaves(array $requestData): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -204,7 +309,7 @@ class ServerController
             return;
         }
 
-        $userName = $this->requestTable->getNickNameByGameId((int) $requestData['gameId']);
+        $userName = $this->gameTable->getNickNameByGameId((int) $requestData['gameId']);
         if (is_null($userName)) {
             $this->writeRedirectSeeOther('/');
             return;
@@ -213,6 +318,7 @@ class ServerController
             null,
             'make',
             (int) $requestData['gameId'],
+            null,
             $userName,
             (int) $requestData['money'],
             (int) $requestData['score'],
@@ -224,6 +330,38 @@ class ServerController
         );
         $requestId = $this->requestTable->publish($gameInfo);
         $this->writeRedirectSeeOther("/single_game_attack.php?request_id=$requestId");
+    }
+
+    public function makeWavesMultiplay(array $requestData): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+
+        $playerId = (int) $requestData['playerId'];
+        $userName = $this->gameTable->getNickNameByPlayerId($playerId);
+        if (is_null($userName)) {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+        
+        $gameInfo = new AttackInfo(
+            null,
+            'make',
+            null,
+            $playerId,
+            $userName,
+            null,
+            null,
+            $requestData['currentLvl'],
+            $requestData['wave1'],
+            $requestData['wave2'],
+            $requestData['wave3'],
+            $requestData['mobsUnlock']
+        );
+        $requestId = $this->requestTable->publish($gameInfo);
+        $this->writeRedirectSeeOther("/multiplay_game_attack.php?request_id=$requestId&player_id=$playerId");
     }
 
     public function index(): void

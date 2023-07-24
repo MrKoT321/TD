@@ -21,7 +21,7 @@
 <body>
 <div class="game">
     <div class="hidden game-info">
-        <span class="game-info__gameId" id="game-info-gameid"><?= $gameInfo->getGameId() ?></span>
+        <span class="game-info__gameId" id="game-info-playerId"><?= $gameInfo->getPlayerId() ?></span>
         <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>
         <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
         <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
@@ -148,7 +148,6 @@
             <span class="popup-start hidden">Add at least one monster per wave</span>
             <form method="POST" enctype="multipart/form-data" id="form">
                 <input type="submit" class="start-button" id="start-unlock" value="" />
-                <input type="text" class="hidden form" name="gameId" id="gameId"/>
                 <input type="text" class="hidden form" name="money" id="money"/>
                 <input type="text" class="hidden form" name="score" id="score"/>
                 <input type="text" class="hidden form" name="currentLvl" id="currentLvl"/>
@@ -156,6 +155,7 @@
                 <input type="text" class="hidden form" name="wave2" id="wave2"/>
                 <input type="text" class="hidden form" name="wave3" id="wave3"/>
                 <input type="text" class="hidden form" name="mobsUnlock" id="mobs_unlock"/>
+                <input type="text" class="hidden form" name="playerId" id="player_id"/>
             </form>
             <img src="../static/images/map-button.png" class="map-button"/>
             <span class="count-coin"></span>
@@ -172,10 +172,10 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
-    <script type="application/javascript" src="../static/js/attack_selector_html_to_js_const.js"></script>
+    <script type="application/javascript" src="../static/js/attack_selector_multiplay_html_to_js_const.js"></script>
     <script type="application/javascript" src="../static/js/selector_params.js"></script>
-    <script type="application/javascript" src="../static/js/attack_selector_events.js"></script>
-    <script type="application/javascript" src="../static/js/attack_selector.js"></script>
+    <script type="application/javascript" src="../static/js/attack_selector_multiplay_events.js"></script>
+    <script type="application/javascript" src="../static/js/attack_selector_multiplay.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var App\Model\Game $game
+ * @var App\Model\MultiplayGame $game
  */
 ?>
 
@@ -121,6 +121,11 @@
             <div class="next-lvl-container">
                 <button class="next-lvl-btn" id="next-lvl-btn">Next level</button>
             </div>
+        </div>
+    </div>
+    <div class="waiting-screen">
+        <div class="waiting-opponent-screen">
+            <img src="../static/images/waiting_opponent_screen.png" alt="">
         </div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>

@@ -17,6 +17,9 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
+const waitingOpponentScreen = document.querySelector(".waiting-screen");
+const waitingOpponentScreenImg = document.querySelector(".waiting-opponent-screen");
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -313,6 +316,12 @@ socket.addEventListener('message', function(event) {
             break;
         case 'freeze':
             freeze = data.freeze_bonus;
+            break;
+        case 'waves':
+            waitingOpponentScreen.classList.add("hidden");
+            waitingOpponentScreen.style.height = '0';
+            waitingOpponentScreenImg.classList.add("hidden");
+            lvls[GAME.lvlCount - 1].waves = decodeMonsterWaves(data.waves);
             break;
     }
 });

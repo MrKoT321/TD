@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
@@ -22,10 +22,11 @@ class WebSocketHandler implements MessageComponentInterface
   // Обработчик нового подключения клиента
   public function onOpen(ConnectionInterface $conn)
   {
+    $lastConnId = 0;
     foreach ($this->clients as $client) {
       $lastConnId = $lastConnId ^ $client->connId;
     }
-    if ($lastConnId != 0) {
+    if ($lastConnId !== 0) {
       $conn->connId = $lastConnId;
     } else {
       $conn->connId = $conn->resourceId;
@@ -40,7 +41,7 @@ class WebSocketHandler implements MessageComponentInterface
   public function onMessage(ConnectionInterface $from, $msg)
   {
     foreach ($this->clients as $client) {
-      if ($client->resourceId !== $from->resourseId && $client->connId === $from->connId) {
+      if ($client->resourceId !== $from->resourceId && $client->connId === $from->connId) {
         $client->send($msg);
       } 
     }
@@ -61,14 +62,14 @@ class WebSocketHandler implements MessageComponentInterface
   }
 }
 
-// Создаем новый WebSocket-сервер на порту 8080
+// Создаем новый WebSocket-сервер на порту 8090
 $server = IoServer::factory(
   new HttpServer(
     new WsServer(
       new WebSocketHandler()
     )
   ),
-  8080
+  8090
 );
 
 // Запускаем сервер

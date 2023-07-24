@@ -23,7 +23,8 @@ const waitingScreenArea = document.getElementById('waiting-screen-area');
 
 GAME = {
     username: undefined,
-    choisenClass: undefined,
+    choisen_class: undefined,
+    roomId: undefined,
 }
 
 startBtn.addEventListener('click', () => { nicknameSingle.value = ''; })
@@ -75,7 +76,7 @@ attackSubmitStart.addEventListener('click', () => { sendSingleGameForm('attack')
 function sendMultiplayGameForm(event, Class) {
     // choisenClassSingle.value = Class;
     // $('#mutiplay-game-form').attr('action', '../create_multiplay_game.php');
-    GAME.nickname = nicknameMulti.value;
+    GAME.username = nicknameMulti.value;
     GAME.choisen_class = Class;
     event.preventDefault();
     waitingScreen.classList.add("active");
@@ -132,6 +133,7 @@ socket.addEventListener('message', function(event) {
             console.log(data.choisen_class);
             break;
         case 'find':
+            GAME.roomId = data.roomId;
             console.log("Redirect to New Page");
             redirectToMultiplayGame();
             break;

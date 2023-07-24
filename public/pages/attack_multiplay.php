@@ -19,7 +19,7 @@
 <body>
     <div class="game">
         <div class="hidden game-info">
-            <span class="game-info__gameId" id="game-info-gameid"><?= $gameInfo->getGameId() ?></span>
+            <span class="game-info__gameId" id="game-info-playerId"><?= $gameInfo->getPlayerId() ?></span>
             <span class="game-info__gameId" id="game-info-wave-1"><?= $gameInfo->getWave1() ?></span>
             <span class="game-info__gameId" id="game-info-wave-2"><?= $gameInfo->getWave2() ?></span>
             <span class="game-info__gameId" id="game-info-wave-3"><?= $gameInfo->getWave3() ?></span>
@@ -114,7 +114,7 @@
             </div>
             <div class="overbuttons">
             <form method="POST" enctype="multipart/form-data" id="form-restart">
-                <input type="text" name="gameId" class="hidden" />
+                <input type="text" name="playerId" class="hidden" />
                 <input type="text" name="money" class="hidden" />
                 <input type="text" name="score" class="hidden" />
                 <input type="text" name="currentLvl" class="hidden" />
@@ -133,7 +133,7 @@
         <div class="popupcomplete">
             <h1 class="complete">LEVEL COMPLETE</h1>
             <form method="POST" enctype="multipart/form-data" id="form">
-                <input type="text" name="gameId" class="hidden" />
+                <input type="text" name="playerId" class="hidden" />
                 <input type="text" name="money" class="hidden" />
                 <input type="text" name="score" class="hidden" />
                 <input type="text" name="currentLvl" class="hidden" />
@@ -152,10 +152,10 @@
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
     <!-- <script type="application/javascript" src="../static/js/bonus_action.js"></script> -->
-    <script type="application/javascript" src="../static/js/tower_attack_config.js"></script>
+    <!-- <script type="application/javascript" src="../static/js/tower_attack_config.js"></script> -->
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_attack.js"></script>
-    <script type="application/javascript" src="../static/js/attack_play.js"></script>
+    <script type="application/javascript" src="../static/js/attack_multiplay.js"></script>
 </body>
 
 </html>

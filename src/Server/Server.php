@@ -65,6 +65,7 @@ class WebSocketHandler implements MessageComponentInterface {
         $client->gameStatus = 'ready_to_play';
         $from->gameStatus = 'ready_to_play';
         echo '--- Connection success! Both players ready to play' . PHP_EOL;
+        $data->roomId = $client->resourceId;
         $data->type = 'find';
         $from->send(json_encode($data));
         if ($data->choisen_class = 'attack') {

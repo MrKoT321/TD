@@ -658,3 +658,14 @@ body {
 .loading-field{
     position: absolute;
 }
+
+.waiting-screen {
+    position: absolute;
+    width: 100%;
+    height: 1085px;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
