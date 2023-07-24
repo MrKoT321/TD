@@ -173,10 +173,13 @@
             <span class="mob4-info hidden"></span>
             <span class="mob5-info hidden"></span>
             <div class="popup-map hidden">
-                <span class="popup-map__bg"></span>
-                <span class="popup-map__field"></span>
+                
             </div>
             <canvas id='canvas'></canvas>
+        </div>
+        <div class="map-container not_exist">
+            <div class="popup-map__bg"></div>
+            <canvas id="canvas-map" class="canvas-map"></canvas>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -184,6 +187,9 @@
     <script type="application/javascript" src="../static/js/attack_selector_html_to_js_const.js"></script>
     <script type="application/javascript" src="../static/js/selector_params.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector_events.js"></script>
+    <script type="application/javascript" src="../static/js/towers.js"></script>
+    <script type="application/javascript" src="../static/js/lvls.js"></script>
+    <script type="application/javascript" src="../static/js/attack_selector_map.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector.js"></script>
 </body>
 

@@ -42,7 +42,9 @@ function pushMonsters(GAME, lvl, monster) {
     if (monster.name == 'monster5') {
         monsters[pushmonstercount].giveShield = monster.giveShield
     } else {
-        monsters[pushmonstercount].countShield = monster.countShield
+        if(pushmonstercount < monsters.length) {
+            monsters[pushmonstercount].countShield = monster.countShield;
+        }
     }
     if (lvl.start_x < 0 || lvl.start_x > 1600) {
         monsters[pushmonstercount].x = lvl.start_x;
