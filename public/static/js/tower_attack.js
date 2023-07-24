@@ -117,7 +117,9 @@ function updateArrows() {
             } else {
                 if(flyingArrow.currentEnemy.shield <= 0){
                     flyingArrow.currentEnemy.hp -= flyingArrow.atk;
-                } 
+                } else {
+                    flyingArrow.currentEnemy.shield -= flyingArrow.atk / 2;
+                }
                 arrows.splice(i, 1);
             }
             // console.log(flyingArrow.angel);
