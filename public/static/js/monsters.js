@@ -32,7 +32,7 @@ const monster3 = {
     hp: 60,
     maxhp: 60,
     speed: 3,
-    cost: 60,
+    cost: 50,
     width: 96,
     height: 86,
     name: "monster3",

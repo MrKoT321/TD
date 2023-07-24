@@ -427,7 +427,6 @@ function play() {
     updateScore();
     updateVisualLvlParams();
     drawBackground();
-    updateMobDataAtk();
     drawStrikes();      
     moveMonsters(GAME, lvls);
     drawCastle();
@@ -443,6 +442,7 @@ function play() {
         updateArrows();
         updateBullets();
         updateStrikes();
+        updateMobDataAtk();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);

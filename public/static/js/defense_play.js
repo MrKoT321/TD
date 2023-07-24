@@ -409,7 +409,6 @@ function play() {
     drawTiles(GAME, lvls);
     drawExplosion();
     drawStrikes();
-    updateMobDataDef();
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -424,6 +423,7 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
+        updateMobDataDef();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
