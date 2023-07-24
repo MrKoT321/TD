@@ -23,7 +23,19 @@ const loading_100 = document.querySelector('.loading__100');
 const loading_bg = document.querySelector('.loading-bg');
 const loading_image = document.querySelector('.loading-image');
 
-const lvls = [lvl3, lvl4];
+const wave_info = document.querySelector('.wave-info');
+const info_block1 = document.getElementById('info-block1')
+const info_block2 = document.getElementById('info-block2')
+const info_block3 = document.getElementById('info-block3')
+const info_block4 = document.getElementById('info-block4')
+const info_block5 = document.getElementById('info-block5')
+const wave_mob1_count = document.getElementById('wave-mob1-count')
+const wave_mob2_count = document.getElementById('wave-mob2-count')
+const wave_mob3_count = document.getElementById('wave-mob3-count')
+const wave_mob4_count = document.getElementById('wave-mob4-count')
+const wave_mob5_count = document.getElementById('wave-mob5-count')
+
+const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
     player: document.getElementById("nick-name").innerHTML,
@@ -231,6 +243,7 @@ function updateNextLvlParams() {
 function updateRestartGameParams() {
     GAME.lvlCount = 1;
     lvl = lvls[GAME.lvlCount - 1];
+    wave_info.style.margin = "-" + String(1000 - lvl.start_y) + "px" + String(1600 - lvl.start_x) + "px";
     GAME.castleHP = lvl.castleHP;
     GAME.wave = 1;
     monstercount = 0;
@@ -395,6 +408,92 @@ function closeLoading() {
     loading_image.classList.add('hidden');
 }
 
+function changeWaveInfoPos(lvl){
+    let wave_length = lvl.waves[GAME.wave - 1].length
+    if(lvl.start_dir == 'r'){
+        wave_info.style.margin = "-" + String(1000 - lvl.start_y + 20) + "px " + "5px";
+        wave_info.style.flexDirection = "row"
+    }
+    if(lvl.start_dir == 'l'){
+        wave_info.style.margin = "-" + String(1000 - lvl.start_y + 20) + "px " + String(1600 - 72 * wave_length - 5);
+        wave_info.style.flexDirection = "row-reverse"
+    }
+    if(lvl.start_dir == 'u'){
+        wave_info.style.margin ="-5px " + String(lvl.start_x + 20) + "px ";
+        wave_info.style.flexDirection = "column"
+    }
+    if(lvl.start_dir == 'd'){
+        wave_info.style.margin ="-" + String(1000 - 72 * wave_length - 5) + "px " + String(lvl.start_x + 20) + "px ";
+        wave_info.style.flexDirection = "column-reversee"
+    }
+}
+
+function updateInfoCounts(){
+    let monster1_count = 0, monster2_count = 0, monster3_count = 0, monster4_count = 0, monster5_count = 0
+    for(let monster of lvl.waves[GAME.wave - 1]){
+        if(monster.name == 'monster1'){
+            monster1_count += 1
+        }
+        if(monster.name == 'monster2'){
+            monster2_count += 1
+        }
+        if(monster.name == 'monster3'){
+            monster3_count += 1
+        }
+        if(monster.name == 'monster4'){
+            monster4_count += 1
+        }
+        if(monster.name == 'monster5'){
+            monster5_count += 1
+        }
+    }
+    if (monster1_count > 0) {
+        wave_mob1_count.innerHTML = String(monster1_count);
+        info_block1.style.visibility = 'visible'
+    } else {
+        info_block1.style.position = 'absolute'
+    }
+    if (monster2_count > 0) {
+        wave_mob2_count.innerHTML = String(monster2_count);
+        info_block2.style.visibility = 'visible'
+    } else {
+        info_block2.style.position = 'absolute'
+    }
+    if (monster3_count > 0) {
+        wave_mob3_count.innerHTML = String(monster3_count);
+        info_block3.style.visibility = 'visible'
+    } else {
+        info_block3.style.position = 'absolute'
+    }
+    if (monster4_count > 0) {
+        wave_mob4_count.innerHTML = String(monster4_count);
+        info_block4.style.visibility = 'visible'
+    } else {
+        info_block4.style.position = 'absolute'
+    }
+    if (monster5_count > 0) {
+        wave_mob5_count.innerHTML = String(monster5_count);
+        info_block5.style.visibility = 'visible'
+    } else {
+        info_block5.style.position = 'absolute'
+    }
+}
+
+function showWaveInfo() {
+    if(GAME.isPlay != 'wavepause'){
+        info_block1.style.visibility = 'hidden';
+        info_block2.style.visibility = 'hidden';
+        info_block3.style.visibility = 'hidden';
+        info_block4.style.visibility = 'hidden';
+        info_block5.style.visibility = 'hidden';
+        info_block1.style.position = 'static';
+        info_block2.style.position = 'static';
+        info_block3.style.position = 'static';
+        info_block4.style.position = 'static';
+        info_block5.style.position = 'static';
+    }
+}
+
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
 //           'menu' - мобы не идут, башни не ставятся
@@ -402,6 +501,7 @@ function closeLoading() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    showWaveInfo();
     updateMoney();
     updateScore();
     updateVisualLvlParams();
@@ -409,11 +509,16 @@ function play() {
     drawTiles(GAME, lvls);
     drawExplosion();
     drawStrikes();
+    if(GAME.isPlay != 'wavepause'){
+        updateMobDataDef();
+    }
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
         initBullets();
         resetStopwatch();
+        updateInfoCounts();
+        changeWaveInfoPos(lvl);
     }
     if (GAME.isPlay == 'play') {
         lvlComplete();
@@ -423,7 +528,6 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
-        updateMobDataDef();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);

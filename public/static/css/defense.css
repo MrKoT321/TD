@@ -631,3 +631,26 @@ body {
 .loading-field{
     position: absolute;
 }
+
+.wave-info {
+    flex-direction: row;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    margin-top: -320px;
+    gap: 5px;
+    visibility: hidden;
+}
+
+.wave-info__text{
+    color: white;
+    font-family: 'VT323';
+    font-size: 40px;
+}
+
+.wave-info__block{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    visibility: hidden;
+}

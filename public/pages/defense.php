@@ -29,6 +29,33 @@
                 <span class="count-score__value"></span>
                 <img src="../static/images/score.png" alt="score" class="count-score__img">
             </div>
+            <div class = "wave-info">
+                <div class = "wave-info__block" id = 'info-block1'>
+                    <img src = "../static/images/monster1_info_wave.png" />
+                    <span class = "wave-info__text">x</span>
+                    <span class = "wave-info__text" id = 'wave-mob1-count'>0</span>
+                </div>
+                <div class = "wave-info__block" id = 'info-block2'>
+                    <img src = "../static/images/monster2_info_wave.png" />
+                    <span class = "wave-info__text">x</span>
+                    <span class = "wave-info__text" id = 'wave-mob2-count'>0</span>
+                </div>
+                <div class = "wave-info__block" id = 'info-block3'>
+                    <img src = "../static/images/monster3_info_wave.png" />
+                    <span class = "wave-info__text">x</span>
+                    <span class = "wave-info__text" id = 'wave-mob3-count'>0</span>
+                </div>
+                <div class = "wave-info__block" id = 'info-block4'>
+                    <img src = "../static/images/monster4_info_wave.png" />
+                    <span class = "wave-info__text">x</span>
+                    <span class = "wave-info__text" id = 'wave-mob4-count'>0</span>
+                </div>
+                <div class = "wave-info__block" id = 'info-block5'>
+                    <img src = "../static/images/monster5_info_wave.png" />
+                    <span class = "wave-info__text">x</span>
+                    <span class = "wave-info__text" id = 'wave-mob5-count'>0</span>
+                </div>
+            </div>
             <div class="tower-selection new-tower hidden">
                 <div class="choise-towers">
                     <div class="archer selector">

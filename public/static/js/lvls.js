@@ -31,7 +31,7 @@ const lvl2 = {
     castle_w: 386,
     castle_h: 400,
     money: 200,
-    start_dir: 'r',
+    start_dir: 'd',
     waves: [[monster1, monster3, monster3], [monster4, monster3, monster3, monster2], [monster3, monster4, monster2, monster2, monster1, monster3]],
     atk_towers: [[bash], [archer, bash], [archer, bash, archer]],
     bonuses: ["fireball"],

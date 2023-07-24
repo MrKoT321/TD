@@ -276,7 +276,7 @@ function shieldBar(monster) {
 }
 
 function payForMonstersDef() {
-    for (var monster of monsters) {
+    for (let monster of monsters) {
         if (monster.hp <= 0 && !monster.finish) {
             GAME.money += monster.cost / 2
         }
