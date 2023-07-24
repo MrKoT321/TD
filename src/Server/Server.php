@@ -27,7 +27,7 @@ class WebSocketHandler implements MessageComponentInterface {
     // } else {
     //   $conn->connId = $conn->resourceId;
     // }
-    $conn->status = 'menu';
+    $conn->gameStatus = 'menu';
     $this->clients->attach($conn);
     echo "-- New client connected: {$conn->resourceId}" . PHP_EOL;
   }
@@ -39,7 +39,7 @@ class WebSocketHandler implements MessageComponentInterface {
       $this->findOpponent($from, $data);
     } else {
       if ($data->type == 'remove_from_search') {
-        $from->status = 'menu';
+        $from->gameStatus = 'menu';
       }
     }
   }
@@ -58,16 +58,22 @@ class WebSocketHandler implements MessageComponentInterface {
   }
 
   private function findOpponent(ConnectionInterface $from, $data) {
-    $from->status = 'search';
+    $from->gameStatus = 'search';
     $from->class = $data->choisen_class;
     foreach ($this->clients as $client) {
-      if ($client->resourceId !== $from->resourceId && $client->status == 'search' && $client->class !== $from->class) {
-        $client->status = 'ready_to_play';
-        $from->status = 'ready_to_play';
+      if ($client->resourceId !== $from->resourceId && $client->gameStatus == 'search' && $client->class !== $from->class) {
+        $client->gameStatus = 'ready_to_play';
+        $from->gameStatus = 'ready_to_play';
         echo '--- Connection success! Both players ready to play' . PHP_EOL;
-        $data->resourceId = $from->resourceId;
+        $data->type = 'find';
+        $from->send(json_encode($data));
+        if ($data->choisen_class = 'attack') {
+          $data->choisen_class = 'defense';
+        } else {
+          $data->choisen_class = 'attack';
+        }
+        $client->send(json_encode($data));
         break;
-        // $client->send(json_encode($data));
       }
     }
   }

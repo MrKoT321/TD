@@ -21,6 +21,11 @@ const waitingScreen = document.getElementById('waiting-screen');
 const waitingScreenPopup = document.getElementById('waiting-screen-img');
 const waitingScreenArea = document.getElementById('waiting-screen-area');
 
+GAME = {
+    username: undefined,
+    choisenClass: undefined,
+}
+
 startBtn.addEventListener('click', () => { nicknameSingle.value = ''; })
 multiplayBtn.addEventListener('click', () => { nicknameMulti.value = ''; })
 
@@ -70,6 +75,8 @@ attackSubmitStart.addEventListener('click', () => { sendSingleGameForm('attack')
 function sendMultiplayGameForm(event, Class) {
     // choisenClassSingle.value = Class;
     // $('#mutiplay-game-form').attr('action', '../create_multiplay_game.php');
+    GAME.nickname = nicknameMulti.value;
+    GAME.choisen_class = Class;
     event.preventDefault();
     waitingScreen.classList.add("active");
     waitingScreenPopup.style.opacity = "1";
@@ -87,12 +94,26 @@ waitingScreenArea.addEventListener('click', () => {
     waitingScreenPopup.style.opacity = "0";
     waitingScreenPopup.style.transform = "translate(0px, -100%)";
     data = {
-        type: 'remove_from_search', 
-        choisen_class: Class
+        type: 'remove_from_search'
     }
     json = JSON.stringify(data);
     socket.send(json);
 })
+
+function redirectToMultiplayGame() {
+    var form = document.createElement('form');
+    document.body.appendChild(form);
+    form.method = 'POST';
+    form.action = '../create_multiplay_game.php';
+    for (var name in GAME) {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = GAME[name];
+        form.appendChild(input);
+    }
+    form.submit();
+}
 
 defenseSubmitMultiplay.addEventListener('click', (event) => { sendMultiplayGameForm(event, 'defense') });
 attackSubmitMultiplay.addEventListener('click', (event) => { sendMultiplayGameForm(event, 'attack') });
@@ -105,8 +126,14 @@ socket.addEventListener('open', function(event) {
 
 socket.addEventListener('message', function(event) {
     data = JSON.parse(event.data);
+    console.log(data);
     switch (data.type) {
         case 'add_to_search':
             console.log(data.choisen_class);
+            break;
+        case 'find':
+            console.log("Redirect to New Page");
+            redirectToMultiplayGame();
+            break;
     }
 });

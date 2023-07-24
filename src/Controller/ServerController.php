@@ -145,6 +145,27 @@ class ServerController
         
     }
 
+    public function createMultiplayGame(array $requestData) : void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->writeRedirectSeeOther('/');
+            return;
+        }
+
+        $game = new Game (
+            null,
+            $requestData['username'],
+            $requestData['choisenClass'],
+            null
+        );
+        $gameId = $this->gameTable->create($game);
+        if ($requestData['choisenClass'] === 'defense') {
+            $this->writeRedirectSeeOther("/single_game_defense.php?game_id=$gameId");
+            exit();
+        }
+        $this->writeRedirectSeeOther("/single_game_attack.php?game_id=$gameId");
+    }
+
     //--------------------------------------------------- 
 
     public function sendWaves(array $requestData): void
