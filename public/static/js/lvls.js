@@ -11,9 +11,9 @@ const lvl1 = {
     castle_h: 400,
     money: 100,
     start_dir: 'r',
-    waves: [[monster1, monster1, monster1], [monster2, monster1, monster2, monster1], [monster2, monster2, monster2, monster3, monster3]],
+    waves: [[monster1, monster1, monster1, monster3], [monster1, monster1, monster3, monster2], [monster2, monster3, monster5, monster1, monster1]],
     atk_towers: [[archer], [archer, bash], [bash, archer]],
-    bonuses: ["fireball", "freeze"],
+    bonuses: ["fireball",  "freeze"],
     back_src:  "../static/images/MAP1.png",
     castle_src:  "../static/images/CASTLE.png",
     money: 50

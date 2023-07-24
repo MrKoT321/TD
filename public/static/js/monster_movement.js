@@ -1,4 +1,5 @@
 var monsters = [];
+var monstersSpawnIndex = 0
 var monstercount = 0;
 var pushmonstercount = 0;
 var steptimer = 0;
@@ -34,7 +35,9 @@ function pushMonsters(GAME, lvl, monster) {
         baseTime: monster.baseTime,
         hit: false,
         name: monster.name,
-        maxShield: monster.maxShield
+        maxShield: monster.maxShield,
+        distance: 0,
+        index: monstersSpawnIndex,
     })
     if (monster.name == 'monster5') {
         monsters[pushmonstercount].giveShield = monster.giveShield
@@ -49,6 +52,7 @@ function pushMonsters(GAME, lvl, monster) {
         monsters[pushmonstercount].x = lvl.start_x - monster.width / 2;
     }
     pushmonstercount += 1;
+    monstersSpawnIndex += 1;
 }
 
 function drawMonster(monster) {
@@ -120,6 +124,7 @@ function monsterMove(monster) {
             monster.y += speed;
             break;
     }
+    monster.distance += speed;
 }
 
 function canvasToGrid(x, y) {
@@ -238,6 +243,15 @@ function registerCollision(monster, GAME) {
 function moveMonsters(GAME, lvls) {
     monsters = monsters.filter(value => value.hp > 0);
     updateMonstersStep();
+    monsters.sort(function(mstrA, mstrB) {
+        if(mstrA.index > mstrB.index) {
+            return 1;
+        }
+        if(mstrA.index < mstrB.index) {
+            return -1;
+        }
+        return 0
+    })
     for (var monster of monsters) {
         addShield(monster);
         drawShield(monster);
