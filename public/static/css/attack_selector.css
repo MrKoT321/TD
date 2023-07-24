@@ -326,3 +326,20 @@ body {
     margin-top: 99px;
     font-size: 40px;
 }
+
+.not_exist {
+    visibility: hidden;
+}
+
+.map-container {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.canvas-map {
+    z-index: 1;
+}

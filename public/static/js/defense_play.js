@@ -23,7 +23,7 @@ const loading_100 = document.querySelector('.loading__100');
 const loading_bg = document.querySelector('.loading-bg');
 const loading_image = document.querySelector('.loading-image');
 
-const lvls = [lvl3, lvl4];
+const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
     player: document.getElementById("nick-name").innerHTML,
@@ -32,7 +32,7 @@ var GAME = {
     stopwatch: 0,
     milisectimer: 0,
     isPlay: 'wavepause',
-    money: 50,
+    money: 100,
     score: 0,
     lvlCount: 1,
     wave: 1
