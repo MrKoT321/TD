@@ -276,7 +276,7 @@ function shieldBar(monster) {
 }
 
 function payForMonstersDef() {
-    for (var monster of monsters) {
+    for (let monster of monsters) {
         if (monster.hp <= 0 && !monster.finish) {
             GAME.money += monster.cost / 2
         }
@@ -305,9 +305,9 @@ function updateMobDataAtk() {
     for (var monster of monsters) {
         if (monster.hp <= 0) {
             if (monster.finish) {
-                GAME.money += monster.cost;
+                GAME.money += Math.floor(monster.cost / 2);
             } else {
-                GAME.money += Math.floor(monster.cost * 0.3);
+                GAME.money += Math.floor(monster.cost / 4);
             }
             GAME.score += Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount - 1]));
         }

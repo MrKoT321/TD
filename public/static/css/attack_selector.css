@@ -226,7 +226,7 @@ body {
     position: absolute;
     width: 150px;
     height: 150px;
-    background: white;
+    background: url('../images/monster3_info.png');
     margin-left: 110px;
     margin-top: -270px;
     display: flex;
@@ -237,7 +237,7 @@ body {
     position: absolute;
     width: 150px;
     height: 150px;
-    background: white;
+    background: url('../images/monster4_info.png');
     margin-left: 110px;
     margin-top: -270px;
     display: flex;
@@ -248,7 +248,7 @@ body {
     position: absolute;
     width: 150px;
     height: 150px;
-    background: white;
+    background: url('../images/monster5_info.png');
     margin-left: 110px;
     margin-top: -270px;
     display: flex;

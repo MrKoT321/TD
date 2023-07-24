@@ -31,7 +31,7 @@ const lvl2 = {
     castle_w: 386,
     castle_h: 400,
     money: 200,
-    start_dir: 'r',
+    start_dir: 'd',
     waves: [[monster1, monster3, monster3], [monster4, monster3, monster3, monster2], [monster3, monster4, monster2, monster2, monster1, monster3]],
     atk_towers: [[bash], [archer, bash], [archer, bash, archer]],
     bonuses: ["fireball", "freeze"],
@@ -74,11 +74,12 @@ const lvl4 = {
     castle_h: 400,   
     money: 100,
     start_dir: 'u',
-    waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
-    atk_towers: [[bash, bash, archer], [archer, mortir, bash], [mortir, bash, mortir]],
+    waves: [[monster2, monster5, monster2], [monster4, monster1, monster3, monster3], [monster5, monster4, monster2, monster2, monster3]],
+    atk_towers: [[bash, bash, archer], [archer, mortir, bash], [mortir, mortir, archer, archer]],
     bonuses: [],
     back_src: "../static/images/MAP4.png",
-    castle_src:  "../static/images/CASTLE.png"
+    castle_src:  "../static/images/CASTLE.png",
+    money: 100
 }
 
 const lvl5 = {
@@ -94,8 +95,10 @@ const lvl5 = {
     castle_h: 400,   
     money: 100,
     start_dir: 'r',
-    waves: [[monster1, monster1], [monster1, monster1, monster1, monster1], [monster1, monster1, monster1, monster1, monster1]],
+    waves: [[monster4, monster1, monster5], [monster5, monster4, monster3, monster3, monster5], [monster4, monster5, monster2, monster1, monster2, monster5, monster1]],
+    atk_towers: [[bash, bash, archer], [archer, mortir, bash], [mortir, mortir, archer, archer]],
     bonuses: [],
     back_src: "../static/images/MAP4.png",
-    castle_src:  "../static/images/CASTLE.png"
+    castle_src:  "../static/images/CASTLE.png",
+    money: 150
 }

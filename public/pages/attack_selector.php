@@ -33,7 +33,7 @@
                     <img src="../static/images/monster1_selector.png" id="mob1" class="monster-selector"/>
                     <strong class="mob1-info hidden">
                         <span class="info-cost">30</span>
-                        <span class="info-hp">100</span>
+                        <span class="info-hp">75</span>
                     </strong>
                 </div>
                 <div>
@@ -46,17 +46,26 @@
                 <div>
                     <img src="../static/images/monster3_selector.png" id="mob3" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector3.png" class="monster-selector-lock" id="unlock-monster3"/>
-                    <strong class="mob3-info hidden"></strong>
+                    <strong class="mob3-info hidden">
+                        <span class="info-cost">50</span>
+                        <span class="info-hp">60</span>
+                    </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster4_selector.png" id="mob4" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector4.png" class="monster-selector-lock" id="unlock-monster4"/>
-                    <strong class="mob4-info hidden"></strong>
+                    <strong class="mob4-info hidden">
+                        <span class="info-cost">80</span>
+                        <span class="info-hp">250</span>
+                    </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster5_selector.png" id="mob5" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector5.png" class="monster-selector-lock" id="unlock-monster5"/>
-                    <strong class="mob5-info hidden"></strong>
+                    <strong class="mob5-info hidden">
+                        <span class="info-cost">100</span>
+                        <span class="info-hp">60</span>
+                    </strong>
                 </div>
             </div>
             <div class="money-info-wave1">

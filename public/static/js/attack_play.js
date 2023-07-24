@@ -449,8 +449,12 @@ function play() {
     updateScore();
     updateVisualLvlParams();
     drawBackground();
+<<<<<<< HEAD
     updateMobDataAtk();
     drawStrikes(); 
+=======
+    drawStrikes();      
+>>>>>>> origin/max
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -465,6 +469,7 @@ function play() {
         updateArrows();
         updateBullets();
         updateStrikes();
+        updateMobDataAtk();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
