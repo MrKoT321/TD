@@ -17,7 +17,6 @@ class ServerController
 
     private GameTable $gameTable;
     private RequestTable $requestTable;
-    private MultiplayGame $multiplayGame;
 
     public function __construct()
     {

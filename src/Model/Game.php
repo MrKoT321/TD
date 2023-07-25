@@ -5,23 +5,13 @@ namespace App\Model;
 
 class Game
 {
-    private ?int $gameId;
-    private string $nickName;
-    private string $choisenClass;
-    private ?int $score;
-
     public function __construct
     (
-        ?int $gameId,
-        string $nickName,
-        string $choisenClass,
-        ?int $score
-    ) {
-        $this->gameId = $gameId;
-        $this->nickName = $nickName;
-        $this->choisenClass = $choisenClass;
-        $this->score = $score;
-    }
+        private ?int $gameId,
+        private string $nickName,
+        private string $choisenClass,
+        private ?int $score
+    ) {}
 
     public function getGameId(): ?int
     {
