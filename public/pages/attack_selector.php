@@ -33,7 +33,7 @@
                     <img src="../static/images/monster1_selector.png" id="mob1" class="monster-selector"/>
                     <strong class="mob1-info hidden">
                         <span class="info-cost">30</span>
-                        <span class="info-hp">100</span>
+                        <span class="info-hp">75</span>
                     </strong>
                 </div>
                 <div>
@@ -46,17 +46,26 @@
                 <div>
                     <img src="../static/images/monster3_selector.png" id="mob3" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector3.png" class="monster-selector-lock" id="unlock-monster3"/>
-                    <strong class="mob3-info hidden"></strong>
+                    <strong class="mob3-info hidden">
+                        <span class="info-cost">50</span>
+                        <span class="info-hp">60</span>
+                    </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster4_selector.png" id="mob4" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector4.png" class="monster-selector-lock" id="unlock-monster4"/>
-                    <strong class="mob4-info hidden"></strong>
+                    <strong class="mob4-info hidden">
+                        <span class="info-cost">80</span>
+                        <span class="info-hp">250</span>
+                    </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster5_selector.png" id="mob5" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector5.png" class="monster-selector-lock" id="unlock-monster5"/>
-                    <strong class="mob5-info hidden"></strong>
+                    <strong class="mob5-info hidden">
+                        <span class="info-cost">100</span>
+                        <span class="info-hp">60</span>
+                    </strong>
                 </div>
             </div>
             <div class="money-info-wave1">
@@ -164,17 +173,25 @@
             <span class="mob4-info hidden"></span>
             <span class="mob5-info hidden"></span>
             <div class="popup-map hidden">
-                <span class="popup-map__bg"></span>
-                <span class="popup-map__field"></span>
+                
             </div>
             <canvas id='canvas'></canvas>
+            
         </div>
+        <div class="map-container not_exist">
+            <div class="popup-map__bg"></div>
+            <canvas id="canvas-map" class="canvas-map"></canvas>
+        </div>
+    </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector_html_to_js_const.js"></script>
     <script type="application/javascript" src="../static/js/selector_params.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector_events.js"></script>
+    <script type="application/javascript" src="../static/js/towers.js"></script>
+    <script type="application/javascript" src="../static/js/lvls.js"></script>
+    <script type="application/javascript" src="../static/js/attack_selector_map.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector.js"></script>
 </body>
 

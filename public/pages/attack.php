@@ -67,11 +67,6 @@
         </div>
         <div class="game__bar bar">
             <div class="bar__bufs">
-                <!-- <div class="fireball-buf buf-slot"> 
-                    <img src="../static/images/fireball_buff.png" class="fireball-buf__icon" />
-                    <img src="../static/images/cancel_button.png"  class="fireball-buf__cancel hidden" />
-                    <span class="fireball-buf__reload"></span> 
-                </div> -->
                 <div class="buf-slot"></div>
                 <div class="buf-slot"></div>
                 <div class="buf-slot"></div>

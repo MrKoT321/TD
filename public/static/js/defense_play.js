@@ -17,6 +17,24 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
+const loading_text = document.querySelector('.loading__text');
+const loading_0 = document.querySelector('.loading__0');
+const loading_100 = document.querySelector('.loading__100');
+const loading_bg = document.querySelector('.loading-bg');
+const loading_image = document.querySelector('.loading-image');
+
+const wave_info = document.querySelector('.wave-info');
+const info_block1 = document.getElementById('info-block1')
+const info_block2 = document.getElementById('info-block2')
+const info_block3 = document.getElementById('info-block3')
+const info_block4 = document.getElementById('info-block4')
+const info_block5 = document.getElementById('info-block5')
+const wave_mob1_count = document.getElementById('wave-mob1-count')
+const wave_mob2_count = document.getElementById('wave-mob2-count')
+const wave_mob3_count = document.getElementById('wave-mob3-count')
+const wave_mob4_count = document.getElementById('wave-mob4-count')
+const wave_mob5_count = document.getElementById('wave-mob5-count')
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -116,7 +134,7 @@ function changeGameStatusButtons() {
     }
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.remove("active");
-    } 
+    }
 }
 
 function drawCastle() {
@@ -135,7 +153,7 @@ function gameOver() {
         var endScore = document.querySelector(".score__value");
         endScore.innerHTML = scoreValue;
         GAME.isPlay = 'popuppause';
-    } 
+    }
 }
 
 function updateMoney() {
@@ -159,14 +177,14 @@ function lvlComplete() {
             document.querySelector('.over').style.color = 'green';
             document.querySelector('.over').innerHTML = 'VICTORY';
             var endScore = document.querySelector(".score__value");
-            endScore.innerHTML = GAME.score ;
+            endScore.innerHTML = GAME.score;
         } else {
             popupcompleteBg.classList.add('active');
             popupcomplete.classList.add('active');
             GAME.money += 100;
         }
-    } 
-    
+    }
+
 }
 
 function popupCloseComplete() {
@@ -181,6 +199,7 @@ function popupCloseOver() {
 
 function changeLvl() {
     GAME.lvlCount += 1;
+    GAME.money = lvls[GAME.lvlCount - 1].money
     return lvls[GAME.lvlCount - 1];
 }
 
@@ -218,12 +237,13 @@ function updateNextLvlParams() {
         stepcounter = 1;
         explosions = [];
         strikes = [];
-    }    
+    }
 }
 
 function updateRestartGameParams() {
     GAME.lvlCount = 1;
     lvl = lvls[GAME.lvlCount - 1];
+    wave_info.style.margin = "-" + String(1000 - lvl.start_y) + "px" + String(1600 - lvl.start_x) + "px";
     GAME.castleHP = lvl.castleHP;
     GAME.wave = 1;
     monstercount = 0;
@@ -293,16 +313,16 @@ async function sendResults(event) {
 
 const socket = new WebSocket('ws://localhost:8080');
 
-socket.addEventListener('open', function(event) {
+socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
 });
 
-socket.addEventListener('message', function(event) {
+socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     switch (data.type) {
         case 'tower_add':
             towers = data.towers;
-            GAME.money = data.money;    
+            GAME.money = data.money;
             break;
         case 'game_status':
             GAME.isPlay = data.status;
@@ -319,7 +339,7 @@ function startWave() {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
         sendGameStatus();
-    } 
+    }
 }
 
 function pauseGame() {
@@ -341,7 +361,7 @@ function pauseGame() {
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
 document.addEventListener("keydown", (event) => {
-    switch(event.code) {
+    switch (event.code) {
         case 'Space':
             pauseGame();
             break;
@@ -373,12 +393,106 @@ restartgame.addEventListener(
 );
 
 backToMenuBtn.addEventListener(
-    "click", 
-    (event) => { 
+    "click",
+    (event) => {
         sendResults(event);
         window.location.href = '../../';
     }
 );
+
+function closeLoading() {
+    loading_text.classList.add('hidden');
+    loading_0.classList.add('hidden');
+    loading_100.classList.add('hidden');
+    loading_bg.classList.add('hidden');
+    loading_image.classList.add('hidden');
+}
+
+function changeWaveInfoPos(lvl){
+    let wave_length = lvl.waves[GAME.wave - 1].length
+    if(lvl.start_dir == 'r'){
+        wave_info.style.margin = "-" + String(1000 - lvl.start_y + 20) + "px " + "5px";
+        wave_info.style.flexDirection = "row"
+    }
+    if(lvl.start_dir == 'l'){
+        wave_info.style.margin = "-" + String(1000 - lvl.start_y + 20) + "px " + String(1600 - 72 * wave_length - 5);
+        wave_info.style.flexDirection = "row-reverse"
+    }
+    if(lvl.start_dir == 'u'){
+        wave_info.style.margin ="-5px " + String(lvl.start_x + 20) + "px ";
+        wave_info.style.flexDirection = "column"
+    }
+    if(lvl.start_dir == 'd'){
+        wave_info.style.margin ="-" + String(1000 - 72 * wave_length - 5) + "px " + String(lvl.start_x + 20) + "px ";
+        wave_info.style.flexDirection = "column-reversee"
+    }
+}
+
+function updateInfoCounts(){
+    let monster1_count = 0, monster2_count = 0, monster3_count = 0, monster4_count = 0, monster5_count = 0
+    for(let monster of lvl.waves[GAME.wave - 1]){
+        if(monster.name == 'monster1'){
+            monster1_count += 1
+        }
+        if(monster.name == 'monster2'){
+            monster2_count += 1
+        }
+        if(monster.name == 'monster3'){
+            monster3_count += 1
+        }
+        if(monster.name == 'monster4'){
+            monster4_count += 1
+        }
+        if(monster.name == 'monster5'){
+            monster5_count += 1
+        }
+    }
+    if (monster1_count > 0) {
+        wave_mob1_count.innerHTML = String(monster1_count);
+        info_block1.style.visibility = 'visible'
+    } else {
+        info_block1.style.position = 'absolute'
+    }
+    if (monster2_count > 0) {
+        wave_mob2_count.innerHTML = String(monster2_count);
+        info_block2.style.visibility = 'visible'
+    } else {
+        info_block2.style.position = 'absolute'
+    }
+    if (monster3_count > 0) {
+        wave_mob3_count.innerHTML = String(monster3_count);
+        info_block3.style.visibility = 'visible'
+    } else {
+        info_block3.style.position = 'absolute'
+    }
+    if (monster4_count > 0) {
+        wave_mob4_count.innerHTML = String(monster4_count);
+        info_block4.style.visibility = 'visible'
+    } else {
+        info_block4.style.position = 'absolute'
+    }
+    if (monster5_count > 0) {
+        wave_mob5_count.innerHTML = String(monster5_count);
+        info_block5.style.visibility = 'visible'
+    } else {
+        info_block5.style.position = 'absolute'
+    }
+}
+
+function showWaveInfo() {
+    if(GAME.isPlay != 'wavepause'){
+        info_block1.style.visibility = 'hidden';
+        info_block2.style.visibility = 'hidden';
+        info_block3.style.visibility = 'hidden';
+        info_block4.style.visibility = 'hidden';
+        info_block5.style.visibility = 'hidden';
+        info_block1.style.position = 'static';
+        info_block2.style.position = 'static';
+        info_block3.style.position = 'static';
+        info_block4.style.position = 'static';
+        info_block5.style.position = 'static';
+    }
+}
 
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
@@ -387,6 +501,7 @@ backToMenuBtn.addEventListener(
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    showWaveInfo();
     updateMoney();
     updateScore();
     updateVisualLvlParams();
@@ -394,12 +509,16 @@ function play() {
     drawTiles(GAME, lvls);
     drawExplosion();
     drawStrikes();
-    updateMobDataDef();
+    if(GAME.isPlay != 'wavepause'){
+        updateMobDataDef();
+    }
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
         initBullets();
         resetStopwatch();
+        updateInfoCounts();
+        changeWaveInfoPos(lvl);
     }
     if (GAME.isPlay == 'play') {
         lvlComplete();
@@ -431,4 +550,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
-play();
+setTimeout(() => { closeLoading() }, 5000)
+setTimeout(() => { play() }, 5000)

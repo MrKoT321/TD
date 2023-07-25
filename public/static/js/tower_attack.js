@@ -7,8 +7,16 @@ const arrowImg = new Image();
 var arrowLoadImg;
 arrowImg.src = '../static/images/arrow.png';
 
+const bulletImg = new Image();
+var bulletLoadImg;
+bulletImg.src = '../static/images/bullet.png';
+
 arrowImg.onload = () => {
     arrowLoadImg = arrowImg;
+}
+
+bulletImg.onload = () => {
+    bulletLoadImg = bulletImg;
 }
 
 function hittingRadius(tower, mstrCenterX, mstrCenterY) {
@@ -20,8 +28,8 @@ function makeArrow(tower) {
     arrows.push({
         x: tower.x + 50,
         y: tower.y + 50,
-        width: 65,
-        height: 65,
+        width: 45,
+        height: 45,
         color: "black",
         towerCenterX: 0,
         towerCenterY: 0,
@@ -37,7 +45,8 @@ function makeBullet(tower, mstrCenterX, mstrCenterY) {
     bullets.push({
         x: tower.x + 50,
         y: tower.y + 50,
-        radius: 20,
+        width: 60,
+        height: 60,
         blastRadius: 90,
         init: true,
         color: "black",
@@ -47,6 +56,7 @@ function makeBullet(tower, mstrCenterX, mstrCenterY) {
         finishY: mstrCenterY,
         speedX: 0,
         speedY: 0,
+        image: bulletLoadImg,
         atk: tower.atk,
     });
 }
@@ -117,7 +127,9 @@ function updateArrows() {
             } else {
                 if(flyingArrow.currentEnemy.shield <= 0){
                     flyingArrow.currentEnemy.hp -= flyingArrow.atk;
-                } 
+                } else {
+                    flyingArrow.currentEnemy.shield -= flyingArrow.atk / 2;
+                }
                 arrows.splice(i, 1);
             }
             // console.log(flyingArrow.angel);
@@ -168,11 +180,7 @@ function attackArcher(GAME) {
 
 function drawBullets() {
     bullets.forEach(flyingBullet => {
-        canvasContext.fillStyle = flyingBullet.color;
-        canvasContext.beginPath();
-        canvasContext.arc(flyingBullet.x, flyingBullet.y, flyingBullet.radius, 0, 2 * Math.PI);
-        canvasContext.closePath();
-        canvasContext.fill();
+        canvasContext.drawImage(flyingBullet.image, flyingBullet.x - flyingBullet.width/2, flyingBullet.y - flyingBullet.height/2, flyingBullet.width, flyingBullet.height);
 
         canvasContext.beginPath();
         canvasContext.strokeStyle = flyingBullet.radiusColor;

@@ -213,7 +213,6 @@ function sendBaseLvlParams() {
     score.value = String(0);
     currLvl.value = String(0);
     mobsUnlock.value = String('monster1,monster2');
-    // console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value, restartGameForm.elements);
     $('#form-restart').attr('action', '../make_waves.php');
 }
 
@@ -450,8 +449,7 @@ function play() {
     updateScore();
     updateVisualLvlParams();
     drawBackground();
-    updateMobDataAtk();
-    drawStrikes(); 
+    drawStrikes();      
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -466,6 +464,7 @@ function play() {
         updateArrows();
         updateBullets();
         updateStrikes();
+        updateMobDataAtk();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);

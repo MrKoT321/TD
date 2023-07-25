@@ -42,7 +42,9 @@ function pushMonsters(GAME, lvl, monster) {
     if (monster.name == 'monster5') {
         monsters[pushmonstercount].giveShield = monster.giveShield
     } else {
-        monsters[pushmonstercount].countShield = monster.countShield
+        if(pushmonstercount < monsters.length) {
+            monsters[pushmonstercount].countShield = monster.countShield;
+        }
     }
     if (lvl.start_x < 0 || lvl.start_x > 1600) {
         monsters[pushmonstercount].x = lvl.start_x;
@@ -226,6 +228,7 @@ function monsterCorrect(lvl, monster) {
 }
 
 function addMonster(GAME, lvls) {
+    console.log("1 monster add");
     pushMonsters(GAME, lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
     monstercount += 1;
 }
@@ -290,9 +293,9 @@ function shieldBar(monster) {
 }
 
 function payForMonstersDef() {
-    for (var monster of monsters) {
+    for (let monster of monsters) {
         if (monster.hp <= 0 && !monster.finish) {
-            GAME.money += monster.cost
+            GAME.money += monster.cost / 2
         }
     }
 }
@@ -319,9 +322,9 @@ function updateMobDataAtk() {
     for (var monster of monsters) {
         if (monster.hp <= 0) {
             if (monster.finish) {
-                GAME.money += monster.cost;
+                GAME.money += Math.floor(monster.cost / 2);
             } else {
-                GAME.money += Math.floor(monster.cost * 0.3);
+                GAME.money += Math.floor(monster.cost / 4);
             }
             GAME.score += Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount - 1]));
         }
@@ -394,4 +397,36 @@ function updateMonstersStep() {
             stepcountertank = 1
         }
     }
+}
+
+function getMonstersFromTheirName(monstersStrArr) {
+    let resWave = [];
+    monstersStrArr.forEach(monsterStr => {
+        switch (monsterStr) {
+            case "monster1":
+                resWave.push(monster1);
+                break;
+            case "monster2":
+                resWave.push(monster2);
+                break;
+            case "monster3":
+                resWave.push(monster3);
+                break;
+            case "monster4":
+                resWave.push(monster4);
+                break;
+            case "monster5":
+                resWave.push(monster5);
+                break;
+        }
+    });
+    return resWave;
+}
+
+function decodeMonsterWaves(data) {
+    let waves = []
+    data.forEach(strWave => {
+        getMonstersFromTheirName(strWave)
+    });
+    return waves;
 }

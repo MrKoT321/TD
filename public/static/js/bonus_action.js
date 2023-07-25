@@ -292,9 +292,6 @@ function initFreeze() {
 }
 
 function drawBonuses() {
-    if (compareWithGameLvlBonuses != GAME.lvlCount) {
-        initBonuses();
-    }
     drawFireball();
     drawFreeze();
     if (GAME.isPlay == 'play') {

@@ -1,6 +1,6 @@
 const monster1 = {
-    hp: 100,
-    maxhp: 100,
+    hp: 75,
+    maxhp: 75,
     speed: 2,
     cost: 30,
     width: 60,
@@ -32,7 +32,7 @@ const monster3 = {
     hp: 60,
     maxhp: 60,
     speed: 3,
-    cost: 10,
+    cost: 50,
     width: 96,
     height: 86,
     name: "monster3",
@@ -47,9 +47,9 @@ const monster4 = {
     hp: 250,
     maxhp: 250,
     speed: 1,
-    cost: 10,
-    width: 136,
-    height: 133,
+    cost: 80,
+    width: 123,
+    height: 120,
     name: "monster4",
     type: "walking",
     shield: 0,
@@ -59,10 +59,10 @@ const monster4 = {
 }
 
 const monster5 = {
-    hp: 100,
-    maxhp: 100,
+    hp: 60,
+    maxhp: 60,
     speed: 2,
-    cost: 10,
+    cost: 100,
     width: 96,
     height: 110,
     name: "monster5",
@@ -296,11 +296,11 @@ monster2_image.onload = () => {
     monster2.icon = monster2_image
 }
 monster3_image.onload = () => {
-    monster3.icon = monster1_image
+    monster3.icon = monster3_image
 }
 monster4_image.onload = () => {
-    monster4.icon = monster2_image
+    monster4.icon = monster4_image
 }
 monster5_image.onload = () => {
-    monster5.icon = monster1_image
+    monster5.icon = monster5_image
 }
