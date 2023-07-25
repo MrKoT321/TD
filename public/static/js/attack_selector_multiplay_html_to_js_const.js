@@ -99,3 +99,9 @@ const money_take = document.getElementById('game-info-money');
 const score_take = document.getElementById('game-info-score');
 const lvl_take = document.getElementById('game-info-currLvl');
 const mobsUnlock_take = document.getElementById('game-info-mobsUnlock');
+
+const loading_text = document.querySelector('.loading__text');
+const loading_0 = document.querySelector('.loading__0');
+const loading_100 = document.querySelector('.loading__100');
+const loading_bg = document.querySelector('.loading-bg');
+const loading_image = document.querySelector('.loading-image');

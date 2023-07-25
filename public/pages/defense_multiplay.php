@@ -123,6 +123,14 @@
             </div>
         </div>
     </div>
+    <img src='../static/images/loading-bg.png' class='loading-image hidden' />
+    <div class='loading-bg hidden'></div>
+    <div class="loading hidden">
+        <span class='loading__text hidden'>LOADING</span>
+        <div class="loading__100 hidden">
+            <div class="loading__0 hidden"></div>
+        </div>
+    </div>
     <div class="waiting-screen">
         <div class="waiting-opponent-screen">
             <img src="../static/images/waiting_opponent_screen.png" alt="">

@@ -228,6 +228,7 @@ function monsterCorrect(lvl, monster) {
 }
 
 function addMonster(GAME, lvls) {
+    console.log("1 monster add");
     pushMonsters(GAME, lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
     monstercount += 1;
 }
