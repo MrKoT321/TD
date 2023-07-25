@@ -23,7 +23,7 @@ const wave1Info = document.getElementById("game-info-wave-1");
 const wave2Info = document.getElementById("game-info-wave-2");
 const wave3Info = document.getElementById("game-info-wave-3");
 
-const gameIdInfo = document.getElementById("game-info-gameid");
+const playerIdInfo = document.getElementById("game-info-playerId");
 const moneyInitInfo = document.getElementById("game-info-money");
 const scoreInfo = document.getElementById("game-info-score");
 const currLvlInfo = document.getElementById("game-info-currLvl");
@@ -43,6 +43,41 @@ var GAME = {
     lvlCount: 1,
     wave: 1
 }
+
+lvls.forEach(lvl => {
+    lvl.atk_towers = [];
+});
+var towers = [];
+
+
+const socket = new WebSocket('ws://localhost:8090');
+
+socket.addEventListener('message', function(event) {
+    data = JSON.parse(event.data);
+    switch (data.type) {
+        case 'tower_add':
+            towers = data.towers;
+            GAME.money = data.money;    
+            break;
+        case 'game_status':
+            GAME.isPlay = data.status;
+            changeGameStatusButtons();
+            break;
+        case 'fireball':
+            fireball = data.fireball_bonus;
+            break;
+        case 'freeze':
+            freeze = data.freeze_bonus;
+            break;
+        case 'waves':
+            lvls[GAME.lvlCount - 1] = data.waves;
+            break;
+    }
+});
+
+socket.addEventListener('open', function(event) {
+    console.log('Connected to server.');
+});
 
 var startTimer = new Date();
 var timeInPause = 0;
@@ -188,32 +223,32 @@ function lvlComplete() {
 // }
 
 function sendNextLvlParams() {
-    let gameId = nextLvlForm.elements.gameId;
+    let playerId = nextLvlForm.elements.playerId;
     let money = nextLvlForm.elements.money;
     let score = nextLvlForm.elements.score;
     let currLvl = nextLvlForm.elements.currentLvl;
     let mobsUnlock = nextLvlForm.elements.mobsUnlock;
-    gameId.value = String(GAME.id);
+    playerId.value = String(GAME.id);
     money.value = String(GAME.money);
     score.value = String(GAME.score);
     currLvl.value = String(GAME.lvlCount + 1);
     mobsUnlock.value = String(GAME.mobsUnlock);
-    console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
-    $('#form').attr('action', '../make_waves.php');
+    console.log(playerId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
+    $('#form').attr('action', '../make_waves_multiplay.php');
 }
 
 function sendBaseLvlParams() {
-    let gameId = restartGameForm.elements.gameId;
+    let playerId = restartGameForm.elements.playerId;
     let money = restartGameForm.elements.money;
     let score = restartGameForm.elements.score;
     let currLvl = restartGameForm.elements.currentLvl;
     let mobsUnlock = restartGameForm.elements.mobsUnlock;
-    gameId.value = String(GAME.id);
+    playerId.value = String(GAME.id);
     money.value = String(100);
     score.value = String(0);
     currLvl.value = String(0);
     mobsUnlock.value = String('monster1,monster2');
-    $('#form-restart').attr('action', '../make_waves.php');
+    $('#form-restart').attr('action', '../make_waves_multiplay.php');
 }
 
 function popupCloseComplete() {
@@ -309,24 +344,24 @@ function changeMap() {
     }
 };
 
-async function sendResults(event) {
-    const score = document.querySelector(".score__value");
-    event.preventDefault();
-    props = {
-        gameId: gameIdInfo.innerHTML,
-        nickName: GAME.player,
-        choisenClass: 'attack',
-        score: Math.floor(score.innerHTML)
-    }
-    const json = JSON.stringify(props);
-    let response = await fetch('/add_record.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: json
-    });
-}
+// async function sendResults(event) {
+//     const score = document.querySelector(".score__value");
+//     event.preventDefault();
+//     props = {
+//         gameId: playerIdInfo.innerHTML,
+//         nickName: GAME.player,
+//         choisenClass: 'attack',
+//         score: Math.floor(score.innerHTML)
+//     }
+//     const json = JSON.stringify(props);
+//     let response = await fetch('/add_record.php', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json;charset=utf-8'
+//         },
+//         body: json
+//     });
+// }
 
 function startWave() {
     if (GAME.isPlay == 'wavepause') {
@@ -431,7 +466,7 @@ function initGameParams() {
     GAME.lvlCount = parseInt(currLvlInfo.innerHTML);
     lvl = lvls[GAME.lvlCount - 1];
     createWaves();
-    GAME.id = parseInt(gameIdInfo.innerHTML);
+    GAME.playerId = parseInt(playerIdInfo.innerHTML);
     GAME.money = parseInt(moneyInitInfo.innerHTML);
     GAME.score = parseInt(scoreInfo.innerHTML);
     GAME.mobsUnlock = mobsUnlockInfo.innerHTML;
@@ -449,11 +484,11 @@ function play() {
     updateScore();
     updateVisualLvlParams();
     drawBackground();
-    drawStrikes();      
+    updateMobDataAtk();
+    drawStrikes(); 
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
-        setTowers(GAME, lvl);
         resetStopwatch();
         resetButtons();
     }
@@ -464,7 +499,6 @@ function play() {
         updateArrows();
         updateBullets();
         updateStrikes();
-        updateMobDataAtk();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);

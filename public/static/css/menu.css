@@ -109,6 +109,12 @@ a {
     visibility: visible;
 }
 
+.active {
+    transform: translate(0px, 0px);
+    opacity: 1; 
+    visibility: visible;
+}
+
 .popup:target .popup__content {
     transform: translate(0px, 0px);
     opacity: 1;
@@ -317,6 +323,11 @@ a {
     top: 0;
     left: 0;
     cursor: default;
+}
+
+.waiting-screen {
+    width: 1600px;
+    height: 900px;
 }
 
 .close {

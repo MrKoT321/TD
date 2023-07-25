@@ -11,34 +11,25 @@ const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
 
 const nextBtn = document.getElementById("next-lvl-btn");
-const nextLvlForm = document.getElementById("form");
-const restartGameForm = document.getElementById("form-restart");
 
 const currentLvl = document.getElementById("current-lvl");
 const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-const wave1Info = document.getElementById("game-info-wave-1");
-const wave2Info = document.getElementById("game-info-wave-2");
-const wave3Info = document.getElementById("game-info-wave-3");
-
-const gameIdInfo = document.getElementById("game-info-gameid");
-const moneyInitInfo = document.getElementById("game-info-money");
-const scoreInfo = document.getElementById("game-info-score");
-const currLvlInfo = document.getElementById("game-info-currLvl");
-const mobsUnlockInfo = document.getElementById("game-info-mobsUnlock");
+const waitingOpponentScreen = document.querySelector(".waiting-screen");
+const waitingOpponentScreenImg = document.querySelector(".waiting-opponent-screen");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
-    player: document.title,
+    player: document.getElementById("nick-name").innerHTML,
     width: 1600,
     height: 1000,
     stopwatch: 0,
     milisectimer: 0,
     isPlay: 'wavepause',
-    money: 0,
+    money: 100,
     score: 0,
     lvlCount: 1,
     wave: 1
@@ -113,10 +104,22 @@ function drawPauseBackground() {
     canvasContext.fillRect(0, 0, GAME.width, GAME.height);
 }
 
-function resetButtons() {
-    startWaveBtn.classList.remove("active");
+function changeGameStatusButtons() {
+    startWaveBtn.classList.add("active");
     pauseGameBtn.classList.remove("pause");
     pauseGameBtn.classList.add("play");
+    if (GAME.isPlay == 'play') {
+        pauseGameBtn.classList.add("play");
+        pauseGameBtn.classList.remove("pause");
+    } else {
+        if (GAME.isPlay == 'menu') {
+            pauseGameBtn.classList.add("pause");
+            pauseGameBtn.classList.remove("play");
+        }
+    }
+    if (GAME.isPlay == 'wavepause') {
+        startWaveBtn.classList.remove("active");
+    } 
 }
 
 function drawCastle() {
@@ -126,7 +129,7 @@ function drawCastle() {
 }
 
 function gameOver() {
-    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0 && starttime == 0) {
+    if (GAME.castleHP == 0) {
         popupoverBg.classList.add('active');
         popupover.classList.add('active');
         document.querySelector('.over').style.color = 'red';
@@ -149,10 +152,10 @@ function updateScore() {
 }
 
 function lvlComplete() {
-    if (GAME.castleHP == 0) {
+    if (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0) {
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
-        // resetBonuses();
+        resetBonuses();
         if (GAME.lvlCount + 1 > lvls.length) {
             popupoverBg.classList.add('active');
             popupover.classList.add('active');
@@ -167,53 +170,6 @@ function lvlComplete() {
         }
     } 
     
-}
-
-// async function sendNextlvlParams(event) {
-//     const data = {
-//         money: GAME.money,
-//         score: GAME.score,
-//         currLvl: GAME.lvlCount,
-//         nickname: GAME.player,
-//     }
-//     event.preventDefault();
-//     const json = JSON.stringify(data);
-//     let response = await fetch('/make_waves.php', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json;charset=utf-8'
-//         },
-//         body: json
-//     });
-// }
-
-function sendNextLvlParams() {
-    let gameId = nextLvlForm.elements.gameId;
-    let money = nextLvlForm.elements.money;
-    let score = nextLvlForm.elements.score;
-    let currLvl = nextLvlForm.elements.currentLvl;
-    let mobsUnlock = nextLvlForm.elements.mobsUnlock;
-    gameId.value = String(GAME.id);
-    money.value = String(GAME.money);
-    score.value = String(GAME.score);
-    currLvl.value = String(GAME.lvlCount + 1);
-    mobsUnlock.value = String(GAME.mobsUnlock);
-    console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
-    $('#form').attr('action', '../make_waves.php');
-}
-
-function sendBaseLvlParams() {
-    let gameId = restartGameForm.elements.gameId;
-    let money = restartGameForm.elements.money;
-    let score = restartGameForm.elements.score;
-    let currLvl = restartGameForm.elements.currentLvl;
-    let mobsUnlock = restartGameForm.elements.mobsUnlock;
-    gameId.value = String(GAME.id);
-    money.value = String(100);
-    score.value = String(0);
-    currLvl.value = String(0);
-    mobsUnlock.value = String('monster1,monster2');
-    $('#form-restart').attr('action', '../make_waves.php');
 }
 
 function popupCloseComplete() {
@@ -239,7 +195,7 @@ function updateCastleHP() {
 }
 
 function nextWave() {
-    if (monsters.length == 0 && GAME.wave < 3) {
+    if (monsters.length == 0 && GAME.wave < lvls[GAME.lvlCount - 1].waves.length) {
         GAME.wave += 1;
         monstercount = 0;
         starttime = 900;
@@ -247,11 +203,8 @@ function nextWave() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
-        strikes = [];
         explosions = [];
-    }
-    if (monsters.length == 0 && GAME.wave == 3 && GAME.isPlay == 'play') {
-        starttime = 0;
+        strikes = [];
     }
 }
 
@@ -266,8 +219,8 @@ function updateNextLvlParams() {
         pushmonstercount = 0;
         steptimer = 0;
         stepcounter = 1;
-        strikes = [];
         explosions = [];
+        strikes = [];
     }    
 }
 
@@ -277,15 +230,17 @@ function updateRestartGameParams() {
     GAME.castleHP = lvl.castleHP;
     GAME.wave = 1;
     monstercount = 0;
+    monsters = [];
     starttime = 900;
     GAME.money = 100;
     GAME.score = 0;
+    towerTiles = [];
     towers = [];
-    monsters = [];
     arrows = [];
     bullets = [];
     strikes = [];
-    compareWithGameLvl = 0;
+    compareWithGameLvlTiles = 0;
+    GAME.isPlay = 'wavepause';
     startTimer = 0;
     timeInPause = 0;
     timeInLastPause = 0;
@@ -293,7 +248,7 @@ function updateRestartGameParams() {
     pushmonstercount = 0;
     steptimer = 0;
     stepcounter = 1;
-    GAME.isPlay = 'wavepause';
+    explosions = [];
 }
 
 function changeMap() {
@@ -309,15 +264,26 @@ function changeMap() {
     }
 };
 
+function sendGameStatus() {
+    data = {
+        type: 'game_status',
+        status: GAME.isPlay
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
 async function sendResults(event) {
     const score = document.querySelector(".score__value");
+    const gameID = document.getElementById("game-id");
     event.preventDefault();
     props = {
-        gameId: gameIdInfo.innerHTML,
+        gameId: gameID.innerHTML,
         nickName: GAME.player,
-        choisenClass: 'attack',
+        choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }
+    console.log(props)
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',
@@ -328,10 +294,43 @@ async function sendResults(event) {
     });
 }
 
+const socket = new WebSocket('ws://localhost:8090');
+
+socket.addEventListener('open', function(event) {
+    console.log('Connected to server.');
+});
+
+socket.addEventListener('message', function(event) {
+    data = JSON.parse(event.data);
+    switch (data.type) {
+        case 'tower_add':
+            towers = data.towers;
+            GAME.money = data.money;    
+            break;
+        case 'game_status':
+            GAME.isPlay = data.status;
+            changeGameStatusButtons();
+            break;
+        case 'fireball':
+            fireball = data.fireball_bonus;
+            break;
+        case 'freeze':
+            freeze = data.freeze_bonus;
+            break;
+        case 'waves':
+            waitingOpponentScreen.classList.add("hidden");
+            waitingOpponentScreen.style.height = '0';
+            waitingOpponentScreenImg.classList.add("hidden");
+            lvls[GAME.lvlCount - 1].waves = decodeMonsterWaves(data.waves);
+            break;
+    }
+});
+
 function startWave() {
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
+        sendGameStatus();
     } 
 }
 
@@ -340,11 +339,13 @@ function pauseGame() {
         pauseGameBtn.classList.remove("play");
         pauseGameBtn.classList.add("pause");
         GAME.isPlay = 'menu';
+        sendGameStatus();
     } else {
         if (GAME.isPlay == 'menu') {
             pauseGameBtn.classList.remove("pause");
             pauseGameBtn.classList.add("play");
             GAME.isPlay = 'play';
+            sendGameStatus();
         }
     }
 }
@@ -365,23 +366,21 @@ document.addEventListener("keydown", (event) => {
 nextBtn.addEventListener(
     "click",
     () => {
-        sendNextLvlParams();
-        // updateNextLvlParams();
-        // changeMap();
-        // updateCastleHP();
-        // popupCloseComplete();
+        updateNextLvlParams();
+        changeMap();
+        updateCastleHP();
+        popupCloseComplete();
     }
 );
 
 restartgame.addEventListener(
     "click",
-    () => {
-        // sendResults(event);
-        sendBaseLvlParams();
-        // updateRestartGameParams();
-        // changeMap();
-        // updateCastleHP();
-        // popupCloseOver();
+    (event) => {
+        sendResults(event);
+        updateRestartGameParams();
+        changeMap();
+        updateCastleHP();
+        popupCloseOver();
     }
 );
 
@@ -392,51 +391,6 @@ backToMenuBtn.addEventListener(
         window.location.href = '../../';
     }
 );
-
-function convertStrToArray(waveStr) {
-    let resWave = []
-    let monstersStrArr = waveStr.split(',');
-    monstersStrArr.forEach(monsterStr => {
-        switch (monsterStr) {
-            case "monster1":
-                resWave.push(monster1);
-                break;
-            case "monster2":
-                resWave.push(monster2);
-                break;
-            case "monster3":
-                resWave.push(monster3);
-                break;
-            case "monster4":
-                resWave.push(monster4);
-                break;
-            case "monster5":
-                resWave.push(monster5);
-                break;
-        }
-    });
-    return resWave;
-}
-
-function createWaves() {
-    let waveStrs = [wave1Info.innerHTML, wave2Info.innerHTML, wave3Info.innerHTML];
-    lvl.waves = [];
-    waveStrs.forEach(waveStr => {
-        lvl.waves.splice(-1, 0, ...lvl.waves.splice(-1, 1, convertStrToArray(waveStr)));
-    });
-    console.log(lvl.waves);
-}
-
-function initGameParams() {
-    GAME.lvlCount = parseInt(currLvlInfo.innerHTML);
-    lvl = lvls[GAME.lvlCount - 1];
-    createWaves();
-    GAME.id = parseInt(gameIdInfo.innerHTML);
-    GAME.money = parseInt(moneyInitInfo.innerHTML);
-    GAME.score = parseInt(scoreInfo.innerHTML);
-    GAME.mobsUnlock = mobsUnlockInfo.innerHTML;
-    changeMap();
-}
 
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
@@ -449,13 +403,15 @@ function play() {
     updateScore();
     updateVisualLvlParams();
     drawBackground();
-    drawStrikes();      
+    drawTiles(GAME, lvls);
+    drawExplosion();
+    drawStrikes();
+    updateMobDataDef();
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
-        setTowers(GAME, lvl);
+        initBullets();
         resetStopwatch();
-        resetButtons();
     }
     if (GAME.isPlay == 'play') {
         lvlComplete();
@@ -463,18 +419,23 @@ function play() {
         catchTime();
         updateArrows();
         updateBullets();
+        updateExplosions();
         updateStrikes();
-        updateMobDataAtk();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
         GAME.isPlay = 'play';
     }
+    if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
+        removeTowerSelectors();
+    }
     drawTower();
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    gameOver();    
+    drawBonuses();
+    changeGameStatusButtons();
+    gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();
@@ -482,5 +443,4 @@ function play() {
     requestAnimationFrame(play);
 }
 
-initGameParams();
 play();

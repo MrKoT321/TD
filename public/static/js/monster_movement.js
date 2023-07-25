@@ -397,3 +397,35 @@ function updateMonstersStep() {
         }
     }
 }
+
+function getMonstersFromTheirName(monstersStrArr) {
+    let resWave = [];
+    monstersStrArr.forEach(monsterStr => {
+        switch (monsterStr) {
+            case "monster1":
+                resWave.push(monster1);
+                break;
+            case "monster2":
+                resWave.push(monster2);
+                break;
+            case "monster3":
+                resWave.push(monster3);
+                break;
+            case "monster4":
+                resWave.push(monster4);
+                break;
+            case "monster5":
+                resWave.push(monster5);
+                break;
+        }
+    });
+    return resWave;
+}
+
+function decodeMonsterWaves(data) {
+    let waves = []
+    data.forEach(strWave => {
+        getMonstersFromTheirName(strWave)
+    });
+    return waves;
+}

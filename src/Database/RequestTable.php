@@ -20,15 +20,16 @@ class RequestTable
     {
         $query = "
             INSERT INTO 
-                attack_requests (request_type, game_id, money, score, current_lvl, wave1, wave2, wave3, mobs_unlock) 
+                attack_requests (request_type, game_id, player_id, money, score, current_lvl, wave1, wave2, wave3, mobs_unlock) 
             VALUES
-                (:request_type, :game_id, :money, :score, :current_lvl, :wave1, :wave2, :wave3, :mobs_unlock)
+                (:request_type, :game_id, :player_id, :money, :score, :current_lvl, :wave1, :wave2, :wave3, :mobs_unlock)
             ";
         $statement = $this->connection->prepare($query);
         try {
             $statement->execute([
                 ':request_type' => $request->getRequestStatus(),
                 ':game_id' => $request->getGameId(),
+                ':player_id' => $request->getPlayerId(),
                 ':money' => $request->getMoney(),
                 ':score' => $request->getScore(),
                 ':current_lvl' => $request->getCurrentLvl(),
@@ -47,12 +48,17 @@ class RequestTable
 
     public function find(int $requestId): ?AttackInfo 
     {
-        $query = "SELECT game_id, money, score, current_lvl, wave1, wave2, wave3, mobs_unlock FROM attack_requests WHERE request_id = $requestId";
+        $query = "SELECT game_id, player_id, money, score, current_lvl, wave1, wave2, wave3, mobs_unlock FROM attack_requests WHERE request_id = $requestId";
         $statement = $this->connection->query($query);
         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
-            $userName = $this->getNickNameByGameId((int)$row['game_id']);
-            if (is_null($userName)) {
-                return null;
+            if (!is_null($row['game_id'])) {
+                $userName = $this->getNickNameByGameId((int)$row['game_id']);
+            } else {
+                if (!is_null($row['player_id'])){
+                    $userName = $this->getNickNameByPlayerId((int)$row['player_id']);
+                } else {
+                    return null;
+                }   
             }
             return $this->createRequestFromRowWithUserName($row, $userName);
         }
@@ -64,6 +70,7 @@ class RequestTable
             null,
             null,
             (int)$row['game_id'],
+            (int)$row['player_id'],
             $userName,
             (int)$row['money'],
             (int)$row['score'],
@@ -94,4 +101,32 @@ class RequestTable
         }
         return null;
     }
+
+    public function getNickNameByPlayerId(int $playerId): ?string
+    {
+        $query = "SELECT nick_name FROM multiplay_games WHERE player_id = $playerId";
+        $statement = $this->connection->query($query);
+        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+            return $row['nick_name'];
+        }
+        return null;
+    }
+
+    // public function addPlayerIdToPublish(int $playerId, int $requestId): void
+    // {
+    //     $query = "UPDATE attack_requests SET player_id = :player_id WHERE request_id = :request_id";
+    //     $statement = $this->connection->prepare($query);
+    //     try {
+    //         $statement->execute([
+    //             ':player_id' => $playerId,
+    //             ':request_id' => $requestId
+    //         ]);
+    //     } catch (PDOException $err) {
+    //         echo "Database Error: The record could not be able added. <br />" . $err->getMessage();
+    //     } catch (Exception $err) {
+    //         echo "General Error: The record could not be able added. <br />" . $err->getMessage();
+    //     }
+
+    //     return;
+    // }
 }
