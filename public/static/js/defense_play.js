@@ -281,15 +281,6 @@ function changeMap() {
     }
 };
 
-function sendGameStatus() {
-    data = {
-        type: 'game_status',
-        status: GAME.isPlay
-    }
-    json = JSON.stringify(data);
-    socket.send(json);
-}
-
 async function sendResults(event) {
     const score = document.querySelector(".score__value");
     const gameID = document.getElementById("game-id");
@@ -310,29 +301,6 @@ async function sendResults(event) {
         body: json
     });
 }
-
-const socket = new WebSocket('ws://localhost:8080');
-
-socket.addEventListener('open', function (event) {
-    console.log('Connected to server.');
-});
-
-socket.addEventListener('message', function (event) {
-    data = JSON.parse(event.data);
-    switch (data.type) {
-        case 'tower_add':
-            towers = data.towers;
-            GAME.money = data.money;
-            break;
-        case 'game_status':
-            GAME.isPlay = data.status;
-            changeGameStatusButtons();
-            break;
-        case 'fireball':
-            fireball = data.fireball_bonus;
-            break;
-    }
-});
 
 function startWave() {
     if (GAME.isPlay == 'wavepause') {
