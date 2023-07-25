@@ -531,6 +531,7 @@ function play() {
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
+        initBonuses();
         GAME.isPlay = 'play';
     }
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {

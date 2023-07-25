@@ -298,6 +298,12 @@ const socket = new WebSocket('ws://localhost:8090');
 
 socket.addEventListener('open', function(event) {
     console.log('Connected to server.');
+    data = {
+        type: "add_room_to_new_client",
+        roomId: document.getElementById("game-info-roomId").innerHTML
+    }
+    json = JSON.stringify(data);
+    socket.send(json)
 });
 
 socket.addEventListener('message', function(event) {
@@ -390,6 +396,18 @@ backToMenuBtn.addEventListener(
         sendResults(event);
         window.location.href = '../../';
     }
+);
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        data = {
+            type: "add_room_to_new_client",
+            roomId: document.getElementById("game-info-roomId").innerHTML
+        }
+        json = JSON.stringify(data);
+        socket.send(json)
+    } 
 );
 
 // состояния 'play' - мобы идут, башни ставятся

@@ -10,7 +10,7 @@
 <html lang="ru">
 
 <head>
-    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s game</title>
+    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s Game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/attack_selector.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +26,7 @@
         <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
         <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
         <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
+        <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
     </div>
         <div class="game__field field">
             <div class="monsters-selector">

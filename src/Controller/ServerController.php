@@ -176,6 +176,7 @@ class ServerController
             $this->writeRedirectSeeOther('/');
             exit();
         }
+        $roomId = $this->gameTable->getRoomIdByPlayerId($playerId);
         $game = $this->gameTable->findPlayer($playerId);
         if (!$game) {
             $this->writeRedirectSeeOther('/');
@@ -198,10 +199,10 @@ class ServerController
                     exit();
                 }
                 $gameInfo = $this->requestTable->find($requestId);
-                // if (is_null($gameInfo)) {
-                //     $this->writeRedirectSeeOther('/');
-                //     return;
-                // }
+                if (is_null($gameInfo)) {
+                    $this->writeRedirectSeeOther('/');
+                    return;
+                }
                 if ($requestStatus == 'send') {
                     require __DIR__ . '/../../public/pages/attack_multiplay.php';
                     exit();

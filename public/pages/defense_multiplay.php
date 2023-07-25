@@ -17,6 +17,7 @@
 
 <body>
     <span id="nick-name" class="hidden"><?= htmlspecialchars($game->getNickName()) ?></span>
+    <span class="hidden" id="game-info-roomId"><? echo($roomId) ?></span>
     <span id="game-id" class="hidden"><?= $gameId ?></span>
     <div class="game">
         <div class="game__field field">

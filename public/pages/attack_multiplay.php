@@ -8,7 +8,7 @@
 <html lang="ru">
 
 <head>
-    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s game</title>
+    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s Game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/defense.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,6 +27,7 @@
             <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
             <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
             <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
+            <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
         </div>
         <div class="game__field field">
             <canvas id='canvas'></canvas>
@@ -151,6 +152,7 @@
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
+    <script type="application/javascript" src="../static/js/bonus_action.js"></script>
     <!-- <script type="application/javascript" src="../static/js/bonus_action.js"></script> -->
     <!-- <script type="application/javascript" src="../static/js/tower_attack_config.js"></script> -->
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
