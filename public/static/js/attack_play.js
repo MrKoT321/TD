@@ -31,6 +31,8 @@ const mobsUnlockInfo = document.getElementById("game-info-mobsUnlock");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
+var paycount = 0;
+
 var GAME = {
     player: document.title,
     width: 1600,
@@ -135,7 +137,7 @@ function gameOver() {
         var endScore = document.querySelector(".score__value");
         endScore.innerHTML = scoreValue;
         GAME.isPlay = 'popuppause';
-    } 
+    }
 }
 
 function updateMoney() {
@@ -150,6 +152,7 @@ function updateScore() {
 
 function lvlComplete() {
     if (GAME.castleHP == 0) {
+        payForLastWaves();
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
         // resetBonuses();
@@ -159,14 +162,14 @@ function lvlComplete() {
             document.querySelector('.over').style.color = 'green';
             document.querySelector('.over').innerHTML = 'VICTORY';
             var endScore = document.querySelector(".score__value");
-            endScore.innerHTML = GAME.score ;
+            endScore.innerHTML = GAME.score;
         } else {
             popupcompleteBg.classList.add('active');
             popupcomplete.classList.add('active');
             GAME.money += 100;
         }
-    } 
-    
+    }
+
 }
 
 // async function sendNextlvlParams(event) {
@@ -268,7 +271,7 @@ function updateNextLvlParams() {
         stepcounter = 1;
         strikes = [];
         explosions = [];
-    }    
+    }
 }
 
 function updateRestartGameParams() {
@@ -332,7 +335,7 @@ function startWave() {
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
-    } 
+    }
 }
 
 function pauseGame() {
@@ -352,7 +355,7 @@ function pauseGame() {
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
 document.addEventListener("keydown", (event) => {
-    switch(event.code) {
+    switch (event.code) {
         case 'Space':
             pauseGame();
             break;
@@ -386,8 +389,8 @@ restartgame.addEventListener(
 );
 
 backToMenuBtn.addEventListener(
-    "click", 
-    (event) => { 
+    "click",
+    (event) => {
         sendResults(event);
         window.location.href = '../../';
     }
@@ -438,6 +441,24 @@ function initGameParams() {
     changeMap();
 }
 
+
+function payForLastWaves() {
+    if (paycount == 0) {
+        for (i = GAME.wave; i < 3; i++) {
+            for (monster of lvl.waves[i]) {
+                GAME.money += Math.floor(monster.cost / 2);
+                GAME.score += monster.cost;
+            }
+        }
+        for (monster of monsters){
+            GAME.money += Math.floor(monster.cost / 2);
+            monster.hp = 0;
+        }
+        paycount += 1
+
+    }
+}
+
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
 //           'menu' - мобы не идут, башни не ставятся
@@ -449,9 +470,11 @@ function play() {
     updateScore();
     updateVisualLvlParams();
     drawBackground();
-    drawStrikes();      
+    drawStrikes();
+    drawExplosion();
     moveMonsters(GAME, lvls);
     drawCastle();
+    updateMobDataAtk();
     if (GAME.isPlay == 'wavepause') {
         setTowers(GAME, lvl);
         resetStopwatch();
@@ -464,7 +487,7 @@ function play() {
         updateArrows();
         updateBullets();
         updateStrikes();
-        updateMobDataAtk();
+        updateExplosions();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
@@ -474,7 +497,7 @@ function play() {
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    gameOver();    
+    gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();

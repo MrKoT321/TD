@@ -114,9 +114,11 @@
                 <input type="text" name="score" class="hidden" />
                 <input type="text" name="currentLvl" class="hidden" />
                 <input type="text" name="mobsUnlock" class="hidden" />
-                <input class="restart" type="submit" id="restartgame" value="" />
+                <label>
+                    <img class="restart" src="../static/images/restart.png" id="restartgame"/>
+                    <input class="restart hidden" type="submit" id="restartgame" value="" />
+                </label>
             </form>
-                <!-- <img class="restart" src="../static/images/restart.png" id="restartgame"/> -->
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
                 </a>
