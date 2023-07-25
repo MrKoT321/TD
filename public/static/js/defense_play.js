@@ -35,7 +35,9 @@ const wave_mob3_count = document.getElementById('wave-mob3-count')
 const wave_mob4_count = document.getElementById('wave-mob4-count')
 const wave_mob5_count = document.getElementById('wave-mob5-count')
 
-const lvls = [lvl1, lvl2, lvl3, lvl4];
+const lvls = [lvl3, lvl4];
+
+var wave_length = 0;
 
 var GAME = {
     player: document.getElementById("nick-name").innerHTML,
@@ -221,6 +223,7 @@ function nextWave() {
         stepcounter = 1;
         explosions = [];
         strikes = [];
+        wave_length = 0;
     }
 }
 
@@ -237,13 +240,13 @@ function updateNextLvlParams() {
         stepcounter = 1;
         explosions = [];
         strikes = [];
+        wave_length = 0;
     }
 }
 
 function updateRestartGameParams() {
     GAME.lvlCount = 1;
     lvl = lvls[GAME.lvlCount - 1];
-    wave_info.style.margin = "-" + String(1000 - lvl.start_y) + "px" + String(1600 - lvl.start_x) + "px";
     GAME.castleHP = lvl.castleHP;
     GAME.wave = 1;
     monstercount = 0;
@@ -266,6 +269,7 @@ function updateRestartGameParams() {
     steptimer = 0;
     stepcounter = 1;
     explosions = [];
+    wave_length = 0;
 }
 
 function changeMap() {
@@ -408,79 +412,86 @@ function closeLoading() {
     loading_image.classList.add('hidden');
 }
 
-function changeWaveInfoPos(lvl){
-    let wave_length = lvl.waves[GAME.wave - 1].length
-    if(lvl.start_dir == 'r'){
+function changeWaveInfoPos(lvl) {
+    if (lvl.start_dir == 'r') {
         wave_info.style.margin = "-" + String(1000 - lvl.start_y + 20) + "px " + "5px";
         wave_info.style.flexDirection = "row"
     }
-    if(lvl.start_dir == 'l'){
+    if (lvl.start_dir == 'l') {
         wave_info.style.margin = "-" + String(1000 - lvl.start_y + 20) + "px " + String(1600 - 72 * wave_length - 5);
         wave_info.style.flexDirection = "row-reverse"
     }
-    if(lvl.start_dir == 'u'){
-        wave_info.style.margin ="-5px " + String(lvl.start_x + 20) + "px ";
+    if (lvl.start_dir == 'u') {
+        wave_info.style.margin = "-" + String(40 * wave_length + 5 * (wave_length + 1)) + "px " + String(lvl.start_x - 20) + "px ";
         wave_info.style.flexDirection = "column"
     }
-    if(lvl.start_dir == 'd'){
-        wave_info.style.margin ="-" + String(1000 - 72 * wave_length - 5) + "px " + String(lvl.start_x + 20) + "px ";
-        wave_info.style.flexDirection = "column-reversee"
+    if (lvl.start_dir == 'd') {
+        wave_info.style.margin = "-" + String(1000 - 5) + "px " + String(lvl.start_x - 20) + "px ";
+        wave_info.style.flexDirection = "column-reverse"
     }
 }
 
-function updateInfoCounts(){
-    let monster1_count = 0, monster2_count = 0, monster3_count = 0, monster4_count = 0, monster5_count = 0
-    for(let monster of lvl.waves[GAME.wave - 1]){
-        if(monster.name == 'monster1'){
-            monster1_count += 1
+function updateInfoCounts() {
+    if (wave_length == 0) {
+        let monster1_count = 0, monster2_count = 0, monster3_count = 0, monster4_count = 0, monster5_count = 0
+        for (let monster of lvl.waves[GAME.wave - 1]) {
+            if (monster.name == 'monster1') {
+                monster1_count += 1
+            }
+            if (monster.name == 'monster2') {
+                monster2_count += 1
+            }
+            if (monster.name == 'monster3') {
+                monster3_count += 1
+            }
+            if (monster.name == 'monster4') {
+                monster4_count += 1
+            }
+            if (monster.name == 'monster5') {
+                monster5_count += 1
+            }
         }
-        if(monster.name == 'monster2'){
-            monster2_count += 1
+        if (monster1_count > 0) {
+            wave_mob1_count.innerHTML = String(monster1_count);
+            info_block1.style.visibility = 'visible';
+            wave_length += 1;
+        } else {
+            info_block1.style.position = 'absolute'
         }
-        if(monster.name == 'monster3'){
-            monster3_count += 1
+        if (monster2_count > 0) {
+            wave_mob2_count.innerHTML = String(monster2_count);
+            info_block2.style.visibility = 'visible';
+            wave_length += 1;
+        } else {
+            info_block2.style.position = 'absolute'
         }
-        if(monster.name == 'monster4'){
-            monster4_count += 1
+        if (monster3_count > 0) {
+            wave_mob3_count.innerHTML = String(monster3_count);
+            info_block3.style.visibility = 'visible';
+            wave_length += 1;
+        } else {
+            info_block3.style.position = 'absolute'
         }
-        if(monster.name == 'monster5'){
-            monster5_count += 1
+        if (monster4_count > 0) {
+            wave_mob4_count.innerHTML = String(monster4_count);
+            info_block4.style.visibility = 'visible';
+            wave_length += 1;
+        } else {
+            info_block4.style.position = 'absolute'
         }
-    }
-    if (monster1_count > 0) {
-        wave_mob1_count.innerHTML = String(monster1_count);
-        info_block1.style.visibility = 'visible'
-    } else {
-        info_block1.style.position = 'absolute'
-    }
-    if (monster2_count > 0) {
-        wave_mob2_count.innerHTML = String(monster2_count);
-        info_block2.style.visibility = 'visible'
-    } else {
-        info_block2.style.position = 'absolute'
-    }
-    if (monster3_count > 0) {
-        wave_mob3_count.innerHTML = String(monster3_count);
-        info_block3.style.visibility = 'visible'
-    } else {
-        info_block3.style.position = 'absolute'
-    }
-    if (monster4_count > 0) {
-        wave_mob4_count.innerHTML = String(monster4_count);
-        info_block4.style.visibility = 'visible'
-    } else {
-        info_block4.style.position = 'absolute'
-    }
-    if (monster5_count > 0) {
-        wave_mob5_count.innerHTML = String(monster5_count);
-        info_block5.style.visibility = 'visible'
-    } else {
-        info_block5.style.position = 'absolute'
+        if (monster5_count > 0) {
+            wave_mob5_count.innerHTML = String(monster5_count);
+            info_block5.style.visibility = 'visible';
+            wave_length += 1;
+        } else {
+            info_block5.style.position = 'absolute'
+        }
+        console.log(wave_length)
     }
 }
 
 function showWaveInfo() {
-    if(GAME.isPlay != 'wavepause'){
+    if (GAME.isPlay != 'wavepause') {
         info_block1.style.visibility = 'hidden';
         info_block2.style.visibility = 'hidden';
         info_block3.style.visibility = 'hidden';
@@ -509,7 +520,7 @@ function play() {
     drawTiles(GAME, lvls);
     drawExplosion();
     drawStrikes();
-    if(GAME.isPlay != 'wavepause'){
+    if (GAME.isPlay != 'wavepause') {
         updateMobDataDef();
     }
     moveMonsters(GAME, lvls);
