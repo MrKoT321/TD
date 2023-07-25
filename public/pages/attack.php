@@ -67,11 +67,6 @@
         </div>
         <div class="game__bar bar">
             <div class="bar__bufs">
-                <!-- <div class="fireball-buf buf-slot"> 
-                    <img src="../static/images/fireball_buff.png" class="fireball-buf__icon" />
-                    <img src="../static/images/cancel_button.png"  class="fireball-buf__cancel hidden" />
-                    <span class="fireball-buf__reload"></span> 
-                </div> -->
                 <div class="buf-slot"></div>
                 <div class="buf-slot"></div>
                 <div class="buf-slot"></div>
@@ -113,7 +108,15 @@
                 <span class="score__value"></span>
             </div>
             <div class="overbuttons">
-                <img class="restart" src="../static/images/restart.png" id="restartgame"/>
+            <form method="POST" enctype="multipart/form-data" id="form-restart">
+                <input type="text" name="gameId" class="hidden" />
+                <input type="text" name="money" class="hidden" />
+                <input type="text" name="score" class="hidden" />
+                <input type="text" name="currentLvl" class="hidden" />
+                <input type="text" name="mobsUnlock" class="hidden" />
+                <input class="restart" type="submit" id="restartgame" value="" />
+            </form>
+                <!-- <img class="restart" src="../static/images/restart.png" id="restartgame"/> -->
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
                 </a>
@@ -130,7 +133,7 @@
                 <input type="text" name="score" class="hidden" />
                 <input type="text" name="currentLvl" class="hidden" />
                 <input type="text" name="mobsUnlock" class="hidden" />
-                <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" /></div>
+                <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" />
 
                 <div class="next-lvl-container">
                     <!-- <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" /></div> -->

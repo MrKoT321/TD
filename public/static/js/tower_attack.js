@@ -3,6 +3,22 @@ var bullets = [];
 var explosions = [];
 var strikes = [];
 
+const arrowImg = new Image();
+var arrowLoadImg;
+arrowImg.src = '../static/images/arrow.png';
+
+const bulletImg = new Image();
+var bulletLoadImg;
+bulletImg.src = '../static/images/bullet.png';
+
+arrowImg.onload = () => {
+    arrowLoadImg = arrowImg;
+}
+
+bulletImg.onload = () => {
+    bulletLoadImg = bulletImg;
+}
+
 function hittingRadius(tower, mstrCenterX, mstrCenterY) {
     let distance = Math.sqrt(Math.pow(mstrCenterX - tower.x - 50, 2) + Math.pow(mstrCenterY - tower.y - 50, 2));
     return (distance <= tower.radius);
@@ -12,13 +28,16 @@ function makeArrow(tower) {
     arrows.push({
         x: tower.x + 50,
         y: tower.y + 50,
-        radius: 10,
+        width: 45,
+        height: 45,
         color: "black",
         towerCenterX: 0,
         towerCenterY: 0,
         speed: 5,
         atk: tower.atk,
         currentEnemy: monsters[tower.currentEnemy],
+        image: arrowLoadImg,
+        angel: 0,
     })
 }
 
@@ -26,7 +45,8 @@ function makeBullet(tower, mstrCenterX, mstrCenterY) {
     bullets.push({
         x: tower.x + 50,
         y: tower.y + 50,
-        radius: 20,
+        width: 60,
+        height: 60,
         blastRadius: 90,
         init: true,
         color: "black",
@@ -36,6 +56,7 @@ function makeBullet(tower, mstrCenterX, mstrCenterY) {
         finishY: mstrCenterY,
         speedX: 0,
         speedY: 0,
+        image: bulletLoadImg,
         atk: tower.atk,
     });
 }
@@ -55,11 +76,11 @@ function makeStrike(tower) {
 
 function drawArrows() {
     arrows.forEach(flyingArrow => {
-        canvasContext.fillStyle = flyingArrow.color;
-        canvasContext.beginPath();
-        canvasContext.arc(flyingArrow.x, flyingArrow.y, flyingArrow.radius, 0, 2 * Math.PI);
-        canvasContext.closePath();
-        canvasContext.fill();
+        canvasContext.save();
+        canvasContext.translate(flyingArrow.x, flyingArrow.y);
+        canvasContext.rotate(flyingArrow.angel*Math.PI/180);
+        canvasContext.drawImage(flyingArrow.image, -flyingArrow.width/2, -flyingArrow.height/2, flyingArrow.width, flyingArrow.height);
+        canvasContext.restore();
     })
 }
 
@@ -71,16 +92,19 @@ function updateArrows() {
             let mstrCenterY = flyingArrow.currentEnemy.y + flyingArrow.currentEnemy.height / 2;
             let outMonsterX = flyingArrow.x < flyingArrow.currentEnemy.x || flyingArrow.x > flyingArrow.currentEnemy.x + flyingArrow.currentEnemy.width;
             let outMonsterY = flyingArrow.y < flyingArrow.currentEnemy.y || flyingArrow.y > flyingArrow.currentEnemy.y + flyingArrow.currentEnemy.height;
+            flyingArrow.angel = Math.atan(Math.abs(mstrCenterY - flyingArrow.y) / Math.abs(mstrCenterX - flyingArrow.x)) * 180/Math.PI;
             if (outMonsterX || outMonsterY) {
                 if (outMonsterX) {
                     if (flyingArrow.x >= mstrCenterX) {
                         flyingArrow.x -= flyingArrow.speed;
+                        flyingArrow.angel = 180 - flyingArrow.angel;
                     } else {
                         flyingArrow.x += flyingArrow.speed;
                     }
                 } else {
                     if (flyingArrow.x >= mstrCenterX) {
                         flyingArrow.x -= flyingArrow.currentEnemy.speed;
+                        flyingArrow.angel = 180 - flyingArrow.angel;
                     } else {
                         flyingArrow.x += flyingArrow.currentEnemy.speed;
                     }
@@ -88,12 +112,14 @@ function updateArrows() {
                 if (outMonsterY) {
                     if (flyingArrow.y >= mstrCenterY) {
                         flyingArrow.y -= flyingArrow.speed;
+                        flyingArrow.angel = flyingArrow.angel * -1;
                     } else {
                         flyingArrow.y += flyingArrow.speed;
                     }
                 } else {
                     if (flyingArrow.y >= mstrCenterY) {
                         flyingArrow.y -= flyingArrow.currentEnemy.speed;
+                        flyingArrow.angel = flyingArrow.angel * -1;
                     } else {
                         flyingArrow.y += flyingArrow.currentEnemy.speed;
                     }
@@ -106,6 +132,7 @@ function updateArrows() {
                 }
                 arrows.splice(i, 1);
             }
+            // console.log(flyingArrow.angel);
         } else {
             arrows.splice(i, 1);
         }
@@ -116,6 +143,15 @@ function attackArcher(GAME) {
     towers.forEach(tower => {
         if (tower.type == "arrow") {
             tower.currentEnemy = -1;
+            monsters.sort(function(mstrA, mstrB) {
+                if(mstrA.distance > mstrB.distance) {
+                    return -1;
+                }
+                if(mstrA.distance < mstrB.distance) {
+                    return 1;
+                }
+                return 0;
+            });
             for (let i = 0; i < monsters.length; i++) {
                 let mstrCenterX = monsters[i].x + monsters[i].width / 2;
                 let mstrCenterY = monsters[i].y + monsters[i].height / 2;
@@ -144,11 +180,7 @@ function attackArcher(GAME) {
 
 function drawBullets() {
     bullets.forEach(flyingBullet => {
-        canvasContext.fillStyle = flyingBullet.color;
-        canvasContext.beginPath();
-        canvasContext.arc(flyingBullet.x, flyingBullet.y, flyingBullet.radius, 0, 2 * Math.PI);
-        canvasContext.closePath();
-        canvasContext.fill();
+        canvasContext.drawImage(flyingBullet.image, flyingBullet.x - flyingBullet.width/2, flyingBullet.y - flyingBullet.height/2, flyingBullet.width, flyingBullet.height);
 
         canvasContext.beginPath();
         canvasContext.strokeStyle = flyingBullet.radiusColor;
@@ -323,14 +355,14 @@ function attackBash() {
         if (tower.type == "bash") {
             monsters.forEach(monster => {
                 lineToMonster = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - tower.x - 50, 2) + Math.pow(monster.y + (monster.height / 2) - tower.y - 50, 2));
-                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower)) {
+                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower)) {
                     makeStrike(tower);
                 }
-                if (!((GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0)) {
+                if (!((GAME.stopwatch - tower.placeTime) % tower.atkspeed == 0)) {
                     tower.hit = false;
                 }
             })
-            if (!tower.hit && (GAME.stopwatch - tower.placeTime + 1) % tower.atkspeed == 0) {
+            if (!tower.hit && (GAME.stopwatch - tower.placeTime) % tower.atkspeed == 0) {
                 tower.hit = true;
             }
         }

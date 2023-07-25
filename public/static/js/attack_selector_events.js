@@ -333,13 +333,8 @@ map_button.addEventListener(
     "click",
     () => {
         popup_map_bg.classList.remove("hidden");
-        popup_map_show.classList.remove('hidden');
-        if (lvlcount == 1) {
-            popup_map.classList.add(maps[lvlcount - 1]);
-        } else {
-            popup_map.classList.remove(maps[lvlcount - 2]);
-            popup_map.classList.add(maps[lvlcount - 1])
-        }
+        popup_map_show.classList.remove("hidden");
+        drawMap(GAME.lvl, parseInt(GAME.currwave.split('e')[1]));
     }
 )
 
@@ -348,6 +343,7 @@ popup_map_bg.addEventListener(
     () => {
         popup_map_bg.classList.add("hidden");
         popup_map_show.classList.add("hidden");
+        clearMap();
     }
 )
 
@@ -444,6 +440,7 @@ start_button.addEventListener(
         gameId_send.value = GAME.gameId;
         currentLvl_send.value = GAME.lvl;
         score_send.value = GAME.score;
+        // jsonInput.value = '{"wave_data": {"wave1": {"monster1": {"count": 2},"monster2": {"count": 50}},"wave2": {"monster3": {"count": 4},"monster1": {"count": 25}}}}';
         $('#form').attr('action', '../send_waves.php');
     }
 )

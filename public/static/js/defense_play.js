@@ -35,7 +35,7 @@ const wave_mob3_count = document.getElementById('wave-mob3-count')
 const wave_mob4_count = document.getElementById('wave-mob4-count')
 const wave_mob5_count = document.getElementById('wave-mob5-count')
 
-const lvls = [lvl3, lvl4];
+const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var wave_length = 0;
 
@@ -46,7 +46,7 @@ var GAME = {
     stopwatch: 0,
     milisectimer: 0,
     isPlay: 'wavepause',
-    money: 50,
+    money: 100,
     score: 0,
     lvlCount: 1,
     wave: 1
@@ -388,7 +388,7 @@ nextBtn.addEventListener(
 restartgame.addEventListener(
     "click",
     (event) => {
-        sendResults(event); s
+        sendResults(event);
         updateRestartGameParams();
         changeMap();
         updateCastleHP();

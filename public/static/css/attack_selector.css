@@ -314,7 +314,7 @@ body {
     font-family: 'VT323';
 }
 
-.form{
+.form {
     position: absolute;
 }
 
@@ -325,4 +325,21 @@ body {
     margin-left: 1520px;
     margin-top: 99px;
     font-size: 40px;
+}
+
+.not_exist {
+    visibility: hidden;
+}
+
+.map-container {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.canvas-map {
+    z-index: 1;
 }
