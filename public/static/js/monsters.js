@@ -67,6 +67,7 @@ const monster5 = {
     height: 110,
     name: "monster5",
     shield: 150,
+    baseTime: [20, 27, 25, 30],
     giveShield: 75,
     type: "walking",
     maxShield: 150

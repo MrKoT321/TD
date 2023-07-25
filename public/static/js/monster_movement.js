@@ -46,7 +46,6 @@ function pushMonsters(GAME, lvl, monster) {
         }
     }
     if (lvl.start_x < 0 || lvl.start_x > 1600) {
-        console.log(lvl.start_x)
         monsters[pushmonstercount].x = lvl.start_x;
         monsters[pushmonstercount].y = lvl.start_y - monster.height / 2;
     } else {
@@ -71,7 +70,6 @@ function addShield(monster) {
             if (mob.name != 'monster5') {
                 let mobCenterX = mob.x + mob.width / 2;
                 let mobCenterY = mob.y + mob.height / 2;
-                console.log(Math.sqrt(Math.pow(mobCenterX - monsterCenterX, 2) + Math.pow(monsterCenterY - mobCenterY, 2)))
                 if (Math.sqrt(Math.pow(mobCenterX - monsterCenterX, 2) + Math.pow(monsterCenterY - mobCenterY, 2)) <= 300) {
                     if (mob.countShield == 0) {
                         mob.shield = monster.giveShield;
@@ -228,7 +226,8 @@ function monsterCorrect(lvl, monster) {
 }
 
 function addMonster(GAME, lvls) {
-    if(lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length >= pushmobs){
+    console.log(lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length, pushmobs)
+    if(lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length > pushmobs){
         pushMonsters(GAME, lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
         monstercount += 1;
         pushmobs += 1;
