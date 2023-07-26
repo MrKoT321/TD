@@ -162,6 +162,7 @@
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
+    <script type="application/javascript" src="../static/js/bonus_buttons_defense.js"></script>
     <script type="application/javascript" src="../static/js/bonus_action.js"></script>
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_placement.js"></script>
