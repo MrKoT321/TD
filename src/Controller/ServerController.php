@@ -238,7 +238,7 @@ class ServerController
         }        
     }
 
-    //--------------------------------------------------- 
+    //---------------------------------------------------
 
     public function sendWaves(array $requestData): void
     {
