@@ -462,17 +462,6 @@ document.addEventListener("keydown", (event) => {
 //     }
 // );
 
-restartgame.addEventListener(
-    "click",
-    (event) => {
-        sendResults(event);
-        updateRestartGameParams();
-        changeMap();
-        updateCastleHP();
-        popupCloseOver();
-    }
-);
-
 backToMenuBtn.addEventListener(
     "click", 
     (event) => { 
@@ -481,17 +470,17 @@ backToMenuBtn.addEventListener(
     }
 );
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-        data = {
-            type: "add_room_to_new_client",
-            roomId: document.getElementById("game-info-roomId").innerHTML
-        }
-        json = JSON.stringify(data);
-        socket.send(json)
-    } 
-);
+// document.addEventListener(
+//     "DOMContentLoaded",
+//     () => {
+//         data = {
+//             type: "add_room_to_new_client",
+//             roomId: document.getElementById("game-info-roomId").innerHTML
+//         }
+//         json = JSON.stringify(data);
+//         socket.send(json)
+//     } 
+// );
 
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся

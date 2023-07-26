@@ -108,7 +108,6 @@
                 <span class="score__value"></span>
             </div>
             <div class="overbuttons">
-                <img class="restart" src="../static/images/restart.png" id="restartgame"/>
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
                 </a>
