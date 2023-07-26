@@ -82,6 +82,8 @@ function resetStopwatch() {
     startTimer = new Date();
     GAME.milisectimer = 0;
     timeInPause = 0;
+    steptimer = 0;
+    stepcounter = 1;
 }
 
 function catchTime() {
@@ -153,20 +155,24 @@ function openLoading() {
 }
 
 function gameOver() {
-    if (GAME.castleHP == 0 || GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0) {
-        openLoading();
-        setTimeout(() => { 
-            closeLoading(); 
-            showOpponentScreen(); 
-        }, 5000);
-        updateNextLvlParams();
-        changeMap();
-        updateCastleHP();
+    if ((GAME.castleHP == 0 || (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0))) {
+        if(GAME.lvlCount < 4) {
+            openLoading();
+            setTimeout(() => { 
+                closeLoading(); 
+                showOpponentScreen(); 
+            }, 5000);
+            updateNextLvlParams();
+            changeMap();
+            updateCastleHP();
+        }
+        if(GAME.lvlCount == 4) {
+            // showResults();
+        }
     } 
 }
 
 function showOpponentScreen() {
-    console.log(GAME.isPlay);
     waitingOpponentScreen.classList.remove("hidden");
     waitingOpponentScreen.style.height = '1085px';
     waitingOpponentScreenImg.classList.remove("hidden");
@@ -234,7 +240,7 @@ function updateCastleHP() {
 }
 
 function nextWave() {
-    if (monsters.length == 0 && GAME.wave < lvls[GAME.lvlCount - 1].waves.length) {
+    if (monsters.length == 0 && GAME.wave < lvls[GAME.lvlCount - 1].waves.length && GAME.isPlay != 'loading') {
         GAME.wave += 1;
         monstercount = 0;
         starttime = 900;
@@ -248,19 +254,16 @@ function nextWave() {
 }
 
 function updateNextLvlParams() {
-    if (GAME.lvlCount + 1 <= lvls.length) {
-        lvl = changeLvl();
-        GAME.castleHP = lvl.castleHP;
-        GAME.wave = 1;
-        monstercount = 0;
-        starttime = 900;
-        GAME.isPlay = 'wavepause';
-        pushmonstercount = 0;
-        steptimer = 0;
-        stepcounter = 1;
-        explosions = [];
-        strikes = [];
-    }    
+    lvl = changeLvl();
+    GAME.castleHP = lvl.castleHP;
+    GAME.wave = 1;
+    monstercount = 0;
+    starttime = 900;
+    pushmonstercount = 0;
+    steptimer = 0;
+    stepcounter = 1;
+    explosions = [];
+    strikes = []; 
 }
 
 function updateRestartGameParams() {
@@ -322,7 +325,6 @@ async function sendResults(event) {
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }
-    console.log(props)
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',
@@ -362,7 +364,6 @@ function createWaves(waves) {
     waves.forEach(wave => {
         lvl.waves.splice(-1, 0, ...lvl.waves.splice(-1, 1, convertStrToArray(wave)));
     });
-    console.log(lvl.waves);
 }
 
 const socket = new WebSocket('ws://localhost:8090');
@@ -373,7 +374,6 @@ socket.addEventListener('open', function(event) {
 
 socket.addEventListener('message', function(event) {
     data = JSON.parse(event.data);
-    console.log(data);
     switch (data.type) {
         case 'game_status':
             GAME.isPlay = data.status;
@@ -387,7 +387,6 @@ socket.addEventListener('message', function(event) {
 });
 
 function startWave() {
-    console.log(GAME.isPlay);
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
@@ -475,12 +474,12 @@ function play() {
     updateMobDataDef();
     moveMonsters(GAME, lvls);
     drawCastle();
-    if (GAME.isPlay == 'wavepause') {
+    if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
         initBullets();
         resetStopwatch();
     }
     if (GAME.isPlay == 'play') {
-        // lvlComplete();
+        gameOver();
         nextWave();
         catchTime();
         updateArrows();
@@ -502,7 +501,6 @@ function play() {
     attackTowers(GAME);
     drawBonuses();
     changeGameStatusButtons();
-    gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();
@@ -510,4 +508,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
-play();
+setTimeout(() => { closeLoading() }, 5000)
+setTimeout(() => { play() }, 5000)

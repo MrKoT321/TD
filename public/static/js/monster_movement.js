@@ -71,7 +71,6 @@ function addShield(monster) {
             if (mob.name != 'monster5') {
                 let mobCenterX = mob.x + mob.width / 2;
                 let mobCenterY = mob.y + mob.height / 2;
-                console.log(Math.sqrt(Math.pow(mobCenterX - monsterCenterX, 2) + Math.pow(monsterCenterY - mobCenterY, 2)))
                 if (Math.sqrt(Math.pow(mobCenterX - monsterCenterX, 2) + Math.pow(monsterCenterY - mobCenterY, 2)) <= 300) {
                     if (mob.countShield == 0) {
                         mob.shield = monster.giveShield;
@@ -228,7 +227,6 @@ function monsterCorrect(lvl, monster) {
 }
 
 function addMonster(GAME, lvls) {
-    console.log("1 monster add");
     pushMonsters(GAME, lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
     monstercount += 1;
 }

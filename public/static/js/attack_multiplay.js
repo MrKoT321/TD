@@ -60,6 +60,15 @@ function sendGameStatus() {
     socket.send(json);
 }
 
+// function sendWaves(waves) {
+//     data = {
+//         type: 'waves',
+//         waves: waves
+//     }
+//     json = JSON.stringify(data);
+//     socket.send(json);
+// }
+
 function changeGameStatusButtons() {
     startWaveBtn.classList.add("active");
     pauseGameBtn.classList.remove("pause");
@@ -187,7 +196,7 @@ function drawCastle() {
 }
 
 function gameOver() {
-    if (GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0 && starttime == 0 || GAME.castleHP == 0) {
+    if ((GAME.castleHP > 0 && GAME.wave == 3 && monsters.length == 0 && starttime == 0) || GAME.castleHP == 0) {
         sendNextLvlParams();
     } 
 }
@@ -255,7 +264,6 @@ function sendNextLvlParams() {
         mobsUnlock.value = String(GAME.mobsUnlock);
         // console.log(playerId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
         $('#form').attr('action', '../make_waves_multiplay.php');
-        // document.getElementById('form').submit();
         $('#form').trigger('submit');
         GAME.submit = true;
     }
@@ -486,7 +494,6 @@ function createWaves() {
     waveStrs.forEach(waveStr => {
         lvl.waves.splice(-1, 0, ...lvl.waves.splice(-1, 1, convertStrToArray(waveStr)));
     });
-    console.log(lvl.waves);
 }
 
 function initGameParams() {

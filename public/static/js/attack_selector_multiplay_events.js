@@ -334,12 +334,7 @@ map_button.addEventListener(
     () => {
         popup_map_bg.classList.remove("hidden");
         popup_map_show.classList.remove('hidden');
-        if (lvlcount == 1) {
-            popup_map.classList.add(maps[lvlcount - 1]);
-        } else {
-            popup_map.classList.remove(maps[lvlcount - 2]);
-            popup_map.classList.add(maps[lvlcount - 1])
-        }
+        drawMap(GAME.lvl, parseInt(GAME.currwave.split('e')[1]));
     }
 )
 
@@ -348,6 +343,7 @@ popup_map_bg.addEventListener(
     () => {
         popup_map_bg.classList.add("hidden");
         popup_map_show.classList.add("hidden");
+        clearMap();
     }
 )
 
