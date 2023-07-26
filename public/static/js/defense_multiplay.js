@@ -390,6 +390,12 @@ const socket = new WebSocket('ws://localhost:8090');
 
 socket.addEventListener('open', function(event) {
     console.log('Connected to server.');
+    data = {
+        type: "add_room_to_new_client",
+        roomId: document.getElementById("game-info-roomId").innerHTML
+    }
+    json = JSON.stringify(data);
+    socket.send(json)
 });
 
 socket.addEventListener('message', function(event) {
@@ -475,6 +481,18 @@ backToMenuBtn.addEventListener(
     }
 );
 
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+        data = {
+            type: "add_room_to_new_client",
+            roomId: document.getElementById("game-info-roomId").innerHTML
+        }
+        json = JSON.stringify(data);
+        socket.send(json)
+    } 
+);
+
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
 //           'menu' - мобы не идут, башни не ставятся
@@ -495,6 +513,8 @@ function play() {
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
+        resetBonuses();
+        resetBonusesReload();
         initBullets();
         resetStopwatch();
     }
@@ -502,6 +522,7 @@ function play() {
         gameOver();
         nextWave();
         catchTime();
+        drawBonusesReload();
         updateArrows();
         updateBullets();
         updateExplosions();

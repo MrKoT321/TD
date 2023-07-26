@@ -178,7 +178,9 @@ function sendNewTowerPlace() {
         money: GAME.money
     }
     json = JSON.stringify(data);
-    socket.send(json);
+    if (typeof socket !== "undefined"){
+        socket.send(json);
+    }
 }
 
 function makeTower(tower) {

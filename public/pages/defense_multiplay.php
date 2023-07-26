@@ -17,6 +17,7 @@
 
 <body>
     <span id="nick-name" class="hidden"><?= htmlspecialchars($game->getNickName()) ?></span>
+    <span class="hidden" id="game-info-roomId"><? echo($roomId) ?></span>
     <span id="game-id" class="hidden"><?= $gameId ?></span>
     <div class="game">
         <div class="game__field field">
@@ -141,6 +142,7 @@
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
     <script type="application/javascript" src="../static/js/bonus_action.js"></script>
+    <script type="application/javascript" src="../static/js/bonus_buttons_defense.js"></script>
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_placement.js"></script>
     <script type="application/javascript" src="../static/js/tower_attack.js"></script>

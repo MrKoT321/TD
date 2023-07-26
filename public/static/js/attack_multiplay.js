@@ -112,6 +112,12 @@ socket.addEventListener('message', function(event) {
 socket.addEventListener('open', function(event) {
     console.log('Connected to server.');
     sendGameStatus();
+    data = {
+        type: "add_room_to_new_client",
+        roomId: document.getElementById("game-info-roomId").innerHTML
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
 });
 
 var startTimer = new Date();
@@ -523,10 +529,10 @@ function play() {
     updateMobDataAtk();
     moveMonsters(GAME, lvls);
     drawCastle();
-    // drawBonuses();
+    drawBonuses();
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
-        resetButtons();
+        // resetButtons();
     }
     if (GAME.isPlay == 'play') {
         // lvlComplete();
