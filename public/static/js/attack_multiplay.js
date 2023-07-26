@@ -558,7 +558,6 @@ function play() {
     drawBonuses();
     if (GAME.isPlay == 'wavepause') {
         resetStopwatch();
-        // resetButtons();
     }
     if (GAME.isPlay == 'play') {
         gameOver();
