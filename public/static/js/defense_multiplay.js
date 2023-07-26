@@ -166,11 +166,31 @@ function gameOver() {
             changeMap();
             updateCastleHP();
         }
-        if(GAME.lvlCount == 4) {
-            // showResults();
+        if(GAME.lvlCount == 4 && GAME.isPlay == 'play') {
+            showFinalPopup(2, 1);
+            GAME.isPlay = 'popuppause';
         }
     } 
 }
+
+function showFinalPopup(myScore, opponentScore) {
+    popupoverBg.classList.add('active');
+    popupover.classList.add('active');
+    if(myScore > opponentScore) {
+        document.querySelector('.over').style.color = 'green';
+        document.querySelector('.over').innerHTML = 'VICTORY';
+    }
+    if(myScore < opponentScore) {
+        document.querySelector('.over').style.color = 'red';
+        document.querySelector('.over').innerHTML = 'YOU LOSE';
+    }
+    if(myScore == opponentScore) {
+        document.querySelector('.over').style.color = 'yellow';
+        document.querySelector('.over').innerHTML = 'DRAW';
+    }
+    var endScore = document.querySelector(".score__value");
+    endScore.innerHTML = myScore + ':' + opponentScore;
+};
 
 function showOpponentScreen() {
     waitingOpponentScreen.classList.remove("hidden");
