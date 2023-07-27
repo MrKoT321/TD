@@ -327,9 +327,11 @@ function updateMobDataDef() {
 function updateMobDataAtk() {
     for (var monster of monsters) {
         if (monster.hp <= 0) {
+            console.log("paaaaaaay")
             if (monster.finish) {
                 GAME.money += Math.floor(monster.cost / 2);
             } else {
+                console.log("pay", Math.floor(monster.cost / 4));
                 GAME.money += Math.floor(monster.cost / 4);
             }
             GAME.score += Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount - 1]));

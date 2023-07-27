@@ -252,6 +252,7 @@ function nextWave() {
         stepcounter = 1;
         strikes = [];
         explosions = [];
+        pushmobs = 0;
     }
     if (monsters.length == 0 && GAME.wave == 3 && GAME.isPlay == 'play') {
         starttime = 0;
@@ -474,7 +475,6 @@ function play() {
     drawExplosion();
     moveMonsters(GAME, lvls);
     drawCastle();
-    updateMobDataAtk();
     if (GAME.isPlay == 'wavepause') {
         setTowers(GAME, lvl);
         resetStopwatch();
@@ -488,6 +488,7 @@ function play() {
         updateBullets();
         updateStrikes();
         updateExplosions();
+        updateMobDataAtk();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
