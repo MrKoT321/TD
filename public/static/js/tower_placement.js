@@ -15,7 +15,10 @@ var field = {
 
 const towerAbilities = document.querySelector(".tower-abilities");
 const newTowerSelector = document.querySelector(".new-tower");
-const deleteTowerButton = document.querySelector(".delete-tower");
+const deleteTowerButton = document.querySelector(".delete-tower__img");
+const upgradeTowerButton = document.querySelector(".upgrade-tower__img");
+const deleteTowerMoneyInfo = document.querySelector(".delete-tower-info__cost");
+const upgradeTowerMoneyInfo = document.querySelector(".upgrade-tower-info__cost");
 
 const towersIcons = document.querySelector(".choise-tower");
 const archerTower = document.querySelector(".archer");
@@ -127,6 +130,8 @@ function drawTowerAbilities() {
             towerAbilities.style.left = menuPosX + "px";
             towerAbilities.style.top = menuPosY + "px";
             towerAbilities.classList.remove("hidden");
+            deleteTowerMoneyInfo.innerHTML = '+' + Math.floor(activeTile.cost * 0.5);
+            upgradeTowerMoneyInfo.innerHTML = Math.floor(activeTile.cost * 1.6);
             isFindDrawPos = true;
         }
     }
@@ -142,12 +147,28 @@ deleteTowerButton.addEventListener(
             activeTile = towers[i];
             if (isMouseOnActiveTile(mouseClick, activeTile)) {
                 towers.splice(i, 1);
-                GAME.money += activeTile.cost / 2;
+                GAME.money += Math.floor(activeTile.cost / 2);
             }
         }
-        sendNewTowerPlace();
+        // sendNewTowerPlace();
     }
 );
+
+upgradeTowerButton.addEventListener(
+    "click",
+    () => {
+        for (var i = 0; i < towers.length; i++) {
+            activeTile = towers[i];
+            if (isMouseOnActiveTile(mouseClick, activeTile) && GAME.money >= Math.floor(activeTile.cost * 1.6)) {
+                GAME.money -= Math.floor(activeTile.cost * 1.3);
+                activeTile.cost = Math.floor(activeTile.cost * 2);
+                activeTile.atk = Math.floor(activeTile.atk * 2);
+                activeTile.radius += 50;
+            }
+        }
+        // sendNewTowerPlace();
+    }
+)
 
 function removeTowerSelectors() {
     newTowerSelector.classList.add("hidden");
@@ -188,7 +209,7 @@ function makeTower(tower) {
         if (isMouseOnTile(mouseClick, tile) && canBuy(tower)) {
             pushToTowers(tower, tile[0], tile[1]);
             GAME.money -= tower.cost;
-            sendNewTowerPlace();
+            // sendNewTowerPlace();
         }
     })
 }

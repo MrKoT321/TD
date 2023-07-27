@@ -88,12 +88,67 @@ body {
 }
 
 .delete-tower {
+    position: absolute;
+    top: -20px;
+    right: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-tower__img {
     height: 50px;
     width: 50px;
-    position: absolute;
-    bottom: -37.5px;
-    left: calc(50% - 25px);
     cursor: pointer;
+}
+
+.delete-tower-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.delete-tower-info__cost {
+    font-family: 'VT323';
+    font-size: 48px;
+    color: white;
+}
+
+.delete-tower-info__coin-img {
+    width: 25px;
+    height: 25px;
+}
+
+.upgrade-tower {
+    position: absolute;
+    top: -20px;
+    left: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upgrade-tower__img {
+    height: 56px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.upgrade-tower-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.upgrade-tower-info__cost {
+    font-family: 'VT323';
+    font-size: 48px;
+    color: white;
+}
+
+.upgrade-tower-info__coin-img {
+    width: 25px;
+    height: 25px;
 }
 
 .bar {
