@@ -5,46 +5,21 @@ namespace App\Model;
 
 class AttackInfo
 {
-    private ?int $requestId;
-    private ?string $requestStatus;
-    private ?int $gameId;
-    private ?int $playerId;
-    private string $nickName;
-    private ?int $money;
-    private ?int $score;
-    private ?string $currLvl;
-    private ?string $wave1;
-    private ?string $wave2;
-    private ?string $wave3;
-    private ?string $mobsUnlock;
     public function __construct
     (
-        ?int $requestId,
-        ?string $requestStatus,
-        ?int $gameId,
-        ?int $playerId,
-        string $nickName,
-        ?int $money,
-        ?int $score,
-        ?string $currLvl,
-        ?string $wave1,
-        ?string $wave2,
-        ?string $wave3,
-        ?string $mobsUnlock
-    ) {
-        $this->requestId = $requestId;
-        $this->requestStatus = $requestStatus;
-        $this->gameId = $gameId;
-        $this->playerId = $playerId;
-        $this->nickName = $nickName;
-        $this->money = $money;
-        $this->score = $score;
-        $this->currLvl = $currLvl;
-        $this->wave1 = $wave1;
-        $this->wave2 = $wave2;
-        $this->wave3 = $wave3;
-        $this->mobsUnlock = $mobsUnlock;
-    }
+        private ?int $requestId,
+        private ?string $requestStatus,
+        private ?int $gameId,
+        private ?int $playerId,
+        private string $nickName,
+        private ?int $money,
+        private ?int $score,
+        private ?string $currLvl,
+        private ?string $wave1,
+        private ?string $wave2,
+        private ?string $wave3,
+        private ?string $mobsUnlock
+    ) {}
 
     public function getRequestId(): ?int
     {

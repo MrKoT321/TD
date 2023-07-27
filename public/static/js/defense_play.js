@@ -224,6 +224,7 @@ function nextWave() {
         stepcounter = 1;
         explosions = [];
         strikes = [];
+        pushmobs = 0;
         wave_length = 0;
     }
 }
@@ -241,6 +242,7 @@ function updateNextLvlParams() {
         stepcounter = 1;
         explosions = [];
         strikes = [];
+        pushmobs = 0;
         wave_length = 0;
     }
 }
@@ -286,15 +288,6 @@ function changeMap() {
     }
 };
 
-function sendGameStatus() {
-    data = {
-        type: 'game_status',
-        status: GAME.isPlay
-    }
-    json = JSON.stringify(data);
-    socket.send(json);
-}
-
 async function sendResults(event) {
     const score = document.querySelector(".score__value");
     const gameID = document.getElementById("game-id");
@@ -316,34 +309,11 @@ async function sendResults(event) {
     });
 }
 
-const socket = new WebSocket('ws://localhost:8080');
-
-socket.addEventListener('open', function (event) {
-    console.log('Connected to server.');
-});
-
-socket.addEventListener('message', function (event) {
-    data = JSON.parse(event.data);
-    switch (data.type) {
-        case 'tower_add':
-            towers = data.towers;
-            GAME.money = data.money;
-            break;
-        case 'game_status':
-            GAME.isPlay = data.status;
-            changeGameStatusButtons();
-            break;
-        case 'fireball':
-            fireball = data.fireball_bonus;
-            break;
-    }
-});
-
 function startWave() {
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
-        sendGameStatus();
+        // sendGameStatus();
     }
 }
 
@@ -352,13 +322,13 @@ function pauseGame() {
         pauseGameBtn.classList.remove("play");
         pauseGameBtn.classList.add("pause");
         GAME.isPlay = 'menu';
-        sendGameStatus();
+        // sendGameStatus();
     } else {
         if (GAME.isPlay == 'menu') {
             pauseGameBtn.classList.remove("pause");
             pauseGameBtn.classList.add("play");
             GAME.isPlay = 'play';
-            sendGameStatus();
+            // sendGameStatus();
         }
     }
 }
@@ -528,12 +498,15 @@ function play() {
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
+        resetBonuses();
+        resetBonusesReload();
         initBullets();
         resetStopwatch();
         updateInfoCounts();
         changeWaveInfoPos(lvl);
     }
     if (GAME.isPlay == 'play') {
+        drawBonusesReload();
         lvlComplete();
         nextWave();
         catchTime();
@@ -544,6 +517,7 @@ function play() {
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
+        initBonuses();
         GAME.isPlay = 'play';
     }
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {

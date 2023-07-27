@@ -692,3 +692,6 @@ body {
     align-items: center;
     visibility: hidden;
 }
+.next-over {
+    background-color: red;
+}

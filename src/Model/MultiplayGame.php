@@ -5,7 +5,6 @@ namespace App\Model;
 
 class MultiplayGame
 {
-
     public function __construct
     (
         private ?int $playerId,

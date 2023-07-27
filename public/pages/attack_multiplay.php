@@ -8,9 +8,10 @@
 <html lang="ru">
 
 <head>
-    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s game</title>
+    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s Game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/defense.css">
+    <link rel="stylesheet" href="../static/css/popup_multiplay.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -27,6 +28,7 @@
             <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
             <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
             <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
+            <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
         </div>
         <div class="game__field field">
             <canvas id='canvas'></canvas>
@@ -119,9 +121,8 @@
                 <input type="text" name="score" class="hidden" />
                 <input type="text" name="currentLvl" class="hidden" />
                 <input type="text" name="mobsUnlock" class="hidden" />
-                <input class="restart" type="submit" id="restartgame" value="" />
+                <!-- <input class="restart hidden" type="submit" id="restartgame" value="" /> -->
             </form>
-                <!-- <img class="restart" src="../static/images/restart.png" id="restartgame"/> -->
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
                 </a>
@@ -151,7 +152,8 @@
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
-    <!-- <script type="application/javascript" src="../static/js/bonus_action.js"></script> -->
+    <script type="application/javascript" src="../static/js/bonus_action.js"></script>
+    <script type="application/javascript" src="../static/js/bonus_action.js"></script>
     <!-- <script type="application/javascript" src="../static/js/tower_attack_config.js"></script> -->
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_attack.js"></script>
