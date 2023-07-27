@@ -76,7 +76,7 @@ const lvl4 = {
     start_dir: 'u',
     waves: [[monster2, monster5, monster2], [monster4, monster1, monster3, monster3], [monster5, monster4, monster2, monster2, monster3]],
     atk_towers: [[bash, bash, archer], [archer, mortir, bash], [mortir, mortir, archer, archer]],
-    bonuses: [],
+    bonuses: ["freeze"],
     back_src: "../static/images/MAP4.png",
     castle_src:  "../static/images/CASTLE.png",
     money: 100

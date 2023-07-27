@@ -132,7 +132,6 @@ function updateArrows() {
                 }
                 arrows.splice(i, 1);
             }
-            // console.log(flyingArrow.angel);
         } else {
             arrows.splice(i, 1);
         }
@@ -181,13 +180,6 @@ function attackArcher(GAME) {
 function drawBullets() {
     bullets.forEach(flyingBullet => {
         canvasContext.drawImage(flyingBullet.image, flyingBullet.x - flyingBullet.width/2, flyingBullet.y - flyingBullet.height/2, flyingBullet.width, flyingBullet.height);
-
-        canvasContext.beginPath();
-        canvasContext.strokeStyle = flyingBullet.radiusColor;
-        canvasContext.lineWidth = 2;
-        canvasContext.arc(flyingBullet.x, flyingBullet.y, flyingBullet.blastRadius, 0, 2 * Math.PI);
-        canvasContext.stroke();
-        canvasContext.closePath();
     })
 }
 

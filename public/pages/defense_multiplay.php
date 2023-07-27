@@ -121,7 +121,6 @@
                 <span class="score__value"></span>
             </div>
             <div class="overbuttons">
-                <img class="restart" src="../static/images/restart.png" id="restartgame"/>
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
                 </a>
@@ -140,6 +139,14 @@
     <div class="waiting-screen">
         <div class="waiting-opponent-screen">
             <img src="../static/images/waiting_opponent_screen.png" alt="">
+        </div>
+    </div>
+    <img src='../static/images/loading-bg.png' class='loading-image' />
+    <div class='loading-bg'></div>
+    <div class="loading">
+        <span class='loading__text'>LOADING</span>
+        <div class="loading__100">
+            <div class="loading__0"></div>
         </div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>

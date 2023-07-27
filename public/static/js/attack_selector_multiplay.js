@@ -271,7 +271,7 @@ function initParams(){
     if(lvl_take.innerHTML != 0){
         GAME.money = parseInt(money_take.innerHTML);
         GAME.score = parseInt(score_send.innerHTML);
-        GAME.id = parseInt(id_take.innerHTML);
+        GAME.id = parseInt(playerId_take.innerHTML);
         GAME.lvl = parseInt(lvl_take.innerHTML);
         mobs_unlock = (mobsUnlock_take.innerHTML).split(',');
     }
@@ -288,6 +288,15 @@ socket.addEventListener('open', function(event) {
     json = JSON.stringify(data);
     socket.send(json)
 });
+
+function closeLoading() {
+    loading_text.classList.add('hidden');
+    loading_0.classList.add('hidden');
+    loading_100.classList.add('hidden');
+    loading_bg.classList.add('hidden');
+    loading_image.classList.add('hidden');
+    GAME.isPlay = 'waitopponent';
+}
 
 function play() {
     unblockMonsters();
@@ -306,4 +315,5 @@ function play() {
 }
 
 initParams();
-play();
+setTimeout(() => { closeLoading() }, 5000);
+setTimeout(() => { play() }, 5000);

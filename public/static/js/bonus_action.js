@@ -105,7 +105,11 @@ function updateFreeze() {
             let mstrCenterY = monster.y + monster.height / 2;
             let distance = Math.sqrt(Math.pow(mstrCenterX - freeze.finishX, 2) + Math.pow(mstrCenterY - freeze.finishY, 2));
             if (distance <= freeze.blastRadius) {
-                monster.hp -= freeze.atk;
+                if (monster.shield > 0) {
+                    monster.shield -= freeze.atk;
+                } else {
+                    monster.hp -= freeze.atk;
+                }
                 monster.speed /= 2;
             }
         })

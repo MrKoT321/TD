@@ -17,6 +17,12 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
+const loading_text = document.querySelector('.loading__text');
+const loading_0 = document.querySelector('.loading__0');
+const loading_100 = document.querySelector('.loading__100');
+const loading_bg = document.querySelector('.loading-bg');
+const loading_image = document.querySelector('.loading-image');
+
 const waitingOpponentScreen = document.querySelector(".waiting-screen");
 const waitingOpponentScreenImg = document.querySelector(".waiting-opponent-screen");
 
@@ -28,7 +34,7 @@ var GAME = {
     height: 1000,
     stopwatch: 0,
     milisectimer: 0,
-    isPlay: 'wavepause',
+    isPlay: 'waitopponent',
     money: 100,
     score: 0,
     lvlCount: 1,
@@ -76,6 +82,8 @@ function resetStopwatch() {
     startTimer = new Date();
     GAME.milisectimer = 0;
     timeInPause = 0;
+    steptimer = 0;
+    stepcounter = 1;
 }
 
 function catchTime() {
@@ -128,17 +136,74 @@ function drawCastle() {
     }
 }
 
+function closeLoading() {
+    loading_text.classList.add('hidden');
+    loading_0.classList.add('hidden');
+    loading_100.classList.add('hidden');
+    loading_bg.classList.add('hidden');
+    loading_image.classList.add('hidden');
+    GAME.isPlay = 'waitopponent';
+}
+
+function openLoading() {
+    GAME.isPlay = 'loading';
+    loading_text.classList.remove('hidden');
+    loading_0.classList.remove('hidden');
+    loading_100.classList.remove('hidden');
+    loading_bg.classList.remove('hidden');
+    loading_image.classList.remove('hidden');
+}
+
 function gameOver() {
-    if (GAME.castleHP == 0) {
-        popupoverBg.classList.add('active');
-        popupover.classList.add('active');
-        document.querySelector('.over').style.color = 'red';
-        document.querySelector('.over').innerHTML = 'GAME OVER';
-        var scoreValue = document.querySelector(".count-score__value").innerHTML;
-        var endScore = document.querySelector(".score__value");
-        endScore.innerHTML = scoreValue;
-        GAME.isPlay = 'popuppause';
+    if ((GAME.castleHP == 0 || (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0))) {
+        if(GAME.lvlCount < 4) {
+            openLoading();
+            setTimeout(() => { 
+                closeLoading(); 
+                showOpponentScreen(); 
+            }, 5000);
+            updateNextLvlParams();
+            changeMap();
+            updateCastleHP();
+        }
+        if(GAME.lvlCount == 4 && GAME.isPlay == 'play') {
+            showFinalPopup(2, 1);
+            GAME.isPlay = 'popuppause';
+        }
     } 
+}
+
+function showFinalPopup(myScore, opponentScore) {
+    popupoverBg.classList.add('active');
+    popupover.classList.add('active');
+    if(myScore > opponentScore) {
+        document.querySelector('.over').style.color = 'green';
+        document.querySelector('.over').innerHTML = 'VICTORY';
+    }
+    if(myScore < opponentScore) {
+        document.querySelector('.over').style.color = 'red';
+        document.querySelector('.over').innerHTML = 'YOU LOSE';
+    }
+    if(myScore == opponentScore) {
+        document.querySelector('.over').style.color = 'yellow';
+        document.querySelector('.over').innerHTML = 'DRAW';
+    }
+    var endScore = document.querySelector(".score__value");
+    endScore.innerHTML = myScore + ':' + opponentScore;
+};
+
+function showOpponentScreen() {
+    waitingOpponentScreen.classList.remove("hidden");
+    waitingOpponentScreen.style.height = '1085px';
+    waitingOpponentScreenImg.classList.remove("hidden");
+}
+
+function hideOpponentScreen() {
+    if(GAME.isPlay != 'waitopponent') {
+        waitingOpponentScreen.classList.add("hidden");
+        waitingOpponentScreen.style.height = '0';
+        waitingOpponentScreenImg.classList.add("hidden");
+    }
 }
 
 function updateMoney() {
@@ -195,7 +260,7 @@ function updateCastleHP() {
 }
 
 function nextWave() {
-    if (monsters.length == 0 && GAME.wave < lvls[GAME.lvlCount - 1].waves.length) {
+    if (monsters.length == 0 && GAME.wave < lvls[GAME.lvlCount - 1].waves.length && GAME.isPlay != 'loading') {
         GAME.wave += 1;
         monstercount = 0;
         starttime = 900;
@@ -209,19 +274,16 @@ function nextWave() {
 }
 
 function updateNextLvlParams() {
-    if (GAME.lvlCount + 1 <= lvls.length) {
-        lvl = changeLvl();
-        GAME.castleHP = lvl.castleHP;
-        GAME.wave = 1;
-        monstercount = 0;
-        starttime = 900;
-        GAME.isPlay = 'wavepause';
-        pushmonstercount = 0;
-        steptimer = 0;
-        stepcounter = 1;
-        explosions = [];
-        strikes = [];
-    }    
+    lvl = changeLvl();
+    GAME.castleHP = lvl.castleHP;
+    GAME.wave = 1;
+    monstercount = 0;
+    starttime = 900;
+    pushmonstercount = 0;
+    steptimer = 0;
+    stepcounter = 1;
+    explosions = [];
+    strikes = []; 
 }
 
 function updateRestartGameParams() {
@@ -283,7 +345,6 @@ async function sendResults(event) {
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }
-    console.log(props)
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',
@@ -291,6 +352,37 @@ async function sendResults(event) {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: json
+    });
+}
+
+function convertStrToArray(waveStr) {
+    let resWave = []
+    waveStr.forEach(monsterStr => {
+        switch (monsterStr) {
+            case "monster1":
+                resWave.push(monster1);
+                break;
+            case "monster2":
+                resWave.push(monster2);
+                break;
+            case "monster3":
+                resWave.push(monster3);
+                break;
+            case "monster4":
+                resWave.push(monster4);
+                break;
+            case "monster5":
+                resWave.push(monster5);
+                break;
+        }
+    });
+    return resWave;
+}
+
+function createWaves(waves) {
+    lvl.waves = [];
+    waves.forEach(wave => {
+        lvl.waves.splice(-1, 0, ...lvl.waves.splice(-1, 1, convertStrToArray(wave)));
     });
 }
 
@@ -309,25 +401,13 @@ socket.addEventListener('open', function(event) {
 socket.addEventListener('message', function(event) {
     data = JSON.parse(event.data);
     switch (data.type) {
-        case 'tower_add':
-            towers = data.towers;
-            GAME.money = data.money;    
-            break;
         case 'game_status':
             GAME.isPlay = data.status;
             changeGameStatusButtons();
             break;
-        case 'fireball':
-            fireball = data.fireball_bonus;
-            break;
-        case 'freeze':
-            freeze = data.freeze_bonus;
-            break;
         case 'waves':
-            waitingOpponentScreen.classList.add("hidden");
-            waitingOpponentScreen.style.height = '0';
-            waitingOpponentScreenImg.classList.add("hidden");
-            lvls[GAME.lvlCount - 1].waves = decodeMonsterWaves(data.waves);
+            hideOpponentScreen();
+            createWaves(data.waves);
             break;
     }
 });
@@ -369,26 +449,18 @@ document.addEventListener("keydown", (event) => {
     }
 })
 
-nextBtn.addEventListener(
-    "click",
-    () => {
-        updateNextLvlParams();
-        changeMap();
-        updateCastleHP();
-        popupCloseComplete();
-    }
-);
-
-restartgame.addEventListener(
-    "click",
-    (event) => {
-        sendResults(event);
-        updateRestartGameParams();
-        changeMap();
-        updateCastleHP();
-        popupCloseOver();
-    }
-);
+// nextBtn.addEventListener(
+//     "click",
+//     () => {
+//         popupCloseComplete();
+//         openLoading();
+//         setTimeout(() => { closeLoading() }, 5000);
+//         showOpponentScreen();
+//         updateNextLvlParams();
+//         changeMap();
+//         updateCastleHP();
+//     }
+// );
 
 backToMenuBtn.addEventListener(
     "click", 
@@ -398,25 +470,27 @@ backToMenuBtn.addEventListener(
     }
 );
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-        data = {
-            type: "add_room_to_new_client",
-            roomId: document.getElementById("game-info-roomId").innerHTML
-        }
-        json = JSON.stringify(data);
-        socket.send(json)
-    } 
-);
+// document.addEventListener(
+//     "DOMContentLoaded",
+//     () => {
+//         data = {
+//             type: "add_room_to_new_client",
+//             roomId: document.getElementById("game-info-roomId").innerHTML
+//         }
+//         json = JSON.stringify(data);
+//         socket.send(json)
+//     } 
+// );
 
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
 //           'menu' - мобы не идут, башни не ставятся
 //           'popuppause' - мобы идут, башни не ставятся
 //           'startgame' - ожидание появления первого моба
+//           'waitopponent' - ожидание оппонента
 
 function play() {
+    hideOpponentScreen()
     updateMoney();
     updateScore();
     updateVisualLvlParams();
@@ -427,14 +501,17 @@ function play() {
     updateMobDataDef();
     moveMonsters(GAME, lvls);
     drawCastle();
-    if (GAME.isPlay == 'wavepause') {
+    if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
+        resetBonuses();
+        resetBonusesReload();
         initBullets();
         resetStopwatch();
     }
     if (GAME.isPlay == 'play') {
-        lvlComplete();
+        gameOver();
         nextWave();
         catchTime();
+        drawBonusesReload();
         updateArrows();
         updateBullets();
         updateExplosions();
@@ -442,6 +519,7 @@ function play() {
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
+        initBonuses();
         GAME.isPlay = 'play';
     }
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
@@ -453,7 +531,6 @@ function play() {
     attackTowers(GAME);
     drawBonuses();
     changeGameStatusButtons();
-    gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();
@@ -461,4 +538,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
-play();
+setTimeout(() => { closeLoading() }, 5000)
+setTimeout(() => { play() }, 5000)
