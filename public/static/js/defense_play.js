@@ -22,6 +22,7 @@ const loading_0 = document.querySelector('.loading__0');
 const loading_100 = document.querySelector('.loading__100');
 const loading_bg = document.querySelector('.loading-bg');
 const loading_image = document.querySelector('.loading-image');
+const loading = document.querySelector('.loading');
 
 const wave_info = document.querySelector('.wave-info');
 const info_block1 = document.getElementById('info-block1')
@@ -380,6 +381,7 @@ function closeLoading() {
     loading_100.classList.add('hidden');
     loading_bg.classList.add('hidden');
     loading_image.classList.add('hidden');
+    loading.classList.add('hidden');
 }
 
 function changeWaveInfoPos(lvl) {
