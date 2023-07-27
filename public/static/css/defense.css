@@ -299,6 +299,7 @@ body {
 
 .hidden {
     display: none;
+    visibility: hidden;
 }
 
 .popupover__bg {
