@@ -355,15 +355,23 @@ function pauseGame() {
 
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
+var isClick = false;
 document.addEventListener("keydown", (event) => {
-    switch (event.code) {
-        case 'Space':
-            pauseGame();
-            break;
-        case 'Enter':
-            startWave();
-            break;
+    if (!isClick){
+        switch (event.code) {
+            case 'Space':
+                pauseGame();
+                isClick = true;
+                break;
+            case 'Enter':
+                startWave();
+                isClick = true;
+                break;
+        }
     }
+})
+document.addEventListener("keyup", (event) => {
+    isClick = false;
 })
 
 nextBtn.addEventListener(

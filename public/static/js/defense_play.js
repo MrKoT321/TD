@@ -161,12 +161,28 @@ function gameOver() {
 
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
-    moneyInfo.innerHTML = String(GAME.money);
+    let moneyNow = Math.floor(moneyInfo.innerHTML);
+    if (moneyNow <= GAME.money) {
+        if (moneyNow < GAME.money)
+            moneyInfo.innerHTML = String(moneyNow + 1);
+    } else {
+        moneyInfo.innerHTML = String(moneyNow - 1);
+    }
+    // moneyInfo.innerHTML = String(GAME.money);
 }
 
 function updateScore() {
     let scoreInfo = document.querySelector(".count-score__value");
-    scoreInfo.innerHTML = String(GAME.score);
+    let scoreNow = Math.floor(scoreInfo.innerHTML);
+    if (scoreNow <= GAME.score) {
+        if (scoreNow < GAME.score) {
+            scoreInfo.innerHTML = String(scoreNow + 1);
+        }
+    } else {
+        scoreInfo.innerHTML = String(scoreNow - 1);
+    }
+
+    // scoreInfo.innerHTML = String(GAME.score);
 }
 
 function lvlComplete() {
@@ -335,15 +351,24 @@ function pauseGame() {
 
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
+
+var isClick = false;
 document.addEventListener("keydown", (event) => {
-    switch (event.code) {
-        case 'Space':
-            pauseGame();
-            break;
-        case 'Enter':
-            startWave();
-            break;
+    if (!isClick){
+        switch (event.code) {
+            case 'Space':
+                pauseGame();
+                isClick = true;
+                break;
+            case 'Enter':
+                startWave();
+                isClick = true;
+                break;
     }
+    }
+})
+document.addEventListener("keyup", (event) => {
+    isClick = false;
 })
 
 nextBtn.addEventListener(
@@ -498,12 +523,15 @@ function play() {
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
-        resetBonuses();
         resetBonusesReload();
+        resetBonuses();
         initBullets();
         resetStopwatch();
         updateInfoCounts();
         changeWaveInfoPos(lvl);
+    }
+    if (GAME.isPlay == 'menu') {
+        resetBonusesReload();
     }
     if (GAME.isPlay == 'play') {
         drawBonusesReload();

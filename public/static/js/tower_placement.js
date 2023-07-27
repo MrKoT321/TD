@@ -206,10 +206,12 @@ function sendNewTowerPlace() {
 
 function makeTower(tower) {
     towerTiles.forEach(tile => {
-        if (isMouseOnTile(mouseClick, tile) && canBuy(tower)) {
-            pushToTowers(tower, tile[0], tile[1]);
-            GAME.money -= tower.cost;
-            sendNewTowerPlace();
+        if (isMouseOnTile(mouseClick, tile)) {
+            if (canBuy(tower)){
+                pushToTowers(tower, tile[0], tile[1]);
+                GAME.money -= tower.cost;
+                sendNewTowerPlace();
+            }
         }
     })
 }

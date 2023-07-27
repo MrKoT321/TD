@@ -486,8 +486,6 @@ function play() {
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
-        resetBonuses();
-        resetBonusesReload();
         initBullets();
         resetStopwatch();
     }
@@ -500,6 +498,9 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
+    }
+    if (GAME.isPlay == 'menu') {
+        resetBonusesReload();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
@@ -516,6 +517,8 @@ function play() {
     drawBonuses();
     changeGameStatusButtons();
     if (GAME.isPlay == 'menu') {
+        resetBonuses();
+        resetBonusesReload();
         stopTimer();
         drawPauseBackground();
     }

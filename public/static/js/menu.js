@@ -70,8 +70,8 @@ function sendSingleGameForm(Class) {
     $('#start-game-form').attr('action', '../create_single_game.php');
 }
 
-defenseSubmitStart.addEventListener('click', () => { sendSingleGameForm('defense') })
-attackSubmitStart.addEventListener('click', () => { sendSingleGameForm('attack') })
+defenseSubmitStart.addEventListener('click',() => { sendSingleGameForm('defense') });
+attackSubmitStart.addEventListener('click', () => { sendSingleGameForm('attack') });
 
 function sendMultiplayGameForm(event, Class) {
     // choisenClassSingle.value = Class;
@@ -116,8 +116,8 @@ function redirectToMultiplayGame() {
     form.submit();
 }
 
-defenseSubmitMultiplay.addEventListener('click', (event) => { sendMultiplayGameForm(event, 'defense') });
-attackSubmitMultiplay.addEventListener('click', (event) => { sendMultiplayGameForm(event, 'attack') });
+defenseSubmitMultiplay.addEventListener('click', (event) => { if (nicknameMulti.value !== '') sendMultiplayGameForm(event, 'defense') });
+attackSubmitMultiplay.addEventListener('click', (event) => { if (nicknameMulti.value !== '') sendMultiplayGameForm(event, 'attack') });
 
 const socket = new WebSocket('ws://localhost:8080');
 

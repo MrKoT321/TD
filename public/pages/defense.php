@@ -26,7 +26,7 @@
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
             <div class="count-score">
-                <span class="count-score__value"></span>
+                <span class="count-score__value">0</span>
                 <img src="../static/images/score.png" alt="score" class="count-score__img">
             </div>
             <div class = "wave-info">

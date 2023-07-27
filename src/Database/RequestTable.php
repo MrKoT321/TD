@@ -114,7 +114,7 @@ class RequestTable
 
     public function getGameIdByRequestId(int $reqestId): ?int
     {
-        $query = "SELECT game_id FROM attack_requests WHERE reqest_id = $reqestId";
+        $query = "SELECT game_id FROM attack_requests WHERE request_id = $reqestId";
         $statement = $this->connection->query($query);
         if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
             return $row['game_id'];
