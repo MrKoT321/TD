@@ -269,6 +269,7 @@ function nextWave() {
         steptimer = 0;
         stepcounter = 1;
         explosions = [];
+        pushmobs = 0;
         strikes = [];
     }
 }
@@ -400,6 +401,7 @@ socket.addEventListener('open', function(event) {
 
 socket.addEventListener('message', function(event) {
     data = JSON.parse(event.data);
+    console.log(data);
     switch (data.type) {
         case 'game_status':
             GAME.isPlay = data.status;

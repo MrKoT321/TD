@@ -111,13 +111,13 @@ socket.addEventListener('message', function(event) {
 
 socket.addEventListener('open', function(event) {
     console.log('Connected to server.');
-    sendGameStatus();
     data = {
         type: "add_room_to_new_client",
         roomId: document.getElementById("game-info-roomId").innerHTML
     }
     json = JSON.stringify(data);
     socket.send(json);
+    sendGameStatus();
 });
 
 var startTimer = new Date();
@@ -348,6 +348,7 @@ function nextWave() {
         stepcounter = 1;
         strikes = [];
         explosions = [];
+        pushmobs = 0;
     }
     if (monsters.length == 0 && GAME.wave == 3 && GAME.isPlay == 'play') {
         starttime = 0;
