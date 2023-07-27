@@ -112,6 +112,16 @@ class RequestTable
         return null;
     }
 
+    public function getGameIdByRequestId(int $reqestId): ?int
+    {
+        $query = "SELECT game_id FROM attack_requests WHERE reqest_id = $reqestId";
+        $statement = $this->connection->query($query);
+        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+            return $row['game_id'];
+        }
+        return null;
+    }
+
     // public function addPlayerIdToPublish(int $playerId, int $requestId): void
     // {
     //     $query = "UPDATE attack_requests SET player_id = :player_id WHERE request_id = :request_id";

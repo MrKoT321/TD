@@ -74,6 +74,7 @@ class ServerController
             null
         );
         $gameId = $this->gameTable->create($game);
+        setcookie("id", strval($gameId), time()+3600, "/","", false);
         if ($requestData['choisenClass'] === 'defense') {
             $this->writeRedirectSeeOther("/single_game_defense.php?game_id=$gameId");
             exit();
@@ -85,6 +86,10 @@ class ServerController
     {
         $gameId = (int) $queryParams['game_id'];
         if (!$gameId) {
+            $this->writeRedirectSeeOther('/');
+            exit();
+        }
+        if (!isset($_COOKIE["id"]) && $gameId !== $_COOKIE["id"]) {
             $this->writeRedirectSeeOther('/');
             exit();
         }
@@ -104,6 +109,11 @@ class ServerController
                 exit();
             } else {
                 $requestId = (int) $queryParams['request_id'];
+                $gameId = $this->requestTable->getGameIdByRequestId($requestId);
+                if (!isset($_COOKIE["id"]) && $gameId !== $_COOKIE["id"]) {
+                    $this->writeRedirectSeeOther('/');
+                    exit();
+                }
                 $requestStatus = $this->requestTable->getStatus($requestId);
                 if (!$requestStatus) {
                     $this->writeRedirectSeeOther('/');
@@ -119,6 +129,10 @@ class ServerController
             } 
         } else {
             $gameId = (int) $queryParams['game_id'];
+            if (!isset($_COOKIE["id"]) && $gameId !== $_COOKIE["id"]) {
+                $this->writeRedirectSeeOther('/');
+                exit();
+            }
             $userName = $this->gameTable->getNickNameByGameId($gameId);
             if (is_null($userName)) {
                 $this->writeRedirectSeeOther('/');

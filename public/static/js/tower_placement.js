@@ -150,7 +150,7 @@ deleteTowerButton.addEventListener(
                 GAME.money += Math.floor(activeTile.cost / 2);
             }
         }
-        // sendNewTowerPlace();
+        sendNewTowerPlace();
     }
 );
 
@@ -166,7 +166,7 @@ upgradeTowerButton.addEventListener(
                 activeTile.radius += 50;
             }
         }
-        // sendNewTowerPlace();
+        sendNewTowerPlace();
     }
 )
 
@@ -209,7 +209,7 @@ function makeTower(tower) {
         if (isMouseOnTile(mouseClick, tile) && canBuy(tower)) {
             pushToTowers(tower, tile[0], tile[1]);
             GAME.money -= tower.cost;
-            // sendNewTowerPlace();
+            sendNewTowerPlace();
         }
     })
 }
