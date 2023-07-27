@@ -247,8 +247,8 @@ function registerCollision(monster, GAME) {
 
 function moveMonsters(GAME, lvls) {
     if( monsters.length > monsters.filter(value => value.hp > 0).length){
-        monstercount -= 1;
-        pushmonstercount -= 1;
+        monstercount -= monsters.length - monsters.filter(value => value.hp > 0).length;
+        pushmonstercount -= monsters.length - monsters.filter(value => value.hp > 0).length;
         monsters = monsters.filter(value => value.hp > 0);
     }
     updateMonstersStep();

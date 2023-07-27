@@ -47,7 +47,7 @@ var GAME = {
     stopwatch: 0,
     milisectimer: 0,
     isPlay: 'wavepause',
-    money: 100,
+    money: 50,
     score: 0,
     lvlCount: 1,
     wave: 1

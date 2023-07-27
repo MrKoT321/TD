@@ -25,7 +25,6 @@
             <span class="game-info__gameId" id="game-info-wave-2"><?= $gameInfo->getWave2() ?></span>
             <span class="game-info__gameId" id="game-info-wave-3"><?= $gameInfo->getWave3() ?></span>
             <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>
-            <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
             <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
             <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
             <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
@@ -36,9 +35,10 @@
                 <span class="count-coin__value">100</span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
-            <div class="count-score">
-                <span class="count-score__value">0</span>
-                <img src="../static/images/score.png" alt="score" class="count-score__img">
+            <div class="count-score-multi">
+                <span class="count-score__value-attack">0</span>
+                <span>:</span>
+                <span class="count-score__value-defense">0</span>
             </div>
             <div class="tower-selection new-tower hidden">
                 <div class="choise-towers">

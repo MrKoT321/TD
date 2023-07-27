@@ -23,7 +23,6 @@
     <div class="hidden game-info">
         <span class="game-info__gameId" id="game-info-playerId"><?= $gameInfo->getPlayerId() ?></span>
         <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>
-        <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
         <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
         <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
         <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>

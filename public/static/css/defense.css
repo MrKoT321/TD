@@ -695,3 +695,26 @@ body {
 .next-over {
     background-color: red;
 }
+
+.count-score-multi {
+    position: absolute;
+    top: 0;
+    left: 376px;
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
+}
+
+.count-score__value-defense{
+    color: white;
+    font-family: 'VT323';
+    font-size: 100px;
+    font-weight: 400;
+}
+
+.count-score__value-attack{
+    color: white;
+    font-family: 'VT323';
+    font-size: 100px;
+    font-weight: 400;
+}

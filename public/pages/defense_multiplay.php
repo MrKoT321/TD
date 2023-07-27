@@ -26,9 +26,10 @@
                 <span class="count-coin__value"></span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
-            <div class="count-score">
-                <span class="count-score__value"></span>
-                <img src="../static/images/score.png" alt="score" class="count-score__img">
+            <div class="count-score-multi">
+                <span class="count-score__value-defense">0</span>
+                <span>:</span>
+                <span class="count-score__value-attack">0</span>
             </div>
             <div class="tower-selection new-tower hidden">
                 <div class="choise-towers">

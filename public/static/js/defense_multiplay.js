@@ -26,6 +26,9 @@ const loading_image = document.querySelector('.loading-image');
 const waitingOpponentScreen = document.querySelector(".waiting-screen");
 const waitingOpponentScreenImg = document.querySelector(".waiting-opponent-screen");
 
+const attackScore = document.querySelector(".count-score__value-attack");
+const defenseScore = document.querySelector(".count-score__value-defense");
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -36,7 +39,8 @@ var GAME = {
     milisectimer: 0,
     isPlay: 'waitopponent',
     money: 100,
-    score: 0,
+    attackScore: 0,
+    defenseScore: 0,
     lvlCount: 1,
     wave: 1
 }
@@ -127,7 +131,7 @@ function changeGameStatusButtons() {
     }
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.remove("active");
-    } 
+    }
 }
 
 function drawCastle() {
@@ -155,36 +159,43 @@ function openLoading() {
 }
 
 function gameOver() {
+    if(monsters.length == 0){
+        if (GAME.castleHP == 0) {
+            GAME.attackScore += 1
+        } else {
+            GAME.defenseScore += 1
+        }
+    }   
     if ((GAME.castleHP == 0 || (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0))) {
-        if(GAME.lvlCount < 4) {
+        if (GAME.lvlCount < 4) {
             openLoading();
-            setTimeout(() => { 
-                closeLoading(); 
-                showOpponentScreen(); 
+            setTimeout(() => {
+                closeLoading();
+                showOpponentScreen();
             }, 5000);
             updateNextLvlParams();
             changeMap();
             updateCastleHP();
         }
-        if(GAME.lvlCount == 4 && GAME.isPlay == 'play') {
+        if (GAME.lvlCount == 4 && GAME.isPlay == 'play') {
             showFinalPopup(2, 1);
             GAME.isPlay = 'popuppause';
         }
-    } 
+    }
 }
 
 function showFinalPopup(myScore, opponentScore) {
     popupoverBg.classList.add('active');
     popupover.classList.add('active');
-    if(myScore > opponentScore) {
+    if (myScore > opponentScore) {
         document.querySelector('.over').style.color = 'green';
         document.querySelector('.over').innerHTML = 'VICTORY';
     }
-    if(myScore < opponentScore) {
+    if (myScore < opponentScore) {
         document.querySelector('.over').style.color = 'red';
         document.querySelector('.over').innerHTML = 'YOU LOSE';
     }
-    if(myScore == opponentScore) {
+    if (myScore == opponentScore) {
         document.querySelector('.over').style.color = 'yellow';
         document.querySelector('.over').innerHTML = 'DRAW';
     }
@@ -199,7 +210,7 @@ function showOpponentScreen() {
 }
 
 function hideOpponentScreen() {
-    if(GAME.isPlay != 'waitopponent') {
+    if (GAME.isPlay != 'waitopponent') {
         waitingOpponentScreen.classList.add("hidden");
         waitingOpponentScreen.style.height = '0';
         waitingOpponentScreenImg.classList.add("hidden");
@@ -209,11 +220,6 @@ function hideOpponentScreen() {
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
     moneyInfo.innerHTML = String(GAME.money);
-}
-
-function updateScore() {
-    let scoreInfo = document.querySelector(".count-score__value");
-    scoreInfo.innerHTML = String(GAME.score);
 }
 
 function lvlComplete() {
@@ -227,14 +233,14 @@ function lvlComplete() {
             document.querySelector('.over').style.color = 'green';
             document.querySelector('.over').innerHTML = 'VICTORY';
             var endScore = document.querySelector(".score__value");
-            endScore.innerHTML = GAME.score ;
+            endScore.innerHTML = GAME.score;
         } else {
             popupcompleteBg.classList.add('active');
             popupcomplete.classList.add('active');
             GAME.money += 100;
         }
-    } 
-    
+    }
+
 }
 
 function popupCloseComplete() {
@@ -284,7 +290,7 @@ function updateNextLvlParams() {
     steptimer = 0;
     stepcounter = 1;
     explosions = [];
-    strikes = []; 
+    strikes = [];
 }
 
 function updateRestartGameParams() {
@@ -344,7 +350,6 @@ async function sendResults(event) {
         gameId: gameID.innerHTML,
         nickName: GAME.player,
         choisenClass: 'defense',
-        score: Math.floor(score.innerHTML)
     }
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
@@ -389,7 +394,7 @@ function createWaves(waves) {
 
 const socket = new WebSocket('ws://localhost:8090');
 
-socket.addEventListener('open', function(event) {
+socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
     data = {
         type: "add_room_to_new_client",
@@ -399,7 +404,7 @@ socket.addEventListener('open', function(event) {
     socket.send(json)
 });
 
-socket.addEventListener('message', function(event) {
+socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     console.log(data);
     switch (data.type) {
@@ -411,6 +416,8 @@ socket.addEventListener('message', function(event) {
             hideOpponentScreen();
             createWaves(data.waves);
             break;
+        case 'give_me_score':
+            sendScoreToAttack();
     }
 });
 
@@ -419,7 +426,7 @@ function startWave() {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
         sendGameStatus();
-    } 
+    }
 }
 
 function pauseGame() {
@@ -441,7 +448,7 @@ function pauseGame() {
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
 document.addEventListener("keydown", (event) => {
-    switch(event.code) {
+    switch (event.code) {
         case 'Space':
             pauseGame();
             break;
@@ -465,12 +472,22 @@ document.addEventListener("keydown", (event) => {
 // );
 
 backToMenuBtn.addEventListener(
-    "click", 
-    (event) => { 
+    "click",
+    (event) => {
         sendResults(event);
         window.location.href = '../../';
     }
 );
+
+function sendScoreToAttack() {
+    data = {
+        type: 'game_score',
+        attackScore: GAME.attackScore,
+        defenseScore: GAME.defenseScore
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
 
 // document.addEventListener(
 //     "DOMContentLoaded",
@@ -492,9 +509,10 @@ backToMenuBtn.addEventListener(
 //           'waitopponent' - ожидание оппонента
 
 function play() {
+    attackScore.innerHTML = String(GAME.attackScore) 
+    defenseScore.innerHTML = String(GAME.defenseScore) 
     hideOpponentScreen()
     updateMoney();
-    updateScore();
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);

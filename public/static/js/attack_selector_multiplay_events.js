@@ -439,7 +439,6 @@ start_button.addEventListener(
         playerId_send.value = GAME.playerId;
         money_send.value = GAME.money;
         currentLvl_send.value = GAME.lvl;
-        score_send.value = GAME.score;
         data = {
             type: 'waves',
             waves: [wave1_to_send, wave2_to_send, wave3_to_send]
