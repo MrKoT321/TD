@@ -285,6 +285,7 @@ function updateNextLvlParams() {
     stepcounter = 1;
     explosions = [];
     strikes = []; 
+    pushmobs = 0;
 }
 
 function updateRestartGameParams() {
@@ -334,26 +335,6 @@ function sendGameStatus() {
     }
     json = JSON.stringify(data);
     socket.send(json);
-}
-
-async function sendResults(event) {
-    const score = document.querySelector(".score__value");
-    const gameID = document.getElementById("game-id");
-    event.preventDefault();
-    props = {
-        gameId: gameID.innerHTML,
-        nickName: GAME.player,
-        choisenClass: 'defense',
-        score: Math.floor(score.innerHTML)
-    }
-    const json = JSON.stringify(props);
-    let response = await fetch('/add_record.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: json
-    });
 }
 
 function convertStrToArray(waveStr) {
@@ -467,7 +448,7 @@ document.addEventListener("keydown", (event) => {
 backToMenuBtn.addEventListener(
     "click", 
     (event) => { 
-        sendResults(event);
+        // sendResults(event);
         window.location.href = '../../';
     }
 );
@@ -492,6 +473,7 @@ backToMenuBtn.addEventListener(
 //           'waitopponent' - ожидание оппонента
 
 function play() {
+    console.log(monstercount);
     hideOpponentScreen()
     updateMoney();
     updateScore();
