@@ -603,7 +603,37 @@ body {
     font-family: 'VT323';
 }
 
+.loading__text {
+    color: white;
+    font-family: 'VT323';
+    font-size: 60px;
+    text-align: center;
+
+}
+
 .loading {
+    --n:9;
+    --s:90px;
+    --g:10px;
+    color: grey;
+    width: calc(var(--n)*(var(--s) + var(--g)) - var(--g));
+    height: 50px;
+    padding: var(--g);
+    margin: 5px auto;
+    border: 8px solid black;
+    background:
+      repeating-linear-gradient(90deg,
+        currentColor 0 var(--s),
+        #0000 0 calc(var(--s) + var(--g))
+      ) left / calc((var(--n) + 1)*(var(--s) + var(--g))) 100% 
+      content-box no-repeat;
+    animation: load 5s steps(calc(var(--n) + 1)) infinite;
+  }
+  @keyframes load {
+    0% {background-size: 0% 100%}
+  }
+
+/* .loading {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -658,7 +688,7 @@ body {
 
 .loading-field{
     position: absolute;
-}
+} */
 
 .waiting-screen {
     position: absolute;
@@ -670,6 +700,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .wave-info {
     flex-direction: row;
     display: flex;
@@ -680,18 +711,19 @@ body {
     visibility: hidden;
 }
 
-.wave-info__text{
+.wave-info__text {
     color: white;
     font-family: 'VT323';
     font-size: 40px;
 }
 
-.wave-info__block{
+.wave-info__block {
     display: flex;
     flex-direction: row;
     align-items: center;
     visibility: hidden;
 }
+
 .next-over {
     background-color: red;
 }
@@ -705,14 +737,14 @@ body {
     color: white;
 }
 
-.count-score__value-defense{
+.count-score__value-defense {
     color: white;
     font-family: 'VT323';
     font-size: 100px;
     font-weight: 400;
 }
 
-.count-score__value-attack{
+.count-score__value-attack {
     color: white;
     font-family: 'VT323';
     font-size: 100px;
