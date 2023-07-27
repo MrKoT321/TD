@@ -9,15 +9,15 @@ const archer = {
     towerImg: "../static/images/archer_tower.png"
 }
 
-const bash = {
+const electric = {
     cost: 40,
     atk: 20,
     radius: 400,
-    type: "bash",
+    type: "electric",
     atkspeed: 3,
     towerColor: "yellow",
     atkColor: "red",
-    towerImg: "../static/images/bash_tower.png"
+    towerImg: "../static/images/electric_tower.png"
 }
 
 const mortir = {

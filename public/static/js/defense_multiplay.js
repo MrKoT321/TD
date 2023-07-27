@@ -285,6 +285,7 @@ function updateNextLvlParams() {
     stepcounter = 1;
     explosions = [];
     strikes = []; 
+    monsters = [];
     pushmobs = 0;
 }
 
@@ -473,7 +474,6 @@ backToMenuBtn.addEventListener(
 //           'waitopponent' - ожидание оппонента
 
 function play() {
-    console.log(monstercount);
     hideOpponentScreen()
     updateMoney();
     updateScore();
@@ -503,7 +503,7 @@ function play() {
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
-        initBonuses();
+        initBonuses("defense");
         GAME.isPlay = 'play';
     }
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {

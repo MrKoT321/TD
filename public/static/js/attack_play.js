@@ -476,11 +476,14 @@ function play() {
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
+        resetBonuses();
+        resetBonusesReload();
         setTowers(GAME, lvl);
         resetStopwatch();
         resetButtons();
     }
     if (GAME.isPlay == 'play') {
+        drawBonusesReload();
         lvlComplete();
         nextWave();
         catchTime();
@@ -493,6 +496,7 @@ function play() {
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
         GAME.isPlay = 'play';
+        initBonuses("attack")
     }
     drawTower();
     drawArrows();

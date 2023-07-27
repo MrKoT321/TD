@@ -31,6 +31,22 @@ freeze = {
     atk: 10
 }
 
+healing = {
+    x: undefined,
+    y: undefined,
+    strokeColor: "228413",
+    color: "28AD12",
+    blastRadius: 100,
+    reload: 10,
+    lastTimeCast: 60,
+    finishX: undefined,
+    finishY: undefined,
+    isActive: false,
+    readyToExplode: true,
+    worktime: 5,
+    heal: 0.35
+}
+
 gameFieldClick = {
     x: 0,
     y: 0,
@@ -39,8 +55,13 @@ gameFieldClick = {
 lvlBonuses = [];
 compareWithGameLvlBonuses = 0;
 
-function initBonuses() {
-    bonuses = lvls[GAME.lvlCount - 1].bonuses;
+function initBonuses(choisenClass) {
+    if(choisenClass == "defense") {
+        bonuses = lvls[GAME.lvlCount - 1].bonusesDef;
+    }
+    if(choisenClass == "attack") {
+        bonuses = lvls[GAME.lvlCount - 1].bonusesAtk;
+    }
     compareWithGameLvlBonuses = GAME.lvlCount;
 }
 
@@ -65,6 +86,20 @@ function drawFreeze() {
     canvasContext.lineWidth = 4;
     canvasContext.arc(freeze.x, freeze.y, freeze.blastRadius, 0, 2 * Math.PI);
     canvasContext.stroke();
+    canvasContext.closePath();
+}
+
+function drawHeal() {
+    canvasContext.beginPath();
+    let gradient = canvasContext.createRadialGradient(healing.x, healing.y, healing.blastRadius / 3, healing.x, healing.y, healing.blastRadiu);
+    gradient.addColorStop("0", healing.color);
+    gradient.addColorStop("1", "rgba(255, 255, 255, 0)");
+    canvasContext.fillStyle = gradient;
+    canvasContext.strokeStyle = healing.strokeColor;
+    canvasContext.lineWidth = 4;
+    canvasContext.arc(healing.x, healing.y, healing.blastRadius, 0, 2 * Math.PI);
+    canvasContext.stroke();
+    canvasContext.fill();
     canvasContext.closePath();
 }
 
@@ -116,6 +151,28 @@ function updateFreeze() {
     }
 }
 
+function updateHeal() {
+    healing.blastRadius += healing.speed;
+    if (GAME.stopwatch - healing.lastTimeCast >= healing.reload && !healing.readyToExplode) {
+        healing.readyToExplode = true;
+    }
+    if (GAME.stopwatch - healing.lastTimeCast <= healing.worktime) {
+        monsters.forEach(monster => {
+            let mstrCenterX = monster.x + monster.width / 2;
+            let mstrCenterY = monster.y + monster.height / 2;
+            let distance = Math.sqrt(Math.pow(mstrCenterX - healing.x, 2) + Math.pow(mstrCenterY -  healing.y, 2));
+            if (distance <= healing.blastRadius) {
+                if (monster.hp < monster.maxhp) {
+                    monster.hp += monster.maxhp * healing.heal;
+                }
+            }
+        })
+    } else {
+        healing.x = undefined;
+        healing.y = undefined;
+    }
+}
+
 function resetFireball() {
     fireball.isActive = false;
     fireball.readyToExplode = true;
@@ -130,6 +187,13 @@ function resetFreeze() {
     freeze.y = undefined;
 }
 
+function resetHeal() {
+    healing.isActive = false;
+    healing.readyToExplode = true;
+    healing.x = undefined;
+    healing.y = undefined;
+}
+
 function resetBonuses() {
     resetFireball();
     resetFreeze();
@@ -138,13 +202,16 @@ function resetBonuses() {
 function drawBonuses() {
     drawFireball();
     drawFreeze();
+    drawHeal();
     if (GAME.isPlay == 'play') {
         updateFireball();
         updateFreeze();
+        updateHeal();
     } else {
         if (GAME.isPlay == 'wavepause') {
             fireball.readyToExplode = true;
             freeze.readyToExplode = true;
+            healing.readyToExplode = true;
         }
     }
 }
