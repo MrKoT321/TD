@@ -348,6 +348,7 @@ function nextWave() {
         stepcounter = 1;
         strikes = [];
         explosions = [];
+        pushmobs = 0;
     }
     if (monsters.length == 0 && GAME.wave == 3 && GAME.isPlay == 'play') {
         starttime = 0;

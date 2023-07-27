@@ -269,6 +269,7 @@ function nextWave() {
         steptimer = 0;
         stepcounter = 1;
         explosions = [];
+        pushmobs = 0;
         strikes = [];
     }
 }
@@ -284,6 +285,7 @@ function updateNextLvlParams() {
     stepcounter = 1;
     explosions = [];
     strikes = []; 
+    pushmobs = 0;
 }
 
 function updateRestartGameParams() {
@@ -335,26 +337,6 @@ function sendGameStatus() {
     socket.send(json);
 }
 
-async function sendResults(event) {
-    const score = document.querySelector(".score__value");
-    const gameID = document.getElementById("game-id");
-    event.preventDefault();
-    props = {
-        gameId: gameID.innerHTML,
-        nickName: GAME.player,
-        choisenClass: 'defense',
-        score: Math.floor(score.innerHTML)
-    }
-    const json = JSON.stringify(props);
-    let response = await fetch('/add_record.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: json
-    });
-}
-
 function convertStrToArray(waveStr) {
     let resWave = []
     waveStr.forEach(monsterStr => {
@@ -400,6 +382,7 @@ socket.addEventListener('open', function(event) {
 
 socket.addEventListener('message', function(event) {
     data = JSON.parse(event.data);
+    console.log(data);
     switch (data.type) {
         case 'game_status':
             GAME.isPlay = data.status;
@@ -465,7 +448,7 @@ document.addEventListener("keydown", (event) => {
 backToMenuBtn.addEventListener(
     "click", 
     (event) => { 
-        sendResults(event);
+        // sendResults(event);
         window.location.href = '../../';
     }
 );
@@ -490,6 +473,7 @@ backToMenuBtn.addEventListener(
 //           'waitopponent' - ожидание оппонента
 
 function play() {
+    console.log(monstercount);
     hideOpponentScreen()
     updateMoney();
     updateScore();
