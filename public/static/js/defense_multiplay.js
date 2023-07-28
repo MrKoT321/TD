@@ -230,7 +230,35 @@ function hideOpponentScreen() {
 
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
-    moneyInfo.innerHTML = String(GAME.money);
+    let moneyNow = parseInt(moneyInfo.innerHTML);
+    if (moneyNow <= GAME.money) {
+        if (moneyNow < GAME.money)
+            moneyInfo.innerHTML = String(moneyNow + 1);
+    } else {
+        moneyInfo.innerHTML = String(moneyNow - 1);
+    }
+    // moneyInfo.innerHTML = String(GAME.money);
+}
+
+let animationId;
+function spendMoneyError() {
+    let moneyInfo = document.querySelector(".count-coin__value");
+    clearTimeout(animationId);
+    moneyInfo.classList.add("error");
+    animationId = setTimeout(() => { moneyInfo.classList.remove("error"); }, 800)
+}
+
+function updateScore() {
+    let scoreInfo = document.querySelector(".count-score__value");
+    let scoreNow = parseInt(scoreInfo.innerHTML);
+    if (scoreNow <= GAME.score) {
+        if (scoreNow < GAME.score) {
+            scoreInfo.innerHTML = String(scoreNow + 1);
+        }
+    } else {
+        scoreInfo.innerHTML = String(scoreNow - 1);
+    }
+    // scoreInfo.innerHTML = String(GAME.score);
 }
 
 function lvlComplete() {
@@ -301,7 +329,8 @@ function updateNextLvlParams() {
     steptimer = 0;
     stepcounter = 1;
     explosions = [];
-    strikes = [];
+    strikes = []; 
+    pushmobs = 0;
 }
 
 function updateRestartGameParams() {
@@ -351,25 +380,6 @@ function sendGameStatus() {
     }
     json = JSON.stringify(data);
     socket.send(json);
-}
-
-async function sendResults(event) {
-    const score = document.querySelector(".score__value");
-    const gameID = document.getElementById("game-id");
-    event.preventDefault();
-    props = {
-        gameId: gameID.innerHTML,
-        nickName: GAME.player,
-        choisenClass: 'defense',
-    }
-    const json = JSON.stringify(props);
-    let response = await fetch('/add_record.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: json
-    });
 }
 
 function convertStrToArray(waveStr) {
@@ -483,9 +493,9 @@ document.addEventListener("keydown", (event) => {
 // );
 
 backToMenuBtn.addEventListener(
-    "click",
-    (event) => {
-        sendResults(event);
+    "click", 
+    (event) => { 
+        // sendResults(event);
         window.location.href = '../../';
     }
 );
@@ -533,8 +543,6 @@ function play() {
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
-        resetBonuses();
-        resetBonusesReload();
         initBullets();
         resetStopwatch();
     }
@@ -547,6 +555,9 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
+    }
+    if (GAME.isPlay == 'menu') {
+        resetBonusesReload();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
@@ -563,6 +574,8 @@ function play() {
     drawBonuses();
     changeGameStatusButtons();
     if (GAME.isPlay == 'menu') {
+        resetBonuses();
+        resetBonusesReload();
         stopTimer();
         drawPauseBackground();
     }

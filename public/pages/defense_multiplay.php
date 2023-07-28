@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/defense.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 
 <body>
@@ -23,7 +23,7 @@
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
-                <span class="count-coin__value"></span>
+                <span class="count-coin__value">0</span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
             <div class="count-score-multi">
@@ -49,7 +49,20 @@
             </div>
             <div class="tower-selection tower-abilities hidden">
                 <div class="choice-abilitie">
-                    <img src="../static/images/cancel_button.png"  class="delete-tower" />
+                    <div class="upgrade-tower">
+                        <img src="../static/images/upgrade_button.png" class="upgrade-tower__img" />
+                        <div class="upgrade-tower-info">
+                            <span class="upgrade-tower-info__cost">30</span>
+                            <img src="../static/images/coin.png" class="upgrade-tower-info__coin-img" />
+                        </div>
+                    </div>
+                    <div class="delete-tower">
+                        <img src="../static/images/cancel_button.png"  class="delete-tower__img" />
+                        <div class="delete-tower-info">
+                            <span class="delete-tower-info__cost">+20</span>
+                            <img src="../static/images/coin.png" class="delete-tower-info__coin-img" />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="field__hp-bar hp-bar" id="hp-bar">

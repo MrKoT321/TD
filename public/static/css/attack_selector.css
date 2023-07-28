@@ -33,11 +33,19 @@ body {
 .count-coin {
     position: absolute;
     top: 0;
-    left: 10px;
+    margin-left: 20px;
     font-weight: 400;
     font-size: 100px;
     color: white;
     font-family: 'VT323';
+}
+
+.count-coin.error {
+    color: red;
+    display: inline-block;
+    margin: 0 20px;
+    animation: headShake;
+    animation-duration: .8s;
 }
 
 .map-button {

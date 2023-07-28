@@ -88,12 +88,67 @@ body {
 }
 
 .delete-tower {
+    position: absolute;
+    top: -20px;
+    right: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-tower__img {
     height: 50px;
     width: 50px;
-    position: absolute;
-    bottom: -37.5px;
-    left: calc(50% - 25px);
     cursor: pointer;
+}
+
+.delete-tower-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.delete-tower-info__cost {
+    font-family: 'VT323';
+    font-size: 48px;
+    color: white;
+}
+
+.delete-tower-info__coin-img {
+    width: 25px;
+    height: 25px;
+}
+
+.upgrade-tower {
+    position: absolute;
+    top: -20px;
+    left: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upgrade-tower__img {
+    height: 56px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.upgrade-tower-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.upgrade-tower-info__cost {
+    font-family: 'VT323';
+    font-size: 48px;
+    color: white;
+}
+
+.upgrade-tower-info__coin-img {
+    width: 25px;
+    height: 25px;
 }
 
 .bar {
@@ -119,8 +174,8 @@ body {
 }
 
 .fireball-buf__icon {
-    width: 150px;
-    height: 150px;
+    width: 165px;
+    height: 165px;
 }
 
 .fireball-buf__cancel {
@@ -147,8 +202,8 @@ body {
 }
 
 .freeze-buf__icon {
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
 }
 
 .freeze-buf__cancel {
@@ -411,14 +466,23 @@ body {
 .count-coin {
     position: absolute;
     top: 0;
-    left: 10px;
+    left: 0;
 }
 
 .count-coin__value {
+    margin-left: 20px;
     font-weight: 400;
     font-size: 100px;
     color: white;
     font-family: 'VT323';
+}
+
+.count-coin__value.error {
+    color: red;
+    display: inline-block;
+    margin: 0 20px;
+    animation: headShake;
+    animation-duration: .8s;
 }
 
 .count-coin__img {
@@ -432,10 +496,7 @@ body {
 .count-score {
     position: absolute;
     top: 0;
-    left: 320px;
-    font-weight: 900;
-    font-size: 80px;
-    color: white;
+    left: 300px;
 }
 
 .count-score__img {
@@ -447,6 +508,7 @@ body {
 }
 
 .count-score__value {
+    margin-left: 20px;
     font-weight: 400;
     font-size: 100px;
     color: white;

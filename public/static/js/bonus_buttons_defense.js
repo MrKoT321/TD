@@ -21,8 +21,8 @@ fireballBonus.addEventListener(
     () => {
         if (!fireball.isActive && fireball.readyToExplode && bonuses.includes('fireball')) {
             fireballBonusCancel.classList.remove("hidden");
-            fireballBonus.style.width = "100px";
-            fireballBonus.style.height = "100px";
+            fireballBonus.style.width = "120px";
+            fireballBonus.style.height = "120px";
             fireball.isActive = true;
             inActiveFreeze();
         } else {
@@ -40,8 +40,8 @@ freezeBonus.addEventListener(
     () => {
         if (!freeze.isActive && freeze.readyToExplode && bonuses.includes('freeze')) {
             freezeBonusCancel.classList.remove("hidden");
-            freezeBonus.style.width = "100px";
-            freezeBonus.style.height = "100px";
+            freezeBonus.style.width = "80px";
+            freezeBonus.style.height = "80px";
             freeze.isActive = true;
             inActiveFireBall();
         } else {
@@ -83,8 +83,8 @@ function drawFreezeReload() {
 
 function inActiveFireBall() {
     fireballBonusCancel.classList.add("hidden");
-    fireballBonus.style.width = "150px";
-    fireballBonus.style.height = "150px";
+    fireballBonus.style.width = "165px";
+    fireballBonus.style.height = "165px";
     fireball.isActive = false;
     fireballReloadTimer.classList.remove("hidden");
     fireballReloadTimer.innerHTML = "";
@@ -92,8 +92,8 @@ function inActiveFireBall() {
 
 function inActiveFreeze() {
     freezeBonusCancel.classList.add("hidden");
-    freezeBonus.style.width = "150px";
-    freezeBonus.style.height = "150px";
+    freezeBonus.style.width = "110px";
+    freezeBonus.style.height = "110px";
     freeze.isActive = false;
     freezeReloadTimer.classList.remove("hidden");
     freezeReloadTimer.innerHTML = "";

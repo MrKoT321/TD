@@ -56,7 +56,7 @@ class WebSocketHandler implements MessageComponentInterface
   }
 }
 
-// Создаем новый WebSocket-сервер на порту 8090
+// Создаем новый WebSocket-сервер на порту 8090 для игры
 $server = IoServer::factory(
   new HttpServer(
     new WsServer(
