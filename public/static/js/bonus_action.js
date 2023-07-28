@@ -34,17 +34,20 @@ freeze = {
 healing = {
     x: undefined,
     y: undefined,
-    strokeColor: "228413",
-    color: "28AD12",
-    blastRadius: 100,
+    strokeColor: "#228413",
+    color: "#28AD12",
+    speed: 2,
+    blastRadius: 0,
+    maxRadius: 300,
     reload: 10,
     lastTimeCast: 60,
     finishX: undefined,
     finishY: undefined,
     isActive: false,
     readyToExplode: true,
-    worktime: 5,
-    heal: 0.35
+    worktime: 7,
+    heal: 0.2,
+    castCount: 4,
 }
 
 gameFieldClick = {
@@ -90,11 +93,14 @@ function drawFreeze() {
 }
 
 function drawHeal() {
+    console.log("draw heal");
     canvasContext.beginPath();
-    let gradient = canvasContext.createRadialGradient(healing.x, healing.y, healing.blastRadius / 3, healing.x, healing.y, healing.blastRadiu);
-    gradient.addColorStop("0", healing.color);
-    gradient.addColorStop("1", "rgba(255, 255, 255, 0)");
-    canvasContext.fillStyle = gradient;
+    if(healing.x && healing.y) {
+        let gradient = canvasContext.createRadialGradient(healing.x, healing.y, healing.blastRadius / 2, healing.x, healing.y, healing.blastRadius);
+        gradient.addColorStop("1", healing.color);
+        gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
+        canvasContext.fillStyle = gradient;
+    }
     canvasContext.strokeStyle = healing.strokeColor;
     canvasContext.lineWidth = 4;
     canvasContext.arc(healing.x, healing.y, healing.blastRadius, 0, 2 * Math.PI);
@@ -152,24 +158,33 @@ function updateFreeze() {
 }
 
 function updateHeal() {
-    healing.blastRadius += healing.speed;
     if (GAME.stopwatch - healing.lastTimeCast >= healing.reload && !healing.readyToExplode) {
         healing.readyToExplode = true;
     }
-    if (GAME.stopwatch - healing.lastTimeCast <= healing.worktime) {
-        monsters.forEach(monster => {
-            let mstrCenterX = monster.x + monster.width / 2;
-            let mstrCenterY = monster.y + monster.height / 2;
-            let distance = Math.sqrt(Math.pow(mstrCenterX - healing.x, 2) + Math.pow(mstrCenterY -  healing.y, 2));
-            if (distance <= healing.blastRadius) {
-                if (monster.hp < monster.maxhp) {
-                    monster.hp += monster.maxhp * healing.heal;
+    monsters.forEach(monster => {
+        let mstrCenterX = monster.x + monster.width / 2;
+        let mstrCenterY = monster.y + monster.height / 2;
+        let distance = Math.sqrt(Math.pow(mstrCenterX - healing.x, 2) + Math.pow(mstrCenterY -  healing.y, 2));
+        if (distance <= healing.blastRadius) {
+            if (monster.hp < monster.maxhp && Math.floor(((GAME.milisectimer - healing.lastTimeCast * 1000) / Math.floor(healing.worktime / healing.castCount * 1000)) * 100) % 100 == 0) {
+                monster.hp += monster.maxhp * healing.heal;
+                if (monster.hp > monster.maxhp) {
+                    monster.hp = monster.maxhp;
                 }
             }
-        })
+        }
+    })
+    if (GAME.stopwatch - healing.lastTimeCast <= healing.worktime) {
+        // console.log(GAME.stopwatch - healing.lastTimeCast, GAME.milisectimer - healing.lastTimeCast * 1000);
+        if(healing.blastRadius < healing.maxRadius) {
+            healing.blastRadius += healing.speed;
+        }
     } else {
-        healing.x = undefined;
-        healing.y = undefined;
+        healing.blastRadius -= healing.speed * 4;
+        if (healing.blastRadius <= 0) {
+            healing.x = undefined;
+            healing.y = undefined;
+        }
     }
 }
 
@@ -197,6 +212,7 @@ function resetHeal() {
 function resetBonuses() {
     resetFireball();
     resetFreeze();
+    resetHeal();
 }
 
 function drawBonuses() {

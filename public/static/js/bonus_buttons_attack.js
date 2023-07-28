@@ -24,7 +24,7 @@ canvas.addEventListener(
     (event) => {
         gameFieldClick.x = event.clientX - field.x;
         gameFieldClick.y = event.clientY - field.y;
-        setTimeout(updateHeal(), 10);;
+        setTimeout(initHeal(), 10);
     }
 )
 
@@ -72,7 +72,7 @@ function inActiveHealing() {
     healingReloadTimer.innerHTML = "";
 }
 
-function initFireball() {
+function initHeal() {
     if (healing.isActive && isClickOnMap()) {
         inActiveHealing();
         createHealing();
@@ -92,8 +92,7 @@ function sendHealingStatus() {
 }
 
 function createHealing() {
-    healing.finishX = gameFieldClick.x;
-    healing.finishY = gameFieldClick.y;
+    console.log("create");
     healing.x = gameFieldClick.x;
     healing.y = gameFieldClick.y;
     healing.blastRadius = 0;
