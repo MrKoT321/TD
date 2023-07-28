@@ -277,6 +277,13 @@ function initParams(){
     }
 }
 
+function closeLoading() {
+    load.classList.add('hidden');
+    loading_text.classList.add('hidden');
+    loading_bg.classList.add('hidden');
+    loading_image.classList.add('hidden');
+}
+
 function play() {
     unblockMonsters();
     updateMoney();
@@ -294,4 +301,5 @@ function play() {
 }
 
 initParams();
-play();
+setTimeout(() => { closeLoading() }, 5000)
+setTimeout(() => { play() }, 5000)

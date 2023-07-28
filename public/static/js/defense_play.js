@@ -17,13 +17,6 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-const loading_text = document.querySelector('.loading__text');
-const loading_0 = document.querySelector('.loading__0');
-const loading_100 = document.querySelector('.loading__100');
-const loading_bg = document.querySelector('.loading-bg');
-const loading_image = document.querySelector('.loading-image');
-const loading = document.querySelector('.loading');
-
 const wave_info = document.querySelector('.wave-info');
 const info_block1 = document.getElementById('info-block1')
 const info_block2 = document.getElementById('info-block2')
@@ -35,6 +28,11 @@ const wave_mob2_count = document.getElementById('wave-mob2-count')
 const wave_mob3_count = document.getElementById('wave-mob3-count')
 const wave_mob4_count = document.getElementById('wave-mob4-count')
 const wave_mob5_count = document.getElementById('wave-mob5-count')
+
+const loading_text = document.querySelector('.loading-text');
+const load = document.querySelector('.load');
+const loading_bg = document.querySelector('.loading-bg');
+const loading_image = document.querySelector('.loading-image');
 
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
@@ -376,12 +374,10 @@ backToMenuBtn.addEventListener(
 );
 
 function closeLoading() {
+    load.classList.add('hidden');
     loading_text.classList.add('hidden');
-    loading_0.classList.add('hidden');
-    loading_100.classList.add('hidden');
     loading_bg.classList.add('hidden');
     loading_image.classList.add('hidden');
-    loading.classList.add('hidden');
 }
 
 function changeWaveInfoPos(lvl) {

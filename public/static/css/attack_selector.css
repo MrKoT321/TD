@@ -105,11 +105,11 @@ body {
     flex-direction: row;
 }
 
-.wave1{
+.wave1 {
     margin-top: 464px;
 }
 
-.wave2{
+.wave2 {
     margin-top: 668px;
 }
 
@@ -117,21 +117,21 @@ body {
     margin-top: 872px;
 }
 
-.sell{
+.sell {
     position: absolute;
     margin-left: 282px;
     margin-bottom: 101px;
     cursor: pointer;
 }
 
-.mob-info{
+.mob-info {
     display: flex;
     align-items: center;
     height: 132px;
     width: 360px;
 }
 
-.wave-selector{
+.wave-selector {
     position: absolute;
     margin-left: 960px;
     margin-top: 45px;
@@ -139,32 +139,32 @@ body {
     align-items: center;
 }
 
-.wave-selector__wave-minus{
+.wave-selector__wave-minus {
     margin: 0;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
-.wave-selector__1{
+.wave-selector__1 {
     position: absolute;
     margin-left: 37px;
 }
 
-.wave-selector__2{
+.wave-selector__2 {
     position: absolute;
     margin-left: 35px;
 }
 
-.wave-selector__3{
+.wave-selector__3 {
     position: absolute;
     margin-left: 34px;
 }
 
-.wave-selector__wave-plus{
+.wave-selector__wave-plus {
     margin-left: 56px;
     cursor: pointer;
 }
 
-.popup-map__field{
+.popup-map__field {
     position: absolute;
     width: 700px;
     height: 700px;
@@ -173,34 +173,34 @@ body {
     margin-left: 50vh;
 }
 
-.popup-map__bg{
+.popup-map__bg {
     position: absolute;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
 }
 
-.map1{
+.map1 {
     background: url("map1_selector");
 }
 
-.map2{
+.map2 {
     background: url("map1_selector");
 }
 
-.map3{
+.map3 {
     background: url("map1_selector");
 }
 
-.map4{
+.map4 {
     background: url("map1_selector");
 }
 
-.map5{
+.map5 {
     background: url("map1_selector");
 }
 
-.mob1-info{
+.mob1-info {
     position: absolute;
     width: 150px;
     height: 150px;
@@ -212,7 +212,7 @@ body {
     gap: 3px;
 }
 
-.mob2-info{
+.mob2-info {
     position: absolute;
     width: 150px;
     height: 150px;
@@ -224,7 +224,7 @@ body {
     gap: 3px;
 }
 
-.mob3-info{
+.mob3-info {
     position: absolute;
     width: 150px;
     height: 150px;
@@ -236,7 +236,7 @@ body {
     gap: 3px;
 }
 
-.mob4-info{
+.mob4-info {
     position: absolute;
     width: 150px;
     height: 150px;
@@ -248,7 +248,7 @@ body {
     gap: 3px;
 }
 
-.mob5-info{
+.mob5-info {
     position: absolute;
     width: 150px;
     height: 150px;
@@ -260,7 +260,7 @@ body {
     gap: 3px;
 }
 
-.info-param1{
+.info-param1 {
     font-family: 'VT323';
     margin-top: 32px;
     height: 34px;
@@ -270,7 +270,7 @@ body {
     font-weight: 400;
 }
 
-.info-param{
+.info-param {
     font-family: 'VT323';
     height: 34px;
     width: 75px;
@@ -279,7 +279,7 @@ body {
     font-weight: 400;
 }
 
-.money-info-wave1{
+.money-info-wave1 {
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -288,7 +288,7 @@ body {
     gap: 13px;
 }
 
-.money-info-wave2{
+.money-info-wave2 {
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -297,7 +297,7 @@ body {
     gap: 13px;
 }
 
-.money-info-wave3{
+.money-info-wave3 {
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -306,14 +306,14 @@ body {
     gap: 13px;
 }
 
-.money-wave-count{
+.money-wave-count {
     font-size: 44px;
     font-family: 'VT323';
     text-align: right;
     width: 60px;
 }
 
-.money-text{
+.money-text {
     font-size: 44px;
     font-family: 'VT323';
 }
@@ -322,7 +322,7 @@ body {
     position: absolute;
 }
 
-.popup-start{
+.popup-start {
     position: absolute;
     font-family: 'VT323';
     color: red;
@@ -348,48 +348,54 @@ body {
     z-index: 1;
 }
 
-.loading {
+.load {
     position: absolute;
-    top: 47%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 350px;
-    height: 100px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    left: 28%;
+    top: 20%;
+    gap: 150px;
 }
 
-.loading__text {
+.loading-text {
     color: white;
     font-family: 'VT323';
-    font-size: 60px;
+    font-size: 150px;
     text-align: center;
-    
 }
 
-.loading .loading__0 {
-    width: 0%;
-    height: 15px;
-    background: white;
-    background-size: 353px 5px;
-    animation: loading 5s ease-in-out forwards;
+.loading-score {
+    color: white;
+    font-family: 'VT323';
+    font-size: 200px;
+    text-align: center;
 }
 
-.loading .loading__100 {
-    width: 100%;
-    height: 15px;
-    background: grey;
+.loading {
+    --n: 9;
+    --s: 90px;
+    --g: 10px;
+    color: white;
+    width: calc(var(--n)*(var(--s) + var(--g)) - var(--g));
+    height: 50px;
+    padding: var(--g);
+    margin: 5px auto;
+    border: 5px solid black;
+    background:
+        repeating-linear-gradient(90deg,
+            currentColor 0 var(--s),
+            #0000 0 calc(var(--s) + var(--g))) left / calc((var(--n) + 1)*(var(--s) + var(--g))) 100% content-box no-repeat;
+    animation: load 5s steps(calc(var(--n) + 1)) infinite;
 }
 
-@keyframes loading {
-    to {
-        width: 100%;
+@keyframes load {
+    0% {
+        background-size: 0% 100%
     }
 }
 
-.loading-bg{
+.loading-bg {
     background-color: rgba(0, 0, 0, 0.3);
     width: 100%;
     height: 100%;
@@ -397,10 +403,6 @@ body {
     top: 0;
 }
 
-.loading-image{
-    position: absolute;
-}
-
-.loading-field{
+.loading-image {
     position: absolute;
 }

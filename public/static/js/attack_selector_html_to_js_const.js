@@ -100,3 +100,8 @@ const score_take = document.getElementById('game-info-score');
 const id_take = document.getElementById('game-info-gameid');
 const lvl_take = document.getElementById('game-info-currLvl');
 const mobsUnlock_take = document.getElementById('game-info-mobsUnlock');
+
+const loading_text = document.querySelector('.loading-text');
+const load = document.querySelector('.load');
+const loading_bg = document.querySelector('.loading-bg');
+const loading_image = document.querySelector('.loading-image');

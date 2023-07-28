@@ -109,10 +109,11 @@
     </div>
     <div class="popupover__bg">
         <div class="popupover">
-            <h1 class="over">GAME OVER</h1>
+            <h1 class="over"></h1>
             <div class="score">
-                <span class="score__title">Score:</span>
-                <span class="score__value"></span>
+                <span class="score__text" id="score__value-attack"></span>
+                <span class="score__text">:</span>
+                <span class="score__text" id="score__value-defense"></span>
             </div>
             <div class="overbuttons">
             <form method="POST" enctype="multipart/form-data" id="form-restart">
@@ -129,23 +130,6 @@
             </div>
         </div>
     </div>
-    </div>
-    <div class="popupcomplete__bg">
-        <div class="popupcomplete">
-            <h1 class="complete">LEVEL COMPLETE</h1>
-            <form method="POST" enctype="multipart/form-data" id="form">
-                <input type="text" name="playerId" class="hidden" />
-                <input type="text" name="money" class="hidden" />
-                <input type="text" name="score" class="hidden" />
-                <input type="text" name="currentLvl" class="hidden" />
-                <input type="text" name="mobsUnlock" class="hidden" />
-                <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" />
-
-                <div class="next-lvl-container">
-                    <!-- <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" /></div> -->
-                </div>
-            </form>
-        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>

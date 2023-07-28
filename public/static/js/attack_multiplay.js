@@ -10,7 +10,6 @@ const pauseGameBtn = document.getElementById("pausegame");
 const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
 
-const nextBtn = document.getElementById("next-lvl-btn");
 const nextLvlForm = document.getElementById("form");
 const restartGameForm = document.getElementById("form-restart");
 
@@ -119,7 +118,7 @@ socket.addEventListener('message', function(event) {
             break;
         case 'game_score':
             attackScore.innerHTML = String(data.attackScore);
-            defenseScore.innerHTML = Stringinit(data.defenseScore);
+            defenseScore.innerHTML = String(data.defenseScore);
             break;
     }
 });
@@ -223,6 +222,8 @@ function gameOver() {
             sendNextLvlParams();
         }
         if(GAME.lvlCount == 4 && GAME.isPlay == 'play') {
+            score_value_defense.innerHTML = String(GAME.defenseScore);
+            score_value_attack.innerHTML = String(GAME.attackScore);
             showFinalPopup(2, 2);
             GAME.isPlay = 'popuppause';
         }
@@ -475,17 +476,6 @@ document.addEventListener("keydown", (event) => {
             break;
     }
 })
-
-nextBtn.addEventListener(
-    "click",
-    () => {
-        sendNextLvlParams();
-        // updateNextLvlParams();
-        // changeMap();
-        // updateCastleHP();
-        // popupCloseComplete();
-    }
-);
 
 // restartgame.addEventListener(
 //     "click",
