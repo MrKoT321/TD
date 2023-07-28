@@ -206,7 +206,7 @@ function showFinalPopup(myScore, opponentScore) {
         document.querySelector('.over').innerHTML = 'YOU LOSE';
     }
     if (myScore == opponentScore) {
-        document.querySelector('.over').style.color = 'yellow';
+        document.querySelector('.over').style.color = 'orange';
         document.querySelector('.over').innerHTML = 'DRAW';
     }
     var endScore = document.querySelector(".score__value");
