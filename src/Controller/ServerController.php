@@ -75,11 +75,11 @@ class ServerController
         );
         $gameId = $this->gameTable->create($game);
         if ($requestData['choisenClass'] === 'defense') {
-            setcookie("id", strval($gameId), time()+3600, "/single_game_defense.php?game_id=$gameId","", true, true);
+            setcookie("id", strval($gameId), time()+3600, "/single_game_defense.php","", true, true);
             $this->writeRedirectSeeOther("/single_game_defense.php?game_id=$gameId");
             exit();
         }
-        setcookie("id", strval($gameId), time()+3600, "/single_game_attack.php?game_id=$gameId","", true, true);
+        setcookie("id", strval($gameId), time()+3600, "/single_game_attack.php","", true, true);
         $this->writeRedirectSeeOther("/single_game_attack.php?game_id=$gameId");
     }
 

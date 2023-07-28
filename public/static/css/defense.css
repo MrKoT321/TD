@@ -470,11 +470,19 @@ body {
 }
 
 .count-coin__value {
-    margin-left: 10px;
+    margin-left: 20px;
     font-weight: 400;
     font-size: 100px;
     color: white;
     font-family: 'VT323';
+}
+
+.count-coin__value.error {
+    color: red;
+    display: inline-block;
+    margin: 0 20px;
+    animation: headShake;
+    animation-duration: .8s;
 }
 
 .count-coin__img {

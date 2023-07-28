@@ -55,6 +55,15 @@ function updateMoney() {
     moneyInfo.innerHTML = String(Math.floor(GAME.money));
 }
 
+let animationId;
+function spendMoneyError() {
+    let moneyInfo = document.querySelector(".count-coin");
+    clearTimeout(animationId);
+    moneyInfo.classList.add("error");
+    animationId = setTimeout(() => { moneyInfo.classList.remove("error"); }, 800);
+}
+
+
 var isNewMonster = 'no';
 
 function addMobToWave(wave, selected_count) {

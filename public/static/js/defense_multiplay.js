@@ -218,6 +218,14 @@ function updateMoney() {
     // moneyInfo.innerHTML = String(GAME.money);
 }
 
+let animationId;
+function spendMoneyError() {
+    let moneyInfo = document.querySelector(".count-coin__value");
+    clearTimeout(animationId);
+    moneyInfo.classList.add("error");
+    animationId = setTimeout(() => { moneyInfo.classList.remove("error"); }, 800)
+}
+
 function updateScore() {
     let scoreInfo = document.querySelector(".count-score__value");
     let scoreNow = parseInt(scoreInfo.innerHTML);

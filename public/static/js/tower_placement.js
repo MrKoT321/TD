@@ -159,11 +159,15 @@ upgradeTowerButton.addEventListener(
     () => {
         for (var i = 0; i < towers.length; i++) {
             activeTile = towers[i];
-            if (isMouseOnActiveTile(mouseClick, activeTile) && GAME.money >= Math.floor(activeTile.cost * 1.6)) {
-                GAME.money -= Math.floor(activeTile.cost * 1.3);
-                activeTile.cost = Math.floor(activeTile.cost * 2);
-                activeTile.atk = Math.floor(activeTile.atk * 2);
-                activeTile.radius += 50;
+            if (isMouseOnActiveTile(mouseClick, activeTile)) {
+                if (GAME.money >= Math.floor(activeTile.cost * 1.6)) {
+                    GAME.money -= Math.floor(activeTile.cost * 1.6);
+                    activeTile.cost = Math.floor(activeTile.cost * 2);
+                    activeTile.atk = Math.floor(activeTile.atk * 2);
+                    activeTile.radius += 50;
+                } else {
+                    spendMoneyError()
+                }
             }
         }
         sendNewTowerPlace();
@@ -211,6 +215,8 @@ function makeTower(tower) {
                 pushToTowers(tower, tile[0], tile[1]);
                 GAME.money -= tower.cost;
                 sendNewTowerPlace();
+            } else {
+                spendMoneyError();
             }
         }
     })
