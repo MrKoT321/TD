@@ -10,7 +10,6 @@ const pauseGameBtn = document.getElementById("pausegame");
 const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
 
-const nextBtn = document.getElementById("next-lvl-btn");
 const nextLvlForm = document.getElementById("form");
 const restartGameForm = document.getElementById("form-restart");
 
@@ -25,9 +24,11 @@ const wave3Info = document.getElementById("game-info-wave-3");
 
 const playerIdInfo = document.getElementById("game-info-playerId");
 const moneyInitInfo = document.getElementById("game-info-money");
-const scoreInfo = document.getElementById("game-info-score");
 const currLvlInfo = document.getElementById("game-info-currLvl");
 const mobsUnlockInfo = document.getElementById("game-info-mobsUnlock");
+const attackScore = document.querySelector(".count-score__value-attack");
+const defenseScore = document.querySelector(".count-score__value-defense");
+
 
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
@@ -40,7 +41,8 @@ var GAME = {
     milisectimer: 0,
     isPlay: 'wavepause',
     money: 0,
-    score: 0,
+    attackScore: 0,
+    defenseScore: 0,
     lvlCount: 1,
     wave: 1,
     submit: false,
@@ -55,6 +57,14 @@ function sendGameStatus() {
     data = {
         type: 'game_status',
         status: GAME.isPlay
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
+function connectScore() {
+    data = {
+        type: 'give_me_score'
     }
     json = JSON.stringify(data);
     socket.send(json);
@@ -106,6 +116,10 @@ socket.addEventListener('message', function(event) {
         case 'freeze':
             freeze = data.freeze_bonus;
             break;
+        case 'game_score':
+            attackScore.innerHTML = String(data.attackScore);
+            defenseScore.innerHTML = String(data.defenseScore);
+            break;
     }
 });
 
@@ -118,6 +132,7 @@ socket.addEventListener('open', function(event) {
     json = JSON.stringify(data);
     socket.send(json);
     sendGameStatus();
+    connectScore();
 });
 
 var startTimer = new Date();
@@ -207,6 +222,8 @@ function gameOver() {
             sendNextLvlParams();
         }
         if(GAME.lvlCount == 4 && GAME.isPlay == 'play') {
+            score_value_defense.innerHTML = String(GAME.defenseScore);
+            score_value_attack.innerHTML = String(GAME.attackScore);
             showFinalPopup(2, 2);
             GAME.isPlay = 'popuppause';
         }
@@ -235,27 +252,7 @@ function showFinalPopup(myScore, opponentScore) {
 
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
-    let moneyNow = parseInt(moneyInfo.innerHTML);
-    if (moneyNow <= GAME.money) {
-        if (moneyNow < GAME.money)
-            moneyInfo.innerHTML = String(moneyNow + 1);
-    } else {
-        moneyInfo.innerHTML = String(moneyNow - 1);
-    }
-    // moneyInfo.innerHTML = String(GAME.money);
-}
-
-function updateScore() {
-    let scoreInfo = document.querySelector(".count-score__value");
-    let scoreNow = parseInt(scoreInfo.innerHTML);
-    if (scoreNow <= GAME.score) {
-        if (scoreNow < GAME.score) {
-            scoreInfo.innerHTML = String(scoreNow + 1);
-        }
-    } else {
-        scoreInfo.innerHTML = String(scoreNow - 1);
-    }
-    // scoreInfo.innerHTML = String(GAME.score);
+    moneyInfo.innerHTML = String(GAME.money);
 }
 
 // function lvlComplete() {
@@ -480,17 +477,6 @@ document.addEventListener("keydown", (event) => {
     }
 })
 
-nextBtn.addEventListener(
-    "click",
-    () => {
-        sendNextLvlParams();
-        // updateNextLvlParams();
-        // changeMap();
-        // updateCastleHP();
-        // popupCloseComplete();
-    }
-);
-
 // restartgame.addEventListener(
 //     "click",
 //     () => {
@@ -550,7 +536,6 @@ function initGameParams() {
     createWaves();
     GAME.playerId = parseInt(playerIdInfo.innerHTML);
     GAME.money = parseInt(moneyInitInfo.innerHTML);
-    GAME.score = parseInt(scoreInfo.innerHTML);
     GAME.mobsUnlock = mobsUnlockInfo.innerHTML;
     changeMap();
 }
@@ -563,7 +548,6 @@ function initGameParams() {
 
 function play() {
     updateMoney();
-    updateScore();
     updateVisualLvlParams();
     drawBackground();
     drawExplosion();

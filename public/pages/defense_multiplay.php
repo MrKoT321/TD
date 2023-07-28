@@ -26,9 +26,10 @@
                 <span class="count-coin__value">0</span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
-            <div class="count-score">
-                <span class="count-score__value">0</span>
-                <img src="../static/images/score.png" alt="score" class="count-score__img">
+            <div class="count-score-multi">
+                <span class="count-score__value-defense">0</span>
+                <span>:</span>
+                <span class="count-score__value-attack">0</span>
             </div>
             <div class="tower-selection new-tower hidden">
                 <div class="choise-towers">
@@ -115,10 +116,11 @@
     </div>
     <div class="popupover__bg">
         <div class="popupover">
-            <h1 class="over">GAME OVER</h1>
+            <h1 class="over"></h1>
             <div class="score">
-                <span class="score__title">Score:</span>
-                <span class="score__value"></span>
+                <span class="score__text" id="score-value-defense"></span>
+                <span class="score__text">:</span>
+                <span class="score__text" id="score-value-attack"></span>
             </div>
             <div class="overbuttons">
                 <a href="../pages/menu.html" class="menua">
@@ -128,14 +130,6 @@
         </div>
     </div>
     </div>
-    <div class="popupcomplete__bg">
-        <div class="popupcomplete">
-            <h1 class="complete">LEVEL COMPLETE</h1>
-            <div class="next-lvl-container">
-                <button class="next-lvl-btn" id="next-lvl-btn">Next level</button>
-            </div>
-        </div>
-    </div>
     <div class="waiting-screen">
         <div class="waiting-opponent-screen">
             <img src="../static/images/waiting_opponent_screen.png" alt="">
@@ -143,11 +137,14 @@
     </div>
     <img src='../static/images/loading-bg.png' class='loading-image' />
     <div class='loading-bg'></div>
-    <div class="loading">
-        <span class='loading__text'>LOADING</span>
-        <div class="loading__100">
-            <div class="loading__0"></div>
-        </div>
+    <div class="load">
+        <span class='loading-text'>LOADING LEVEL</span>
+        <div class="load__score">
+            <span class="loading-score" id = "load-score1">0</span>
+            <span class="loading-score" id = "load-score2">:</span>
+            <span class="loading-score" id = "load-score3">0</span>
+        </div>    
+        <div class="loading"></div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>

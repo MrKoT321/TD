@@ -25,7 +25,6 @@
     <div class="hidden game-info">
         <span class="game-info__gameId" id="game-info-playerId"><?= $gameInfo->getPlayerId() ?></span>
         <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>
-        <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
         <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
         <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
         <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
@@ -180,11 +179,14 @@
         </div>
         <img src='../static/images/loading-bg.png' class='loading-image' />
         <div class='loading-bg'></div>
-        <div class="loading">
-            <span class='loading__text'>LOADING</span>
-            <div class="loading__100">
-                <div class="loading__0"></div>
-            </div>
+        <div class="load">
+            <span class='loading-text'>LOADING LEVEL</span>
+            <div class="load__score">
+                <span class="loading-score" id = "load-score1">0</span>
+                <span class="loading-score" id = "load-score2">:</span>
+                <span class="loading-score" id = "load-score3">0</span>
+            </div>    
+            <div class="loading"></div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

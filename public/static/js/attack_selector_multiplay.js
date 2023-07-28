@@ -298,9 +298,11 @@ socket.addEventListener('open', function(event) {
 });
 
 function closeLoading() {
+    load.classList.add('hidden');
     loading_text.classList.add('hidden');
-    loading_0.classList.add('hidden');
-    loading_100.classList.add('hidden');
+    loading_score1.classList.add('hidden');
+    loading_score2.classList.add('hidden');
+    loading_score3.classList.add('hidden');
     loading_bg.classList.add('hidden');
     loading_image.classList.add('hidden');
     GAME.isPlay = 'waitopponent';

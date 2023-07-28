@@ -17,14 +17,22 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-const loading_text = document.querySelector('.loading__text');
-const loading_0 = document.querySelector('.loading__0');
-const loading_100 = document.querySelector('.loading__100');
+const loading_text = document.querySelector('.loading-text');
+const loading_score1 = document.getElementById('load-score1');
+const loading_score2 = document.getElementById('load-score2');
+const loading_score3 = document.getElementById('load-score3');
+const load = document.querySelector('.load');
 const loading_bg = document.querySelector('.loading-bg');
 const loading_image = document.querySelector('.loading-image');
 
 const waitingOpponentScreen = document.querySelector(".waiting-screen");
 const waitingOpponentScreenImg = document.querySelector(".waiting-opponent-screen");
+
+const attackScore = document.querySelector(".count-score__value-attack");
+const defenseScore = document.querySelector(".count-score__value-defense");
+
+const score_value_defense = document.getElementById('score-value-defense');
+const score_value_attack = document.getElementById('score-value-defense');
 
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
@@ -36,7 +44,8 @@ var GAME = {
     milisectimer: 0,
     isPlay: 'waitopponent',
     money: 100,
-    score: 0,
+    attackScore: 0,
+    defenseScore: 0,
     lvlCount: 1,
     wave: 1
 }
@@ -127,7 +136,7 @@ function changeGameStatusButtons() {
     }
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.remove("active");
-    } 
+    }
 }
 
 function drawCastle() {
@@ -137,9 +146,11 @@ function drawCastle() {
 }
 
 function closeLoading() {
+    load.classList.add('hidden');
     loading_text.classList.add('hidden');
-    loading_0.classList.add('hidden');
-    loading_100.classList.add('hidden');
+    loading_score1.classList.add('hidden');
+    loading_score2.classList.add('hidden');
+    loading_score3.classList.add('hidden');
     loading_bg.classList.add('hidden');
     loading_image.classList.add('hidden');
     GAME.isPlay = 'waitopponent';
@@ -147,44 +158,55 @@ function closeLoading() {
 
 function openLoading() {
     GAME.isPlay = 'loading';
+    load.classList.remove('hidden');
     loading_text.classList.remove('hidden');
-    loading_0.classList.remove('hidden');
-    loading_100.classList.remove('hidden');
+    loading_score1.classList.remove('hidden');
+    loading_score2.classList.remove('hidden');
+    loading_score3.classList.remove('hidden');
     loading_bg.classList.remove('hidden');
     loading_image.classList.remove('hidden');
 }
 
 function gameOver() {
+    if(monsters.length == 0){
+        if (GAME.castleHP == 0) {
+            GAME.attackScore += 1
+        } else {
+            GAME.defenseScore += 1
+        }
+    }   
     if ((GAME.castleHP == 0 || (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0))) {
-        if(GAME.lvlCount < 4) {
+        if (GAME.lvlCount < 4) {
             openLoading();
-            setTimeout(() => { 
-                closeLoading(); 
-                showOpponentScreen(); 
+            setTimeout(() => {
+                closeLoading();
+                showOpponentScreen();
             }, 5000);
             updateNextLvlParams();
             changeMap();
             updateCastleHP();
         }
-        if(GAME.lvlCount == 4 && GAME.isPlay == 'play') {
+        if (GAME.lvlCount == 4 && GAME.isPlay == 'play') {
+            score_value_defense.innerHTML = String(GAME.defenseScore);
+            score_value_attack.innerHTML = String(GAME.attackScore);
             showFinalPopup(2, 1);
             GAME.isPlay = 'popuppause';
         }
-    } 
+    }
 }
 
 function showFinalPopup(myScore, opponentScore) {
     popupoverBg.classList.add('active');
     popupover.classList.add('active');
-    if(myScore > opponentScore) {
+    if (myScore > opponentScore) {
         document.querySelector('.over').style.color = 'green';
         document.querySelector('.over').innerHTML = 'VICTORY';
     }
-    if(myScore < opponentScore) {
+    if (myScore < opponentScore) {
         document.querySelector('.over').style.color = 'red';
         document.querySelector('.over').innerHTML = 'YOU LOSE';
     }
-    if(myScore == opponentScore) {
+    if (myScore == opponentScore) {
         document.querySelector('.over').style.color = 'yellow';
         document.querySelector('.over').innerHTML = 'DRAW';
     }
@@ -199,7 +221,7 @@ function showOpponentScreen() {
 }
 
 function hideOpponentScreen() {
-    if(GAME.isPlay != 'waitopponent') {
+    if (GAME.isPlay != 'waitopponent') {
         waitingOpponentScreen.classList.add("hidden");
         waitingOpponentScreen.style.height = '0';
         waitingOpponentScreenImg.classList.add("hidden");
@@ -250,14 +272,14 @@ function lvlComplete() {
             document.querySelector('.over').style.color = 'green';
             document.querySelector('.over').innerHTML = 'VICTORY';
             var endScore = document.querySelector(".score__value");
-            endScore.innerHTML = GAME.score ;
+            endScore.innerHTML = GAME.score;
         } else {
             popupcompleteBg.classList.add('active');
             popupcomplete.classList.add('active');
             GAME.money += 100;
         }
-    } 
-    
+    }
+
 }
 
 function popupCloseComplete() {
@@ -393,7 +415,7 @@ function createWaves(waves) {
 
 const socket = new WebSocket('ws://localhost:8090');
 
-socket.addEventListener('open', function(event) {
+socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
     data = {
         type: "add_room_to_new_client",
@@ -403,7 +425,7 @@ socket.addEventListener('open', function(event) {
     socket.send(json)
 });
 
-socket.addEventListener('message', function(event) {
+socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     console.log(data);
     switch (data.type) {
@@ -415,6 +437,8 @@ socket.addEventListener('message', function(event) {
             hideOpponentScreen();
             createWaves(data.waves);
             break;
+        case 'give_me_score':
+            sendScoreToAttack();
     }
 });
 
@@ -423,7 +447,7 @@ function startWave() {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
         sendGameStatus();
-    } 
+    }
 }
 
 function pauseGame() {
@@ -445,7 +469,7 @@ function pauseGame() {
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
 document.addEventListener("keydown", (event) => {
-    switch(event.code) {
+    switch (event.code) {
         case 'Space':
             pauseGame();
             break;
@@ -476,6 +500,16 @@ backToMenuBtn.addEventListener(
     }
 );
 
+function sendScoreToAttack() {
+    data = {
+        type: 'game_score',
+        attackScore: GAME.attackScore,
+        defenseScore: GAME.defenseScore
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
 // document.addEventListener(
 //     "DOMContentLoaded",
 //     () => {
@@ -496,10 +530,10 @@ backToMenuBtn.addEventListener(
 //           'waitopponent' - ожидание оппонента
 
 function play() {
-    console.log(monstercount);
+    attackScore.innerHTML = String(GAME.attackScore) 
+    defenseScore.innerHTML = String(GAME.defenseScore) 
     hideOpponentScreen()
     updateMoney();
-    updateScore();
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);

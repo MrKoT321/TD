@@ -665,48 +665,54 @@ body {
     font-family: 'VT323';
 }
 
-.loading {
+.load {
     position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 350px;
-    height: 100px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    left: 28%;
+    top: 20%;
+    gap: 150px;
 }
 
-.loading__text {
+.loading-text {
     color: white;
     font-family: 'VT323';
-    font-size: 60px;
+    font-size: 150px;
     text-align: center;
-    
 }
 
-.loading .loading__0 {
-    width: 0%;
-    height: 15px;
-    background: white;
-    background-size: 353px 5px;
-    animation: loading 5s ease-in-out forwards;
+.loading-score {
+    color: white;
+    font-family: 'VT323';
+    font-size: 200px;
+    text-align: center;
 }
 
-.loading .loading__100 {
-    width: 100%;
-    height: 15px;
-    background: grey;
+.loading {
+    --n: 9;
+    --s: 90px;
+    --g: 10px;
+    color: white;
+    width: calc(var(--n)*(var(--s) + var(--g)) - var(--g));
+    height: 50px;
+    padding: var(--g);
+    margin: 5px auto;
+    border: 5px solid black;
+    background:
+        repeating-linear-gradient(90deg,
+            currentColor 0 var(--s),
+            #0000 0 calc(var(--s) + var(--g))) left / calc((var(--n) + 1)*(var(--s) + var(--g))) 100% content-box no-repeat;
+    animation: load 5s steps(calc(var(--n) + 1)) infinite;
 }
 
-@keyframes loading {
-    to {
-        width: 100%;
+@keyframes load {
+    0% {
+        background-size: 0% 100%
     }
 }
 
-.loading-bg{
+.loading-bg {
     background-color: rgba(0, 0, 0, 0.3);
     width: 100%;
     height: 100%;
@@ -714,11 +720,7 @@ body {
     top: 0;
 }
 
-.loading-image{
-    position: absolute;
-}
-
-.loading-field{
+.loading-image {
     position: absolute;
 }
 
@@ -732,6 +734,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .wave-info {
     flex-direction: row;
     display: flex;
@@ -742,18 +745,49 @@ body {
     visibility: hidden;
 }
 
-.wave-info__text{
+.wave-info__text {
     color: white;
     font-family: 'VT323';
     font-size: 40px;
 }
 
-.wave-info__block{
+.wave-info__block {
     display: flex;
     flex-direction: row;
     align-items: center;
     visibility: hidden;
 }
+
 .next-over {
     background-color: red;
+}
+
+.count-score-multi {
+    position: absolute;
+    top: 0;
+    left: 376px;
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
+}
+
+.count-score__value-defense {
+    color: white;
+    font-family: 'VT323';
+    font-size: 100px;
+    font-weight: 400;
+}
+
+.count-score__value-attack {
+    color: white;
+    font-family: 'VT323';
+    font-size: 100px;
+    font-weight: 400;
+}
+
+.score__text{
+    color: white;
+    font-weight: 400;
+    font-size: 100px;
+    font-family: 'VT323';
 }
