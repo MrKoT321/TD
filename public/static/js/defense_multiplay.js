@@ -24,15 +24,13 @@ const loading_score3 = document.getElementById('load-score3');
 const load = document.querySelector('.load');
 const loading_bg = document.querySelector('.loading-bg');
 const loading_image = document.querySelector('.loading-image');
+const loading = document.getElementById('loading');
 
 const waitingOpponentScreen = document.querySelector(".waiting-screen");
 const waitingOpponentScreenImg = document.querySelector(".waiting-opponent-screen");
 
 const attackScore = document.querySelector(".count-score__value-attack");
 const defenseScore = document.querySelector(".count-score__value-defense");
-
-const score_value_defense = document.getElementById('score-value-defense');
-const score_value_attack = document.getElementById('score-value-defense');
 
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
@@ -153,11 +151,13 @@ function closeLoading() {
     loading_score3.classList.add('hidden');
     loading_bg.classList.add('hidden');
     loading_image.classList.add('hidden');
+    loading.classList.remove('loading')
     GAME.isPlay = 'waitopponent';
 }
 
 function openLoading() {
     GAME.isPlay = 'loading';
+    loading.classList.add('loading')
     load.classList.remove('hidden');
     loading_text.classList.remove('hidden');
     loading_score1.classList.remove('hidden');
@@ -168,28 +168,27 @@ function openLoading() {
 }
 
 function gameOver() {
-    if(monsters.length == 0){
+    if ((GAME.castleHP == 0 || (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0))) {
         if (GAME.castleHP == 0) {
             GAME.attackScore += 1
-        } else {
+        }
+        if (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0) {
             GAME.defenseScore += 1
         }
-    }   
-    if ((GAME.castleHP == 0 || (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0))) {
         if (GAME.lvlCount < 4) {
             openLoading();
+            console.log(pushmonstercount, "loh")
+            updateNextLvlParams();
+            console.log(pushmonstercount, "neloh")
             setTimeout(() => {
                 closeLoading();
                 showOpponentScreen();
             }, 5000);
-            updateNextLvlParams();
             changeMap();
             updateCastleHP();
         }
         if (GAME.lvlCount == 4 && GAME.isPlay == 'play') {
-            score_value_defense.innerHTML = String(GAME.defenseScore);
-            score_value_attack.innerHTML = String(GAME.attackScore);
-            showFinalPopup(2, 1);
+            showFinalPopup(GAME.defenseScore, GAME.attackScore);
             GAME.isPlay = 'popuppause';
         }
     }
@@ -211,7 +210,7 @@ function showFinalPopup(myScore, opponentScore) {
         document.querySelector('.over').innerHTML = 'DRAW';
     }
     var endScore = document.querySelector(".score__value");
-    endScore.innerHTML = myScore + ':' + opponentScore;
+    endScore.innerHTML = String(myScore) + ':' + String(opponentScore);
 };
 
 function showOpponentScreen() {
@@ -323,13 +322,13 @@ function updateNextLvlParams() {
     lvl = changeLvl();
     GAME.castleHP = lvl.castleHP;
     GAME.wave = 1;
-    monstercount = 0;
     starttime = 900;
+    monsters = [];
     pushmonstercount = 0;
     steptimer = 0;
     stepcounter = 1;
     explosions = [];
-    strikes = []; 
+    strikes = [];
     pushmobs = 0;
 }
 
@@ -493,8 +492,8 @@ document.addEventListener("keydown", (event) => {
 // );
 
 backToMenuBtn.addEventListener(
-    "click", 
-    (event) => { 
+    "click",
+    (event) => {
         // sendResults(event);
         window.location.href = '../../';
     }
@@ -508,6 +507,13 @@ function sendScoreToAttack() {
     }
     json = JSON.stringify(data);
     socket.send(json);
+}
+
+function updateScore() {
+    loading_score3.innerHTML = String(GAME.attackScore)
+    loading_score1.innerHTML = String(GAME.defenseScore)
+    attackScore.innerHTML = String(GAME.attackScore)
+    defenseScore.innerHTML = String(GAME.defenseScore)
 }
 
 // document.addEventListener(
@@ -530,8 +536,7 @@ function sendScoreToAttack() {
 //           'waitopponent' - ожидание оппонента
 
 function play() {
-    attackScore.innerHTML = String(GAME.attackScore) 
-    defenseScore.innerHTML = String(GAME.defenseScore) 
+    updateScore();
     hideOpponentScreen()
     updateMoney();
     updateVisualLvlParams();

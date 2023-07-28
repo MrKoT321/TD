@@ -117,11 +117,7 @@
     <div class="popupover__bg">
         <div class="popupover">
             <h1 class="over"></h1>
-            <div class="score">
-                <span class="score__text" id="score-value-defense"></span>
-                <span class="score__text">:</span>
-                <span class="score__text" id="score-value-attack"></span>
-            </div>
+            <span class="score__value"></span>
             <div class="overbuttons">
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
@@ -144,7 +140,7 @@
             <span class="loading-score" id = "load-score2">:</span>
             <span class="loading-score" id = "load-score3">0</span>
         </div>    
-        <div class="loading"></div>
+        <div class="loading" id = "loading"></div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
