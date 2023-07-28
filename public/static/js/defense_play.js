@@ -161,7 +161,7 @@ function gameOver() {
 
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
-    let moneyNow = Math.floor(moneyInfo.innerHTML);
+    let moneyNow = parseInt(moneyInfo.innerHTML);
     if (moneyNow <= GAME.money) {
         if (moneyNow < GAME.money)
             moneyInfo.innerHTML = String(moneyNow + 1);
@@ -173,7 +173,7 @@ function updateMoney() {
 
 function updateScore() {
     let scoreInfo = document.querySelector(".count-score__value");
-    let scoreNow = Math.floor(scoreInfo.innerHTML);
+    let scoreNow = parseInt(scoreInfo.innerHTML);
     if (scoreNow <= GAME.score) {
         if (scoreNow < GAME.score) {
             scoreInfo.innerHTML = String(scoreNow + 1);

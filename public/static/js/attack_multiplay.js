@@ -235,12 +235,27 @@ function showFinalPopup(myScore, opponentScore) {
 
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
-    moneyInfo.innerHTML = String(GAME.money);
+    let moneyNow = parseInt(moneyInfo.innerHTML);
+    if (moneyNow <= GAME.money) {
+        if (moneyNow < GAME.money)
+            moneyInfo.innerHTML = String(moneyNow + 1);
+    } else {
+        moneyInfo.innerHTML = String(moneyNow - 1);
+    }
+    // moneyInfo.innerHTML = String(GAME.money);
 }
 
 function updateScore() {
     let scoreInfo = document.querySelector(".count-score__value");
-    scoreInfo.innerHTML = String(GAME.score);
+    let scoreNow = parseInt(scoreInfo.innerHTML);
+    if (scoreNow <= GAME.score) {
+        if (scoreNow < GAME.score) {
+            scoreInfo.innerHTML = String(scoreNow + 1);
+        }
+    } else {
+        scoreInfo.innerHTML = String(scoreNow - 1);
+    }
+    // scoreInfo.innerHTML = String(GAME.score);
 }
 
 // function lvlComplete() {

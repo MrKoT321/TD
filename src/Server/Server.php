@@ -18,15 +18,6 @@ class WebSocketHandler implements MessageComponentInterface {
 
   // Обработчик нового подключения клиента
   public function onOpen(ConnectionInterface $conn) {
-    // $lastConnId = 0;
-    // foreach ($this->clients as $client) {
-    //   $lastConnId = $lastConnId ^ $client->connId;
-    // }
-    // if ($lastConnId != 0) {
-    //   $conn->connId = $lastConnId;
-    // } else {
-    //   $conn->connId = $conn->resourceId;
-    // }
     $conn->gameStatus = 'menu';
     $this->clients->attach($conn);
     echo "-- New client connected: {$conn->resourceId}" . PHP_EOL;
@@ -79,7 +70,7 @@ class WebSocketHandler implements MessageComponentInterface {
   }
 }
 
-// Создаем новый WebSocket-сервер на порту 8080
+// Создаем новый WebSocket-сервер на порту 8080 для меню
 $server = IoServer::factory(
 new HttpServer(
   new WsServer(
