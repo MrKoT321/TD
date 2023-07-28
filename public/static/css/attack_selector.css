@@ -50,15 +50,15 @@ body {
 
 .map-button {
     position: absolute;
-    margin-left: 301px;
-    margin-top: 1px;
+    margin-left: 300px;
+    margin-top: 0;
     cursor: pointer;
 }
 
 .start-button {
     position: absolute;
-    margin-left: 1493px;
-    margin-top: 1px;
+    margin-left: 1494px;
+    margin-top: 0;
     background: url("../images/start-button.png");
     width: 307px;
     height: 104px;
