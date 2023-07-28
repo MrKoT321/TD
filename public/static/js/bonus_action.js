@@ -235,6 +235,7 @@ function updateInvisible() {
                 break;
             }
         }
+        
         invisible.init = false;
     }
     if (GAME.stopwatch - invisible.lastTimeCast >= invisible.reload && !invisible.readyToExplode) {
