@@ -110,13 +110,9 @@
     <div class="popupover__bg">
         <div class="popupover">
             <h1 class="over"></h1>
-            <div class="score">
-                <span class="score__text" id="score__value-attack"></span>
-                <span class="score__text">:</span>
-                <span class="score__text" id="score__value-defense"></span>
-            </div>
+            <span class="score__value"></span>
             <div class="overbuttons">
-            <form method="POST" enctype="multipart/form-data" id="form-restart">
+            <form method="POST" enctype="multipart/form-data" id="form">
                 <input type="text" name="playerId" class="hidden" />
                 <input type="text" name="money" class="hidden" />
                 <input type="text" name="score" class="hidden" />

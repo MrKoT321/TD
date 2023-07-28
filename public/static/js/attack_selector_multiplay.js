@@ -5,7 +5,9 @@ var GAME = {
     score: 0,
     lvl: 1,
     currwave: 'wave1',
-    playerId: playerId_take.innerHTML
+    playerId: playerId_take.innerHTML,
+    attackScore: 0,
+    defenseScore: 0
 }
 
 var lvlcount = 1;
@@ -285,7 +287,26 @@ function initParams(){
     }
 }
 
+function connectScore() {
+    data = {
+        type: 'give_me_score'
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
 const socket = new WebSocket('ws://localhost:8090');
+
+socket.addEventListener('message', function(event) {
+    data = JSON.parse(event.data);
+    console.log(data)
+    switch (data.type) {
+        case 'game_score':
+            loading_score1.innerHTML = String(data.attackScore)
+            loading_score3.innerHTML = String(data.defenseScore)
+            break;
+    }
+});
 
 socket.addEventListener('open', function(event) {
     console.log('Connected to server.');
@@ -294,7 +315,8 @@ socket.addEventListener('open', function(event) {
         roomId: document.getElementById("game-info-roomId").innerHTML
     }
     json = JSON.stringify(data);
-    socket.send(json)
+    socket.send(json);
+    connectScore();
 });
 
 function closeLoading() {

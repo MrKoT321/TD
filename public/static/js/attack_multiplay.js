@@ -11,7 +11,7 @@ const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
 
 const nextLvlForm = document.getElementById("form");
-const restartGameForm = document.getElementById("form-restart");
+// const restartGameForm = document.getElementById("form-restart");
 
 const currentLvl = document.getElementById("current-lvl");
 const totalLvl = document.getElementById("total-lvl");
@@ -117,8 +117,8 @@ socket.addEventListener('message', function(event) {
             freeze = data.freeze_bonus;
             break;
         case 'game_score':
-            attackScore.innerHTML = String(data.attackScore);
-            defenseScore.innerHTML = String(data.defenseScore);
+            GAME.attackScore = data.attackScore;
+            GAME.defenseScore = data.defenseScore;
             break;
     }
 });
@@ -221,10 +221,14 @@ function gameOver() {
         if(GAME.lvlCount < 4) {
             sendNextLvlParams();
         }
-        if(GAME.lvlCount == 4 && GAME.isPlay == 'play') {
-            score_value_defense.innerHTML = String(GAME.defenseScore);
-            score_value_attack.innerHTML = String(GAME.attackScore);
-            showFinalPopup(2, 2);
+        if(GAME.lvlCount == 4) {
+            if (GAME.castleHP == 0) {
+                GAME.attackScore += 1
+            }
+            if(GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0){
+                GAME.defenseScore += 1
+            }
+            showFinalPopup(GAME.attackScore, GAME.defenseScore);
             GAME.isPlay = 'popuppause';
         }
     } 
@@ -301,7 +305,7 @@ function sendNextLvlParams() {
         let score = nextLvlForm.elements.score;
         let currLvl = nextLvlForm.elements.currentLvl;
         let mobsUnlock = nextLvlForm.elements.mobsUnlock;
-        playerId.value = String(GAME.id);
+        playerId.value = String(GAME.playerId);
         money.value = String(GAME.money);
         score.value = String(GAME.score);
         currLvl.value = String(GAME.lvlCount + 1);
@@ -540,6 +544,11 @@ function initGameParams() {
     changeMap();
 }
 
+function updateScore() {
+    attackScore.innerHTML = String(GAME.attackScore)
+    defenseScore.innerHTML = String(GAME.defenseScore)
+}
+
 // состояния 'play' - мобы идут, башни ставятся
 //           'wavepause' - мобы не идут, башни ставятся
 //           'menu' - мобы не идут, башни не ставятся
@@ -547,6 +556,7 @@ function initGameParams() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    updateScore()
     updateMoney();
     updateVisualLvlParams();
     drawBackground();

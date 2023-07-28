@@ -30,35 +30,49 @@
         <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
     </div>
         <div class="game__field field">
-            <div class="monsters-selector">
+        <div class="monsters-selector">
                 <div>
                     <img src="../static/images/monster1_selector.png" id="mob1" class="monster-selector"/>
                     <strong class="mob1-info hidden">
-                        <span class="info-cost">30</span>
-                        <span class="info-hp">100</span>
+                        <span class="info-param1">30</span>
+                        <span class="info-param">75</span>
+                        <span class="info-param">20</span>
                     </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster2_selector.png" id="mob2" class="monster-selector"/>
                     <strong class="mob2-info hidden">
-                        <span class="info-cost">40</span>
-                        <span class="info-hp">75</span>
+                        <span class="info-param1">40</span>
+                        <span class="info-param">75</span>
+                        <span class="info-param">20</span>
                     </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster3_selector.png" id="mob3" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector3.png" class="monster-selector-lock" id="unlock-monster3"/>
-                    <strong class="mob3-info hidden"></strong>
+                    <strong class="mob3-info hidden">
+                        <span class="info-param1">50</span>
+                        <span class="info-param">60</span>
+                        <span class="info-param">30</span>
+                    </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster4_selector.png" id="mob4" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector4.png" class="monster-selector-lock" id="unlock-monster4"/>
-                    <strong class="mob4-info hidden"></strong>
+                    <strong class="mob4-info hidden">
+                        <span class="info-param1">80</span>
+                        <span class="info-param">250</span>
+                        <span class="info-param">10</span>
+                    </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster5_selector.png" id="mob5" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector5.png" class="monster-selector-lock" id="unlock-monster5"/>
-                    <strong class="mob5-info hidden"></strong>
+                    <strong class="mob5-info hidden">
+                        <span class="info-param1">100</span>
+                        <span class="info-param">60</span>
+                        <span class="info-param">20</span>
+                    </strong>
                 </div>
             </div>
             <div class="money-info-wave1">

@@ -333,7 +333,7 @@ body {
 .popup-start {
     position: absolute;
     font-family: 'VT323';
-    color: red;
+    color: #9a0303;
     margin-left: 1520px;
     margin-top: 99px;
     font-size: 40px;
