@@ -172,6 +172,27 @@ body {
     cursor: pointer;
 }
 
+.timer-to-choose {
+    position: absolute;
+    top: 10px;
+    left: 1220px;
+    color: white;
+    font-family: Holtwood One SC;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.timer-to-choose__value {
+    text-align: end;
+    font-size: 64px;
+}
+
+.timer-to-choose__unit {
+    text-align: end;
+    font-size: 48px;
+}
+
 .popup-map__field{
     position: absolute;
     width: 700px;
