@@ -2,9 +2,9 @@ const healingBonus = document.querySelector(".healing-buf__icon");
 const healingBonusCancel = document.querySelector(".healing-buf__cancel");
 const healingReloadTimer = document.querySelector(".healing-buf__reload");
 
-// const freezeBonus = document.querySelector(".freeze-buf__icon");
-// const freezeBonusCancel = document.querySelector(".freeze-buf__cancel");
-// const freezeReloadTimer = document.querySelector(".freeze-buf__reload");
+const invisibleBonus = document.querySelector(".invisible-buf__icon");
+const invisibleBonusCancel = document.querySelector(".invisible-buf__cancel");
+const invisibleReloadTimer = document.querySelector(".invisible-buf__reload");
 
 var field = {
     x: 0,
@@ -25,20 +25,36 @@ canvas.addEventListener(
         gameFieldClick.x = event.clientX - field.x;
         gameFieldClick.y = event.clientY - field.y;
         setTimeout(initHeal(), 10);
+        setTimeout(initInvisible(), 10);
     }
 )
 
 healingBonus.addEventListener(
-    "click",
+    'click',
     () => {
         if (!healing.isActive && healing.readyToExplode && bonuses.includes('healing')) {
             healingBonusCancel.classList.remove("hidden");
             healingBonus.style.width = "100px";
             healingBonus.style.height = "100px";
             healing.isActive = true;
-            // inActiveFreeze();
+            inActiveInvisible();
         } else {
             inActiveHealing();
+        }
+    }
+)
+
+invisibleBonus.addEventListener(
+    'click',
+    () => {
+        if (!invisible.isActive && invisible.readyToExplode && bonuses.includes('invisible')) {
+            invisibleBonusCancel.classList.remove("hidden");
+            invisibleBonus.style.width = "100px";
+            invisibleBonus.style.height = "100px";
+            invisible.isActive = true;
+            inActiveHealing();
+        } else {
+            inActiveInvisible();
         }
     }
 )
@@ -48,6 +64,7 @@ function isClickOnMap() {
 }
 
 healingBonusCancel.addEventListener("click", () => { inActiveHealing(); })
+invisibleBonusCancel.addEventListener("click", () => { inActiveInvisible(); })
 
 function drawHealingReload() {
     if (!healing.readyToExplode) {
@@ -63,6 +80,20 @@ function drawHealingReload() {
     }
 }
 
+function drawInvisibleReload() {
+    if (!invisible.readyToExplode) {
+        invisibleReloadTimer.classList.remove("hidden");
+        invisibleReloadTimer.innerHTML = invisible.reload - GAME.stopwatch + invisible.lastTimeCast;
+    } else {
+        invisibleReloadTimer.innerHTML = "";
+        if (!bonuses.includes('invisible')) {
+            invisibleReloadTimer.classList.remove("hidden");
+        } else {
+            invisibleReloadTimer.classList.add("hidden");
+        }
+    }
+}
+
 function inActiveHealing() {
     healingBonusCancel.classList.add("hidden");
     healingBonus.style.width = "150px";
@@ -72,11 +103,28 @@ function inActiveHealing() {
     healingReloadTimer.innerHTML = "";
 }
 
+function inActiveInvisible() {
+    invisibleBonusCancel.classList.add("hidden");
+    invisibleBonus.style.width = "150px";
+    invisibleBonus.style.height = "150px";
+    invisible.isActive = false;
+    invisibleReloadTimer.classList.remove("hidden");
+    invisibleReloadTimer.innerHTML = "";
+}
+
 function initHeal() {
     if (healing.isActive && isClickOnMap()) {
         inActiveHealing();
         createHealing();
-        sendHealingStatus();
+        sendInvisibleStatus();
+    }
+}
+
+function initInvisible() {
+    if (invisible.isActive && isClickOnMap()) {
+        inActiveInvisible();
+        createInvisible();
+        sendInvisibleStatus();
     }
 }
 
@@ -91,8 +139,18 @@ function sendHealingStatus() {
     }
 }
 
+function sendInvisibleStatus() {
+    data = {
+        type: 'invisible',
+        healing_bonus: invisible,
+    }
+    json = JSON.stringify(data);
+    if (typeof socket !== "undefined"){
+        socket.send(json);
+    }
+}
+
 function createHealing() {
-    console.log("create");
     healing.x = gameFieldClick.x;
     healing.y = gameFieldClick.y;
     healing.blastRadius = 0;
@@ -100,10 +158,21 @@ function createHealing() {
     healing.readyToExplode = false;
 }
 
+function createInvisible() {
+    invisible.x = gameFieldClick.x;
+    invisible.y = gameFieldClick.y;
+    invisible.used = false;
+    invisible.init = true;
+    invisible.lastTimeCast = GAME.stopwatch;
+    invisible.readyToExplode = false;
+}
+
 function drawBonusesReload() {
     drawHealingReload();
+    drawInvisibleReload();
 }
 
 function resetBonusesReload() {
     inActiveHealing();
+    inActiveInvisible();
 }

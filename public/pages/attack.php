@@ -68,11 +68,15 @@
         <div class="game__bar bar">
             <div class="bar__bufs">
                 <div class="healing-buf buf-slot">
-                    <img src="../static/images/healing_buff.jpg" class="healing-buf__icon" />
+                    <img src="../static/images/healing_buff.png" class="healing-buf__icon" />
                     <img src="../static/images/cancel_button.png"  class="healing-buf__cancel hidden" />
                     <span class="healing-buf__reload"></span>
                 </div>
-                <div class="buf-slot"></div>
+                <div class="invisible-buf buf-slot">
+                    <img src="../static/images/invisible_buff.png" class="invisible-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="invisible-buf__cancel hidden" />
+                    <span class="invisible-buf__reload"></span>
+                </div>
                 <div class="buf-slot"></div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">

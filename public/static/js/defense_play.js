@@ -503,6 +503,9 @@ function play() {
         updateInfoCounts();
         changeWaveInfoPos(lvl);
     }
+    if (GAME.isPlay == 'menu') {
+        resetBonusesReload();
+    }
     if (GAME.isPlay == 'play') {
         drawBonusesReload();
         lvlComplete();

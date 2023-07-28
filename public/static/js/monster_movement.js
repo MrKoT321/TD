@@ -37,6 +37,7 @@ function pushMonsters(GAME, lvl, monster) {
         maxShield: monster.maxShield,
         distance: 0,
         index: monstersSpawnIndex,
+        invisiblePriority: monster.invisiblePriority,
     })
     if (monster.name == 'monster5') {
         monsters[pushmonstercount].giveShield = monster.giveShield
