@@ -154,7 +154,7 @@ function attackArcher(GAME) {
             for (let i = 0; i < monsters.length; i++) {
                 let mstrCenterX = monsters[i].x + monsters[i].width / 2;
                 let mstrCenterY = monsters[i].y + monsters[i].height / 2;
-                if (hittingRadius(tower, mstrCenterX, mstrCenterY)) {
+                if (hittingRadius(tower, mstrCenterX, mstrCenterY) && !monsters[i].invisible) {
                     tower.currentEnemy = i;
                     if (tower.startTime <= 0) {
                         tower.startTime = GAME.stopwatch;
@@ -184,7 +184,6 @@ function drawBullets() {
 }
 
 function makeExplosion(bullet){
-    console.log('make')
     explosions.push({
         x: bullet.finishX,
         y: bullet.finishY,
@@ -239,7 +238,7 @@ function attackMortir(GAME) {
                     mstrCenterX = monsters[i].x + monsters[i].width / 2;
                     mstrCenterY = monsters[i].y + monsters[i].height; 
                 }
-                if (hittingRadius(tower, mstrCenterX, mstrCenterY) && monsters[i].type != "flying") {
+                if (hittingRadius(tower, mstrCenterX, mstrCenterY) && monsters[i].type != "flying" && !monsters[i].invisible) {
                     tower.currentEnemy = i;
                     if (tower.startTime <= 0) {
                         tower.startTime = GAME.stopwatch;
@@ -347,7 +346,7 @@ function attackElectric() {
         if (tower.type == "electric") {
             monsters.forEach(monster => {
                 lineToMonster = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - tower.x - 50, 2) + Math.pow(monster.y + (monster.height / 2) - tower.y - 50, 2));
-                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower)) {
+                if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower) && !monster.invisible) {
                     makeStrike(tower);
                 }
                 if (!((GAME.stopwatch - tower.placeTime) % tower.atkspeed == 0)) {

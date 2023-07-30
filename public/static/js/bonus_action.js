@@ -54,8 +54,8 @@ invisible = {
     strokeColor: "#42353E",
     color: "rgba(97, 40, 124, 0.46)",
     speed: 2,
-    blastRadius: 150,
-    maxRadius: 300,
+    blastRadius: 0,
+    maxRadius: 150,
     reload: 10,
     lastTimeCast: 60,
     isActive: false,
@@ -63,6 +63,8 @@ invisible = {
     worktime: 7,
     heal: 0.2,
     castCount: 4,
+    used: true,
+    init: false,
 }
 
 gameFieldClick = {
@@ -205,7 +207,6 @@ function updateHeal() {
         }
     })
     if (GAME.stopwatch - healing.lastTimeCast <= healing.worktime) {
-        // console.log(GAME.stopwatch - healing.lastTimeCast, GAME.milisectimer - healing.lastTimeCast * 1000);
         if(healing.blastRadius < healing.maxRadius) {
             healing.blastRadius += healing.speed;
         }
@@ -223,40 +224,27 @@ function updateInvisible() {
         monsters.sort(function(mstrA, mstrB) {
             return mstrA.invisiblePriority - mstrB.invisiblePriority;
         });
-        for(var monster of monsters) {
-            console.log("inv init")
-            let mstrCenterX = monster.x + monster.width / 2;
-            let mstrCenterY = monster.y + monster.height / 2;
-            let distance = Math.sqrt(Math.pow(mstrCenterX - invisible.x, 2) + Math.pow(mstrCenterY - invisible.y, 2));
-            if(distance <= invisible.blastRadius) {
-                monster.invisible = true;
-                invisible.used = true;
-            } else {
-                break;
-            }
-        }
-        
-        invisible.init = false;
+        invisible.init = false;   
     }
     if (GAME.stopwatch - invisible.lastTimeCast >= invisible.reload && !invisible.readyToExplode) {
         invisible.readyToExplode = true;
     }
     if (GAME.stopwatch - invisible.lastTimeCast <= invisible.worktime && !invisible.used) {
-        for(var monster of monsters) {
-            console.log("inv ordinary")
+        if(invisible.blastRadius <= invisible.maxRadius) {
+            invisible.blastRadius += invisible.speed;
+        }
+        monsters.forEach(monster => {
             let mstrCenterX = monster.x + monster.width / 2;
             let mstrCenterY = monster.y + monster.height / 2;
             let distance = Math.sqrt(Math.pow(mstrCenterX - invisible.x, 2) + Math.pow(mstrCenterY - invisible.y, 2));
-            if(distance <= invisible.blastRadius) {
+            if(distance <= invisible.blastRadius && !invisible.used) {
                 monster.invisible = true;
+                monster.invisibleStartTime = GAME.stopwatch;
                 invisible.used = true;
-
-            } else {
-                break;
             }
-        }
+        });
     } else {
-        invisible.blastRadius -= invisible.speed * 4;
+        invisible.blastRadius -= invisible.speed;
         if (invisible.blastRadius <= 0) {
             invisible.x = undefined;
             invisible.y = undefined;

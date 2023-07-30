@@ -163,6 +163,7 @@ function createInvisible() {
     invisible.y = gameFieldClick.y;
     invisible.used = false;
     invisible.init = true;
+    invisible.blastRadius = invisible.maxRadius;
     invisible.lastTimeCast = GAME.stopwatch;
     invisible.readyToExplode = false;
 }

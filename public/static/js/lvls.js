@@ -17,7 +17,8 @@ const lvl1 = {
     bonusesAtk: ["healing", "invisible"],
     back_src:  "../static/images/MAP1.png",
     castle_src:  "../static/images/CASTLE.png",
-    money: 50
+    money: 50,
+    invisible_max_time: 5,
 };
 
 const lvl2 = {
@@ -39,7 +40,8 @@ const lvl2 = {
     bonusesAtk: ["healing", "invisible"],
     back_src:  "../static/images/MAP2.png",
     castle_src:  "../static/images/CASTLE.png" ,
-    money: 50
+    money: 50,
+    invisible_max_time: 5,
 }
 
 const lvl3 = {
@@ -61,7 +63,8 @@ const lvl3 = {
     bonusesAtk: ["healing", "invisible"],
     back_src: "../static/images/MAP3.png",
     castle_src:  "../static/images/CASTLE.png",
-    money: 100
+    money: 100,
+    invisible_max_time: 5,
 }
 
 const lvl4 = {
@@ -82,7 +85,8 @@ const lvl4 = {
     bonusesDef: ["freeze"],
     back_src: "../static/images/MAP4.png",
     castle_src:  "../static/images/CASTLE.png",
-    money: 100
+    money: 100,
+    invisible_max_time: 5,
 }
 
 const lvl5 = {
@@ -103,5 +107,6 @@ const lvl5 = {
     bonusesDef: [],
     back_src: "../static/images/MAP4.png",
     castle_src:  "../static/images/CASTLE.png",
-    money: 150
+    money: 150,
+    invisible_max_time: 5,
 }

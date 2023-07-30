@@ -36,6 +36,7 @@ function pushMonsters(GAME, lvl, monster) {
         name: monster.name,
         maxShield: monster.maxShield,
         distance: 0,
+        invisibleScale: 1,
         index: monstersSpawnIndex,
         invisiblePriority: monster.invisiblePriority,
     })
@@ -59,7 +60,17 @@ function pushMonsters(GAME, lvl, monster) {
 
 function drawMonster(monster) {
     if (monster.image) {
+        if(monster.invisible) {
+            canvasContext.globalAlpha = monster.invisibleScale;
+            if(GAME.stopwatch - monster.invisibleStartTime < Math.floor(lvl.invisible_max_time / 5) && monster.invisibleScale > 0.2) {
+                monster.invisibleScale -= 0.05;
+            }
+            if(GAME.stopwatch - monster.invisibleStartTime > Math.floor(lvl.invisible_max_time - lvl.invisible_max_time / 5) && monster.invisibleScale < 1) {
+                monster.invisibleScale += 0.05;
+            }
+        }
         canvasContext.drawImage(monster.image, monster.x, monster.y, monster.width, monster.height);
+        canvasContext.globalAlpha = 1;
     }
 }
 
@@ -244,6 +255,12 @@ function registerCollision(monster, GAME) {
     }
 }
 
+function clearInvisible(monster) {
+    if(monster.invisible && GAME.stopwatch - monster.invisibleStartTime > lvl.invisible_max_time) {
+        monster.invisible = false;
+    }
+}
+
 function moveMonsters(GAME, lvls) {
     if( monsters.length > monsters.filter(value => value.hp > 0).length){
         monstercount -= 1;
@@ -261,6 +278,7 @@ function moveMonsters(GAME, lvls) {
         return 0
     })
     for (var monster of monsters) {
+        clearInvisible(monster);
         addShield(monster);
         drawShield(monster);
         drawMonster(monster);
