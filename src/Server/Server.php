@@ -48,13 +48,6 @@ class WebSocketHandler implements MessageComponentInterface {
   public function onClose(ConnectionInterface $conn) {
     $this->clients->detach($conn);
     echo "Client disconnected: {$conn->resourceId}" . PHP_EOL;
-    // foreach ($this->clients as $client) {
-    //   if ($client->connId == $conn->connId) {
-    //     // $client->send("Your opponent has passed out");
-    //     $this->clients->detach($client);
-    //     echo "Client disconnected: {$client->resourceId}" . PHP_EOL;
-    //   }
-    // }
   }
 
   private function findOpponent(ConnectionInterface $from, $data) {

@@ -10,7 +10,7 @@
 <html lang="ru">
 
 <head>
-    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s game</title>
+    <title><?= htmlspecialchars($gameInfo->getNickName()) ?>'s Game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/attack_selector.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +26,7 @@
         <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
         <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
         <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
+        <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
     </div>
         <div class="game__field field">
             <div class="monsters-selector">
@@ -164,10 +165,12 @@
             <span class="mob4-info hidden"></span>
             <span class="mob5-info hidden"></span>
             <div class="popup-map hidden">
-                <span class="popup-map__bg"></span>
-                <span class="popup-map__field"></span>
             </div>
             <canvas id='canvas'></canvas>
+        </div>
+        <div class="map-container not_exist">
+            <div class="popup-map__bg"></div>
+            <canvas id="canvas-map" class="canvas-map"></canvas>
         </div>
         <img src='../static/images/loading-bg.png' class='loading-image' />
         <div class='loading-bg'></div>
@@ -182,6 +185,9 @@
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector_multiplay_html_to_js_const.js"></script>
     <script type="application/javascript" src="../static/js/selector_params.js"></script>
+    <script type="application/javascript" src="../static/js/towers.js"></script>
+    <script type="application/javascript" src="../static/js/lvls.js"></script>
+    <script type="application/javascript" src="../static/js/attack_selector_multiplay_map.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector_multiplay_events.js"></script>
     <script type="application/javascript" src="../static/js/attack_selector_multiplay.js"></script>
 </body>

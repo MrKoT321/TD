@@ -281,6 +281,12 @@ const socket = new WebSocket('ws://localhost:8090');
 
 socket.addEventListener('open', function(event) {
     console.log('Connected to server.');
+    data = {
+        type: "add_room_to_new_client",
+        roomId: document.getElementById("game-info-roomId").innerHTML
+    }
+    json = JSON.stringify(data);
+    socket.send(json)
 });
 
 function closeLoading() {

@@ -62,9 +62,9 @@
                         <img src="../static/images/archer_tower.png" class="choise-tower" />
                         <img src="../static/images/archer_cost.png" class="cost-for-tower" />
                     </div>
-                    <div class="bash selector">
-                        <img src="../static/images/bash_tower.png" class="choise-tower" />
-                        <img src="../static/images/bash_cost.png" class="cost-for-tower" />
+                    <div class="electric selector">
+                        <img src="../static/images/electric_tower.png" class="choise-tower" />
+                        <img src="../static/images/electric_cost.png" class="cost-for-tower" />
                     </div>
                     <div class="mortir selector">
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
@@ -162,6 +162,7 @@
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
+    <script type="application/javascript" src="../static/js/bonus_buttons_defense.js"></script>
     <script type="application/javascript" src="../static/js/bonus_action.js"></script>
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_placement.js"></script>

@@ -132,7 +132,6 @@ function updateArrows() {
                 }
                 arrows.splice(i, 1);
             }
-            // console.log(flyingArrow.angel);
         } else {
             arrows.splice(i, 1);
         }
@@ -181,13 +180,6 @@ function attackArcher(GAME) {
 function drawBullets() {
     bullets.forEach(flyingBullet => {
         canvasContext.drawImage(flyingBullet.image, flyingBullet.x - flyingBullet.width/2, flyingBullet.y - flyingBullet.height/2, flyingBullet.width, flyingBullet.height);
-
-        canvasContext.beginPath();
-        canvasContext.strokeStyle = flyingBullet.radiusColor;
-        canvasContext.lineWidth = 2;
-        canvasContext.arc(flyingBullet.x, flyingBullet.y, flyingBullet.blastRadius, 0, 2 * Math.PI);
-        canvasContext.stroke();
-        canvasContext.closePath();
     })
 }
 
@@ -350,9 +342,9 @@ function checkStrikes(tower) {
     return ex;
 }
 
-function attackBash() {
+function attackElectric() {
     towers.forEach(tower => {
-        if (tower.type == "bash") {
+        if (tower.type == "electric") {
             monsters.forEach(monster => {
                 lineToMonster = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - tower.x - 50, 2) + Math.pow(monster.y + (monster.height / 2) - tower.y - 50, 2));
                 if (lineToMonster <= tower.radius && (GAME.stopwatch - tower.placeTime) % tower.atkspeed == 0 && !tower.hit && monster.type != "flying" && !checkStrikes(tower)) {
@@ -371,6 +363,6 @@ function attackBash() {
 
 function attackTowers(GAME) {
     attackArcher(GAME);
-    attackBash(GAME);
+    attackElectric(GAME);
     attackMortir(GAME);
 }

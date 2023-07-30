@@ -12,16 +12,10 @@ let map1 = new Image();
 let map2 = new Image();
 let map3 = new Image();
 let map4 = new Image();
-let archerImg = new Image();
-let electricImg = new Image();
-let mortirImg = new Image();
 map1.src = '../static/images/MAP1-ALT.png';
 map2.src = '../static/images/MAP2-ALT.png';
 map3.src = '../static/images/MAP3-ALT.png';
 map4.src = '../static/images/MAP4-ALT.png';
-archerImg.src = '../static/images/archer_tower.png';
-electricImg.src = '../static/images/electric_tower.png';
-mortirImg.src = '../static/images/mortir_tower.png';
 
 map1.onload = () => {
     map.images.push({index: 1, body: map1})
@@ -35,15 +29,6 @@ map3.onload = () => {
 map4.onload = () => {
     map.images.push({index: 4, body: map4})
 }
-archerImg.onload = () => {
-    map.towers.push(archerImg)
-}
-electricImg.onload = () => {
-    map.towers.push(electricImg)
-}
-mortirImg.onload = () => {
-    map.towers.push(mortirImg)
-}
 
 let canvasMap = document.getElementById("canvas-map");
 let ctxM = canvasMap.getContext("2d");
@@ -51,32 +36,10 @@ let ctxM = canvasMap.getContext("2d");
 canvasMap.width = map.width;
 canvasMap.height = map.height;
 
-function drawTowers(currWave, positions) {
-    let waveTowers = map.towers[currWave - 1];
-    let towerImg;
-    for(i=0;i<waveTowers.length;i++) {
-        let tower = waveTowers[i];
-        switch(tower.type) {
-            case "arrow":
-                towerImg = archerImg;
-                break;
-            case "electric":
-                towerImg = electricImg;
-                break;
-            case "splash":
-                towerImg = mortirImg;
-                break;
-        }
-        ctxM.drawImage(towerImg, (positions[i] % 16 - 1) * 100 * map.scale, Math.floor(positions[i] / 16) * 100 * map.scale, 100 * map.scale, 100 * map.scale);
-    }
-}
-
 function drawMap(currLvl, currWave) {
     canvasMap.parentNode.classList.remove("not_exist");
     map.images.sort((mapFirst, mapSecond) => mapFirst.index - mapSecond.index);
     ctxM.drawImage(map.images[currLvl - 1].body, 0, 0, map.width, map.height);
-    map.towers = lvls[currLvl - 1].atk_towers;
-    drawTowers(currWave, lvls[currLvl - 1].towersPos);
 }
 
 function clearMap() {

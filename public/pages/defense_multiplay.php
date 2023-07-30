@@ -17,6 +17,7 @@
 
 <body>
     <span id="nick-name" class="hidden"><?= htmlspecialchars($game->getNickName()) ?></span>
+    <span class="hidden" id="game-info-roomId"><? echo($roomId) ?></span>
     <span id="game-id" class="hidden"><?= $gameId ?></span>
     <div class="game">
         <div class="game__field field">
@@ -35,9 +36,9 @@
                         <img src="../static/images/archer_tower.png" class="choise-tower" />
                         <img src="../static/images/archer_cost.png" class="cost-for-tower" />
                     </div>
-                    <div class="bash selector">
-                        <img src="../static/images/bash_tower.png" class="choise-tower" />
-                        <img src="../static/images/bash_cost.png" class="cost-for-tower" />
+                    <div class="electric selector">
+                        <img src="../static/images/electric_tower.png" class="choise-tower" />
+                        <img src="../static/images/electric_cost.png" class="cost-for-tower" />
                     </div>
                     <div class="mortir selector">
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
@@ -107,7 +108,6 @@
                 <span class="score__value"></span>
             </div>
             <div class="overbuttons">
-                <img class="restart" src="../static/images/restart.png" id="restartgame"/>
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
                 </a>
@@ -123,17 +123,17 @@
             </div>
         </div>
     </div>
-    <img src='../static/images/loading-bg.png' class='loading-image hidden' />
-    <div class='loading-bg hidden'></div>
-    <div class="loading hidden">
-        <span class='loading__text hidden'>LOADING</span>
-        <div class="loading__100 hidden">
-            <div class="loading__0 hidden"></div>
-        </div>
-    </div>
     <div class="waiting-screen">
         <div class="waiting-opponent-screen">
             <img src="../static/images/waiting_opponent_screen.png" alt="">
+        </div>
+    </div>
+    <img src='../static/images/loading-bg.png' class='loading-image' />
+    <div class='loading-bg'></div>
+    <div class="loading">
+        <span class='loading__text'>LOADING</span>
+        <div class="loading__100">
+            <div class="loading__0"></div>
         </div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
@@ -141,6 +141,7 @@
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
     <script type="application/javascript" src="../static/js/bonus_action.js"></script>
+    <script type="application/javascript" src="../static/js/bonus_buttons_defense.js"></script>
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_placement.js"></script>
     <script type="application/javascript" src="../static/js/tower_attack.js"></script>

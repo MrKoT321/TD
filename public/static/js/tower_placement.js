@@ -19,7 +19,7 @@ const deleteTowerButton = document.querySelector(".delete-tower");
 
 const towersIcons = document.querySelector(".choise-tower");
 const archerTower = document.querySelector(".archer");
-const bashTower = document.querySelector(".bash");
+const electricTower = document.querySelector(".electric");
 const mortirTower = document.querySelector(".mortir");
 
 window.addEventListener(
@@ -178,7 +178,9 @@ function sendNewTowerPlace() {
         money: GAME.money
     }
     json = JSON.stringify(data);
-    socket.send(json);
+    if (typeof socket !== "undefined"){
+        socket.send(json);
+    }
 }
 
 function makeTower(tower) {
@@ -193,4 +195,4 @@ function makeTower(tower) {
 
 archerTower.addEventListener("click", () => { makeTower(archer); });
 mortirTower.addEventListener("click", () => { makeTower(mortir); });
-bashTower.addEventListener("click", () => { makeTower(bash); })
+electricTower.addEventListener("click", () => { makeTower(electric); })

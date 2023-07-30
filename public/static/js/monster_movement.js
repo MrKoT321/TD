@@ -6,6 +6,7 @@ var steptimer = 0;
 var steptimertank = 0;
 var stepcounter = 1;
 var stepcountertank = 1;
+var pushmobs = 0;
 
 function pushMonsters(GAME, lvl, monster) {
     monsters.push({
@@ -27,8 +28,6 @@ function pushMonsters(GAME, lvl, monster) {
         maxhp: monster.maxhp,
         finish: false,
         delete: false,
-        x: lvl.start_x,
-        y: lvl.start_y - monster.height / 2,
         dir: lvl.start_dir,
         shield: monster.shield,
         bornTime: GAME.stopwatch,
@@ -38,6 +37,7 @@ function pushMonsters(GAME, lvl, monster) {
         maxShield: monster.maxShield,
         distance: 0,
         index: monstersSpawnIndex,
+        invisiblePriority: monster.invisiblePriority,
     })
     if (monster.name == 'monster5') {
         monsters[pushmonstercount].giveShield = monster.giveShield
@@ -71,7 +71,6 @@ function addShield(monster) {
             if (mob.name != 'monster5') {
                 let mobCenterX = mob.x + mob.width / 2;
                 let mobCenterY = mob.y + mob.height / 2;
-                console.log(Math.sqrt(Math.pow(mobCenterX - monsterCenterX, 2) + Math.pow(monsterCenterY - mobCenterY, 2)))
                 if (Math.sqrt(Math.pow(mobCenterX - monsterCenterX, 2) + Math.pow(monsterCenterY - mobCenterY, 2)) <= 300) {
                     if (mob.countShield == 0) {
                         mob.shield = monster.giveShield;
@@ -228,9 +227,11 @@ function monsterCorrect(lvl, monster) {
 }
 
 function addMonster(GAME, lvls) {
-    console.log("1 monster add");
-    pushMonsters(GAME, lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
-    monstercount += 1;
+    if(lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length > pushmobs){
+        pushMonsters(GAME, lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
+        monstercount += 1;
+        pushmobs += 1;
+    }
 }
 
 function registerCollision(monster, GAME) {
@@ -244,7 +245,11 @@ function registerCollision(monster, GAME) {
 }
 
 function moveMonsters(GAME, lvls) {
-    monsters = monsters.filter(value => value.hp > 0);
+    if( monsters.length > monsters.filter(value => value.hp > 0).length){
+        monstercount -= 1;
+        pushmonstercount -= 1;
+        monsters = monsters.filter(value => value.hp > 0);
+    }
     updateMonstersStep();
     monsters.sort(function(mstrA, mstrB) {
         if(mstrA.index > mstrB.index) {

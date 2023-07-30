@@ -1,11 +1,3 @@
-const fireballBonus = document.querySelector(".fireball-buf__icon");
-const fireballBonusCancel = document.querySelector(".fireball-buf__cancel");
-const fireballReloadTimer = document.querySelector(".fireball-buf__reload");
-
-const freezeBonus = document.querySelector(".freeze-buf__icon");
-const freezeBonusCancel = document.querySelector(".freeze-buf__cancel");
-const freezeReloadTimer = document.querySelector(".freeze-buf__reload");
-
 fireball = {
     x: undefined,
     y: undefined,
@@ -39,6 +31,40 @@ freeze = {
     atk: 10
 }
 
+healing = {
+    x: undefined,
+    y: undefined,
+    strokeColor: "#228413",
+    color: "#28AD12",
+    speed: 2,
+    blastRadius: 0,
+    maxRadius: 300,
+    reload: 10,
+    lastTimeCast: 60,
+    isActive: false,
+    readyToExplode: true,
+    worktime: 7,
+    heal: 0.2,
+    castCount: 4,
+}
+
+invisible = {
+    x: undefined,
+    y: undefined,
+    strokeColor: "#42353E",
+    color: "rgba(97, 40, 124, 0.46)",
+    speed: 2,
+    blastRadius: 150,
+    maxRadius: 300,
+    reload: 10,
+    lastTimeCast: 60,
+    isActive: false,
+    readyToExplode: true,
+    worktime: 7,
+    heal: 0.2,
+    castCount: 4,
+}
+
 gameFieldClick = {
     x: 0,
     y: 0,
@@ -47,74 +73,14 @@ gameFieldClick = {
 lvlBonuses = [];
 compareWithGameLvlBonuses = 0;
 
-canvas.addEventListener(
-    'click',
-    (event) => {
-        gameFieldClick.x = event.clientX - field.x;
-        gameFieldClick.y = event.clientY - field.y;
-        setTimeout(initFireball, 10);
-        setTimeout(initFreeze, 10);        
+function initBonuses(choisenClass) {
+    if(choisenClass == "defense") {
+        bonuses = lvls[GAME.lvlCount - 1].bonusesDef;
     }
-)
-
-fireballBonus.addEventListener(
-    "click",
-    () => {
-        if (!fireball.isActive && fireball.readyToExplode && bonuses.includes('fireball')) {
-            fireballBonusCancel.classList.remove("hidden");
-            fireballBonus.style.width = "100px";
-            fireballBonus.style.height = "100px";
-            fireball.isActive = true;
-            inActiveFreeze();
-        } else {
-            inActiveFireBall();
-        }
+    if(choisenClass == "attack") {
+        bonuses = lvls[GAME.lvlCount - 1].bonusesAtk;
     }
-)
-
-freezeBonus.addEventListener(
-    "click",
-    () => {
-        if (!freeze.isActive && freeze.readyToExplode && bonuses.includes('freeze')) {
-            freezeBonusCancel.classList.remove("hidden");
-            freezeBonus.style.width = "100px";
-            freezeBonus.style.height = "100px";
-            freeze.isActive = true;
-            inActiveFireBall();
-        } else {
-            inActiveFreeze();
-        }
-    }
-)
-
-fireballBonusCancel.addEventListener("click", () => { inActiveFireBall(); })
-freezeBonusCancel.addEventListener("click", () => { inActiveFreeze(); })
-
-function initBonuses() {
-    bonuses = lvls[GAME.lvlCount - 1].bonuses;
     compareWithGameLvlBonuses = GAME.lvlCount;
-}
-
-function inActiveFireBall() {
-    fireballBonusCancel.classList.add("hidden");
-    fireballBonus.style.width = "150px";
-    fireballBonus.style.height = "150px";
-    fireball.isActive = false;
-    fireballReloadTimer.classList.remove("hidden");
-    fireballReloadTimer.innerHTML = "";
-}
-
-function inActiveFreeze() {
-    freezeBonusCancel.classList.add("hidden");
-    freezeBonus.style.width = "150px";
-    freezeBonus.style.height = "150px";
-    freeze.isActive = false;
-    freezeReloadTimer.classList.remove("hidden");
-    freezeReloadTimer.innerHTML = "";
-}
-
-function isClickOnMap() {
-    return (gameFieldClick.x > 100 && gameFieldClick.x < GAME.width - 100 && gameFieldClick.y > 100 && gameFieldClick.y < GAME.height - 100);
 }
 
 function drawFireball() {
@@ -141,29 +107,36 @@ function drawFreeze() {
     canvasContext.closePath();
 }
 
-function createFireBall() {
-    const t = 30;
-    const changePos = 500;
-    fireball.finishX = gameFieldClick.x;
-    fireball.finishY = gameFieldClick.y;
-    fireball.x = gameFieldClick.x + changePos;
-    fireball.y = gameFieldClick.y - changePos;
-    fireball.speedX = -changePos / t;
-    fireball.speedY = changePos / t;
-    fireball.lastTimeCast = GAME.stopwatch;
-    fireball.readyToExplode = false;
+function drawHeal() {
+    canvasContext.beginPath();
+    if(healing.x && healing.y) {
+        let gradient = canvasContext.createRadialGradient(healing.x, healing.y, healing.blastRadius / 2, healing.x, healing.y, healing.blastRadius);
+        gradient.addColorStop("1", healing.color);
+        gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
+        canvasContext.fillStyle = gradient;
+    }
+    canvasContext.strokeStyle = healing.strokeColor;
+    canvasContext.lineWidth = 4;
+    canvasContext.arc(healing.x, healing.y, healing.blastRadius, 0, 2 * Math.PI);
+    canvasContext.stroke();
+    canvasContext.fill();
+    canvasContext.closePath();
 }
 
-function createFreeze() {
-    const t = 30;
-    const changePos = 500;
-    freeze.x = gameFieldClick.x;
-    freeze.finishX = gameFieldClick.x;
-    freeze.finishY = gameFieldClick.y;
-    freeze.y = gameFieldClick.y - changePos;
-    freeze.speedY = changePos / t;
-    freeze.lastTimeCast = GAME.stopwatch;
-    freeze.readyToExplode = false;
+function drawInvisible() {
+    canvasContext.beginPath();
+    if(invisible.x && invisible.y) {
+        let gradient = canvasContext.createRadialGradient(invisible.x, invisible.y, invisible.blastRadius / 2, invisible.x, invisible.y, invisible.blastRadius);
+        gradient.addColorStop("1", invisible.color);
+        gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
+        canvasContext.fillStyle = gradient;
+    }
+    canvasContext.strokeStyle = invisible.strokeColor;
+    canvasContext.lineWidth = 4;
+    canvasContext.arc(invisible.x, invisible.y, invisible.blastRadius, 0, 2 * Math.PI);
+    canvasContext.stroke();
+    canvasContext.fill();
+    canvasContext.closePath();
 }
 
 function updateFireball() {
@@ -203,37 +176,90 @@ function updateFreeze() {
             let mstrCenterY = monster.y + monster.height / 2;
             let distance = Math.sqrt(Math.pow(mstrCenterX - freeze.finishX, 2) + Math.pow(mstrCenterY - freeze.finishY, 2));
             if (distance <= freeze.blastRadius) {
-                monster.hp -= freeze.atk;
+                if (monster.shield > 0) {
+                    monster.shield -= freeze.atk;
+                } else {
+                    monster.hp -= freeze.atk;
+                }
                 monster.speed /= 2;
             }
         })
     }
 }
 
-function drawFireballReload() {
-    if (!fireball.readyToExplode) {
-        fireballReloadTimer.classList.remove("hidden");
-        fireballReloadTimer.innerHTML = fireball.reload - GAME.stopwatch + fireball.lastTimeCast;
+function updateHeal() {
+    if (GAME.stopwatch - healing.lastTimeCast >= healing.reload && !healing.readyToExplode) {
+        healing.readyToExplode = true;
+    }
+    monsters.forEach(monster => {
+        let mstrCenterX = monster.x + monster.width / 2;
+        let mstrCenterY = monster.y + monster.height / 2;
+        let distance = Math.sqrt(Math.pow(mstrCenterX - healing.x, 2) + Math.pow(mstrCenterY -  healing.y, 2));
+        if (distance <= healing.blastRadius) {
+            if (monster.hp < monster.maxhp && Math.floor(((GAME.milisectimer - healing.lastTimeCast * 1000) / Math.floor(healing.worktime / healing.castCount * 1000)) * 100) % 100 == 0) {
+                monster.hp += monster.maxhp * healing.heal;
+                if (monster.hp > monster.maxhp) {
+                    monster.hp = monster.maxhp;
+                }
+            }
+        }
+    })
+    if (GAME.stopwatch - healing.lastTimeCast <= healing.worktime) {
+        // console.log(GAME.stopwatch - healing.lastTimeCast, GAME.milisectimer - healing.lastTimeCast * 1000);
+        if(healing.blastRadius < healing.maxRadius) {
+            healing.blastRadius += healing.speed;
+        }
     } else {
-        fireballReloadTimer.innerHTML = "";
-        if (!bonuses.includes('fireball')) {
-            fireballReloadTimer.classList.remove("hidden");
-        } else {
-            fireballReloadTimer.classList.add("hidden");
+        healing.blastRadius -= healing.speed * 4;
+        if (healing.blastRadius <= 0) {
+            healing.x = undefined;
+            healing.y = undefined;
         }
     }
 }
 
-function drawFreezeReload() {
-    if (!freeze.readyToExplode) {
-        freezeReloadTimer.classList.remove("hidden");
-        freezeReloadTimer.innerHTML = freeze.reload - GAME.stopwatch + freeze.lastTimeCast;
+function updateInvisible() {
+    if(invisible.init) {
+        monsters.sort(function(mstrA, mstrB) {
+            return mstrA.invisiblePriority - mstrB.invisiblePriority;
+        });
+        for(var monster of monsters) {
+            console.log("inv init")
+            let mstrCenterX = monster.x + monster.width / 2;
+            let mstrCenterY = monster.y + monster.height / 2;
+            let distance = Math.sqrt(Math.pow(mstrCenterX - invisible.x, 2) + Math.pow(mstrCenterY - invisible.y, 2));
+            if(distance <= invisible.blastRadius) {
+                monster.invisible = true;
+                invisible.used = true;
+            } else {
+                break;
+            }
+        }
+        
+        invisible.init = false;
+    }
+    if (GAME.stopwatch - invisible.lastTimeCast >= invisible.reload && !invisible.readyToExplode) {
+        invisible.readyToExplode = true;
+    }
+    if (GAME.stopwatch - invisible.lastTimeCast <= invisible.worktime && !invisible.used) {
+        for(var monster of monsters) {
+            console.log("inv ordinary")
+            let mstrCenterX = monster.x + monster.width / 2;
+            let mstrCenterY = monster.y + monster.height / 2;
+            let distance = Math.sqrt(Math.pow(mstrCenterX - invisible.x, 2) + Math.pow(mstrCenterY - invisible.y, 2));
+            if(distance <= invisible.blastRadius) {
+                monster.invisible = true;
+                invisible.used = true;
+
+            } else {
+                break;
+            }
+        }
     } else {
-        freezeReloadTimer.innerHTML = "";
-        if (!bonuses.includes('freeze')) {
-            freezeReloadTimer.classList.remove("hidden");
-        } else {
-            freezeReloadTimer.classList.add("hidden");
+        invisible.blastRadius -= invisible.speed * 4;
+        if (invisible.blastRadius <= 0) {
+            invisible.x = undefined;
+            invisible.y = undefined;
         }
     }
 }
@@ -252,59 +278,44 @@ function resetFreeze() {
     freeze.y = undefined;
 }
 
+function resetHeal() {
+    healing.isActive = false;
+    healing.readyToExplode = true;
+    healing.x = undefined;
+    healing.y = undefined;
+}
+
+function resetInvisible() {
+    invisible.isActive = false;
+    invisible.readyToExplode = true;
+    invisible.x = undefined;
+    invisible.y = undefined;
+}
+
 function resetBonuses() {
     resetFireball();
     resetFreeze();
-}
-
-function sendFireballStatus() {
-    data = {
-        type: 'fireball',
-        fireball_bonus: fireball
-    }
-    json = JSON.stringify(data);
-    socket.send(json);
-}
-
-function sendFreezeStatus() {
-    data = {
-        type: 'freeze',
-        freeze_bonus: freeze
-    }
-    json = JSON.stringify(data);
-    socket.send(json);
-}
-
-function initFireball() {
-    if (fireball.isActive && isClickOnMap()) {
-        inActiveFireBall();
-        createFireBall();
-        sendFireballStatus();
-    }
-}
-
-function initFreeze() {
-    if (freeze.isActive && isClickOnMap()) {
-        inActiveFreeze();
-        createFreeze();
-        sendFreezeStatus();
-    }
+    resetHeal();
+    resetInvisible();
 }
 
 function drawBonuses() {
     drawFireball();
     drawFreeze();
+    drawHeal();
+    drawInvisible();
     if (GAME.isPlay == 'play') {
         updateFireball();
         updateFreeze();
-        drawFireballReload();
-        drawFreezeReload();
+        updateHeal();
+        updateInvisible();
     } else {
-        inActiveFireBall();
-        inActiveFreeze();
         if (GAME.isPlay == 'wavepause') {
             fireball.readyToExplode = true;
             freeze.readyToExplode = true;
+            healing.readyToExplode = true;
+            invisible.readyToExplode = true;
         }
     }
 }
+

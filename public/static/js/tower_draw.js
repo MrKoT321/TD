@@ -1,6 +1,6 @@
 var towersImg = {
     arrow: undefined,
-    bash: undefined,
+    electric: undefined,
     splash: undefined
 }
 
@@ -10,10 +10,10 @@ archerTowerImg.onload = () => {
     towersImg.arrow = archerTowerImg;
 }
 
-const bashTowerImg = new Image();
-bashTowerImg.src = bash.towerImg;
-bashTowerImg.onload = () => {
-    towersImg.bash = bashTowerImg;
+const electricTowerImg = new Image();
+electricTowerImg.src = electric.towerImg;
+electricTowerImg.onload = () => {
+    towersImg.electric = electricTowerImg;
 }
 
 const mortirTowerImg = new Image();
@@ -25,7 +25,7 @@ mortirTowerImg.onload = () => {
 function drawTower() {
     towers.forEach(tile => {
         if (tile.type == "arrow" && towersImg.arrow) { canvasContext.drawImage(towersImg.arrow, tile.x, tile.y, 100, 100); }
-        if (tile.type == "bash" && towersImg.bash) { canvasContext.drawImage(towersImg.bash, tile.x, tile.y, 100, 100); }
+        if (tile.type == "electric" && towersImg.electric) { canvasContext.drawImage(towersImg.electric, tile.x, tile.y, 100, 100); }
         if (tile.type == "splash" && towersImg.splash) { canvasContext.drawImage(towersImg.splash, tile.x, tile.y, 100, 100); }
 
         canvasContext.beginPath();

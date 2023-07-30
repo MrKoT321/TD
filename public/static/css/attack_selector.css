@@ -209,6 +209,7 @@ body {
     margin-top: -270px;
     display: flex;
     flex-direction: column;
+    gap: 3px;
 }
 
 .mob2-info{
@@ -220,6 +221,7 @@ body {
     margin-top: -270px;
     display: flex;
     flex-direction: column;
+    gap: 3px;
 }
 
 .mob3-info{
@@ -231,6 +233,7 @@ body {
     margin-top: -270px;
     display: flex;
     flex-direction: column;
+    gap: 3px;
 }
 
 .mob4-info{
@@ -242,6 +245,7 @@ body {
     margin-top: -270px;
     display: flex;
     flex-direction: column;
+    gap: 3px;
 }
 
 .mob5-info{
@@ -253,26 +257,26 @@ body {
     margin-top: -270px;
     display: flex;
     flex-direction: column;
+    gap: 3px;
 }
 
-.info-cost{
+.info-param1{
     font-family: 'VT323';
-    margin-top: 35px;
-    margin-left: 17px;
+    margin-top: 32px;
     height: 34px;
     width: 75px;
     text-align: right;
     font-size: 40px;
+    font-weight: 400;
 }
 
-.info-hp{
+.info-param{
     font-family: 'VT323';
-    margin-top: 28px;
-    margin-left: 17px;
-    text-align: right;
-    font-size: 40px;
     height: 34px;
     width: 75px;
+    text-align: right;
+    font-size: 40px;
+    font-weight: 400;
 }
 
 .money-info-wave1{

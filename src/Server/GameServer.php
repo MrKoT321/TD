@@ -22,28 +22,22 @@ class WebSocketHandler implements MessageComponentInterface
   // Обработчик нового подключения клиента
   public function onOpen(ConnectionInterface $conn)
   {
-    $lastConnId = 0;
-    foreach ($this->clients as $client) {
-      $lastConnId = $lastConnId ^ $client->connId;
-    }
-    if ($lastConnId !== 0) {
-      $conn->connId = $lastConnId;
-    } else {
-      $conn->connId = $conn->resourceId;
-    }
-    $conn->gameStatus = 'menu';
     $this->clients->attach($conn);
     echo "-- New client connected: {$conn->resourceId}\n";
-    $lastConnId = 0;
   }
 
   // Обработчик получения сообщения от клиента
   public function onMessage(ConnectionInterface $from, $msg)
   {
-    foreach ($this->clients as $client) {
-      if ($client->resourceId !== $from->resourceId && $client->connId === $from->connId) {
-        $client->send($msg);
-      } 
+    $data = json_decode($msg);
+    if ($data->type == "add_room_to_new_client") {
+      $from->gameRoomId = $data->roomId;
+    } else {
+      foreach ($this->clients as $client) {
+        if ($client->resourceId !== $from->resourceId && $client->gameRoomId === $from->gameRoomId) {
+          $client->send($msg);
+        } 
+      }
     }
   }
 
