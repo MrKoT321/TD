@@ -61,8 +61,6 @@ invisible = {
     isActive: false,
     readyToExplode: true,
     worktime: 7,
-    heal: 0.2,
-    castCount: 4,
     used: true,
     init: false,
 }
@@ -222,7 +220,7 @@ function updateHeal() {
 function updateInvisible() {
     if(invisible.init) {
         monsters.sort(function(mstrA, mstrB) {
-            return mstrA.invisiblePriority - mstrB.invisiblePriority;
+            return mstrB.invisiblePriority - mstrA.invisiblePriority;
         });
         invisible.init = false;   
     }

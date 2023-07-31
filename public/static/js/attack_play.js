@@ -481,10 +481,6 @@ function play() {
         resetBonusesReload();
         setTowers(GAME, lvl);
         resetStopwatch();
-        resetButtons();
-    }
-    if (GAME.isPlay == 'menu') {
-        resetBonusesReload();
     }
     if (GAME.isPlay == 'play') {
         drawBonusesReload();
@@ -500,7 +496,7 @@ function play() {
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
         GAME.isPlay = 'play';
-        initBonuses("attack")
+        initBonuses("attack");
     }
     drawTower();
     drawArrows();
@@ -510,6 +506,7 @@ function play() {
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();
+        resetBonusesReload();
     }
     requestAnimationFrame(play);
 }

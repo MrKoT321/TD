@@ -553,14 +553,17 @@ function play() {
     drawBackground();
     drawExplosion();
     drawStrikes();
+    drawBonuses();
     updateMobDataAtk();
     moveMonsters(GAME, lvls);
     drawCastle();
-    drawBonuses();
     if (GAME.isPlay == 'wavepause') {
+        resetBonuses();
+        resetBonusesReload();
         resetStopwatch();
     }
     if (GAME.isPlay == 'play') {
+        drawBonusesReload();
         gameOver();
         nextWave();
         catchTime();
@@ -572,6 +575,7 @@ function play() {
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
         GAME.isPlay = 'play';
+        initBonuses("attack");
     }
     drawTower();
     drawArrows();
@@ -581,6 +585,7 @@ function play() {
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();
+        resetBonusesReload();
     }
     requestAnimationFrame(play);
 }

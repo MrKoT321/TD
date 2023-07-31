@@ -393,6 +393,12 @@ socket.addEventListener('message', function(event) {
             hideOpponentScreen();
             createWaves(data.waves);
             break;
+        case 'healing':
+            healing = data.healing_bonus;
+            break;
+        case 'invisible':
+            invisible = data.invisible_bonus;
+            break;
     }
 });
 

@@ -116,7 +116,7 @@ function initHeal() {
     if (healing.isActive && isClickOnMap()) {
         inActiveHealing();
         createHealing();
-        sendInvisibleStatus();
+        sendHealingStatus();
     }
 }
 
@@ -142,7 +142,7 @@ function sendHealingStatus() {
 function sendInvisibleStatus() {
     data = {
         type: 'invisible',
-        healing_bonus: invisible,
+        invisible_bonus: invisible,
     }
     json = JSON.stringify(data);
     if (typeof socket !== "undefined"){

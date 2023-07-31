@@ -69,13 +69,16 @@
         </div>
         <div class="game__bar bar">
             <div class="bar__bufs">
-                <!-- <div class="fireball-buf buf-slot"> 
-                    <img src="../static/images/fireball_buff.png" class="fireball-buf__icon" />
-                    <img src="../static/images/cancel_button.png"  class="fireball-buf__cancel hidden" />
-                    <span class="fireball-buf__reload"></span> 
-                </div> -->
-                <div class="buf-slot"></div>
-                <div class="buf-slot"></div>
+                <div class="healing-buf buf-slot">
+                    <img src="../static/images/healing_buff.png" class="healing-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="healing-buf__cancel hidden" />
+                    <span class="healing-buf__reload"></span>
+                </div>
+                <div class="invisible-buf buf-slot">
+                    <img src="../static/images/invisible_buff.png" class="invisible-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="invisible-buf__cancel hidden" />
+                    <span class="invisible-buf__reload"></span>
+                </div>
                 <div class="buf-slot"></div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">
@@ -152,9 +155,8 @@
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
+    <script type="application/javascript" src="../static/js/bonus_buttons_attack.js"></script>
     <script type="application/javascript" src="../static/js/bonus_action.js"></script>
-    <script type="application/javascript" src="../static/js/bonus_action.js"></script>
-    <!-- <script type="application/javascript" src="../static/js/tower_attack_config.js"></script> -->
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>
     <script type="application/javascript" src="../static/js/tower_attack.js"></script>
     <script type="application/javascript" src="../static/js/attack_multiplay.js"></script>
