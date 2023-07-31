@@ -562,9 +562,11 @@ function play() {
     drawBackground();
     drawExplosion();
     drawStrikes();
-    drawBonuses();
+    drowBonusesBottom();
     updateMobDataAtk();
     moveMonsters(GAME, lvls);
+    drawBonusesTop();
+    updateBonuses();
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
         resetBonuses();

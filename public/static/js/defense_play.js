@@ -487,7 +487,6 @@ function updateInfoCounts() {
         } else {
             info_block5.style.position = 'absolute'
         }
-        console.log(wave_length)
     }
 }
 
@@ -524,7 +523,10 @@ function play() {
     if (GAME.isPlay != 'wavepause') {
         updateMobDataDef();
     }
+    drawBonusesBottom();
     moveMonsters(GAME, lvls);
+    drawBonusesTop();
+    updateBonuses();
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
         resetBonusesReload();
@@ -559,7 +561,6 @@ function play() {
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    drawBonuses();
     changeGameStatusButtons();
     gameOver();
     if (GAME.isPlay == 'menu') {

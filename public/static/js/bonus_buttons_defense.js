@@ -138,7 +138,7 @@ function sendFreezeStatus() {
 }
 
 function createFireBall() {
-    const t = 30;
+    const t = 40;
     const changePos = 500;
     fireball.finishX = gameFieldClick.x;
     fireball.finishY = gameFieldClick.y;

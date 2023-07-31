@@ -62,7 +62,6 @@ canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
 var starttime = 900;
-
 const background = new Image();
 const castle = new Image();
 castle.src = lvl.castle_src;
@@ -82,7 +81,6 @@ function updateVisualLvlParams() {
     currentWave.innerHTML = GAME.wave;
     totalWave.innerHTML = lvls[GAME.lvlCount - 1].waves.length;
 }
-
 
 function resetStopwatch() {
     GAME.stopwatch = 0;
@@ -553,7 +551,10 @@ function play() {
     drawExplosion();
     drawStrikes();
     updateMobDataDef();
+    drawBonusesBottom();
     moveMonsters(GAME, lvls);
+    drawBonusesTop();
+    updateBonuses();
     drawCastle();
     if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
         resetBonusesReload();
@@ -582,7 +583,6 @@ function play() {
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    drawBonuses();
     changeGameStatusButtons();
     if (GAME.isPlay == 'menu') {
         resetBonuses();
