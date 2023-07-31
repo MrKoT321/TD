@@ -100,8 +100,10 @@ const score_take = document.getElementById('game-info-score');
 const lvl_take = document.getElementById('game-info-currLvl');
 const mobsUnlock_take = document.getElementById('game-info-mobsUnlock');
 
-const loading_text = document.querySelector('.loading__text');
-const loading_0 = document.querySelector('.loading__0');
-const loading_100 = document.querySelector('.loading__100');
+const loading_text = document.querySelector('.loading-text');
+const loading_score1 = document.getElementById('load-score1');
+const loading_score2 = document.getElementById('load-score2');
+const loading_score3 = document.getElementById('load-score3');
+const load = document.querySelector('.load');
 const loading_bg = document.querySelector('.loading-bg');
 const loading_image = document.querySelector('.loading-image');

@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/defense.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 
 <body>
@@ -23,12 +23,13 @@
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
-                <span class="count-coin__value"></span>
+                <span class="count-coin__value">0</span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
-            <div class="count-score">
-                <span class="count-score__value"></span>
-                <img src="../static/images/score.png" alt="score" class="count-score__img">
+            <div class="count-score-multi">
+                <span class="count-score__value-defense">0</span>
+                <span>:</span>
+                <span class="count-score__value-attack">0</span>
             </div>
             <div class="tower-selection new-tower hidden">
                 <div class="choise-towers">
@@ -48,7 +49,20 @@
             </div>
             <div class="tower-selection tower-abilities hidden">
                 <div class="choice-abilitie">
-                    <img src="../static/images/cancel_button.png"  class="delete-tower" />
+                    <div class="upgrade-tower">
+                        <img src="../static/images/upgrade_button.png" class="upgrade-tower__img" />
+                        <div class="upgrade-tower-info">
+                            <span class="upgrade-tower-info__cost">30</span>
+                            <img src="../static/images/coin.png" class="upgrade-tower-info__coin-img" />
+                        </div>
+                    </div>
+                    <div class="delete-tower">
+                        <img src="../static/images/cancel_button.png"  class="delete-tower__img" />
+                        <div class="delete-tower-info">
+                            <span class="delete-tower-info__cost">+20</span>
+                            <img src="../static/images/coin.png" class="delete-tower-info__coin-img" />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="field__hp-bar hp-bar" id="hp-bar">
@@ -102,11 +116,8 @@
     </div>
     <div class="popupover__bg">
         <div class="popupover">
-            <h1 class="over">GAME OVER</h1>
-            <div class="score">
-                <span class="score__title">Score:</span>
-                <span class="score__value"></span>
-            </div>
+            <h1 class="over"></h1>
+            <span class="score__value"></span>
             <div class="overbuttons">
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
@@ -115,14 +126,6 @@
         </div>
     </div>
     </div>
-    <div class="popupcomplete__bg">
-        <div class="popupcomplete">
-            <h1 class="complete">LEVEL COMPLETE</h1>
-            <div class="next-lvl-container">
-                <button class="next-lvl-btn" id="next-lvl-btn">Next level</button>
-            </div>
-        </div>
-    </div>
     <div class="waiting-screen">
         <div class="waiting-opponent-screen">
             <img src="../static/images/waiting_opponent_screen.png" alt="">
@@ -130,11 +133,14 @@
     </div>
     <img src='../static/images/loading-bg.png' class='loading-image' />
     <div class='loading-bg'></div>
-    <div class="loading">
-        <span class='loading__text'>LOADING</span>
-        <div class="loading__100">
-            <div class="loading__0"></div>
-        </div>
+    <div class="load">
+        <span class='loading-text'>LOADING LEVEL</span>
+        <div class="load__score">
+            <span class="loading-score" id = "load-score1">0</span>
+            <span class="loading-score" id = "load-score2">:</span>
+            <span class="loading-score" id = "load-score3">0</span>
+        </div>    
+        <div class="loading" id = "loading"></div>
     </div>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>

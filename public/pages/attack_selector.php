@@ -16,6 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 
 <body>
@@ -188,6 +189,13 @@
             <canvas id="canvas-map" class="canvas-map"></canvas>
         </div>
     </div>
+    </div>
+    <img src='../static/images/loading-bg.png' class='loading-image' />
+    <div class='loading-bg'></div>
+    <div class="load">
+        <span class='loading-text'>LOADING LEVEL</span>
+        <div></div> 
+        <div class="loading"></div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>

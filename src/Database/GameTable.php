@@ -167,4 +167,14 @@ class GameTable
         }
         return null;
     }
+
+    public function getChoisenClass(int $gameId): ?string
+    {
+        $query = "SELECT choisen_class FROM games WHERE game_id = $gameId";
+        $statement = $this->connection->query($query);
+        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+            return $row['choisen_class'];
+        }
+        return null;
+    }
 }

@@ -55,6 +55,15 @@ function updateMoney() {
     moneyInfo.innerHTML = String(Math.floor(GAME.money));
 }
 
+let animationId;
+function spendMoneyError() {
+    let moneyInfo = document.querySelector(".count-coin");
+    clearTimeout(animationId);
+    moneyInfo.classList.add("error");
+    animationId = setTimeout(() => { moneyInfo.classList.remove("error"); }, 800);
+}
+
+
 var isNewMonster = 'no';
 
 function addMobToWave(wave, selected_count) {
@@ -277,6 +286,13 @@ function initParams(){
     }
 }
 
+function closeLoading() {
+    load.classList.add('hidden');
+    loading_text.classList.add('hidden');
+    loading_bg.classList.add('hidden');
+    loading_image.classList.add('hidden');
+}
+
 function play() {
     unblockMonsters();
     updateMoney();
@@ -294,4 +310,5 @@ function play() {
 }
 
 initParams();
-play();
+setTimeout(() => { closeLoading() }, 5000)
+setTimeout(() => { play() }, 5000)

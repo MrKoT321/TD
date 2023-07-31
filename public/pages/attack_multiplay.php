@@ -25,7 +25,6 @@
             <span class="game-info__gameId" id="game-info-wave-2"><?= $gameInfo->getWave2() ?></span>
             <span class="game-info__gameId" id="game-info-wave-3"><?= $gameInfo->getWave3() ?></span>
             <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>
-            <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
             <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
             <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
             <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
@@ -33,12 +32,13 @@
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
-                <span class="count-coin__value">100</span>
+                <span class="count-coin__value">0</span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
-            <div class="count-score">
-                <span class="count-score__value">0</span>
-                <img src="../static/images/score.png" alt="score" class="count-score__img">
+            <div class="count-score-multi">
+                <span class="count-score__value-attack">0</span>
+                <span>:</span>
+                <span class="count-score__value-defense">0</span>
             </div>
             <div class="tower-selection new-tower hidden">
                 <div class="choise-towers">
@@ -112,13 +112,10 @@
     </div>
     <div class="popupover__bg">
         <div class="popupover">
-            <h1 class="over">GAME OVER</h1>
-            <div class="score">
-                <span class="score__title">Score:</span>
-                <span class="score__value"></span>
-            </div>
+            <h1 class="over"></h1>
+            <span class="score__value"></span>
             <div class="overbuttons">
-            <form method="POST" enctype="multipart/form-data" id="form-restart">
+            <form method="POST" enctype="multipart/form-data" id="form">
                 <input type="text" name="playerId" class="hidden" />
                 <input type="text" name="money" class="hidden" />
                 <input type="text" name="score" class="hidden" />
@@ -132,23 +129,6 @@
             </div>
         </div>
     </div>
-    </div>
-    <div class="popupcomplete__bg">
-        <div class="popupcomplete">
-            <h1 class="complete">LEVEL COMPLETE</h1>
-            <form method="POST" enctype="multipart/form-data" id="form">
-                <input type="text" name="playerId" class="hidden" />
-                <input type="text" name="money" class="hidden" />
-                <input type="text" name="score" class="hidden" />
-                <input type="text" name="currentLvl" class="hidden" />
-                <input type="text" name="mobsUnlock" class="hidden" />
-                <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" />
-
-                <div class="next-lvl-container">
-                    <!-- <input class="next-lvl-btn" id="next-lvl-btn" type="submit" value="Next level" /></div> -->
-                </div>
-            </form>
-        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>

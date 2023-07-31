@@ -16,6 +16,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 
 <body>
@@ -23,41 +25,54 @@
     <div class="hidden game-info">
         <span class="game-info__gameId" id="game-info-playerId"><?= $gameInfo->getPlayerId() ?></span>
         <span class="game-info__gameId" id="game-info-money"><?= $gameInfo->getMoney() ?></span>
-        <span class="game-info__gameId" id="game-info-score"><?= $gameInfo->getScore() ?></span>
         <span class="game-info__gameId" id="game-info-currLvl"><?= $gameInfo->getCurrentLvl() ?></span>
         <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
         <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
     </div>
         <div class="game__field field">
-            <div class="monsters-selector">
+        <div class="monsters-selector">
                 <div>
                     <img src="../static/images/monster1_selector.png" id="mob1" class="monster-selector"/>
                     <strong class="mob1-info hidden">
-                        <span class="info-cost">30</span>
-                        <span class="info-hp">100</span>
+                        <span class="info-param1">30</span>
+                        <span class="info-param">75</span>
+                        <span class="info-param">20</span>
                     </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster2_selector.png" id="mob2" class="monster-selector"/>
                     <strong class="mob2-info hidden">
-                        <span class="info-cost">40</span>
-                        <span class="info-hp">75</span>
+                        <span class="info-param1">40</span>
+                        <span class="info-param">75</span>
+                        <span class="info-param">20</span>
                     </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster3_selector.png" id="mob3" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector3.png" class="monster-selector-lock" id="unlock-monster3"/>
-                    <strong class="mob3-info hidden"></strong>
+                    <strong class="mob3-info hidden">
+                        <span class="info-param1">50</span>
+                        <span class="info-param">60</span>
+                        <span class="info-param">30</span>
+                    </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster4_selector.png" id="mob4" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector4.png" class="monster-selector-lock" id="unlock-monster4"/>
-                    <strong class="mob4-info hidden"></strong>
+                    <strong class="mob4-info hidden">
+                        <span class="info-param1">80</span>
+                        <span class="info-param">250</span>
+                        <span class="info-param">10</span>
+                    </strong>
                 </div>
                 <div>
                     <img src="../static/images/monster5_selector.png" id="mob5" class="monster-selector hidden"/>
                     <img src="../static/images/lock_selector5.png" class="monster-selector-lock" id="unlock-monster5"/>
-                    <strong class="mob5-info hidden"></strong>
+                    <strong class="mob5-info hidden">
+                        <span class="info-param1">100</span>
+                        <span class="info-param">60</span>
+                        <span class="info-param">20</span>
+                    </strong>
                 </div>
             </div>
             <div class="money-info-wave1">
@@ -145,6 +160,10 @@
                 <img src="../static/images/3.png" class="wave-selector__3 hidden"/>
                 <img src="../static/images/wave+.png" class="wave-selector__wave-plus"/>
             </div>
+<!--            <div class="timer-to-choose">-->
+<!--                <span class="timer-to-choose__value">20</span>-->
+<!--                <span class="timer-to-choose__unit"> s</span>-->
+<!--            </div>-->
             <img src="../static/images/start_lock.png" class="start-button" id="start-lock" />
             <span class="popup-start hidden">Add at least one monster per wave</span>
             <form method="POST" enctype="multipart/form-data" id="form">
@@ -174,11 +193,14 @@
         </div>
         <img src='../static/images/loading-bg.png' class='loading-image' />
         <div class='loading-bg'></div>
-        <div class="loading">
-            <span class='loading__text'>LOADING</span>
-            <div class="loading__100">
-                <div class="loading__0"></div>
-            </div>
+        <div class="load">
+            <span class='loading-text'>LOADING LEVEL</span>
+            <div class="load__score">
+                <span class="loading-score" id = "load-score1">0</span>
+                <span class="loading-score" id = "load-score2">:</span>
+                <span class="loading-score" id = "load-score3">0</span>
+            </div>    
+            <div class="loading"></div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

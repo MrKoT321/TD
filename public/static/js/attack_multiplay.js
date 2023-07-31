@@ -10,9 +10,8 @@ const pauseGameBtn = document.getElementById("pausegame");
 const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
 
-const nextBtn = document.getElementById("next-lvl-btn");
 const nextLvlForm = document.getElementById("form");
-const restartGameForm = document.getElementById("form-restart");
+// const restartGameForm = document.getElementById("form-restart");
 
 const currentLvl = document.getElementById("current-lvl");
 const totalLvl = document.getElementById("total-lvl");
@@ -25,9 +24,11 @@ const wave3Info = document.getElementById("game-info-wave-3");
 
 const playerIdInfo = document.getElementById("game-info-playerId");
 const moneyInitInfo = document.getElementById("game-info-money");
-const scoreInfo = document.getElementById("game-info-score");
 const currLvlInfo = document.getElementById("game-info-currLvl");
 const mobsUnlockInfo = document.getElementById("game-info-mobsUnlock");
+const attackScore = document.querySelector(".count-score__value-attack");
+const defenseScore = document.querySelector(".count-score__value-defense");
+
 
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
@@ -40,7 +41,8 @@ var GAME = {
     milisectimer: 0,
     isPlay: 'wavepause',
     money: 0,
-    score: 0,
+    attackScore: 0,
+    defenseScore: 0,
     lvlCount: 1,
     wave: 1,
     submit: false,
@@ -55,6 +57,14 @@ function sendGameStatus() {
     data = {
         type: 'game_status',
         status: GAME.isPlay
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
+function connectScore() {
+    data = {
+        type: 'give_me_score'
     }
     json = JSON.stringify(data);
     socket.send(json);
@@ -106,6 +116,10 @@ socket.addEventListener('message', function(event) {
         case 'freeze':
             freeze = data.freeze_bonus;
             break;
+        case 'game_score':
+            GAME.attackScore = data.attackScore;
+            GAME.defenseScore = data.defenseScore;
+            break;
     }
 });
 
@@ -118,6 +132,7 @@ socket.addEventListener('open', function(event) {
     json = JSON.stringify(data);
     socket.send(json);
     sendGameStatus();
+    connectScore();
 });
 
 var startTimer = new Date();
@@ -206,8 +221,14 @@ function gameOver() {
         if(GAME.lvlCount < 4) {
             sendNextLvlParams();
         }
-        if(GAME.lvlCount == 4 && GAME.isPlay == 'play') {
-            showFinalPopup(2, 2);
+        if(GAME.lvlCount == 4) {
+            if (GAME.castleHP == 0) {
+                GAME.attackScore += 1
+            }
+            if(GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0){
+                GAME.defenseScore += 1
+            }
+            showFinalPopup(GAME.attackScore, GAME.defenseScore);
             GAME.isPlay = 'popuppause';
         }
     } 
@@ -236,11 +257,6 @@ function showFinalPopup(myScore, opponentScore) {
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
     moneyInfo.innerHTML = String(GAME.money);
-}
-
-function updateScore() {
-    let scoreInfo = document.querySelector(".count-score__value");
-    scoreInfo.innerHTML = String(GAME.score);
 }
 
 // function lvlComplete() {
@@ -289,7 +305,7 @@ function sendNextLvlParams() {
         let score = nextLvlForm.elements.score;
         let currLvl = nextLvlForm.elements.currentLvl;
         let mobsUnlock = nextLvlForm.elements.mobsUnlock;
-        playerId.value = String(GAME.id);
+        playerId.value = String(GAME.playerId);
         money.value = String(GAME.money);
         score.value = String(GAME.score);
         currLvl.value = String(GAME.lvlCount + 1);
@@ -465,17 +481,6 @@ document.addEventListener("keydown", (event) => {
     }
 })
 
-nextBtn.addEventListener(
-    "click",
-    () => {
-        sendNextLvlParams();
-        // updateNextLvlParams();
-        // changeMap();
-        // updateCastleHP();
-        // popupCloseComplete();
-    }
-);
-
 // restartgame.addEventListener(
 //     "click",
 //     () => {
@@ -535,9 +540,13 @@ function initGameParams() {
     createWaves();
     GAME.playerId = parseInt(playerIdInfo.innerHTML);
     GAME.money = parseInt(moneyInitInfo.innerHTML);
-    GAME.score = parseInt(scoreInfo.innerHTML);
     GAME.mobsUnlock = mobsUnlockInfo.innerHTML;
     changeMap();
+}
+
+function updateScore() {
+    attackScore.innerHTML = String(GAME.attackScore)
+    defenseScore.innerHTML = String(GAME.defenseScore)
 }
 
 // состояния 'play' - мобы идут, башни ставятся
@@ -547,8 +556,8 @@ function initGameParams() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    updateScore()
     updateMoney();
-    updateScore();
     updateVisualLvlParams();
     drawBackground();
     drawExplosion();

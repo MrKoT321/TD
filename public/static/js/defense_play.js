@@ -17,12 +17,6 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-const loading_text = document.querySelector('.loading__text');
-const loading_0 = document.querySelector('.loading__0');
-const loading_100 = document.querySelector('.loading__100');
-const loading_bg = document.querySelector('.loading-bg');
-const loading_image = document.querySelector('.loading-image');
-
 const wave_info = document.querySelector('.wave-info');
 const info_block1 = document.getElementById('info-block1')
 const info_block2 = document.getElementById('info-block2')
@@ -35,6 +29,11 @@ const wave_mob3_count = document.getElementById('wave-mob3-count')
 const wave_mob4_count = document.getElementById('wave-mob4-count')
 const wave_mob5_count = document.getElementById('wave-mob5-count')
 
+const loading_text = document.querySelector('.loading-text');
+const load = document.querySelector('.load');
+const loading_bg = document.querySelector('.loading-bg');
+const loading_image = document.querySelector('.loading-image');
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var wave_length = 0;
@@ -46,7 +45,7 @@ var GAME = {
     stopwatch: 0,
     milisectimer: 0,
     isPlay: 'wavepause',
-    money: 100,
+    money: 50,
     score: 0,
     lvlCount: 1,
     wave: 1
@@ -160,12 +159,36 @@ function gameOver() {
 
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
-    moneyInfo.innerHTML = String(GAME.money);
+    let moneyNow = parseInt(moneyInfo.innerHTML);
+    if (moneyNow <= GAME.money) {
+        if (moneyNow < GAME.money)
+            moneyInfo.innerHTML = String(moneyNow + 1);
+    } else {
+        moneyInfo.innerHTML = String(moneyNow - 1);
+    }
+    // moneyInfo.innerHTML = String(GAME.money);
+}
+
+let animationId;
+function spendMoneyError() {
+    let moneyInfo = document.querySelector(".count-coin__value");
+    clearTimeout(animationId);
+    moneyInfo.classList.add("error");
+    animationId = setTimeout(() => { moneyInfo.classList.remove("error"); }, 800)
 }
 
 function updateScore() {
     let scoreInfo = document.querySelector(".count-score__value");
-    scoreInfo.innerHTML = String(GAME.score);
+    let scoreNow = parseInt(scoreInfo.innerHTML);
+    if (scoreNow <= GAME.score) {
+        if (scoreNow < GAME.score) {
+            scoreInfo.innerHTML = String(scoreNow + 1);
+        }
+    } else {
+        scoreInfo.innerHTML = String(scoreNow - 1);
+    }
+
+    // scoreInfo.innerHTML = String(GAME.score);
 }
 
 function lvlComplete() {
@@ -334,15 +357,24 @@ function pauseGame() {
 
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
+
+var isClick = false;
 document.addEventListener("keydown", (event) => {
-    switch (event.code) {
-        case 'Space':
-            pauseGame();
-            break;
-        case 'Enter':
-            startWave();
-            break;
+    if (!isClick){
+        switch (event.code) {
+            case 'Space':
+                pauseGame();
+                isClick = true;
+                break;
+            case 'Enter':
+                startWave();
+                isClick = true;
+                break;
     }
+    }
+})
+document.addEventListener("keyup", (event) => {
+    isClick = false;
 })
 
 nextBtn.addEventListener(
@@ -375,9 +407,8 @@ backToMenuBtn.addEventListener(
 );
 
 function closeLoading() {
+    load.classList.add('hidden');
     loading_text.classList.add('hidden');
-    loading_0.classList.add('hidden');
-    loading_100.classList.add('hidden');
     loading_bg.classList.add('hidden');
     loading_image.classList.add('hidden');
 }
@@ -496,8 +527,8 @@ function play() {
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
-        resetBonuses();
         resetBonusesReload();
+        resetBonuses();
         initBullets();
         resetStopwatch();
         updateInfoCounts();

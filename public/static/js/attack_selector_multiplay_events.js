@@ -389,6 +389,8 @@ unlock_monster3.addEventListener(
         if (GAME.money >= 200) {
             GAME.money -= 200;
             mobs_unlock.push('monster3');
+        } else {
+            spendMoneyError()
         }
     }
 )
@@ -399,6 +401,8 @@ unlock_monster4.addEventListener(
         if (GAME.money >= 300) {
             GAME.money -= 300;
             mobs_unlock.push('monster4');
+        } else {
+            spendMoneyError()
         }
     }
 )
@@ -409,6 +413,8 @@ unlock_monster5.addEventListener(
         if (GAME.money >= 400) {
             GAME.money -= 400;
             mobs_unlock.push('monster5');
+        } else {
+            spendMoneyError()
         }
     }
 )
@@ -439,7 +445,6 @@ start_button.addEventListener(
         playerId_send.value = GAME.playerId;
         money_send.value = GAME.money;
         currentLvl_send.value = GAME.lvl;
-        score_send.value = GAME.score;
         data = {
             type: 'waves',
             waves: [wave1_to_send, wave2_to_send, wave3_to_send]

@@ -17,14 +17,20 @@ const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
 const totalWave = document.getElementById("total-wave");
 
-const loading_text = document.querySelector('.loading__text');
-const loading_0 = document.querySelector('.loading__0');
-const loading_100 = document.querySelector('.loading__100');
+const loading_text = document.querySelector('.loading-text');
+const loading_score1 = document.getElementById('load-score1');
+const loading_score2 = document.getElementById('load-score2');
+const loading_score3 = document.getElementById('load-score3');
+const load = document.querySelector('.load');
 const loading_bg = document.querySelector('.loading-bg');
 const loading_image = document.querySelector('.loading-image');
+const loading = document.getElementById('loading');
 
 const waitingOpponentScreen = document.querySelector(".waiting-screen");
 const waitingOpponentScreenImg = document.querySelector(".waiting-opponent-screen");
+
+const attackScore = document.querySelector(".count-score__value-attack");
+const defenseScore = document.querySelector(".count-score__value-defense");
 
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
@@ -36,7 +42,8 @@ var GAME = {
     milisectimer: 0,
     isPlay: 'waitopponent',
     money: 100,
-    score: 0,
+    attackScore: 0,
+    defenseScore: 0,
     lvlCount: 1,
     wave: 1
 }
@@ -127,7 +134,7 @@ function changeGameStatusButtons() {
     }
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.remove("active");
-    } 
+    }
 }
 
 function drawCastle() {
@@ -137,59 +144,73 @@ function drawCastle() {
 }
 
 function closeLoading() {
+    load.classList.add('hidden');
     loading_text.classList.add('hidden');
-    loading_0.classList.add('hidden');
-    loading_100.classList.add('hidden');
+    loading_score1.classList.add('hidden');
+    loading_score2.classList.add('hidden');
+    loading_score3.classList.add('hidden');
     loading_bg.classList.add('hidden');
     loading_image.classList.add('hidden');
+    loading.classList.remove('loading')
     GAME.isPlay = 'waitopponent';
 }
 
 function openLoading() {
     GAME.isPlay = 'loading';
+    loading.classList.add('loading')
+    load.classList.remove('hidden');
     loading_text.classList.remove('hidden');
-    loading_0.classList.remove('hidden');
-    loading_100.classList.remove('hidden');
+    loading_score1.classList.remove('hidden');
+    loading_score2.classList.remove('hidden');
+    loading_score3.classList.remove('hidden');
     loading_bg.classList.remove('hidden');
     loading_image.classList.remove('hidden');
 }
 
 function gameOver() {
     if ((GAME.castleHP == 0 || (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0))) {
-        if(GAME.lvlCount < 4) {
+        if (GAME.castleHP == 0) {
+            GAME.attackScore += 1
+        }
+        if (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0) {
+            GAME.defenseScore += 1
+        }
+        if (GAME.lvlCount < 4) {
             openLoading();
-            setTimeout(() => { 
-                closeLoading(); 
-                showOpponentScreen(); 
-            }, 5000);
+            console.log(pushmonstercount, "loh")
             updateNextLvlParams();
+            console.log(pushmonstercount, "neloh")
+            setTimeout(() => {
+                closeLoading();
+                showOpponentScreen();
+            }, 5000);
             changeMap();
             updateCastleHP();
         }
-        if(GAME.lvlCount == 4 && GAME.isPlay == 'play') {
-            showFinalPopup(2, 1);
+        if (GAME.lvlCount == 4 && GAME.isPlay == 'play') {
+            showFinalPopup(GAME.defenseScore, GAME.attackScore);
             GAME.isPlay = 'popuppause';
         }
-    } 
+    }
 }
 
 function showFinalPopup(myScore, opponentScore) {
     popupoverBg.classList.add('active');
     popupover.classList.add('active');
-    if(myScore > opponentScore) {
+    if (myScore > opponentScore) {
         document.querySelector('.over').style.color = 'green';
         document.querySelector('.over').innerHTML = 'VICTORY';
     }
-    if(myScore < opponentScore) {
+    if (myScore < opponentScore) {
         document.querySelector('.over').style.color = 'red';
         document.querySelector('.over').innerHTML = 'YOU LOSE';
     }
-    if(myScore == opponentScore) {
-        document.querySelector('.over').style.color = 'yellow';
+    if (myScore == opponentScore) {
+        document.querySelector('.over').style.color = 'orange';
         document.querySelector('.over').innerHTML = 'DRAW';
     }
     var endScore = document.querySelector(".score__value");
-    endScore.innerHTML = myScore + ':' + opponentScore;
+    endScore.innerHTML = String(myScore) + ':' + String(opponentScore);
 };
 
 function showOpponentScreen() {
@@ -199,7 +220,7 @@ function showOpponentScreen() {
 }
 
 function hideOpponentScreen() {
-    if(GAME.isPlay != 'waitopponent') {
+    if (GAME.isPlay != 'waitopponent') {
         waitingOpponentScreen.classList.add("hidden");
         waitingOpponentScreen.style.height = '0';
         waitingOpponentScreenImg.classList.add("hidden");
@@ -208,12 +229,35 @@ function hideOpponentScreen() {
 
 function updateMoney() {
     let moneyInfo = document.querySelector(".count-coin__value");
-    moneyInfo.innerHTML = String(GAME.money);
+    let moneyNow = parseInt(moneyInfo.innerHTML);
+    if (moneyNow <= GAME.money) {
+        if (moneyNow < GAME.money)
+            moneyInfo.innerHTML = String(moneyNow + 1);
+    } else {
+        moneyInfo.innerHTML = String(moneyNow - 1);
+    }
+    // moneyInfo.innerHTML = String(GAME.money);
+}
+
+let animationId;
+function spendMoneyError() {
+    let moneyInfo = document.querySelector(".count-coin__value");
+    clearTimeout(animationId);
+    moneyInfo.classList.add("error");
+    animationId = setTimeout(() => { moneyInfo.classList.remove("error"); }, 800)
 }
 
 function updateScore() {
     let scoreInfo = document.querySelector(".count-score__value");
-    scoreInfo.innerHTML = String(GAME.score);
+    let scoreNow = parseInt(scoreInfo.innerHTML);
+    if (scoreNow <= GAME.score) {
+        if (scoreNow < GAME.score) {
+            scoreInfo.innerHTML = String(scoreNow + 1);
+        }
+    } else {
+        scoreInfo.innerHTML = String(scoreNow - 1);
+    }
+    // scoreInfo.innerHTML = String(GAME.score);
 }
 
 function lvlComplete() {
@@ -227,14 +271,14 @@ function lvlComplete() {
             document.querySelector('.over').style.color = 'green';
             document.querySelector('.over').innerHTML = 'VICTORY';
             var endScore = document.querySelector(".score__value");
-            endScore.innerHTML = GAME.score ;
+            endScore.innerHTML = GAME.score;
         } else {
             popupcompleteBg.classList.add('active');
             popupcomplete.classList.add('active');
             GAME.money += 100;
         }
-    } 
-    
+    }
+
 }
 
 function popupCloseComplete() {
@@ -278,14 +322,13 @@ function updateNextLvlParams() {
     lvl = changeLvl();
     GAME.castleHP = lvl.castleHP;
     GAME.wave = 1;
-    monstercount = 0;
     starttime = 900;
+    monsters = [];
     pushmonstercount = 0;
     steptimer = 0;
     stepcounter = 1;
     explosions = [];
-    strikes = []; 
-    monsters = [];
+    strikes = [];
     pushmobs = 0;
 }
 
@@ -371,7 +414,7 @@ function createWaves(waves) {
 
 const socket = new WebSocket('ws://localhost:8090');
 
-socket.addEventListener('open', function(event) {
+socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
     data = {
         type: "add_room_to_new_client",
@@ -381,7 +424,7 @@ socket.addEventListener('open', function(event) {
     socket.send(json)
 });
 
-socket.addEventListener('message', function(event) {
+socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     console.log(data);
     switch (data.type) {
@@ -399,6 +442,9 @@ socket.addEventListener('message', function(event) {
         case 'invisible':
             invisible = data.invisible_bonus;
             break;
+        case 'give_me_score':
+            sendScoreToAttack();
+            break;
     }
 });
 
@@ -407,7 +453,7 @@ function startWave() {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
         sendGameStatus();
-    } 
+    }
 }
 
 function pauseGame() {
@@ -429,7 +475,7 @@ function pauseGame() {
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
 document.addEventListener("keydown", (event) => {
-    switch(event.code) {
+    switch (event.code) {
         case 'Space':
             pauseGame();
             break;
@@ -453,12 +499,29 @@ document.addEventListener("keydown", (event) => {
 // );
 
 backToMenuBtn.addEventListener(
-    "click", 
-    (event) => { 
+    "click",
+    (event) => {
         // sendResults(event);
         window.location.href = '../../';
     }
 );
+
+function sendScoreToAttack() {
+    data = {
+        type: 'game_score',
+        attackScore: GAME.attackScore,
+        defenseScore: GAME.defenseScore
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
+function updateScore() {
+    loading_score3.innerHTML = String(GAME.attackScore)
+    loading_score1.innerHTML = String(GAME.defenseScore)
+    attackScore.innerHTML = String(GAME.attackScore)
+    defenseScore.innerHTML = String(GAME.defenseScore)
+}
 
 // document.addEventListener(
 //     "DOMContentLoaded",
@@ -480,9 +543,9 @@ backToMenuBtn.addEventListener(
 //           'waitopponent' - ожидание оппонента
 
 function play() {
+    updateScore();
     hideOpponentScreen()
     updateMoney();
-    updateScore();
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
@@ -492,8 +555,6 @@ function play() {
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
-        resetBonuses();
-        resetBonusesReload();
         initBullets();
         resetStopwatch();
     }
@@ -506,6 +567,9 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
+    }
+    if (GAME.isPlay == 'menu') {
+        resetBonusesReload();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
@@ -522,6 +586,8 @@ function play() {
     drawBonuses();
     changeGameStatusButtons();
     if (GAME.isPlay == 'menu') {
+        resetBonuses();
+        resetBonusesReload();
         stopTimer();
         drawPauseBackground();
     }

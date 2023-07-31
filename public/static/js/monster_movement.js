@@ -239,8 +239,7 @@ function monsterCorrect(lvl, monster) {
 
 function addMonster(GAME, lvls) {
     if(lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length > pushmobs){
-        pushMonsters(GAME, lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][monstercount]);
-        monstercount += 1;
+        pushMonsters(GAME, lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][pushmonstercount]);
         pushmobs += 1;
     }
 }
@@ -263,8 +262,8 @@ function clearInvisible(monster) {
 
 function moveMonsters(GAME, lvls) {
     if( monsters.length > monsters.filter(value => value.hp > 0).length){
-        monstercount -= 1;
-        pushmonstercount -= 1;
+        monstercount -= monsters.length - monsters.filter(value => value.hp > 0).length;
+        pushmonstercount -= monsters.length - monsters.filter(value => value.hp > 0).length;
         monsters = monsters.filter(value => value.hp > 0);
     }
     updateMonstersStep();
@@ -291,7 +290,6 @@ function moveMonsters(GAME, lvls) {
     if (monstercount < lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length && (GAME.isPlay == 'popuppause' || GAME.isPlay == 'play')) {
         if (GAME.milisectimer > starttime) {
             addMonster(GAME, lvls);
-            GAME.isPlay = 'play';
             starttime += 900;
         }
     }

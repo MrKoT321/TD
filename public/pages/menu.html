@@ -51,7 +51,7 @@
                 <h2 class="form-popup__title">Your nickname</h2>
                 <div class="form-popup__info">
                     <form method="POST" nctype="multipart/form-data" class="form-popup" id="start-game-form">
-                        <input class="form-popup__nickname-single" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" />
+                        <input class="form-popup__nickname-single" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" required />
                         <input class="form-popup__single hidden" type="text" name="choisenClass" />
                         <input class="form-popup__submit" id="defense-submit-start" type="submit" name="submit" value="Submit"/>
                         <input class="form-popup__submit" id="attack-submit-start" type="submit" name="submit" value="Submit"/>
@@ -67,8 +67,8 @@
                 <h2 class="form-popup__title">Your nickname</h2>
                 <div class="form-popup__info">
                     <form method="POST" nctype="multipart/form-data" class="form-popup" id="mutiplay-game-form">
-                        <input class="form-popup__nickname-multi" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" />
-                        <input type="text" class="form-popup__multi hidden" type="text" name="choisenClass">
+                        <input class="form-popup__nickname-multi" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" required />
+                        <input type="text" class="form-popup__multi hidden" type="text" name="choisenClass" />
                         <input class="form-popup__submit" id="defense-submit-multiplay" type="submit" name="submit" value="Submit" />
                         <input class="form-popup__submit" id="attack-submit-multiplay" type="submit" name="submit" value="Submit" />
                     </form>
@@ -81,6 +81,7 @@
         <div class="popup__body">
             <div class="popup__content" id="waiting-screen-img">
                 <img src="../static/images/waiting_screen.png" class="waiting-screen" />
+                <div class="waiting-screen-spin"></div>
             </div>
         </div>
     </div>
