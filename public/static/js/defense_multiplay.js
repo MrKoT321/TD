@@ -328,6 +328,7 @@ function updateNextLvlParams() {
     steptimer = 0;
     stepcounter = 1;
     explosions = [];
+    bonuses = [];
     strikes = [];
     pushmobs = 0;
 }
@@ -555,6 +556,7 @@ function play() {
     moveMonsters(GAME, lvls);
     drawCastle();
     if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
+        resetBonusesReload();
         initBullets();
         resetStopwatch();
     }
@@ -567,9 +569,6 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
-    }
-    if (GAME.isPlay == 'menu') {
-        resetBonusesReload();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
