@@ -242,7 +242,19 @@ function registerCollision(monster, GAME) {
     }
 }
 
+function deleteShield(monsters) {
+    for(let monster of monsters){
+        if(monster.name == 'monster5' && monster.hp <= 0){
+            for(let mob of monsters){
+                mob.shield = 0;
+                console.log(mob.name, mob.shield)
+            }
+        }
+    }
+}
+
 function moveMonsters(GAME, lvls) {
+    deleteShield(monsters);
     if( monsters.length > monsters.filter(value => value.hp > 0).length){
         monstercount -= monsters.length - monsters.filter(value => value.hp > 0).length;
         pushmonstercount -= monsters.length - monsters.filter(value => value.hp > 0).length;
