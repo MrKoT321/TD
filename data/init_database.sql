@@ -1,4 +1,7 @@
-CREATE TABLE games
+CREATE DATABASE IF NOT EXISTS td;
+USE td;
+
+CREATE TABLE IF NOT EXISTS games
 (
     game_id INT UNSIGNED AUTO_INCREMENT,
     nick_name VARCHAR(20) NOT NULL,
@@ -7,7 +10,7 @@ CREATE TABLE games
     PRIMARY KEY (game_id)
 );
 
-CREATE TABLE multiplay_games
+CREATE TABLE IF NOT EXISTS multiplay_games
 (
     player_id INT UNSIGNED AUTO_INCREMENT,
     nick_name VARCHAR(20) NOT NULL,
@@ -17,7 +20,7 @@ CREATE TABLE multiplay_games
     PRIMARY KEY (player_id)
 );
  
-CREATE TABLE attack_requests
+CREATE TABLE IF NOT EXISTS attack_requests
 (
     request_id INT UNSIGNED AUTO_INCREMENT,
     request_type VARCHAR(10) NOT NULL,
