@@ -115,12 +115,23 @@ function drawPauseBackground() {
     canvasContext.fillRect(0, 0, GAME.width, GAME.height);
 }
 
-function resetButtons() {
-    startWaveBtn.classList.remove("active");
+function changeGameStatusButtons() {
+    startWaveBtn.classList.add("active");
     pauseGameBtn.classList.remove("pause");
     pauseGameBtn.classList.add("play");
+    if (GAME.isPlay == 'play') {
+        pauseGameBtn.classList.add("play");
+        pauseGameBtn.classList.remove("pause");
+    } else {
+        if (GAME.isPlay == 'menu') {
+            pauseGameBtn.classList.add("pause");
+            pauseGameBtn.classList.remove("play");
+        }
+    }
+    if (GAME.isPlay == 'wavepause') {
+        startWaveBtn.classList.remove("active");
+    }
 }
-
 function drawCastle() {
     if (GAME.castle) {
         canvasContext.drawImage(GAME.castle, lvl.castle_x, lvl.castle_y, lvl.castle_w, lvl.castle_h);
@@ -501,6 +512,7 @@ function play() {
     drawBonusesTop();
     updateBonuses();
     drawCastle();
+    changeGameStatusButtons();
     if (GAME.isPlay == 'wavepause') {
         resetBonuses();
         resetBonusesReload();

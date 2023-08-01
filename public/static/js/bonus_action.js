@@ -37,12 +37,14 @@ fireball = {
     stepcounter: 0,
     explosionSize: 100,
     image: undefined,
-    explosionSteps: [],
+    
 }
 
-explosion_step_1.onload = () => { fireball.explosionSteps.push({index: 1, img: explosion_step_1}) }
-explosion_step_2.onload = () => { fireball.explosionSteps.push({index: 2, img: explosion_step_2}) }
-explosion_step_3.onload = () => { fireball.explosionSteps.push({index: 3, img: explosion_step_3}) }
+const explosionSteps = [];
+
+explosion_step_1.onload = () => { explosionSteps.push({index: 1, img: explosion_step_1}) }
+explosion_step_2.onload = () => { explosionSteps.push({index: 2, img: explosion_step_2}) }
+explosion_step_3.onload = () => { explosionSteps.push({index: 3, img: explosion_step_3}) }
 fireballImg.onload = () => { fireball.image = fireballImg }
 
 freeze = {
@@ -133,10 +135,10 @@ function drawFireball() {
 function drawFireballExplosion() {
     if(fireball.finish) {
         console.log("draw");
-        canvasContext.drawImage(fireball.explosionSteps[fireball.stepcounter].img, fireball.finishX - fireball.explosionSize / 2, fireball.finishY - fireball.explosionSize / 2, fireball.explosionSize, fireball.explosionSize);
+        canvasContext.drawImage(explosionSteps[fireball.stepcounter].img, fireball.finishX - fireball.explosionSize / 2, fireball.finishY - fireball.explosionSize / 2, fireball.explosionSize, fireball.explosionSize);
     }
     if(GAME.milisectimer > fireball.steptimer && fireball.stepcounter < 3) {
-        fireball.explosionSteps.sort(sortSteps);
+        explosionSteps.sort(sortSteps);
         fireball.explosionSize += 50;
         fireball.steptimer += 100;
         fireball.stepcounter += 1;

@@ -176,6 +176,8 @@ body {
 .fireball-buf__icon {
     width: 165px;
     height: 165px;
+    transform: scale(1);
+    transition: all .2s ease-in;
 }
 
 .fireball-buf__cancel {
@@ -204,6 +206,8 @@ body {
 .freeze-buf__icon {
     width: 110px;
     height: 110px;
+    transform: scale(1);
+    transition: all .2s ease-in;
 }
 
 .freeze-buf__cancel {
@@ -231,6 +235,8 @@ body {
 .healing-buf__icon {
     width: 150px;
     height: 150px;
+    transform: scale(1);
+    transition: all .2s ease-in;
 }
 
 .healing-buf__cancel {
@@ -258,6 +264,8 @@ body {
 .invisible-buf__icon {
     width: 150px;
     height: 150px;
+    transform: scale(1);
+    transition: all .2s ease-in;
 }
 
 .invisible-buf__cancel {
@@ -286,7 +294,7 @@ body {
     width: 200px;
     height: 200px;
     font-family: 'VT323';
-    font-size: 60px;
+    font-size: 55px;
 }
 
 .game-info-slot {
@@ -295,6 +303,7 @@ body {
     height: 50%;
     display: flex;
     align-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -332,42 +341,60 @@ body {
 }
 
 .bar__pause {
-    height: 50%;
+    height: 38%;
     width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
 .pause__btn {
-    width: 20px;
+    width: 50px;
     height: 50px;
     cursor: pointer;
+    position: relative;
 }
 
-.pause__btn.play {
-    border-left: 9px solid black;
-    border-right: 9px solid black;
-    /* border-top: 25px solid transparent;
-    border-bottom: 25px solid transparent;
-    border-left: 35px solid black; */
+.pause__btn .bar {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 8px;
+    height: 40px;
+    transform-origin: center;
+    transition: transform 0.2s ease-in-out;
 }
 
-.pause__btn.pause {
-    width: 0;
-    height: 0;
-    /* border-left: 3px solid white;
-    border-right: 3px solid white; */
-    border-top: 25px solid transparent;
-    border-bottom: 25px solid transparent;
-    border-left: 35px solid white;
+.pause__btn.pause .bar {
+    background-color: #000;	
+}
+
+.pause__btn.pause .bar-1 {
+    transform: translateX(10px) translateY(0px) rotate(0deg);	
+}
+
+.pause__btn.pause .bar-2 {
+    transform: translateX(34px) translateY(0px) rotate(0deg);	
+}
+
+.pause__btn.play .bar {
+    background-color: #FFF;	
+}
+
+.pause__btn.play .bar-1 {
+    transform: translateX(30px) translateY(-9.7px) rotate(-55deg);	
+}
+
+.pause__btn.play .bar-2 {
+    transform: translateX(30px) translateY(9.7px) rotate(-125deg);	
 }
 
 .bar__out {
     width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
 .bar__icon {
@@ -837,4 +864,9 @@ body {
     font-family: 'VT323';
     font-size: 100px;
     font-weight: 400;
+}
+
+.buff_active {
+    transform: scale(0.66);
+    transition: all .2s ease-in;
 }

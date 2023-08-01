@@ -122,8 +122,6 @@ function drawPauseBackground() {
 
 function changeGameStatusButtons() {
     startWaveBtn.classList.add("active");
-    pauseGameBtn.classList.remove("pause");
-    pauseGameBtn.classList.add("play");
     if (GAME.isPlay == 'play') {
         pauseGameBtn.classList.add("play");
         pauseGameBtn.classList.remove("pause");
@@ -520,6 +518,7 @@ function play() {
     drawTiles(GAME, lvls);
     drawExplosion();
     drawStrikes();
+    changeGameStatusButtons();
     if (GAME.isPlay != 'wavepause') {
         updateMobDataDef();
     }
@@ -561,7 +560,6 @@ function play() {
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    changeGameStatusButtons();
     gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();

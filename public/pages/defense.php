@@ -129,7 +129,10 @@
                     <span class="bar-start__start-btn" id="startwave">START</span>
                 </div>
                 <div class="bar__pause pause">
-                    <div class="pause__btn pause" id="pausegame"></div>
+                    <div class="pause__btn pause" id="pausegame">
+                        <span class="bar bar-1"></span>
+                        <span class="bar bar-2"></span>
+                    </div>
                 </div>
                 <div class="bar__out">
                     <div class="bar__icon">

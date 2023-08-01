@@ -34,8 +34,7 @@ healingBonus.addEventListener(
     () => {
         if (!healing.isActive && healing.readyToExplode && bonuses.includes('healing')) {
             healingBonusCancel.classList.remove("hidden");
-            healingBonus.style.width = "100px";
-            healingBonus.style.height = "100px";
+            healingBonus.classList.add("buff_active");
             healing.isActive = true;
             inActiveInvisible();
         } else {
@@ -49,8 +48,7 @@ invisibleBonus.addEventListener(
     () => {
         if (!invisible.isActive && invisible.readyToExplode && bonuses.includes('invisible')) {
             invisibleBonusCancel.classList.remove("hidden");
-            invisibleBonus.style.width = "100px";
-            invisibleBonus.style.height = "100px";
+            invisibleBonus.classList.add("buff_active");
             invisible.isActive = true;
             inActiveHealing();
         } else {
@@ -96,8 +94,7 @@ function drawInvisibleReload() {
 
 function inActiveHealing() {
     healingBonusCancel.classList.add("hidden");
-    healingBonus.style.width = "150px";
-    healingBonus.style.height = "150px";
+    healingBonus.classList.remove("buff_active");
     healing.isActive = false;
     healingReloadTimer.classList.remove("hidden");
     healingReloadTimer.innerHTML = "";
@@ -105,8 +102,7 @@ function inActiveHealing() {
 
 function inActiveInvisible() {
     invisibleBonusCancel.classList.add("hidden");
-    invisibleBonus.style.width = "150px";
-    invisibleBonus.style.height = "150px";
+    invisibleBonus.classList.remove("buff_active");
     invisible.isActive = false;
     invisibleReloadTimer.classList.remove("hidden");
     invisibleReloadTimer.innerHTML = "";
