@@ -12,8 +12,6 @@ services:
       - MAX_EXECUTION_TIME=300 
     ports:
       - 3000:3000
-    # working_dir: /TD/public
-    # command: php -S 0.0.0.0:3000 -t /app/public/
     command: bash -c "php -S 0.0.0.0:3000 -t /app/public/"
     depends_on:
       - mysql
@@ -46,14 +44,21 @@ services:
   #     - php
 
   mysql:
-    image:  mysql:8
-    restart: unless-stopped
+    image: mysql:8
+    # restart: unless-stopped
+    command: --init-file /data/application/init_database.sql
     environment:
       - MYSQL_DATABASE=TD
+      - MYSQL_ROOT_USER=root
       - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=1234
+
     volumes:
+      # - './:/app'
+      - ./data/init_database.sql:/data/application/init_database.sql
       - mysqldata:/var/lib/mysql
-      - './docker/volume/mysql:/var/lib/mysql'
+      # - './docker/volume/mysql:/var/lib/mysql'
     ports:
       - '3307:3306' 
 

@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS TD;
+USE TD;
+
+DROP TABLE IF EXISTS games;
 CREATE TABLE games
 (
     game_id INT UNSIGNED AUTO_INCREMENT,
@@ -7,6 +11,7 @@ CREATE TABLE games
     PRIMARY KEY (game_id)
 );
 
+DROP TABLE IF EXISTS multiplay_games;
 CREATE TABLE multiplay_games
 (
     player_id INT UNSIGNED AUTO_INCREMENT,
@@ -17,6 +22,7 @@ CREATE TABLE multiplay_games
     PRIMARY KEY (player_id)
 );
  
+DROP TABLE IF EXISTS attack_requests;
 CREATE TABLE attack_requests
 (
     request_id INT UNSIGNED AUTO_INCREMENT,
