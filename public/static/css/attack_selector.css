@@ -414,3 +414,24 @@ body {
 .loading-image {
     position: absolute;
 }
+
+.random-wave1{
+    position: absolute;
+    margin-left: 1608px;
+    margin-top: 411px;
+    cursor: pointer;
+}
+
+.random-wave2{
+    position: absolute;
+    margin-left: 1608px;
+    margin-top: 613px;
+    cursor: pointer;
+}
+
+.random-wave3{
+    position: absolute;
+    margin-left: 1608px;
+    margin-top: 815px;
+    cursor: pointer;
+}

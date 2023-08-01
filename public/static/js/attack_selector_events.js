@@ -450,3 +450,39 @@ start_button.addEventListener(
         $('#form').attr('action', '../send_waves.php');
     }
 )
+
+random1.addEventListener(
+    "click",
+    () => {
+        randomWave(wave1, maxcostwave1);
+        for(let mob of wave1){
+            if(mob.amount > 0){
+                maxcostwave1 -= mob.cost * mob.amount;
+            }
+        }
+    }
+)
+
+random2.addEventListener(
+    "click",
+    () => {
+        randomWave(wave2, maxcostwave2);
+        for(let mob of wave2){
+            if(mob.amount > 0){
+                maxcostwave2 -= mob.cost * mob.amount;
+            }
+        }
+    }
+)
+
+random3.addEventListener(
+    "click",
+    () => {
+        randomWave(wave3, maxcostwave3);
+        for(let mob of wave3){
+            if(mob.amount > 0){
+                maxcostwave3 -= mob.cost * mob.amount;
+            }
+        }
+    }
+)
