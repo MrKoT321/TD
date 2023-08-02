@@ -560,7 +560,6 @@ function updateScore() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    console.log(freeze.image);
     updateScore();
     updateMoney();
     updateVisualLvlParams();
