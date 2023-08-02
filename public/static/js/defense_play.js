@@ -122,8 +122,6 @@ function drawPauseBackground() {
 
 function changeGameStatusButtons() {
     startWaveBtn.classList.add("active");
-    pauseGameBtn.classList.remove("pause");
-    pauseGameBtn.classList.add("play");
     if (GAME.isPlay == 'play') {
         pauseGameBtn.classList.add("play");
         pauseGameBtn.classList.remove("pause");
@@ -487,7 +485,6 @@ function updateInfoCounts() {
         } else {
             info_block5.style.position = 'absolute'
         }
-        console.log(wave_length)
     }
 }
 
@@ -521,10 +518,14 @@ function play() {
     drawTiles(GAME, lvls);
     drawExplosion();
     drawStrikes();
+    changeGameStatusButtons();
     if (GAME.isPlay != 'wavepause') {
         updateMobDataDef();
     }
+    drawBonusesBottom();
     moveMonsters(GAME, lvls);
+    drawBonusesTop();
+    updateBonuses();
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
         resetBonusesReload();
@@ -549,7 +550,7 @@ function play() {
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
-        initBonuses();
+        initBonuses("defense");
         GAME.isPlay = 'play';
     }
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
@@ -559,8 +560,6 @@ function play() {
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    drawBonuses();
-    changeGameStatusButtons();
     gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();

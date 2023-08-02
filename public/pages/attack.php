@@ -44,9 +44,9 @@
                         <img src="../static/images/archer_tower.png" class="choise-tower" />
                         <img src="../static/images/archer_cost.png" class="cost-for-tower" />
                     </div>
-                    <div class="bash selector">
-                        <img src="../static/images/bash_tower.png" class="choise-tower" />
-                        <img src="../static/images/bash_cost.png" class="cost-for-tower" />
+                    <div class="electric selector">
+                        <img src="../static/images/electric_tower.png" class="choise-tower" />
+                        <img src="../static/images/electric_cost.png" class="cost-for-tower" />
                     </div>
                     <div class="mortir selector">
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
@@ -67,8 +67,16 @@
         </div>
         <div class="game__bar bar">
             <div class="bar__bufs">
-                <div class="buf-slot"></div>
-                <div class="buf-slot"></div>
+                <div class="healing-buf buf-slot">
+                    <img src="../static/images/healing_buff.png" class="healing-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="healing-buf__cancel hidden" />
+                    <span class="healing-buf__reload"></span>
+                </div>
+                <div class="invisible-buf buf-slot">
+                    <img src="../static/images/invisible_buff.png" class="invisible-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="invisible-buf__cancel hidden" />
+                    <span class="invisible-buf__reload"></span>
+                </div>
                 <div class="buf-slot"></div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">
@@ -148,6 +156,7 @@
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
+    <script type="application/javascript" src="../static/js/bonus_buttons_attack.js"></script>
     <script type="application/javascript" src="../static/js/bonus_action.js"></script>
     <script type="application/javascript" src="../static/js/tower_attack_config.js"></script>
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>

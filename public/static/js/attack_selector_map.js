@@ -13,14 +13,14 @@ let map2 = new Image();
 let map3 = new Image();
 let map4 = new Image();
 let archerImg = new Image();
-let bashImg = new Image();
+let electricImg = new Image();
 let mortirImg = new Image();
 map1.src = '../static/images/MAP1-ALT.png';
 map2.src = '../static/images/MAP2-ALT.png';
 map3.src = '../static/images/MAP3-ALT.png';
 map4.src = '../static/images/MAP4-ALT.png';
 archerImg.src = '../static/images/archer_tower.png';
-bashImg.src = '../static/images/bash_tower.png';
+electricImg.src = '../static/images/electric_tower.png';
 mortirImg.src = '../static/images/mortir_tower.png';
 
 map1.onload = () => {
@@ -38,8 +38,8 @@ map4.onload = () => {
 archerImg.onload = () => {
     map.towers.push(archerImg)
 }
-bashImg.onload = () => {
-    map.towers.push(bashImg)
+electricImg.onload = () => {
+    map.towers.push(electricImg)
 }
 mortirImg.onload = () => {
     map.towers.push(mortirImg)
@@ -60,8 +60,8 @@ function drawTowers(currWave, positions) {
             case "arrow":
                 towerImg = archerImg;
                 break;
-            case "bash":
-                towerImg = bashImg;
+            case "electric":
+                towerImg = electricImg;
                 break;
             case "splash":
                 towerImg = mortirImg;

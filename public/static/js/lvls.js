@@ -10,12 +10,14 @@ const lvl1 = {
     castle_w: 386,
     castle_h: 400,
     start_dir: 'r',
-    waves: [[monster5, monster1, monster1, monster1, monster1, monster1, monster1, monster1, monster1, monster1], [monster1, monster1, monster3, monster2], [monster2, monster3, monster5, monster1, monster1]],
-    atk_towers: [[archer], [archer, bash], [bash, archer, mortir]],
-    bonuses: ["fireball",  "freeze"],
+    waves: [[monster1, monster1, monster1, monster3], [monster1, monster1, monster3, monster2], [monster2, monster3, monster5, monster1, monster1]],
+    atk_towers: [[archer], [archer, electric], [electric, archer, mortir]],
+    bonusesDef: ["fireball",  "freeze"],
+    bonusesAtk: ["healing", "invisible"],
     back_src:  "../static/images/MAP1.png",
     castle_src:  "../static/images/CASTLE.png",
-    money: 50
+    money: 50,
+    invisible_max_time: 5,
 };
 
 const lvl2 = {
@@ -31,11 +33,13 @@ const lvl2 = {
     castle_h: 400,
     start_dir: 'd',
     waves: [[monster1, monster3, monster3], [monster4, monster3, monster3, monster2], [monster3, monster4, monster2, monster2, monster1, monster3]],
-    atk_towers: [[bash], [archer, bash], [archer, bash, archer]],
-    bonuses: ["fireball", "freeze"],
+    atk_towers: [[electric], [archer, electric], [archer, electric, archer]],
+    bonusesDef: ["fireball", "freeze"],
+    bonusesAtk: ["healing", "invisible"],
     back_src:  "../static/images/MAP2.png",
     castle_src:  "../static/images/CASTLE.png" ,
-    money: 50
+    money: 50,
+    invisible_max_time: 5,
 }
 
 const lvl3 = {
@@ -50,12 +54,14 @@ const lvl3 = {
     castle_w: 386,
     castle_h: 400,
     start_dir: 'u',
-    atk_towers: [[bash, archer], [bash, archer, bash], [archer, bash, mortir]],
+    atk_towers: [[electric, archer], [electric, archer, electric], [archer, electric, mortir]],
     waves: [[monster3, monster3, monster4], [monster1, monster5, monster1, monster1], [monster2, monster1, monster5, monster3, monster3]],
-    bonuses: ["fireball", "freeze"],
+    bonusesDef: ["fireball", "freeze"],
+    bonusesAtk: ["healing", "invisible"],
     back_src: "../static/images/MAP3.png",
     castle_src:  "../static/images/CASTLE.png",
-    money: 100
+    money: 100,
+    invisible_max_time: 5,
 }
 
 const lvl4 = {
@@ -71,11 +77,13 @@ const lvl4 = {
     castle_h: 400,
     start_dir: 'u',
     waves: [[monster2, monster5, monster2], [monster4, monster1, monster3, monster3], [monster5, monster4, monster2, monster2, monster3]],
-    atk_towers: [[bash, bash, archer], [archer, mortir, bash], [mortir, mortir, archer, archer]],
-    bonuses: ["freeze"],
+    atk_towers: [[electric, electric, archer], [archer, mortir, electric], [mortir, mortir, archer, archer]],
+    bonusesDef: ["freeze"],
+    bonusesAtk: ["healing", "invisible"],
     back_src: "../static/images/MAP4.png",
     castle_src:  "../static/images/CASTLE.png",
-    money: 100
+    money: 100,
+    invisible_max_time: 5,
 }
 
 const lvl5 = {
@@ -91,9 +99,11 @@ const lvl5 = {
     castle_h: 400,
     start_dir: 'r',
     waves: [[monster4, monster1, monster5], [monster5, monster4, monster3, monster3, monster5], [monster4, monster5, monster2, monster1, monster2, monster5, monster1]],
-    atk_towers: [[bash, bash, archer], [archer, mortir, bash], [mortir, mortir, archer, archer]],
-    bonuses: [],
+    atk_towers: [[electric, electric, archer], [archer, mortir, electric], [mortir, mortir, archer, archer]],
+    bonusesDef: [],
+    bonusesAtk: ["healing", "invisible"],
     back_src: "../static/images/MAP4.png",
     castle_src:  "../static/images/CASTLE.png",
-    money: 150
+    money: 150,
+    invisible_max_time: 5,
 }

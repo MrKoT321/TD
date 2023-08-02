@@ -21,8 +21,7 @@ fireballBonus.addEventListener(
     () => {
         if (!fireball.isActive && fireball.readyToExplode && bonuses.includes('fireball')) {
             fireballBonusCancel.classList.remove("hidden");
-            fireballBonus.style.width = "120px";
-            fireballBonus.style.height = "120px";
+            fireballBonus.classList.add("buff_active");
             fireball.isActive = true;
             inActiveFreeze();
         } else {
@@ -40,8 +39,7 @@ freezeBonus.addEventListener(
     () => {
         if (!freeze.isActive && freeze.readyToExplode && bonuses.includes('freeze')) {
             freezeBonusCancel.classList.remove("hidden");
-            freezeBonus.style.width = "80px";
-            freezeBonus.style.height = "80px";
+            freezeBonus.classList.add("buff_active");
             freeze.isActive = true;
             inActiveFireBall();
         } else {
@@ -83,8 +81,7 @@ function drawFreezeReload() {
 
 function inActiveFireBall() {
     fireballBonusCancel.classList.add("hidden");
-    fireballBonus.style.width = "165px";
-    fireballBonus.style.height = "165px";
+    fireballBonus.classList.remove("buff_active");
     fireball.isActive = false;
     fireballReloadTimer.classList.remove("hidden");
     fireballReloadTimer.innerHTML = "";
@@ -92,8 +89,7 @@ function inActiveFireBall() {
 
 function inActiveFreeze() {
     freezeBonusCancel.classList.add("hidden");
-    freezeBonus.style.width = "110px";
-    freezeBonus.style.height = "110px";
+    freezeBonus.classList.remove("buff_active");
     freeze.isActive = false;
     freezeReloadTimer.classList.remove("hidden");
     freezeReloadTimer.innerHTML = "";
@@ -138,7 +134,7 @@ function sendFreezeStatus() {
 }
 
 function createFireBall() {
-    const t = 30;
+    const t = 40;
     const changePos = 500;
     fireball.finishX = gameFieldClick.x;
     fireball.finishY = gameFieldClick.y;

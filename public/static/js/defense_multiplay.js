@@ -62,7 +62,6 @@ canvas.height = GAME.height;
 var canvasContext = canvas.getContext("2d");
 
 var starttime = 900;
-
 const background = new Image();
 const castle = new Image();
 castle.src = lvl.castle_src;
@@ -82,7 +81,6 @@ function updateVisualLvlParams() {
     currentWave.innerHTML = GAME.wave;
     totalWave.innerHTML = lvls[GAME.lvlCount - 1].waves.length;
 }
-
 
 function resetStopwatch() {
     GAME.stopwatch = 0;
@@ -328,6 +326,7 @@ function updateNextLvlParams() {
     steptimer = 0;
     stepcounter = 1;
     explosions = [];
+    bonuses = [];
     strikes = [];
     pushmobs = 0;
 }
@@ -436,8 +435,15 @@ socket.addEventListener('message', function (event) {
             hideOpponentScreen();
             createWaves(data.waves);
             break;
+        case 'healing':
+            healing = data.healing_bonus;
+            break;
+        case 'invisible':
+            invisible = data.invisible_bonus;
+            break;
         case 'give_me_score':
             sendScoreToAttack();
+            break;
     }
 });
 
@@ -545,9 +551,13 @@ function play() {
     drawExplosion();
     drawStrikes();
     updateMobDataDef();
+    drawBonusesBottom();
     moveMonsters(GAME, lvls);
+    drawBonusesTop();
+    updateBonuses();
     drawCastle();
     if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
+        resetBonusesReload();
         initBullets();
         resetStopwatch();
     }
@@ -561,12 +571,9 @@ function play() {
         updateExplosions();
         updateStrikes();
     }
-    if (GAME.isPlay == 'menu') {
-        resetBonusesReload();
-    }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
-        initBonuses();
+        initBonuses("defense");
         GAME.isPlay = 'play';
     }
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
@@ -576,7 +583,6 @@ function play() {
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    drawBonuses();
     changeGameStatusButtons();
     if (GAME.isPlay == 'menu') {
         resetBonuses();
