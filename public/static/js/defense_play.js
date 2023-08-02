@@ -133,6 +133,8 @@ function changeGameStatusButtons() {
     }
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.remove("active");
+        pauseGameBtn.classList.add("pause");
+        pauseGameBtn.classList.remove("play");
     }
 }
 
@@ -516,14 +518,13 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
-    drawExplosion();
     drawStrikes();
-    changeGameStatusButtons();
     if (GAME.isPlay != 'wavepause') {
         updateMobDataDef();
     }
     drawBonusesBottom();
     moveMonsters(GAME, lvls);
+    drawExplosion();
     drawBonusesTop();
     updateBonuses();
     drawCastle();
@@ -561,6 +562,7 @@ function play() {
     drawBullets();
     attackTowers(GAME);
     gameOver();
+    changeGameStatusButtons();
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();
