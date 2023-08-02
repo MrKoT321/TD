@@ -360,7 +360,7 @@ pauseGameBtn.addEventListener("click", () => { pauseGame() });
 
 var isClick = false;
 document.addEventListener("keydown", (event) => {
-    if (!isClick){
+    if (!isClick) {
         switch (event.code) {
             case 'Space':
                 pauseGame();
@@ -370,7 +370,7 @@ document.addEventListener("keydown", (event) => {
                 startWave();
                 isClick = true;
                 break;
-    }
+        }
     }
 })
 document.addEventListener("keyup", (event) => {
