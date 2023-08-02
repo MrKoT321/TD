@@ -139,14 +139,14 @@
                     </div>
                 </div>
                 <div class="bar__out">
-                    <div class="bar__icon">
+                    <div class="bar__icon" id="game-menu-btn">
                         <span></span>
                     </div>
                 </div>
             </div>
         </div>
         <img src='../static/images/loading-bg.png' class='loading-image' />
-            <div class='loading-bg'></div>
+        <div class='loading-bg'></div>
         <div class="load">
             <span class='loading-text'>LOADING LEVELS</span>
             <div></div> 
@@ -164,6 +164,10 @@
                 <img class="restart" src="../static/images/restart.png" id="restartgame"/>
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
+                </a>
+                <img class="restart hidden" src="../static/images/cancel_button.png" id="cancel"/>
+                <a href="../pages/menu.html" class="menua">
+                    <img class="menu__img hidden" src="../static/images/confirm_button.png" id="back-to-menu-alt" />
                 </a>
             </div>
         </div>

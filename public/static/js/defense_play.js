@@ -9,6 +9,8 @@ const pauseGameBtn = document.getElementById("pausegame");
 
 const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
+const cancelBtn = document.getElementById("cancel");
+const menuBtnAlt = document.getElementById("back-to-menu-alt");
 
 const nextBtn = document.getElementById("next-lvl-btn");
 
@@ -31,6 +33,8 @@ const wave_mob5_count = document.getElementById('wave-mob5-count')
 
 const globalBackground = document.querySelector('.decoration__front');
 
+const gameMenuBtn = document.getElementById('game-menu-btn');
+
 const loading_text = document.querySelector('.loading-text');
 const load = document.querySelector('.load');
 const loading_bg = document.querySelector('.loading-bg');
@@ -39,6 +43,7 @@ const loading_image = document.querySelector('.loading-image');
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var wave_length = 0;
+var prev_state = undefined;
 
 var GAME = {
     player: document.getElementById("nick-name").innerHTML,
@@ -94,6 +99,7 @@ function resetStopwatch() {
     startTimer = new Date();
     GAME.milisectimer = 0;
     timeInPause = 0;
+    timeInLastPause = 0;
 }
 
 function catchTime() {
@@ -359,8 +365,38 @@ function pauseGame() {
     }
 }
 
+function showMenuPopup() {
+    popupoverBg.classList.add('active');
+    popupover.classList.add('active');
+    document.querySelector('.over').style.color = 'orange';
+    document.querySelector('.over').innerHTML = 'BACK TO MENU?';
+    var scoreValue = document.querySelector(".count-score__value").innerHTML;
+    var endScore = document.querySelector(".score__value");
+    restartgame.classList.add("hidden");
+    backToMenuBtn.classList.add("hidden");
+    cancelBtn.classList.remove("hidden");
+    menuBtnAlt.classList.remove("hidden");
+    endScore.innerHTML = scoreValue;
+    prevState = GAME.isPlay;
+    GAME.isPlay = 'menu';
+}
+
+cancelBtn.addEventListener("click", () => { 
+    popupCloseOver();
+    GAME.isPlay = prevState;
+    prevState = undefined;
+    setTimeout(() => {
+        restartgame.classList.remove("hidden");
+        backToMenuBtn.classList.remove("hidden");
+        cancelBtn.classList.add("hidden");
+        menuBtnAlt.classList.add("hidden"); 
+    }, 300);
+});
+
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
+
+gameMenuBtn.addEventListener("click", () => { showMenuPopup() });
 
 var isClick = false;
 document.addEventListener("keydown", (event) => {
