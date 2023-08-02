@@ -215,7 +215,7 @@ function showFinalPopup(myScore, opponentScore) {
 
 function showOpponentScreen() {
     waitingOpponentScreen.classList.remove("hidden");
-    waitingOpponentScreen.style.height = '1085px';
+    waitingOpponentScreen.style.height = '1004px';
     waitingOpponentScreenImg.classList.remove("hidden");
 }
 

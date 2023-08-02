@@ -1,12 +1,40 @@
 body {
-    height: 1080px;
+    height: 100vh;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #434343;
+    background-color: #42424287;
     overflow: hidden;
+}
+
+.decoration {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.decoration div {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+}
+
+.decoration__back {
+    background-image: url('../images/loading-bg.png');
+    background-size: cover;
+}
+
+.decoration__front {
+    background-color: #42424270;
+    backdrop-filter: blur(6px);
+    transition: background-color .3s ease;
+}
+
+.decoration__front._pause {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color .3s ease;
 }
 
 .game {
@@ -751,9 +779,9 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    left: 28%;
+    left: calc(50% - 460px);
     top: 20%;
-    gap: 150px;
+    gap: 70px;
 }
 
 .loading-text {
@@ -808,7 +836,7 @@ body {
 .waiting-screen {
     position: absolute;
     width: 100%;
-    height: 1085px;
+    height: 1004px;
     top: 0;
     left: 0;
     display: flex;

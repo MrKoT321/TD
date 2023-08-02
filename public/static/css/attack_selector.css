@@ -8,7 +8,7 @@
 }
 
 body {
-    height: 1080px;
+    height: 100vh;
     margin: 0;
     padding: 0;
     display: flex;
@@ -16,6 +16,34 @@ body {
     align-items: center;
     background-color: #434343;
     overflow: hidden;
+}
+
+.decoration {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.decoration div {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+}
+
+.decoration__back {
+    background-image: url('../images/loading-bg.png');
+    background-size: cover;
+}
+
+.decoration__front {
+    background-color: #42424270;
+    backdrop-filter: blur(6px);
+    transition: background-color .3s ease;
+}
+
+.decoration__front._pause {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color .3s ease;
 }
 
 .game {
@@ -41,7 +69,7 @@ body {
 }
 
 .count-coin.error {
-    color: red;
+    color: #9a0303;
     display: inline-block;
     margin: 0 20px;
     animation: headShake;
@@ -361,9 +389,9 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    left: 28%;
+    left: calc(50% - 460px);
     top: 20%;
-    gap: 150px;
+    gap: 70px;
 }
 
 .loading-text {

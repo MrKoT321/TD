@@ -18,6 +18,10 @@
 </head>
 
 <body>
+    <div class="decoration">
+        <div class="decoration__back"></div>
+        <div class="decoration__front"></div>
+    </div>
     <div class="game">
         <div class="hidden game-info">
             <span class="game-info__gameId" id="game-info-playerId"><?= $gameInfo->getPlayerId() ?></span>

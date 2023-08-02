@@ -29,6 +29,8 @@ const wave_mob3_count = document.getElementById('wave-mob3-count')
 const wave_mob4_count = document.getElementById('wave-mob4-count')
 const wave_mob5_count = document.getElementById('wave-mob5-count')
 
+const globalBackground = document.querySelector('.decoration__front');
+
 const loading_text = document.querySelector('.loading-text');
 const load = document.querySelector('.load');
 const loading_bg = document.querySelector('.loading-bg');
@@ -125,10 +127,12 @@ function changeGameStatusButtons() {
     if (GAME.isPlay == 'play') {
         pauseGameBtn.classList.add("play");
         pauseGameBtn.classList.remove("pause");
+        globalBackground.classList.remove("_pause");
     } else {
         if (GAME.isPlay == 'menu') {
             pauseGameBtn.classList.add("pause");
             pauseGameBtn.classList.remove("play");
+            globalBackground.classList.add("_pause");
         }
     }
     if (GAME.isPlay == 'wavepause') {

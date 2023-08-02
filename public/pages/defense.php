@@ -18,6 +18,10 @@
 <body>
     <span id="nick-name" class="hidden"><?= htmlspecialchars($game->getNickName()) ?></span>
     <span id="game-id" class="hidden"><?= $gameId ?></span>
+    <div class="decoration">
+        <div class="decoration__back"></div>
+        <div class="decoration__front"></div>
+    </div>
     <div class="game">
         <div class="game__field field">
             <canvas id='canvas'></canvas>
@@ -141,6 +145,13 @@
                 </div>
             </div>
         </div>
+        <img src='../static/images/loading-bg.png' class='loading-image' />
+            <div class='loading-bg'></div>
+        <div class="load">
+            <span class='loading-text'>LOADING LEVELS</span>
+            <div></div> 
+            <div class="loading"></div>
+        </div>
     </div>
     <div class="popupover__bg">
         <div class="popupover">
@@ -157,7 +168,6 @@
             </div>
         </div>
     </div>
-    </div>
     <div class="popupcomplete__bg">
         <div class="popupcomplete">
             <h1 class="complete">LEVEL COMPLETE</h1>
@@ -166,13 +176,7 @@
             </div>
         </div>
     </div>
-    <img src='../static/images/loading-bg.png' class='loading-image' />
-    <div class='loading-bg'></div>
-    <div class="load">
-        <span class='loading-text'>LOADING LEVELS</span>
-        <div></div> 
-        <div class="loading"></div>
-    </div>
+    <script type="application/javascript" src="../static/js/prev_selection.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
