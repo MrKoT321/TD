@@ -170,6 +170,11 @@ monster4_image.src = "../static/images/monster4.png";
 const monster5_image = new Image();
 monster5_image.src = "../static/images/monster5.png";
 
+const death1 = new Image();
+death1.src = "../static/images/death1.png";
+const death2 = new Image();
+death2.src = "../static/images/death2.png";
+
 monster1_step1.onload = () => {
     monster1.step1 = monster1_step1;
 }

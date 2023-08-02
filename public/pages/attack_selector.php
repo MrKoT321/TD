@@ -79,7 +79,7 @@
             <img src="../static/images/random.png" class="random-wave3" id="random-wave3"/>
             <div class="money-info-wave1">
                 <span class="money-wave-count" id="money-wave1"></span>
-                <span class="money-text">coins left</span>
+                <img class="money-attack" src="../static/images/attack_money.png" />
             </div>
             <div class="monsters-selected wave1">
                 <div class="mob-info hidden" id="mob1-1-selected">
@@ -105,7 +105,7 @@
             </div>
             <div class="money-info-wave2">
                 <span class="money-wave-count" id="money-wave2"></span>
-                <span class="money-text">coins left</span>
+                <img class="money-attack" src="../static/images/attack_money.png" />
             </div>
             <div class="monsters-selected wave2">
                 <div class="mob-info hidden" id="mob1-2-selected">                    
@@ -131,7 +131,7 @@
             </div>
             <div class="money-info-wave3">
                 <span class="money-wave-count" id="money-wave3"></span>
-                <span class="money-text">coins left</span>
+                <img class="money-attack" src="../static/images/attack_money.png" />
             </div>
             <div class="monsters-selected wave3">
                 <div class="mob-info hidden"id="mob1-3-selected">                    
