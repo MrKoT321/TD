@@ -296,7 +296,7 @@ function closeLoading() {
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
-  }
+}
 
 function transformMobsUnlock() {
     for(let mob of mobs_unlock){
@@ -327,7 +327,6 @@ function clearWave(wave) {
 
 function randomWave(wave, randomcostwave) {
     clearWave(wave);
-    console.log(wave, randomcostwave);
     transformMobsUnlock();
     let canbuymonsters = mobs_unlock_buy;
     let pushcount = 0;

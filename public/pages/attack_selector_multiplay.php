@@ -29,7 +29,7 @@
         <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
         <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
     </div>
-        <div class="game__field field">
+    <div class="game__field field">
         <div class="monsters-selector">
                 <div>
                     <img src="../static/images/monster1_selector.png" id="mob1" class="monster-selector"/>
@@ -165,7 +165,7 @@
             </div>
            <div class="timer-to-choose hidden">
                <span class="timer-to-choose__value">20</span>
-               <span class="timer-to-choose__unit"> s</span>
+               <span class="timer-to-choose__unit">s</span>
            </div>
             <img src="../static/images/start_lock.png" class="start-button" id="start-lock" />
             <span class="popup-start hidden">Add at least one monster per wave</span>
@@ -205,6 +205,7 @@
             </div>    
             <div class="loading"></div>
         </div>
+        <div class="waiting-screen hidden"></div>        
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>

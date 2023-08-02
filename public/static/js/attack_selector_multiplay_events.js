@@ -436,22 +436,7 @@ start_lock.addEventListener(
 start_button.addEventListener(
     "click",
     () => {
-        let wave1_to_send = [], wave2_to_send = [], wave3_to_send = []
-        sendWaves(wave1_to_send, wave2_to_send, wave3_to_send);
-        wave1_send.value = String(wave1_to_send);
-        wave2_send.value = String(wave2_to_send);
-        wave3_send.value = String(wave3_to_send);
-        mobs_unlock_send.value = String(mobs_unlock);
-        playerId_send.value = GAME.playerId;
-        money_send.value = GAME.money;
-        currentLvl_send.value = GAME.lvl;
-        data = {
-            type: 'waves',
-            waves: [wave1_to_send, wave2_to_send, wave3_to_send]
-        }
-        json = JSON.stringify(data);
-        socket.send(json);
-        $('#form').attr('action', '../send_waves_multiplay.php');
+        prepareDataAndSend();
     }
 )
 
@@ -487,7 +472,7 @@ random3.addEventListener(
     "click",
     () => {
         let randomcostwave3 = 200
-        randomWave(wave3, costwave3);
+        randomWave(wave3, randomcostwave3);
         for(let mob of wave3){
             if(mob.amount > 0){
                 randomcostwave3 -= mob.cost * mob.amount;

@@ -14,7 +14,8 @@ var GAME = {
 
 var lvlcount = 1;
 
-var mobs_unlock = ['monster1', 'monster2']
+var mobs_unlock = ['monster1', 'monster2'];
+var mobs_unlock_buy =[];
 
 var maxcostwave1 = 100;
 var maxcostwave2 = 150;
@@ -55,16 +56,22 @@ function drawBackground() {
 }
 
 startTime = 0;
+isTimeEnd = false;
 function selectionTimeUpdate() {
     if (startTime == 0) {
         startTime = new Date();
         timeInfoBlock.classList.remove("hidden");
     }
     GAME.timeToChooseLeft = Math.floor(GAME.timeToChoose - ((new Date() - startTime) / 1000) + 1);
-    timeInfo.innerHTML = String (GAME.timeToChooseLeft);
-    if (GAME.timeToChooseLeft == 0) {
-        // console.log('123123')
+    if (GAME.timeToChooseLeft < 0) {
+        GAME.timeToChooseLeft = 0;
     }
+    timeInfo.innerHTML = String (GAME.timeToChooseLeft);
+    if (GAME.timeToChooseLeft == 0 && !isTimeEnd) {
+        fillEmptyWaves();
+        isTimeEnd = true;
+    }
+    sendTimeToChoiseToDefense();
 }
 
 function updateMoney() {
@@ -310,6 +317,15 @@ function connectScore() {
     socket.send(json);
 }
 
+function sendTimeToChoiseToDefense() {
+    data = {
+        type: 'time_to_choose',
+        time: GAME.timeToChooseLeft
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+}
+
 const socket = new WebSocket('ws://localhost:8090');
 
 socket.addEventListener('message', function(event) {
@@ -343,6 +359,112 @@ function closeLoading() {
     loading_bg.classList.add('hidden');
     loading_image.classList.add('hidden');
     GAME.isPlay = 'waitopponent';
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function transformMobsUnlock() {
+    for(let mob of mobs_unlock){
+        if(mob == 'monster1'){
+            mobs_unlock_buy.push(monster1);
+        }
+        if(mob == 'monster2'){
+            mobs_unlock_buy.push(monster2);
+        }
+        if(mob == 'monster3'){
+            mobs_unlock_buy.push(monster3);
+        }
+        if(mob == 'monster4'){
+            mobs_unlock_buy.push(monster4);
+        }
+        if(mob == 'monster5'){
+            mobs_unlock_buy.push(monster5);
+        }
+    }
+}
+
+function clearWave(wave) {
+    for(let mob of wave) {
+        mob.amount = 0;
+        mob.name = '?'
+    }
+}
+
+function randomWave(wave, randomcostwave) {
+    clearWave(wave);
+    transformMobsUnlock();
+    let canbuymonsters = mobs_unlock_buy;
+    let pushcount = 0;
+    for(randomcostwave; randomcostwave >= monster1.cost;){
+        canbuymonsters = canbuymonsters.filter(value => value.cost <= randomcostwave)
+        let currbuymonster = canbuymonsters[getRandomInt(getRandomInt(canbuymonsters.length))];
+        randomcostwave -= currbuymonster.cost;
+        let isMonsterInWave = 'no';
+        for(let mob of wave){
+            if(mob.name == currbuymonster.name){
+                mob.amount += 1;
+                isMonsterInWave = 'yes';
+                break
+            }
+            else{
+                isMonsterInWave = 'no'
+            }
+        }
+        if(isMonsterInWave == 'no'){
+            wave[pushcount].name = currbuymonster.name;
+            wave[pushcount].image = currbuymonster.icon;
+            wave[pushcount].amount += 1;
+            wave[pushcount].cost = currbuymonster.cost;
+            pushcount += 1;
+        }
+    }
+}
+
+function fillWave(wave, costwave) {
+    let randomcostwave = costwave;
+    randomWave(wave, randomcostwave);
+    for(let mob of wave){
+        if(mob.amount > 0){
+            randomcostwave -= mob.cost * mob.amount;
+        }
+    }
+    costwave = randomcostwave;
+}
+
+function fillEmptyWaves() {
+    if (wave1.filter(value => value.amount > 0).length == 0) {
+        fillWave(wave1, maxcostwave1);
+    }
+    if (wave2.filter(value => value.amount > 0).length == 0) {
+        fillWave(wave2, maxcostwave2);
+    }
+    if (wave3.filter(value => value.amount > 0).length == 0) {
+        fillWave(wave3, maxcostwave3);
+    }
+    waitingScreen.classList.remove("hidden");
+    setTimeout(prepareDataAndSend, 1000);
+}
+
+function prepareDataAndSend() {
+    let wave1_to_send = [], wave2_to_send = [], wave3_to_send = []
+    sendWaves(wave1_to_send, wave2_to_send, wave3_to_send);
+    wave1_send.value = String(wave1_to_send);
+    wave2_send.value = String(wave2_to_send);
+    wave3_send.value = String(wave3_to_send);
+    mobs_unlock_send.value = String(mobs_unlock);
+    playerId_send.value = GAME.playerId;
+    money_send.value = GAME.money;
+    currentLvl_send.value = GAME.lvl;
+    data = {
+        type: 'waves',
+        waves: [wave1_to_send, wave2_to_send, wave3_to_send]
+    }
+    json = JSON.stringify(data);
+    socket.send(json);
+    $('#form').attr('action', '../send_waves_multiplay.php');
+    document.getElementById('form').submit();
 }
 
 function play() {

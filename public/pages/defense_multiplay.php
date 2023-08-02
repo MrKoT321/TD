@@ -133,6 +133,10 @@
         <div class="waiting-opponent-screen">
             <img src="../static/images/waiting_opponent_screen.png" alt="">
         </div>
+        <div class="waiting-screen-timer">
+            <span class="waiting-screen-timer__value">40</span>
+            <span class="waiting-screen-timer__unit">s</span>
+        </div>
     </div>
     <img src='../static/images/loading-bg.png' class='loading-image' />
     <div class='loading-bg'></div>

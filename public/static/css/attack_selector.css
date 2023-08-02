@@ -175,25 +175,17 @@ body {
 .timer-to-choose {
     position: absolute;
     left: 1220px;
+    color: #FFF;
+    font-family: Holtwood One SC;
 }
 
 .timer-to-choose__value {
-    color: #FFF;
-    text-align: center;
-    font-family: Holtwood One SC;
     font-size: 64px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 
 .timer-to-choose__unit {
-    color: #FFF;
-    font-family: Holtwood One SC;
+    margin-left: 15px;
     font-size: 48px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 
 .popup-map__field {
@@ -458,4 +450,11 @@ body {
     margin-left: 1608px;
     margin-top: 815px;
     cursor: pointer;
+}
+
+.waiting-screen {
+    position: absolute;
+    width: 1800px;
+    height: 1000px;
+    background-color: rgba(0, 0, 0, 0.3);
 }

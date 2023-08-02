@@ -32,6 +32,8 @@ const waitingOpponentScreenImg = document.querySelector(".waiting-opponent-scree
 const attackScore = document.querySelector(".count-score__value-attack");
 const defenseScore = document.querySelector(".count-score__value-defense");
 
+const timeToStart = document.querySelector(".waiting-screen-timer__value");
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -445,6 +447,9 @@ socket.addEventListener('message', function (event) {
             break;
         case 'give_me_score':
             sendScoreToAttack();
+            break;
+        case 'time_to_choose':
+            timeToStart.innerHTML = data.time;
             break;
     }
 });

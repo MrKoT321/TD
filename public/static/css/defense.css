@@ -816,6 +816,23 @@ body {
     align-items: center;
 }
 
+.waiting-screen-timer {
+    position: absolute;
+    top: 728px;
+    left: calc(50vw - 95px);
+    color: #FFF;
+    font-family: 'VT323';
+}
+
+.waiting-screen-timer__value {
+    font-size: 140px;
+}
+
+.waiting-screen-timer__unit {
+    margin-left: 15px;
+    font-size: 140px;
+}
+
 .wave-info {
     flex-direction: row;
     display: flex;

@@ -114,3 +114,5 @@ const random3 = document.getElementById("random-wave3");
 
 const timeInfoBlock = document.querySelector(".timer-to-choose");
 const timeInfo = document.querySelector(".timer-to-choose__value");
+
+const waitingScreen = document.querySelector(".waiting-screen");
