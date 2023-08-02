@@ -6,14 +6,14 @@ namespace App\Database;
 class ConnectionProvider {
     public static function connectDatabase(): \PDO
     {
-        $dsn = 'mysql:host=mysql:3306;dbname=TD;charset=utf8';
+        $dsn = 'mysql:host=localhost:3306;dbname=TD;charset=utf8';
         $user = 'root';
-        $password = '1234';
+        $password = 'P@ssw0rd';
         try {
             $dbh = new \PDO($dsn, $user, $password);
         }
         catch (\PDOException $e) {
-            $dsn = 'mysql:host=localhost:3306;dbname=TD;charset=utf8';
+            $dsn = 'mysql:host=mysql:3306;dbname=TD;charset=utf8';
             return new \PDO($dsn, $user, $password);
         }
         return $dbh;

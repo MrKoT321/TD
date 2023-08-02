@@ -158,7 +158,7 @@ function drawIce() {
         canvasContext.drawImage(iceSteps[freeze.stepcounter].img, freeze.finishX - freeze.iceSize / 2, freeze.finishY - freeze.iceSize / 2, freeze.iceSize, freeze.iceSize);
     }
     if(GAME.milisectimer > freeze.steptimer && freeze.stepcounter < 3) {
-        freeze.iceSteps.sort(function sortIce(ice1, ice2) { return ice1.index- ice2.index });
+        iceSteps.sort(function sortIce(ice1, ice2) { return ice1.index- ice2.index });
         freeze.steptimer += 350;
         freeze.stepcounter += 1;
     }
