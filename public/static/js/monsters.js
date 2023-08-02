@@ -170,6 +170,11 @@ monster4_image.src = "../static/images/monster4.png";
 const monster5_image = new Image();
 monster5_image.src = "../static/images/monster5.png";
 
+const death1 = new Image();
+death1.src = "../static/images/death1.png";
+const death2 = new Image();
+death2.src = "../static/images/death2.png";
+
 monster1_step1.onload = () => {
     monster1.step1 = monster1_step1;
 }
@@ -309,4 +314,20 @@ monster4_image.onload = () => {
 }
 monster5_image.onload = () => {
     monster5.icon = monster5_image
+}
+
+death1.onload = () => {
+    monster1.death1 = death1;
+    monster2.death1 = death1;
+    monster3.death1 = death1;
+    monster4.death1 = death1;
+    monster5.death1 = death1;
+}
+
+death2.onload = () => {
+    monster1.death2 = death2;
+    monster2.death2 = death2;
+    monster3.death2 = death2;
+    monster4.death2 = death2;
+    monster5.death2 = death2;
 }
