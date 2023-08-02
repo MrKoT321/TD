@@ -66,12 +66,13 @@ freeze = {
     stepcounter: 0,
     iceSize: 100,
     image: undefined,
-    iceSteps: [],
 }
 
-ice_step_1.onload = () => { freeze.iceSteps.push({index: 1, img: ice_step_1}) }
-ice_step_2.onload = () => { freeze.iceSteps.push({index: 2, img: ice_step_2}) }
-ice_step_3.onload = () => { freeze.iceSteps.push({index: 3, img: ice_step_3}) }
+const iceSteps = [];
+
+ice_step_1.onload = () => { iceSteps.push({index: 1, img: ice_step_1}) }
+ice_step_2.onload = () => { iceSteps.push({index: 2, img: ice_step_2}) }
+ice_step_3.onload = () => { iceSteps.push({index: 3, img: ice_step_3}) }
 freezeImg.onload = () => { freeze.image = freezeImg }
 
 healing = {
@@ -154,10 +155,10 @@ function drawFireballExplosion() {
 function drawIce() {
     if(freeze.finish) {
         console.log(freeze.stepcounter);
-        canvasContext.drawImage(freeze.iceSteps[freeze.stepcounter].img, freeze.finishX - freeze.iceSize / 2, freeze.finishY - freeze.iceSize / 2, freeze.iceSize, freeze.iceSize);
+        canvasContext.drawImage(iceSteps[freeze.stepcounter].img, freeze.finishX - freeze.iceSize / 2, freeze.finishY - freeze.iceSize / 2, freeze.iceSize, freeze.iceSize);
     }
     if(GAME.milisectimer > freeze.steptimer && freeze.stepcounter < 3) {
-        freeze.iceSteps.sort(sortSteps);
+        freeze.iceSteps.sort(function sortIce(ice1, ice2) { return ice1.index- ice2.index });
         freeze.steptimer += 350;
         freeze.stepcounter += 1;
     }

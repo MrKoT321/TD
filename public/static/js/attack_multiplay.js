@@ -94,6 +94,8 @@ function changeGameStatusButtons() {
     }
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.remove("active");
+        pauseGameBtn.classList.add("pause");
+        pauseGameBtn.classList.remove("play");
     } 
 }
 
@@ -112,9 +114,11 @@ socket.addEventListener('message', function(event) {
             break;
         case 'fireball':
             fireball = data.fireball_bonus;
+            fireballImg ? fireball.image = fireballImg : fireball.image = undefined;
             break;
         case 'freeze':
-            freeze = data.freeze_bonus;
+            freeze = data.freeze_bonus
+            freezeImg ? freeze.image = freezeImg : freeze.image = undefined;
             break;
         case 'game_score':
             GAME.attackScore = data.attackScore;
@@ -556,15 +560,16 @@ function updateScore() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    updateScore()
+    console.log(freeze.image);
+    updateScore();
     updateMoney();
     updateVisualLvlParams();
     drawBackground();
-    drawExplosion();
     drawStrikes();
-    drowBonusesBottom();
+    drawBonusesBottom();
     updateMobDataAtk();
     moveMonsters(GAME, lvls);
+    drawExplosion();
     drawBonusesTop();
     updateBonuses();
     drawCastle();
