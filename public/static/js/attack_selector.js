@@ -10,7 +10,8 @@ var GAME = {
 
 var lvlcount = 1;
 
-var mobs_unlock = ['monster1', 'monster2']
+var mobs_unlock = ['monster1', 'monster2'];
+var mobs_unlock_buy =[];
 
 var maxcostwave1 = 100;
 var maxcostwave2 = 150;
@@ -293,7 +294,85 @@ function closeLoading() {
     loading_image.classList.add('hidden');
 }
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+function transformMobsUnlock() {
+    for(let mob of mobs_unlock){
+        if(mob == 'monster1'){
+            mobs_unlock_buy.push(monster1);
+        }
+        if(mob == 'monster2'){
+            mobs_unlock_buy.push(monster2);
+        }
+        if(mob == 'monster3'){
+            mobs_unlock_buy.push(monster3);
+        }
+        if(mob == 'monster4'){
+            mobs_unlock_buy.push(monster4);
+        }
+        if(mob == 'monster5'){
+            mobs_unlock_buy.push(monster5);
+        }
+    }
+}
+
+function randomWave(wave, maxcostwave) {
+    transformMobsUnlock();
+    let canbuymonsters = mobs_unlock_buy;
+    let pushcount = 0;
+    for(maxcostwave; maxcostwave >= monster1.cost;){
+        canbuymonsters = canbuymonsters.filter(value => value.cost <= maxcostwave)
+        let currbuymonster = canbuymonsters[getRandomInt(getRandomInt(canbuymonsters.length))];
+        maxcostwave -= currbuymonster.cost;
+        let isMonsterInWave = 'no';
+        for(let mob of wave){
+            if(mob.name == currbuymonster.name){
+                mob.amount += 1;
+                isMonsterInWave = 'yes';
+                break
+            }
+            else{
+                isMonsterInWave = 'no'
+            }
+        }
+        if(isMonsterInWave == 'no'){
+            wave[pushcount].name = currbuymonster.name;
+            wave[pushcount].image = currbuymonster.icon;
+            wave[pushcount].amount += 1;
+            wave[pushcount].cost = currbuymonster.cost;
+            pushcount += 1;
+        }
+    }
+}
+
+function updateRandomLock() {
+    if(maxcostwave1 < monster1.cost){
+        random1.classList.add("hidden");
+        random1_lock.classList.remove("hidden");
+    } else {
+        random1.classList.remove("hidden");
+        random1_lock.classList.add("hidden"); 
+    }
+    if(maxcostwave2 < monster1.cost){
+        random2.classList.add("hidden");
+        random2_lock.classList.remove("hidden");
+    } else {
+        random2.classList.remove("hidden");
+        random2_lock.classList.add("hidden"); 
+    }
+    if(maxcostwave3 < monster1.cost){
+        random3.classList.add("hidden");
+        random3_lock.classList.remove("hidden");
+    } else {
+        random3.classList.remove("hidden");
+        random3_lock.classList.add("hidden"); 
+    }
+}
+
 function play() {
+    updateRandomLock();
     unblockMonsters();
     updateMoney();
     updateWavesMoney();

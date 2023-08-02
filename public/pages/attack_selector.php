@@ -74,6 +74,12 @@
                     </strong>
                 </div>
             </div>
+            <img src="../static/images/random.png" class="random-wave1 hidden" id="random-wave1"/>
+            <img src="../static/images/random_lock.png" class="random-wave1" id="random-wave1-lock"/>
+            <img src="../static/images/random.png" class="random-wave2 hidden" id="random-wave2"/>
+            <img src="../static/images/random_lock.png" class="random-wave2" id="random-wave2-lock"/>
+            <img src="../static/images/random.png" class="random-wave3 hidden" id="random-wave3"/>
+            <img src="../static/images/random_lock.png" class="random-wave3" id="random-wave3-lock"/>
             <div class="money-info-wave1">
                 <span class="money-wave-count" id="money-wave1"></span>
                 <span class="money-text">coins left</span>

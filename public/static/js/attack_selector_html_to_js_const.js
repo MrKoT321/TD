@@ -105,3 +105,10 @@ const loading_text = document.querySelector('.loading-text');
 const load = document.querySelector('.load');
 const loading_bg = document.querySelector('.loading-bg');
 const loading_image = document.querySelector('.loading-image');
+
+const random1 = document.getElementById("random-wave1");
+const random2 = document.getElementById("random-wave2");
+const random3 = document.getElementById("random-wave3");
+const random1_lock = document.getElementById("random-wave1-lock");
+const random2_lock = document.getElementById("random-wave2-lock");
+const random3_lock = document.getElementById("random-wave3-lock");
