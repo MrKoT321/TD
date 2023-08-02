@@ -163,10 +163,10 @@
                 <img src="../static/images/3.png" class="wave-selector__3 hidden"/>
                 <img src="../static/images/wave+.png" class="wave-selector__wave-plus"/>
             </div>
-<!--            <div class="timer-to-choose">-->
-<!--                <span class="timer-to-choose__value">20</span>-->
-<!--                <span class="timer-to-choose__unit"> s</span>-->
-<!--            </div>-->
+           <div class="timer-to-choose hidden">
+               <span class="timer-to-choose__value">20</span>
+               <span class="timer-to-choose__unit"> s</span>
+           </div>
             <img src="../static/images/start_lock.png" class="start-button" id="start-lock" />
             <span class="popup-start hidden">Add at least one monster per wave</span>
             <form method="POST" enctype="multipart/form-data" id="form">

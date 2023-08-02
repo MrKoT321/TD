@@ -111,3 +111,6 @@ const loading_image = document.querySelector('.loading-image');
 const random1 = document.getElementById("random-wave1");
 const random2 = document.getElementById("random-wave2");
 const random3 = document.getElementById("random-wave3");
+
+const timeInfoBlock = document.querySelector(".timer-to-choose");
+const timeInfo = document.querySelector(".timer-to-choose__value");
