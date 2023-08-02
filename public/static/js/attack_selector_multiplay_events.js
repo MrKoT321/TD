@@ -454,3 +454,45 @@ start_button.addEventListener(
         $('#form').attr('action', '../send_waves_multiplay.php');
     }
 )
+
+random1.addEventListener(
+    "click",
+    () => {
+        let randomcostwave1 = 100
+        randomWave(wave1, randomcostwave1);
+        for(let mob of wave1){
+            if(mob.amount > 0){
+                randomcostwave1 -= mob.cost * mob.amount;
+            }
+        }
+        maxcostwave1 = randomcostwave1
+    }
+)
+
+random2.addEventListener(
+    "click",
+    () => {
+        let randomcostwave2 = 150
+        randomWave(wave2, randomcostwave2);
+        for(let mob of wave2){
+            if(mob.amount > 0){
+                randomcostwave2 -= mob.cost * mob.amount;
+            }
+        }
+        maxcostwave2 = randomcostwave2
+    }
+)
+
+random3.addEventListener(
+    "click",
+    () => {
+        let randomcostwave3 = 200
+        randomWave(wave3, costwave3);
+        for(let mob of wave3){
+            if(mob.amount > 0){
+                randomcostwave3 -= mob.cost * mob.amount;
+            }
+        }
+        maxcostwave3 = randomcostwave3
+    }
+)
