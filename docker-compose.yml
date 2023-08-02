@@ -45,7 +45,6 @@ services:
 
   mysql:
     image: mysql:8
-    # restart: unless-stopped
     command: --init-file /data/application/init_database.sql
     environment:
       - MYSQL_DATABASE=TD
@@ -55,10 +54,8 @@ services:
       - MYSQL_PASSWORD=1234
 
     volumes:
-      # - './:/app'
       - ./data/init_database.sql:/data/application/init_database.sql
       - mysqldata:/var/lib/mysql
-      # - './docker/volume/mysql:/var/lib/mysql'
     ports:
       - '3307:3306' 
 

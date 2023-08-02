@@ -587,7 +587,7 @@ body {
 }
 
 .count-coin__value.error {
-    color: red;
+    color: #FF3434;
     display: inline-block;
     margin: 0 20px;
     animation: headShake;

@@ -69,7 +69,7 @@ body {
 }
 
 .count-coin.error {
-    color: #9a0303;
+    color: #FF3434;
     display: inline-block;
     margin: 0 20px;
     animation: headShake;
