@@ -315,19 +315,3 @@ monster4_image.onload = () => {
 monster5_image.onload = () => {
     monster5.icon = monster5_image
 }
-
-death1.onload = () => {
-    monster1.death1 = death1;
-    monster2.death1 = death1;
-    monster3.death1 = death1;
-    monster4.death1 = death1;
-    monster5.death1 = death1;
-}
-
-death2.onload = () => {
-    monster1.death2 = death2;
-    monster2.death2 = death2;
-    monster3.death2 = death2;
-    monster4.death2 = death2;
-    monster5.death2 = death2;
-}

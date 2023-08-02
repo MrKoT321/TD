@@ -280,10 +280,13 @@ function clearInvisible(monster) {
 
 function death() {
     for(let deathmob of deathmonsters) {
-        if(GAME.milisectimer - 200 > deathmob.deathtime){
+        if(GAME.milisectimer == 0){
+            deathmob.deathtime = -400
+        }
+        if(GAME.milisectimer - 200 >= deathmob.deathtime){
             deathmob.image = death2;
         }
-        if(GAME.milisectimer - 400 > deathmob.deathtime){
+        if(GAME.milisectimer - 400 >= deathmob.deathtime){
             deathmonsters = deathmonsters.filter(value => value.image = value.death2)
         }
     }
