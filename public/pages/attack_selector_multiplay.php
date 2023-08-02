@@ -75,12 +75,9 @@
                     </strong>
                 </div>
             </div>
-            <img src="../static/images/random.png" class="random-wave1 hidden" id="random-wave1"/>
-            <img src="../static/images/random_lock.png" class="random-wave1" id="random-wave1-lock"/>
-            <img src="../static/images/random.png" class="random-wave2 hidden" id="random-wave2"/>
-            <img src="../static/images/random_lock.png" class="random-wave2" id="random-wave2-lock"/>
-            <img src="../static/images/random.png" class="random-wave3 hidden" id="random-wave3"/>
-            <img src="../static/images/random_lock.png" class="random-wave3" id="random-wave3-lock"/>
+            <img src="../static/images/random.png" class="random-wave1" id="random-wave1"/>
+            <img src="../static/images/random.png" class="random-wave2" id="random-wave2"/>
+            <img src="../static/images/random.png" class="random-wave3" id="random-wave3"/>
             <div class="money-info-wave1">
                 <span class="money-wave-count" id="money-wave1"></span>
                 <span class="money-text">coins left</span>
@@ -166,10 +163,10 @@
                 <img src="../static/images/3.png" class="wave-selector__3 hidden"/>
                 <img src="../static/images/wave+.png" class="wave-selector__wave-plus"/>
             </div>
-<!--            <div class="timer-to-choose">-->
-<!--                <span class="timer-to-choose__value">20</span>-->
-<!--                <span class="timer-to-choose__unit"> s</span>-->
-<!--            </div>-->
+           <div class="timer-to-choose hidden">
+               <span class="timer-to-choose__value">20</span>
+               <span class="timer-to-choose__unit"> s</span>
+           </div>
             <img src="../static/images/start_lock.png" class="start-button" id="start-lock" />
             <span class="popup-start hidden">Add at least one monster per wave</span>
             <form method="POST" enctype="multipart/form-data" id="form">

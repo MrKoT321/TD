@@ -318,14 +318,23 @@ function transformMobsUnlock() {
     }
 }
 
-function randomWave(wave, maxcostwave) {
+function clearWave(wave) {
+    for(let mob of wave) {
+        mob.amount = 0;
+        mob.name = '?'
+    }
+}
+
+function randomWave(wave, randomcostwave) {
+    clearWave(wave);
+    console.log(wave, randomcostwave);
     transformMobsUnlock();
     let canbuymonsters = mobs_unlock_buy;
     let pushcount = 0;
-    for(maxcostwave; maxcostwave >= monster1.cost;){
-        canbuymonsters = canbuymonsters.filter(value => value.cost <= maxcostwave)
+    for(randomcostwave; randomcostwave >= monster1.cost;){
+        canbuymonsters = canbuymonsters.filter(value => value.cost <= randomcostwave)
         let currbuymonster = canbuymonsters[getRandomInt(getRandomInt(canbuymonsters.length))];
-        maxcostwave -= currbuymonster.cost;
+        randomcostwave -= currbuymonster.cost;
         let isMonsterInWave = 'no';
         for(let mob of wave){
             if(mob.name == currbuymonster.name){
@@ -347,32 +356,7 @@ function randomWave(wave, maxcostwave) {
     }
 }
 
-function updateRandomLock() {
-    if(maxcostwave1 < monster1.cost){
-        random1.classList.add("hidden");
-        random1_lock.classList.remove("hidden");
-    } else {
-        random1.classList.remove("hidden");
-        random1_lock.classList.add("hidden"); 
-    }
-    if(maxcostwave2 < monster1.cost){
-        random2.classList.add("hidden");
-        random2_lock.classList.remove("hidden");
-    } else {
-        random2.classList.remove("hidden");
-        random2_lock.classList.add("hidden"); 
-    }
-    if(maxcostwave3 < monster1.cost){
-        random3.classList.add("hidden");
-        random3_lock.classList.remove("hidden");
-    } else {
-        random3.classList.remove("hidden");
-        random3_lock.classList.add("hidden"); 
-    }
-}
-
 function play() {
-    updateRandomLock();
     unblockMonsters();
     updateMoney();
     updateWavesMoney();

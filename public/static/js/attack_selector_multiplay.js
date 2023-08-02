@@ -7,7 +7,9 @@ var GAME = {
     currwave: 'wave1',
     playerId: playerId_take.innerHTML,
     attackScore: 0,
-    defenseScore: 0
+    defenseScore: 0,
+    timeToChoose: 40,
+    timeToChooseLeft: undefined,
 }
 
 var lvlcount = 1;
@@ -49,6 +51,19 @@ function drawBackground() {
     canvasContext.clearRect(0, 0, GAME.width, GAME.height);
     if (GAME.background) {
         canvasContext.drawImage(GAME.background, 0, 0, GAME.width, GAME.height)
+    }
+}
+
+startTime = 0;
+function selectionTimeUpdate() {
+    if (startTime == 0) {
+        startTime = new Date();
+        timeInfoBlock.classList.remove("hidden");
+    }
+    GAME.timeToChooseLeft = Math.floor(GAME.timeToChoose - ((new Date() - startTime) / 1000) + 1);
+    timeInfo.innerHTML = String (GAME.timeToChooseLeft);
+    if (GAME.timeToChooseLeft == 0) {
+        // console.log('123123')
     }
 }
 
@@ -331,6 +346,7 @@ function closeLoading() {
 }
 
 function play() {
+    selectionTimeUpdate();
     unblockMonsters();
     updateMoney();
     updateWavesMoney();

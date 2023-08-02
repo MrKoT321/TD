@@ -200,6 +200,30 @@ body {
     cursor: pointer;
 }
 
+.timer-to-choose {
+    position: absolute;
+    left: 1220px;
+}
+
+.timer-to-choose__value {
+    color: #FFF;
+    text-align: center;
+    font-family: Holtwood One SC;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.timer-to-choose__unit {
+    color: #FFF;
+    font-family: Holtwood One SC;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
 .popup-map__field {
     position: absolute;
     width: 700px;
