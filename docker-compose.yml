@@ -17,7 +17,7 @@ services:
       - mysql
 
   phpserver:
-    image: php:8-fpm
+    image: php:8.1
     volumes:
       - './:/app'
     ports:
@@ -25,7 +25,7 @@ services:
     command: bash -c "php -f /app/src/Server/Server.php"
 
   phpgameserver:
-    image: php:8-fpm
+    image: php:8.1
     volumes:
       - './:/app'
     ports:

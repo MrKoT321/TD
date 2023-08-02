@@ -69,12 +69,12 @@ class WebSocketHandler implements MessageComponentInterface {
 
 // Создаем новый WebSocket-сервер на порту 8080 для меню
 $server = IoServer::factory(
-new HttpServer(
-  new WsServer(
-    new WebSocketHandler()
-  )
-),
-8080
+  new HttpServer(
+    new WsServer(
+      new WebSocketHandler()
+    )
+  ),
+  8080
 );
 
 // Запускаем сервер
