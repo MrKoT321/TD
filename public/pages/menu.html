@@ -11,6 +11,9 @@
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script async src="../static/js/monsters.js"></script>
+    <script async src="../static/js/monster_movement.js"></script>
+    <script async src="../static/js/monster_movement_menu.js"></script>
     <script async src="../static/js/menu.js"></script>
     <div class="menu">
         <div class="menu-title">
@@ -80,10 +83,11 @@
         <a href="#" class="popup__area" id="waiting-screen-area"></a>
         <div class="popup__body">
             <div class="popup__content" id="waiting-screen-img">
-                <img src="../static/images/waiting_screen.png" class="waiting-screen" />
-                <div class="waiting-screen-spin"></div>
+<!--                <img src="../static/images/waiting_screen.png" class="waiting-screen" />-->
+<!--                <div class="waiting-screen-spin"></div>-->
             </div>
         </div>
     </div>
+    <canvas id='canvas' class="waiting-screen-canvas hidden"></canvas>
 </body>
 </html>

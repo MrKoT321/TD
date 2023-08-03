@@ -32,6 +32,8 @@ const waitingOpponentScreenImg = document.querySelector(".waiting-opponent-scree
 const attackScore = document.querySelector(".count-score__value-attack");
 const defenseScore = document.querySelector(".count-score__value-defense");
 
+const timeToStart = document.querySelector(".waiting-screen-timer__value");
+
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var GAME = {
@@ -177,9 +179,7 @@ function gameOver() {
         }
         if (GAME.lvlCount < 4) {
             openLoading();
-            console.log(pushmonstercount, "loh")
             updateNextLvlParams();
-            console.log(pushmonstercount, "neloh")
             setTimeout(() => {
                 closeLoading();
                 showOpponentScreen();
@@ -427,7 +427,6 @@ socket.addEventListener('open', function (event) {
 
 socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
-    console.log(data);
     switch (data.type) {
         case 'game_status':
             GAME.isPlay = data.status;
@@ -445,6 +444,9 @@ socket.addEventListener('message', function (event) {
             break;
         case 'give_me_score':
             sendScoreToAttack();
+            break;
+        case 'time_to_choose':
+            timeToStart.innerHTML = data.time;
             break;
     }
 });

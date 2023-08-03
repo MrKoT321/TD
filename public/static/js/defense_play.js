@@ -330,7 +330,6 @@ async function sendResults(event) {
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }
-    console.log(props)
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',
@@ -400,7 +399,7 @@ gameMenuBtn.addEventListener("click", () => { showMenuPopup() });
 
 var isClick = false;
 document.addEventListener("keydown", (event) => {
-    if (!isClick){
+    if (!isClick) {
         switch (event.code) {
             case 'Space':
                 pauseGame();
@@ -410,7 +409,7 @@ document.addEventListener("keydown", (event) => {
                 startWave();
                 isClick = true;
                 break;
-    }
+        }
     }
 })
 document.addEventListener("keyup", (event) => {
@@ -552,6 +551,7 @@ function showWaveInfo() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    console.log(GAME.stopwatch)
     showWaveInfo();
     updateMoney();
     updateScore();

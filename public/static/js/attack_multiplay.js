@@ -103,7 +103,6 @@ const socket = new WebSocket('ws://localhost:8090');
 
 socket.addEventListener('message', function(event) {
     data = JSON.parse(event.data);
-    console.log(data)
     switch (data.type) {
         case 'tower_add':
             towers = data.towers;   
@@ -314,7 +313,6 @@ function sendNextLvlParams() {
         score.value = String(GAME.score);
         currLvl.value = String(GAME.lvlCount + 1);
         mobsUnlock.value = String(GAME.mobsUnlock);
-        // console.log(playerId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
         $('#form').attr('action', '../make_waves_multiplay.php');
         $('#form').trigger('submit');
         GAME.submit = true;

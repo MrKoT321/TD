@@ -7,6 +7,7 @@ var steptimertank = 0;
 var stepcounter = 1;
 var stepcountertank = 1;
 var pushmobs = 0;
+var deathmonsters = [];
 
 function pushMonsters(GAME, lvl, monster) {
     monsters.push({
@@ -43,7 +44,7 @@ function pushMonsters(GAME, lvl, monster) {
     if (monster.name == 'monster5') {
         monsters[pushmonstercount].giveShield = monster.giveShield
     } else {
-        if(pushmonstercount < monsters.length) {
+        if (pushmonstercount < monsters.length) {
             monsters[pushmonstercount].countShield = monster.countShield;
         }
     }
@@ -71,6 +72,12 @@ function drawMonster(monster) {
         }
         canvasContext.drawImage(monster.image, monster.x, monster.y, monster.width, monster.height);
         canvasContext.globalAlpha = 1;
+    }
+}
+
+function drawDeath() {
+    for(let deathmob of deathmonsters){
+        canvasContext.drawImage(deathmob.image, deathmob.x, deathmob.y);
     }
 }
 
@@ -238,7 +245,7 @@ function monsterCorrect(lvl, monster) {
 }
 
 function addMonster(GAME, lvls) {
-    if(lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length > pushmobs){
+    if (lvls[GAME.lvlCount - 1].waves[GAME.wave - 1].length > pushmobs) {
         pushMonsters(GAME, lvls[GAME.lvlCount - 1], lvls[GAME.lvlCount - 1].waves[GAME.wave - 1][pushmonstercount]);
         pushmobs += 1;
     }
@@ -255,9 +262,9 @@ function registerCollision(monster, GAME) {
 }
 
 function deleteShield(monsters) {
-    for(let monster of monsters){
-        if(monster.name == 'monster5' && monster.hp <= 0){
-            for(let mob of monsters){
+    for (let monster of monsters) {
+        if (monster.name == 'monster5' && monster.hp <= 0) {
+            for (let mob of monsters) {
                 mob.shield = 0;
                 console.log(mob.name, mob.shield)
             }
@@ -271,19 +278,42 @@ function clearInvisible(monster) {
     }
 }
 
+function death() {
+    for(let deathmob of deathmonsters) {
+        if(GAME.milisectimer == 0){
+            deathmob.deathtime = -400
+        }
+        if(GAME.milisectimer - 200 >= deathmob.deathtime){
+            deathmob.image = death2;
+        }
+        if(GAME.milisectimer - 400 >= deathmob.deathtime){
+            deathmonsters = deathmonsters.filter(value => value.image = value.death2)
+        }
+    }
+}
+
 function moveMonsters(GAME, lvls) {
     deleteShield(monsters);
-    if( monsters.length > monsters.filter(value => value.hp > 0).length){
+    if (monsters.length > monsters.filter(value => value.hp > 0).length) {
+        for (let monster of monsters) {
+            if (monster.hp <= 0) {
+                monster.image = death1;
+                monster.deathtime = GAME.milisectimer
+                deathmonsters.push(monster);
+            }
+        }
         monstercount -= monsters.length - monsters.filter(value => value.hp > 0).length;
         pushmonstercount -= monsters.length - monsters.filter(value => value.hp > 0).length;
         monsters = monsters.filter(value => value.hp > 0);
     }
+    death();
+    drawDeath();
     updateMonstersStep();
-    monsters.sort(function(mstrA, mstrB) {
-        if(mstrA.index > mstrB.index) {
+    monsters.sort(function (mstrA, mstrB) {
+        if (mstrA.index > mstrB.index) {
             return 1;
         }
-        if(mstrA.index < mstrB.index) {
+        if (mstrA.index < mstrB.index) {
             return -1;
         }
         return 0
@@ -340,7 +370,8 @@ function updateScoreForMobDef() {
                 GAME.score -= monster.cost;
             } else {
                 if (monster.hp <= 0) {
-                    GAME.score += monster.cost;
+                    GAME.score += monster.cost - Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount - 1]));
+                    console.log(GAME.score)
                 }
             }
         }
@@ -364,8 +395,44 @@ function updateMobDataAtk() {
     }
 }
 
+function setStepCounter() {
+    let timeInterval = GAME.milisectimer % 800;
+    if (timeInterval < 200) {
+        stepcounter = 1;
+        return
+    }
+    if (timeInterval < 400) {
+        stepcounter = 2;
+        return
+    }
+    if (timeInterval < 600) {
+        stepcounter = 3;
+        return
+    }
+    if (timeInterval < 800) {
+        stepcounter = 4;
+    }
+}
+
+function setStepCounterTank() {
+    let timeInterval = GAME.milisectimer % 600;
+    if (timeInterval < 200) {
+        stepcountertank = 1;
+        return
+    }
+    if (timeInterval < 400) {
+        stepcountertank = 2;
+        return
+    }
+    if (timeInterval < 600) {
+        stepcountertank = 3;
+    }
+}
+
 function updateMonstersStep() {
     if (GAME.milisectimer > steptimer) {
+        setStepCounter();
+        setStepCounterTank();
         for (let monster of monsters) {
             if (monster.name != 'monster4') {
                 if (monster.dir == 'r' || monster.dir == 'u') {
@@ -420,46 +487,14 @@ function updateMonstersStep() {
             }
         }
         steptimer += 200;
-        stepcounter += 1;
+        // stepcounter += 1;
         steptimertank += 200;
-        stepcountertank += 1;
-        if (steptimer % 800 == 0) {
-            stepcounter = 1
-        }
-        if (steptimertank % 600 == 0) {
-            stepcountertank = 1
-        }
+        // stepcountertank += 1;
+        // if (steptimer % 800 == 0) {
+        //     stepcounter = 1
+        // }
+        // if (steptimertank % 600 == 0) {
+        //     stepcountertank = 1
+        // }
     }
-}
-
-function getMonstersFromTheirName(monstersStrArr) {
-    let resWave = [];
-    monstersStrArr.forEach(monsterStr => {
-        switch (monsterStr) {
-            case "monster1":
-                resWave.push(monster1);
-                break;
-            case "monster2":
-                resWave.push(monster2);
-                break;
-            case "monster3":
-                resWave.push(monster3);
-                break;
-            case "monster4":
-                resWave.push(monster4);
-                break;
-            case "monster5":
-                resWave.push(monster5);
-                break;
-        }
-    });
-    return resWave;
-}
-
-function decodeMonsterWaves(data) {
-    let waves = []
-    data.forEach(strWave => {
-        getMonstersFromTheirName(strWave)
-    });
-    return waves;
 }
