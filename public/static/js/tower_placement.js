@@ -180,7 +180,7 @@ function removeTowerSelectors() {
 }
 
 function pushToTowers(tower, posX, posY) {
-    towers.push({
+    let towerData = {
         x: posX,
         y: posY,
         cost: tower.cost,
@@ -193,7 +193,18 @@ function pushToTowers(tower, posX, posY) {
         currentEnemy: -1,
         placeTime: GAME.stopwatch,
         startTime: 0
-    })
+    };
+    let bowData = {
+        bow_x: posX + 50,
+        bow_y: posY + 15,
+        bow_width: bow.width,
+        bow_height: bow.height,
+        bow_angel: 90,
+        bow_loaded_image: bow.loaded_image,
+        bow_simple_image: bow.simple_image
+    }
+    towerData = tower.type == "arrow" ? {...towerData, ...bowData} : towerData;
+    towers.push(towerData)
 }
 
 function sendNewTowerPlace() {

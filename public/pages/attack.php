@@ -81,7 +81,11 @@
                     <img src="../static/images/cancel_button.png"  class="invisible-buf__cancel hidden" />
                     <span class="invisible-buf__reload"></span>
                 </div>
-                <div class="buf-slot"></div>
+                <div class="destroy-buf buf-slot">
+                    <img src="../static/images/destroy_buff.png" class="destroy-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="destroy-buf__cancel hidden" />
+                    <span class="destroy-buf__reload"></span>
+                </div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">
                         <span class="game-info-lvl__title">LVL:</span>

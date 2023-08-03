@@ -6,6 +6,10 @@ const invisibleBonus = document.querySelector(".invisible-buf__icon");
 const invisibleBonusCancel = document.querySelector(".invisible-buf__cancel");
 const invisibleReloadTimer = document.querySelector(".invisible-buf__reload");
 
+const destroyBonus = document.querySelector(".destroy-buf__icon");
+const destroyBonusCancel = document.querySelector(".destroy-buf__cancel");
+const destroyReloadTimer = document.querySelector(".destroy-buf__reload");
+
 var field = {
     x: 0,
     y: 0
@@ -37,8 +41,24 @@ healingBonus.addEventListener(
             healingBonus.classList.add("buff_active");
             healing.isActive = true;
             inActiveInvisible();
+            inActiveDestroy();
         } else {
             inActiveHealing();
+        }
+    }
+)
+
+destroyBonus.addEventListener(
+    'click',
+    () => {
+        if (!destroy.isActive && destroy.readyToExplode && bonuses.includes('destroy')) {
+            destroyBonusCancel.classList.remove("hidden");
+            destroyBonus.classList.add("buff_active");
+            destroy.isActive = true;
+            inActiveHealing();
+            inActiveInvisible();
+        } else {
+            inActiveDestroy();
         }
     }
 )
@@ -51,6 +71,7 @@ invisibleBonus.addEventListener(
             invisibleBonus.classList.add("buff_active");
             invisible.isActive = true;
             inActiveHealing();
+            inActiveDestroy();
         } else {
             inActiveInvisible();
         }
@@ -63,6 +84,7 @@ function isClickOnMap() {
 
 healingBonusCancel.addEventListener("click", () => { inActiveHealing(); })
 invisibleBonusCancel.addEventListener("click", () => { inActiveInvisible(); })
+destroyBonusCancel.addEventListener("click", () => { inActiveDestroy(); })
 
 function drawHealingReload() {
     if (!healing.readyToExplode) {
@@ -92,6 +114,20 @@ function drawInvisibleReload() {
     }
 }
 
+function drawDestroyReload() {
+    if (!destroy.readyToExplode) {
+        destroyReloadTimer.classList.remove("hidden");
+        destroyReloadTimer.innerHTML = destroy.reload - GAME.stopwatch + destroy.lastTimeCast;
+    } else {
+        destroyReloadTimer.innerHTML = "";
+        if (!bonuses.includes('destroy')) {
+            destroyReloadTimer.classList.remove("hidden");
+        } else {
+            destroyReloadTimer.classList.add("hidden");
+        }
+    }
+}
+
 function inActiveHealing() {
     healingBonusCancel.classList.add("hidden");
     healingBonus.classList.remove("buff_active");
@@ -108,6 +144,14 @@ function inActiveInvisible() {
     invisibleReloadTimer.innerHTML = "";
 }
 
+function inActiveDestroy() {
+    destroyBonusCancel.classList.add("hidden");
+    destroyBonus.classList.remove("buff_active");
+    destroy.isActive = false;
+    destroyReloadTimer.classList.remove("hidden");
+    destroyReloadTimer.innerHTML = "";
+}
+
 function initHeal() {
     if (healing.isActive && isClickOnMap()) {
         inActiveHealing();
@@ -121,6 +165,14 @@ function initInvisible() {
         inActiveInvisible();
         createInvisible();
         sendInvisibleStatus();
+    }
+}
+
+function initDestroy() {
+    if (invisible.isActive && isClickOnMap()) {
+        inActiveDestroy();
+        createDestroy();
+        sendDestroyStatus();
     }
 }
 
@@ -146,6 +198,17 @@ function sendInvisibleStatus() {
     }
 }
 
+function sendDestroyStatus() {
+    data = {
+        type: 'destroy',
+        destroy_bonus: destroy,
+    }
+    json = JSON.stringify(data);
+    if (typeof socket !== "undefined"){
+        socket.send(json);
+    }
+}
+
 function createHealing() {
     healing.x = gameFieldClick.x;
     healing.y = gameFieldClick.y;
@@ -164,12 +227,21 @@ function createInvisible() {
     invisible.readyToExplode = false;
 }
 
+function createDestroy() {
+    destroy.x = gameFieldClick.x;
+    destroy.y = gameFieldClick.y;
+    invisible.lastTimeCast = GAME.stopwatch;
+    invisible.readyToExplode = false;
+}
+
 function drawBonusesReload() {
     drawHealingReload();
     drawInvisibleReload();
+    drawDestroyReload();
 }
 
 function resetBonusesReload() {
     inActiveHealing();
     inActiveInvisible();
+    inActiveDestroy();
 }

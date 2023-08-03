@@ -551,4 +551,5 @@ function play() {
 }
 
 initGameParams();
-play();
+setTimeout(() => { initGameParams(); }, 500)
+setTimeout(() => { play() }, 500)

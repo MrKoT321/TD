@@ -30,3 +30,18 @@ const mortir = {
     atkColor: "red",
     towerImg: "../static/images/mortir_game_tower.png"
 }
+
+const bow = {
+    width: 75,
+    height: 75,
+    loaded_image: undefined,
+    simple_image: undefined,
+}
+
+const bowLoadedImg = new Image();
+const bowSimpleImg = new Image();
+bowLoadedImg.src = "../static/images/bowLoaded.png";
+bowSimpleImg.src = "../static/images/bowSimple.png";
+
+bowLoadedImg.onload = () => { bow.loaded_image = bowLoadedImg };
+bowSimpleImg.onload = () => { bow.simple_image = bowSimpleImg };

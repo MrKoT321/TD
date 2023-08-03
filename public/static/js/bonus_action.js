@@ -109,6 +109,15 @@ invisible = {
     init: false,
 }
 
+destroy = {
+    x: undefined,
+    y: undefined,
+    reload: 10,
+    lastTimeCast: 60,
+    isActive: false,
+    readyToExplode: true,
+}
+
 gameFieldClick = {
     x: 0,
     y: 0,
@@ -205,6 +214,10 @@ function drawInvisible() {
     canvasContext.stroke();
     canvasContext.fill();
     canvasContext.closePath();
+}
+
+function drawDestroyExplosion() {
+
 }
 
 function updateFireball() {
@@ -322,6 +335,12 @@ function updateInvisible() {
     }
 }
 
+function updateDestroy() {
+    if (GAME.stopwatch - destroy.lastTimeCast >= destroy.reload && !destroy.readyToExplode) {
+        destroy.readyToExplode = true;
+    }
+}
+
 function resetFireball() {
     fireball.isActive = false;
     fireball.readyToExplode = true;
@@ -357,6 +376,13 @@ function resetInvisible() {
     invisible.y = undefined;
 }
 
+function resetDestroy() {
+    destroy.isActive = false;
+    destroy.readyToExplode = true;
+    destroy.x = undefined;
+    destroy.y = undefined;
+}
+
 function resetBonuses() {
     resetFireball();
     resetFreeze();
@@ -370,12 +396,14 @@ function updateBonuses() {
         updateFreeze();
         updateHeal();
         updateInvisible();
+        updateDestroy();
     } else {
         if (GAME.isPlay == 'wavepause') {
             fireball.readyToExplode = true;
             freeze.readyToExplode = true;
             healing.readyToExplode = true;
             invisible.readyToExplode = true;
+            destroy.readyToExplode = true;
         }
     }
 }
@@ -384,6 +412,7 @@ function drawBonusesTop() {
     drawFireball();
     drawFireballExplosion();
     drawFreeze();
+    drawDestroyExplosion();
 }
 
 function drawBonusesBottom() {

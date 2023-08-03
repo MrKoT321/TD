@@ -487,7 +487,7 @@ random3.addEventListener(
     "click",
     () => {
         let randomcostwave3 = 200
-        randomWave(wave3, costwave3);
+        randomWave(wave3, randomcostwave3);
         for(let mob of wave3){
             if(mob.amount > 0){
                 randomcostwave3 -= mob.cost * mob.amount;

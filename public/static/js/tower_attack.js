@@ -49,9 +49,9 @@ function hittingRadius(tower, mstrCenterX, mstrCenterY) {
 function makeArrow(tower) {
     arrows.push({
         x: tower.x + 50,
-        y: tower.y + 50,
-        width: 45,
-        height: 45,
+        y: tower.y + 15,
+        width: 75,
+        height: 75,
         color: "black",
         towerCenterX: 0,
         towerCenterY: 0,
@@ -66,7 +66,7 @@ function makeArrow(tower) {
 function makeBullet(tower, mstrCenterX, mstrCenterY) {
     bullets.push({
         x: tower.x + 50,
-        y: tower.y + 50,
+        y: tower.y + 5,
         width: 60,
         height: 60,
         blastRadius: 90,
@@ -86,7 +86,7 @@ function makeBullet(tower, mstrCenterX, mstrCenterY) {
 function makeStrike(tower) {
     strikes.push({
         x: tower.x + 50,
-        y: tower.y + 50,
+        y: tower.y + 15,
         color: "black",
         atk: tower.atk,
         speed: 5,
@@ -107,6 +107,27 @@ function drawArrows() {
         canvasContext.restore();
     })
 }
+
+function drawBow(tower) {
+    canvasContext.save();
+    canvasContext.translate(tower.bow_x, tower.bow_y);
+    canvasContext.rotate(tower.bow_angel*Math.PI/180);
+    canvasContext.drawImage(tower.hit ? tower.bow_simple_image : tower.bow_loaded_image, -tower.bow_width/2, -tower.bow_height/2, tower.bow_width, tower.bow_height);
+    canvasContext.restore();
+}
+
+function updateBow(tower) {
+    let monster = monsters[tower.currentEnemy];
+    let mstrCenterX = monster.x + monster.width / 2;
+    let mstrCenterY = monster.y + monster.height / 2;
+    tower.bow_angel = Math.atan(Math.abs(mstrCenterY - tower.bow_y) / Math.abs(mstrCenterX -  tower.bow_x)) * 180/Math.PI;
+    if (tower.bow_x >= mstrCenterX) {
+        tower.bow_angel = 180 - tower.bow_angel ;
+    }
+    if (tower.bow_y >= mstrCenterY) {
+        tower.bow_angel = tower.bow_angel * -1;
+    }
+};
 
 function updateArrows() {
     for (var i = 0; i < arrows.length; i++) {
@@ -165,6 +186,7 @@ function updateArrows() {
 function attackArcher(GAME) {
     towers.forEach(tower => {
         if (tower.type == "arrow") {
+            drawBow(tower);
             tower.currentEnemy = -1;
             monsters.sort(function(mstrA, mstrB) {
                 if(mstrA.distance > mstrB.distance) {
@@ -189,6 +211,7 @@ function attackArcher(GAME) {
             if (tower.currentEnemy == -1) {
                 tower.startTime = 0;
             } else {
+                updateBow(tower);
                 if (!((GAME.stopwatch - tower.startTime) % tower.atkspeed == 0)) {
                     tower.hit = false;
                 }

@@ -558,7 +558,6 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
-    drawStrikes();
     if (GAME.isPlay != 'wavepause') {
         updateMobDataDef();
     }
@@ -598,6 +597,7 @@ function play() {
         removeTowerSelectors();
     }
     drawTower();
+    drawStrikes();
     drawArrows();
     drawBullets();
     attackTowers(GAME);
