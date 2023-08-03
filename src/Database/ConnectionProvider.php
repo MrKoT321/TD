@@ -8,7 +8,14 @@ class ConnectionProvider {
     {
         $dsn = 'mysql:host=localhost:3306;dbname=TD;charset=utf8';
         $user = 'root';
-        $password = 'pdb7325fdah45';
-        return new \PDO($dsn, $user, $password);
+        $password = '1234';
+        try {
+            $dbh = new \PDO($dsn, $user, $password);
+        }
+        catch (\PDOException $e) {
+            $dsn = 'mysql:host=mysql:3306;dbname=TD;charset=utf8';
+            return new \PDO($dsn, $user, $password);
+        }
+        return $dbh;
     }
 }

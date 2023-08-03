@@ -11,5 +11,10 @@
             "email": "nzimin93@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "cboden/ratchet": "^0.4"
+    },
+    "config": {
+        "platform-check": false
+    }
 }

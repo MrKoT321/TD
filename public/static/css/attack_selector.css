@@ -1,0 +1,491 @@
+.visible {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+    /* overflow: hidden; */
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #434343;
+    overflow: hidden;
+}
+
+.decoration {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.decoration div {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+}
+
+.decoration__back {
+    background-image: url('../images/loading-bg.png');
+    background-size: cover;
+}
+
+.decoration__front {
+    background-color: #42424270;
+    backdrop-filter: blur(6px);
+    transition: background-color .3s ease;
+}
+
+.decoration__front._pause {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color .3s ease;
+}
+
+.game {
+    position: relative;
+    width: 1800px;
+    height: 1000px;
+    display: flex;
+}
+
+.field {
+    width: 1800px;
+    position: relative;
+}
+
+.count-coin {
+    position: absolute;
+    top: 0;
+    margin-left: 20px;
+    font-weight: 400;
+    font-size: 100px;
+    color: white;
+    font-family: 'VT323';
+}
+
+.count-coin.error {
+    color: #FF3434;
+    display: inline-block;
+    margin: 0 20px;
+    animation: headShake;
+    animation-duration: .8s;
+}
+
+.map-button {
+    position: absolute;
+    margin-left: 300px;
+    margin-top: 0;
+    cursor: pointer;
+}
+
+.start-button {
+    position: absolute;
+    margin-left: 1494px;
+    margin-top: 0;
+    background: url("../images/start-button.png");
+    width: 307px;
+    height: 104px;
+    cursor: pointer;
+    border: 0;
+}
+
+.mob-count {
+    top: 0;
+    left: 10px;
+    font-weight: 400;
+    font-size: 100px;
+    color: white;
+    width: 80px;
+    text-align: right;
+    margin-left: 191px;
+    font-family: 'VT323';
+}
+
+.game-info {
+    display: none;
+}
+
+.form {
+    display: none;
+}
+
+.monsters-selector {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    margin-left: 128px;
+    gap: 135px;
+    margin-top: 180px;
+}
+
+.monster-selector {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+}
+
+.monster-selector-lock {
+    position: absolute;
+    margin-left: -200px;
+    cursor: pointer;
+}
+
+.monsters-selected {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+}
+
+.wave1 {
+    margin-top: 464px;
+}
+
+.wave2 {
+    margin-top: 668px;
+}
+
+.wave3 {
+    margin-top: 872px;
+}
+
+.sell {
+    position: absolute;
+    margin-left: 282px;
+    margin-bottom: 101px;
+    cursor: pointer;
+}
+
+.mob-info {
+    display: flex;
+    align-items: center;
+    height: 132px;
+    width: 360px;
+}
+
+.wave-selector {
+    position: absolute;
+    margin-left: 960px;
+    margin-top: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.wave-selector__wave-minus {
+    margin: 0;
+    cursor: pointer;
+}
+
+.wave-selector__1 {
+    position: absolute;
+    margin-left: 37px;
+}
+
+.wave-selector__2 {
+    position: absolute;
+    margin-left: 35px;
+}
+
+.wave-selector__3 {
+    position: absolute;
+    margin-left: 34px;
+}
+
+.wave-selector__wave-plus {
+    margin-left: 56px;
+    cursor: pointer;
+}
+
+.timer-to-choose {
+    position: absolute;
+    left: 1220px;
+    color: #FFF;
+    font-family: Holtwood One SC;
+}
+
+.timer-to-choose__value {
+    font-size: 64px;
+}
+
+.timer-to-choose__unit {
+    margin-left: 15px;
+    font-size: 48px;
+}
+
+.popup-map__field {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    background: white;
+    margin-top: 15vh;
+    margin-left: 50vh;
+}
+
+.popup-map__bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.map1 {
+    background: url("map1_selector");
+}
+
+.map2 {
+    background: url("map1_selector");
+}
+
+.map3 {
+    background: url("map1_selector");
+}
+
+.map4 {
+    background: url("map1_selector");
+}
+
+.map5 {
+    background: url("map1_selector");
+}
+
+.mob1-info {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: url('../images/monster1_info.png');
+    margin-left: 110px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.mob2-info {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: url('../images/monster2_info.png');
+    margin-left: 110px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.mob3-info {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: url('../images/monster3_info.png');
+    margin-left: 110px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.mob4-info {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: url('../images/monster4_info.png');
+    margin-left: 110px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.mob5-info {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: url('../images/monster5_info.png');
+    margin-left: 110px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.info-param1 {
+    font-family: 'VT323';
+    margin-top: 32px;
+    height: 34px;
+    width: 75px;
+    text-align: right;
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.info-param {
+    font-family: 'VT323';
+    height: 34px;
+    width: 75px;
+    text-align: right;
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.money-info-wave1 {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    margin-top: 396px;
+    margin-left: 323px;
+    gap: 20px;
+    align-items: center;
+}
+
+.money-info-wave2 {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    margin-top: 599px;
+    margin-left: 323px;
+    gap: 20px;
+    align-items: center;
+}
+
+.money-info-wave3 {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    margin-top: 802px;
+    margin-left: 323px;
+    gap: 20px;
+    align-items: center;
+}
+
+.money-wave-count {
+    font-size: 64px;
+    font-family: 'VT323';
+    text-align: right;
+    width: 70px;
+}
+
+.money-attack {
+    height: 40px;
+    width: 40px;
+}
+
+.form {
+    position: absolute;
+}
+
+.popup-start {
+    position: absolute;
+    font-family: 'VT323';
+    color: #9a0303;
+    margin-left: 1520px;
+    margin-top: 99px;
+    font-size: 40px;
+}
+
+.not_exist {
+    visibility: hidden;
+}
+
+.map-container {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.canvas-map {
+    z-index: 1;
+}
+
+.load {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    left: calc(50% - 460px);
+    top: 20%;
+    gap: 70px;
+}
+
+.loading-text {
+    color: white;
+    font-family: 'VT323';
+    font-size: 150px;
+    text-align: center;
+}
+
+.loading-score {
+    color: white;
+    font-family: 'VT323';
+    font-size: 200px;
+    text-align: center;
+}
+
+.loading {
+    --n: 9;
+    --s: 90px;
+    --g: 10px;
+    color: white;
+    width: calc(var(--n)*(var(--s) + var(--g)) - var(--g));
+    height: 50px;
+    padding: var(--g);
+    margin: 5px auto;
+    border: 5px solid black;
+    background:
+        repeating-linear-gradient(90deg,
+            currentColor 0 var(--s),
+            #0000 0 calc(var(--s) + var(--g))) left / calc((var(--n) + 1)*(var(--s) + var(--g))) 100% content-box no-repeat;
+    animation: load 5s steps(calc(var(--n) + 1)) infinite;
+}
+
+@keyframes load {
+    0% {
+        background-size: 0% 100%
+    }
+}
+
+.loading-bg {
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.loading-image {
+    position: absolute;
+}
+
+.random-wave1{
+    position: absolute;
+    margin-left: 1608px;
+    margin-top: 411px;
+    cursor: pointer;
+}
+
+.random-wave2{
+    position: absolute;
+    margin-left: 1608px;
+    margin-top: 613px;
+    cursor: pointer;
+}
+
+.random-wave3{
+    position: absolute;
+    margin-left: 1608px;
+    margin-top: 815px;
+    cursor: pointer;
+}
+
+.waiting-screen {
+    position: absolute;
+    width: 1800px;
+    height: 1000px;
+    background-color: rgba(0, 0, 0, 0.3);
+}

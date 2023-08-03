@@ -5,45 +5,85 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../static/css/menu.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&family=VT323&display=swap" rel="stylesheet">
     <title>Menu</title>
 </head>
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script async src="../static/js/menu.js"></script>
     <div class="menu">
         <div class="menu-title">
-            <img src="../static/img/menu.svg" class="background-menu">  
+            <img src="../static/images/menu.svg" class="background-menu">  
         </div>
         <div class="buttons">
-            <a href="#popup-multiplay"><img src="../static/img/multiplay.svg" class="button-multiplay" ></a>
-            <a href="/../single_game.php"><img src="../static/img/start.svg" class="button-start" ></a>
-            <a href="#popup-settings"><img src="../static/img/settings.svg" class="button-settings" ></a> 
+            <a href="#popup-multiplay"><img src="../static/images/multiplay.svg" class="button-multiplay"></a>
+            <a href="#popup-start"><img src="../static/images/start.svg" class="button-start"></a>
+            <a href="/../show_records.php"><img src="../static/images/records.svg" class="button-settings"></a> 
         </div>
     </div>
+    <div id="popup-start" class="popup">
+        <a href="#" class="popup__start"></a>
+        <div class="popup__body">
+            <div class="popup__content">
+                <div class="popup-buttons">
+                    <a href="#form" class="popup-button__attack" id="attack-choisen-start">ATTACK</a>
+                    <a href="#form" class="popup-button__defense" id="defense-choisen-start">DEFENSE</a>
+                </div>
+            </div>
+        </div>
+    </div> 
     <div id="popup-multiplay" class="popup">
         <a href="#" class="popup__multiplay"></a>
         <div class="popup__body">
             <div class="popup__content">
                 <div class="popup-buttons">
-                <a href="#" class="popup-button__attack">ATTACK</a>
-                <a href="#" class="popup-button__defense">DEFENSE</a>
+                    <a href="#form-multiplay" class="popup-button__attack" id="attack-choisen-multiplay">ATTACK</a>
+                    <a href="#form-multiplay" class="popup-button__defense" id="defense-choisen-multiplay">DEFENSE</a>
                 </div>
             </div>
         </div>
     </div>
-    <div id="popup-settings" class="popup">
+    <div id="form" class="popup">
         <a href="#" class="popup__area"></a>
         <div class="popup__body">
             <div class="popup__content">
-                <a href="#" class="popup__close">X</a>
-                <span class="popup__title">QQQQ</span>
-                <span class="popup__subtitle">qqq</span>
+                <h2 class="form-popup__title">Your nickname</h2>
+                <div class="form-popup__info">
+                    <form method="POST" nctype="multipart/form-data" class="form-popup" id="start-game-form">
+                        <input class="form-popup__nickname-single" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" required />
+                        <input class="form-popup__single hidden" type="text" name="choisenClass" />
+                        <input class="form-popup__submit" id="defense-submit-start" type="submit" name="submit" value="Submit"/>
+                        <input class="form-popup__submit" id="attack-submit-start" type="submit" name="submit" value="Submit"/>
+                    </form> 
+                </div>
             </div>
         </div>
     </div>
-    <div class="records">
-        <a href="/../show_records.php"><img src="../static/images/score.png" class="records__img"></a>
+    <div id="form-multiplay" class="popup">
+        <a href="#" class="popup__area"></a>
+        <div class="popup__body">
+            <div class="popup__content">
+                <h2 class="form-popup__title">Your nickname</h2>
+                <div class="form-popup__info">
+                    <form method="POST" nctype="multipart/form-data" class="form-popup" id="mutiplay-game-form">
+                        <input class="form-popup__nickname-multi" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" required />
+                        <input type="text" class="form-popup__multi hidden" type="text" name="choisenClass" />
+                        <input class="form-popup__submit" id="defense-submit-multiplay" type="submit" name="submit" value="Submit" />
+                        <input class="form-popup__submit" id="attack-submit-multiplay" type="submit" name="submit" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="waiting-screen">
+        <a href="#" class="popup__area" id="waiting-screen-area"></a>
+        <div class="popup__body">
+            <div class="popup__content" id="waiting-screen-img">
+                <img src="../static/images/waiting_screen.png" class="waiting-screen" />
+                <div class="waiting-screen-spin"></div>
+            </div>
+        </div>
     </div>
 </body>
-
 </html>
