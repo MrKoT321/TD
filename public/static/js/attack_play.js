@@ -229,7 +229,6 @@ function sendNextLvlParams() {
     score.value = String(GAME.score);
     currLvl.value = String(GAME.lvlCount + 1);
     mobsUnlock.value = String(GAME.mobsUnlock);
-    console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
     $('#form').attr('action', '../make_waves.php');
 }
 
@@ -464,7 +463,6 @@ function createWaves() {
     waveStrs.forEach(waveStr => {
         lvl.waves.splice(-1, 0, ...lvl.waves.splice(-1, 1, convertStrToArray(waveStr)));
     });
-    console.log(lvl.waves);
 }
 
 function initGameParams() {

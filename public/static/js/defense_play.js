@@ -324,7 +324,6 @@ async function sendResults(event) {
         choisenClass: 'defense',
         score: Math.floor(score.innerHTML)
     }
-    console.log(props)
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',
@@ -516,6 +515,7 @@ function showWaveInfo() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    console.log(GAME.stopwatch)
     showWaveInfo();
     updateMoney();
     updateScore();
