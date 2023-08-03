@@ -515,6 +515,7 @@ function showWaveInfo() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    console.log(GAME.stopwatch)
     showWaveInfo();
     updateMoney();
     updateScore();
