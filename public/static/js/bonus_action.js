@@ -135,7 +135,6 @@ function drawFireball() {
 
 function drawFireballExplosion() {
     if(fireball.finish) {
-        console.log("draw");
         canvasContext.drawImage(explosionSteps[fireball.stepcounter].img, fireball.finishX - fireball.explosionSize / 2, fireball.finishY - fireball.explosionSize / 2, fireball.explosionSize, fireball.explosionSize);
     }
     if(GAME.milisectimer > fireball.steptimer && fireball.stepcounter < 3) {
@@ -154,7 +153,6 @@ function drawFireballExplosion() {
 
 function drawIce() {
     if(freeze.finish) {
-        console.log(freeze.stepcounter);
         canvasContext.drawImage(iceSteps[freeze.stepcounter].img, freeze.finishX - freeze.iceSize / 2, freeze.finishY - freeze.iceSize / 2, freeze.iceSize, freeze.iceSize);
     }
     if(GAME.milisectimer > freeze.steptimer && freeze.stepcounter < 3) {

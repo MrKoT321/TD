@@ -22,9 +22,13 @@ const waitingScreenPopup = document.getElementById('waiting-screen-img');
 const waitingScreenArea = document.getElementById('waiting-screen-area');
 
 GAME = {
+    width: 1800,
+    height: 1000,
+    milisectimer: 0,
     username: undefined,
     choisen_class: undefined,
     roomId: undefined,
+    status: "choose"
 }
 
 startBtn.addEventListener('click', () => { nicknameSingle.value = ''; })
@@ -76,6 +80,10 @@ attackSubmitStart.addEventListener('click', () => { sendSingleGameForm('attack')
 function sendMultiplayGameForm(event, Class) {
     // choisenClassSingle.value = Class;
     // $('#mutiplay-game-form').attr('action', '../create_multiplay_game.php');
+    document.getElementById("form-multiplay").classList.add("hidden");
+    document.getElementById("canvas").classList.remove("hidden");
+    history.pushState({}, 'Menu', './#');
+    GAME.status = "search";
     GAME.username = nicknameMulti.value;
     GAME.choisen_class = Class;
     event.preventDefault();
@@ -91,6 +99,9 @@ function sendMultiplayGameForm(event, Class) {
 }
 
 waitingScreenArea.addEventListener('click', () => {
+    document.getElementById("form-multiplay").classList.remove("hidden");
+    document.getElementById("canvas").classList.add("hidden");
+    GAME.status = "choose";
     waitingScreen.classList.remove("active");
     waitingScreenPopup.style.opacity = "0";
     waitingScreenPopup.style.transform = "translate(0px, -100%)";
@@ -127,15 +138,47 @@ socket.addEventListener('open', function(event) {
 
 socket.addEventListener('message', function(event) {
     data = JSON.parse(event.data);
-    console.log(data);
     switch (data.type) {
-        case 'add_to_search':
-            console.log(data.choisen_class);
-            break;
         case 'find':
             GAME.roomId = data.roomId;
-            console.log("Redirect to New Page");
             redirectToMultiplayGame();
             break;
     }
 });
+
+let canvas = document.getElementById("canvas");
+canvas.width = GAME.width;
+canvas.height = GAME.height;
+let canvasContext = canvas.getContext("2d");
+
+const background = new Image();
+background.src = "../static/images/waiting_screen.png";
+background.onload = () => {
+    GAME.background = background;
+}
+
+startDate = new Date();
+function compareTime() {
+    GAME.milisectimer = new Date() - startDate;
+}
+
+function drawBackground() {
+    canvasContext.clearRect(0, 0, GAME.width, GAME.height);
+    if (GAME.background) {
+        canvasContext.drawImage(GAME.background, 0, 0, GAME.width, GAME.height);
+    }
+}
+
+function play() {
+    compareTime();
+    drawBackground();
+    if (GAME.status === "search") {
+        setWaitingMonster();
+        walkMonster();
+    } else {
+        resetWaitingMonster();
+    }
+    requestAnimationFrame(play);
+}
+
+play();

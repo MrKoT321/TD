@@ -395,8 +395,44 @@ function updateMobDataAtk() {
     }
 }
 
+function setStepCounter() {
+    let timeInterval = GAME.milisectimer % 800;
+    if (timeInterval < 200) {
+        stepcounter = 1;
+        return
+    }
+    if (timeInterval < 400) {
+        stepcounter = 2;
+        return
+    }
+    if (timeInterval < 600) {
+        stepcounter = 3;
+        return
+    }
+    if (timeInterval < 800) {
+        stepcounter = 4;
+    }
+}
+
+function setStepCounterTank() {
+    let timeInterval = GAME.milisectimer % 600;
+    if (timeInterval < 200) {
+        stepcountertank = 1;
+        return
+    }
+    if (timeInterval < 400) {
+        stepcountertank = 2;
+        return
+    }
+    if (timeInterval < 600) {
+        stepcountertank = 3;
+    }
+}
+
 function updateMonstersStep() {
     if (GAME.milisectimer > steptimer) {
+        setStepCounter();
+        setStepCounterTank();
         for (let monster of monsters) {
             if (monster.name != 'monster4') {
                 if (monster.dir == 'r' || monster.dir == 'u') {
@@ -451,46 +487,14 @@ function updateMonstersStep() {
             }
         }
         steptimer += 200;
-        stepcounter += 1;
+        // stepcounter += 1;
         steptimertank += 200;
-        stepcountertank += 1;
-        if (steptimer % 800 == 0) {
-            stepcounter = 1
-        }
-        if (steptimertank % 600 == 0) {
-            stepcountertank = 1
-        }
+        // stepcountertank += 1;
+        // if (steptimer % 800 == 0) {
+        //     stepcounter = 1
+        // }
+        // if (steptimertank % 600 == 0) {
+        //     stepcountertank = 1
+        // }
     }
-}
-
-function getMonstersFromTheirName(monstersStrArr) {
-    let resWave = [];
-    monstersStrArr.forEach(monsterStr => {
-        switch (monsterStr) {
-            case "monster1":
-                resWave.push(monster1);
-                break;
-            case "monster2":
-                resWave.push(monster2);
-                break;
-            case "monster3":
-                resWave.push(monster3);
-                break;
-            case "monster4":
-                resWave.push(monster4);
-                break;
-            case "monster5":
-                resWave.push(monster5);
-                break;
-        }
-    });
-    return resWave;
-}
-
-function decodeMonsterWaves(data) {
-    let waves = []
-    data.forEach(strWave => {
-        getMonstersFromTheirName(strWave)
-    });
-    return waves;
 }

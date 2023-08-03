@@ -179,9 +179,7 @@ function gameOver() {
         }
         if (GAME.lvlCount < 4) {
             openLoading();
-            console.log(pushmonstercount, "loh")
             updateNextLvlParams();
-            console.log(pushmonstercount, "neloh")
             setTimeout(() => {
                 closeLoading();
                 showOpponentScreen();
@@ -429,7 +427,6 @@ socket.addEventListener('open', function (event) {
 
 socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
-    console.log(data);
     switch (data.type) {
         case 'game_status':
             GAME.isPlay = data.status;
