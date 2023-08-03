@@ -337,6 +337,14 @@ function updateDestroy() {
     if (GAME.stopwatch - destroy.lastTimeCast >= destroy.reload && !destroy.readyToExplode) {
         destroy.readyToExplode = true;
     }
+    if(destroy.x && destroy.y) {
+        for (let i = 0; i < towers.length; i++) {
+            const tower = towers[i];
+            if (destroy.x >= tower.x && destroy.x <= tower.x + 100 && destroy.y >= tower.y && destroy.y <= tower.y + 100) {
+                towers.splice(i, 1);
+            }
+        }
+    }
 }
 
 function resetFireball() {
