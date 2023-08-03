@@ -6,7 +6,7 @@ const archer = {
     atkspeed: 2,
     towerColor: "orange",
     atkColor: "red" ,
-    towerImg: "../static/images/archer_tower.png"
+    towerImg: "../static/images/archer_game_tower.png"
 }
 
 const electric = {
@@ -17,7 +17,7 @@ const electric = {
     atkspeed: 3,
     towerColor: "yellow",
     atkColor: "red",
-    towerImg: "../static/images/electric_tower.png"
+    towerImg: "../static/images/electric_game_tower.png"
 }
 
 const mortir = {
@@ -28,5 +28,5 @@ const mortir = {
     atkspeed: 2,
     towerColor: "blue",
     atkColor: "red",
-    towerImg: "../static/images/mortir_tower.png"
+    towerImg: "../static/images/mortir_game_tower.png"
 }
