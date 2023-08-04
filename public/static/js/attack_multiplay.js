@@ -13,6 +13,8 @@ const backToMenuBtn = document.getElementById("back-to-menu");
 const nextLvlForm = document.getElementById("form");
 // const restartGameForm = document.getElementById("form-restart");
 
+const globalBackground = document.querySelector('.decoration__front');
+
 const currentLvl = document.getElementById("current-lvl");
 const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
@@ -86,10 +88,12 @@ function changeGameStatusButtons() {
     if (GAME.isPlay == 'play') {
         pauseGameBtn.classList.add("play");
         pauseGameBtn.classList.remove("pause");
+        globalBackground.classList.remove("_pause");
     } else {
         if (GAME.isPlay == 'menu') {
             pauseGameBtn.classList.add("pause");
             pauseGameBtn.classList.remove("play");
+            globalBackground.classList.add("_pause");
         }
     }
     if (GAME.isPlay == 'wavepause') {
