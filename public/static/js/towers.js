@@ -1,6 +1,6 @@
 const archer = {
     cost: 30,
-    atk: 30,
+    atk: 20,
     radius: 350,
     type: "arrow",
     atkspeed: 2,
@@ -11,10 +11,10 @@ const archer = {
 
 const electric = {
     cost: 40,
-    atk: 20,
+    atk: 30,
     radius: 400,
     type: "electric",
-    atkspeed: 3,
+    atkspeed: 4,
     towerColor: "yellow",
     atkColor: "red",
     towerImg: "../static/images/electric_game_tower.png"
@@ -22,10 +22,10 @@ const electric = {
 
 const mortir = {
     cost: 50,
-    atk: 25,
+    atk: 35,
     radius: 300,
     type: "splash",
-    atkspeed: 2,
+    atkspeed: 4,
     towerColor: "blue",
     atkColor: "red",
     towerImg: "../static/images/mortir_game_tower.png"

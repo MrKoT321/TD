@@ -4,8 +4,12 @@ const explosion_step_3 = new Image();
 const ice_step_1 = new Image();
 const ice_step_2 = new Image();
 const ice_step_3 = new Image();
+const destroy_step_1 = new Image();
+const destroy_step_2 = new Image();
+const destroy_step_3 = new Image();
 const fireballImg = new Image();
 const freezeImg = new Image();
+const hummerImg = new Image();
 explosion_step_1.src = '../static/images/explosion_1.png';
 explosion_step_2.src = '../static/images/explosion_2.png';
 explosion_step_3.src = '../static/images/explosion_3.png';
@@ -14,8 +18,14 @@ ice_step_1.src = '../static/images/freeze_1.png';
 ice_step_2.src = '../static/images/freeze_2.png';
 ice_step_3.src = '../static/images/freeze_3.png';
 freezeImg.src = '../static/images/snowball.png';
+destroy_step_1.src = '../static/images/destroy_explosion_1.png';
+destroy_step_2.src = '../static/images/destroy_explosion_2.png';
+destroy_step_3.src = '../static/images/destroy_explosion_3.png';
+hummerImg.src = '../static/images/hummer.png';
 
 const sortSteps = (i1 = { index }, i2 = { index }) => i1 - i2;
+const destroyAnimationDuration = 600;
+const destroyFrameTime = destroyAnimationDuration / 6;
 
 fireball = {
     x: undefined,
@@ -116,7 +126,22 @@ destroy = {
     lastTimeCast: 60,
     isActive: false,
     readyToExplode: true,
+    hummerImage: undefined,
+    hummerAngel: -90,
+    hummerSize: 200,
+    step: 50,
+    steptimerExplosion: undefined,
+    steptimerHummer: undefined,
+    stepcounter: 0,
+    explosionSize: 100
 }
+
+const destroyExplosionSteps = [];
+
+ice_step_1.onload = () => { destroyExplosionSteps.push({index: 1, img: destroy_step_1}) }
+ice_step_2.onload = () => { destroyExplosionSteps.push({index: 2, img: destroy_step_2}) }
+ice_step_3.onload = () => { destroyExplosionSteps.push({index: 3, img: destroy_step_3}) }
+hummerImg.onload = () => { destroy.hummerImage = hummerImg }
 
 gameFieldClick = {
     x: 0,
@@ -215,7 +240,40 @@ function drawInvisible() {
 }
 
 function drawDestroyExplosion() {
+    if(destroy.steptimerExplosion) {
+        canvasContext.drawImage(destroyExplosionSteps[destroy.stepcounter].img, destroy.x - destroy.explosionSize / 2, destroy.y - destroy.explosionSize / 2, destroy.explosionSize, destroy.explosionSize);
+    }
+    if(destroy.steptimerExplosion && GAME.milisectimer > destroy.steptimerExplosion && destroy.stepcounter < 3) {
+        destroyExplosionSteps.sort(function(destr1, destr2) {return destr1.index - destr2.index});
+        destroy.explosionSize += 50;
+        destroy.steptimerExplosion += 100;
+        destroy.stepcounter += 1;
+    }
+    if(destroy.stepcounter == 3) {
+        destroy.steptimerExplosion = undefined;
+        destroy.stepcounter = 0;
+        destroy.explosionSize = 100;
+    }
+}
 
+function drawHummer() {
+    console.log(destroy.steptimerHummer, destroyAnimationDuration)
+    if(destroy.steptimerHummer && destroy.hummerAngel < 0) {
+        canvasContext.save();
+        canvasContext.translate(destroy.x - destroy.step, destroy.y - destroy.step);
+        canvasContext.rotate(destroy.hummerAngel*Math.PI/180);
+        canvasContext.drawImage(destroy.hummerImage, -destroy.hummerSize/2,  -destroy.hummerSize/2,  destroy.hummerSize,  destroy.hummerSize);
+        canvasContext.restore();
+    }
+    if(destroy.steptimerHummer && GAME.milisectimer > destroy.steptimerHummer) {
+        destroy.steptimerHummer += destroyFrameTime;
+        destroy.hummerAngel += 30;
+    }
+    if(destroy.hummerAngel >= 0) {
+        destroy.steptimerHummer = undefined;
+        destroy.hummerAngel = -90;
+        destroy.stepcounter = 0;
+    }
 }
 
 function updateFireball() {
@@ -337,13 +395,17 @@ function updateDestroy() {
     if (GAME.stopwatch - destroy.lastTimeCast >= destroy.reload && !destroy.readyToExplode) {
         destroy.readyToExplode = true;
     }
-    if(destroy.x && destroy.y) {
+    if(destroy.x && destroy.y && !destroy.used) {
         for (let i = 0; i < towers.length; i++) {
             const tower = towers[i];
             if (destroy.x >= tower.x && destroy.x <= tower.x + 100 && destroy.y >= tower.y && destroy.y <= tower.y + 100) {
-                towers.splice(i, 1);
+                destroy.steptimerHummer = GAME.milisectimer;
+                console.log("hummer init", destroy.steptimerHummer)
+                setTimeout(() => {destroy.steptimerExplosion = GAME.milisectimer; console.log("explosion init", destroy.steptimerExplosion)}, destroyAnimationDuration / 2);
+                setTimeout(() => {towers.splice(i, 1); console.log("tower delete", GAME.milisectimer)}, destroyAnimationDuration);
             }
         }
+        destroy.used = true;
     }
 }
 
@@ -418,6 +480,7 @@ function drawBonusesTop() {
     drawFireball();
     drawFireballExplosion();
     drawFreeze();
+    drawHummer();
     drawDestroyExplosion();
 }
 

@@ -119,6 +119,7 @@ function resetStopwatch() {
     startTimer = new Date();
     GAME.milisectimer = 0;
     timeInPause = 0;
+    timeInLastPause = 0;
 }
 
 function catchTime() {
@@ -545,7 +546,6 @@ function play() {
     drawBonusesBottom();
     moveMonsters(GAME, lvls);
     drawExplosion();
-    drawBonusesTop();
     updateBonuses();
     drawCastle();
     changeGameStatusButtons();
@@ -574,6 +574,7 @@ function play() {
     drawTower();
     drawArrows();
     drawBullets();
+    drawBonusesTop();
     attackTowers(GAME);
     gameOver();
     if (GAME.isPlay == 'menu') {
@@ -584,5 +585,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
-setTimeout(() => { initGameParams(); }, 1000)
-setTimeout(() => { play(); }, 500)
+setTimeout(() => { initGameParams(); }, 500)
+setTimeout(() => { play(); }, 600)

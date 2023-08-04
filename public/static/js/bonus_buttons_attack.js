@@ -171,7 +171,6 @@ function initInvisible() {
 
 function initDestroy() {
     if (destroy.isActive && isClickOnMap()) {
-        console.log("create");
         inActiveDestroy();
         createDestroy();
         sendDestroyStatus();
@@ -234,6 +233,7 @@ function createDestroy() {
     destroy.y = gameFieldClick.y;
     destroy.lastTimeCast = GAME.stopwatch;
     destroy.readyToExplode = false;
+    destroy.used = false;
 }
 
 function drawBonusesReload() {
