@@ -93,7 +93,6 @@ function updateVisualLvlParams() {
     totalWave.innerHTML = lvls[GAME.lvlCount - 1].waves.length;
 }
 
-
 function resetStopwatch() {
     GAME.stopwatch = 0;
     startTimer = new Date();
@@ -241,6 +240,7 @@ function changeLvl() {
 function updateCastleHP() {
     let bar = document.getElementById("hp-bar");
     for (let i = 0; i < GAME.castleHP; i++) {
+        bar.children[GAME.castleHP - 1].src = "../static/images/hp.png";
         bar.children[i].classList.remove("_hide");
     }
 }
@@ -551,7 +551,6 @@ function showWaveInfo() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    console.log(GAME.stopwatch)
     showWaveInfo();
     updateMoney();
     updateScore();

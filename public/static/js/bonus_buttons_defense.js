@@ -6,6 +6,9 @@ const freezeBonus = document.querySelector(".freeze-buf__icon");
 const freezeBonusCancel = document.querySelector(".freeze-buf__cancel");
 const freezeReloadTimer = document.querySelector(".freeze-buf__reload");
 
+const extraLifeBonus = document.querySelector(".extra-life__icon");
+const extraLifeBonusReload = document.querySelector(".extra-life-buf__reload");
+
 canvas.addEventListener(
     'click',
     (event) => {
@@ -48,6 +51,17 @@ freezeBonus.addEventListener(
     }
 )
 
+extraLifeBonus.addEventListener(
+    "click",
+    () => {
+        if (!extraLife.wasUsed) {
+            initExtraLife();
+            inActiveFreeze();
+            inActiveFireBall();
+        }
+    }
+)
+
 fireballBonusCancel.addEventListener("click", () => { inActiveFireBall(); })
 freezeBonusCancel.addEventListener("click", () => { inActiveFreeze(); })
 
@@ -79,6 +93,17 @@ function drawFreezeReload() {
     }
 }
 
+function drawExtraLifeReload() {
+    if (!extraLife.wasUsed && GAME.castleHP < 3) {
+        extraLifeBonusReload.classList.add("hidden");
+    } else {
+        extraLifeBonusReload.classList.remove("hidden");
+    }
+    if (!bonuses.includes("extra_life")) {
+        freezeReloadTimer.classList.remove("hidden");
+    }
+}
+
 function inActiveFireBall() {
     fireballBonusCancel.classList.add("hidden");
     fireballBonus.classList.remove("buff_active");
@@ -93,6 +118,10 @@ function inActiveFreeze() {
     freeze.isActive = false;
     freezeReloadTimer.classList.remove("hidden");
     freezeReloadTimer.innerHTML = "";
+}
+
+function inActiveExtraLife() {
+    extraLifeBonusReload.classList.remove("hidden");
 }
 
 function initFireball() {
@@ -111,6 +140,11 @@ function initFreeze() {
     }
 }
 
+function initExtraLife() {
+    createExtraLife();
+    sendExtraLifeStatus();
+}
+
 function sendFireballStatus() {
     data = {
         type: 'fireball',
@@ -126,6 +160,16 @@ function sendFreezeStatus() {
     data = {
         type: 'freeze',
         freeze_bonus: freeze
+    }
+    json = JSON.stringify(data);
+    if (typeof socket !== "undefined"){
+        socket.send(json);
+    }
+}
+
+function sendExtraLifeStatus() {
+    data = {
+        type: 'extra_life'
     }
     json = JSON.stringify(data);
     if (typeof socket !== "undefined"){
@@ -158,12 +202,22 @@ function createFreeze() {
     freeze.readyToExplode = false;
 }
 
+function createExtraLife() {
+    extraLife.wasUsed = true;
+    let bar = document.getElementById("hp-bar");
+    GAME.castleHP += 1;
+    bar.children[GAME.castleHP - 1].src = "../static/images/extra_life.png";
+    bar.children[GAME.castleHP - 1].classList.remove("_hide");
+}
+
 function drawBonusesReload() {
     drawFireballReload();
     drawFreezeReload();
+    drawExtraLifeReload();
 }
 
 function resetBonusesReload() {
     inActiveFireBall();
     inActiveFreeze();
+    inActiveExtraLife();
 }

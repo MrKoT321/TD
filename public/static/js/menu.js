@@ -181,4 +181,4 @@ function play() {
     requestAnimationFrame(play);
 }
 
-play();
+setTimeout(() => { play() }, 1000)
