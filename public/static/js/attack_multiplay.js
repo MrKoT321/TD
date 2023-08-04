@@ -103,6 +103,13 @@ function changeGameStatusButtons() {
     } 
 }
 
+function addExtraLife() {
+    let bar = document.getElementById("hp-bar");
+    GAME.castleHP += 1;
+    bar.children[GAME.castleHP - 1].src = "../static/images/extra_life.png";
+    bar.children[GAME.castleHP - 1].classList.remove("_hide");
+}
+
 const socket = new WebSocket('ws://localhost:8090');
 
 socket.addEventListener('message', function(event) {
@@ -120,8 +127,11 @@ socket.addEventListener('message', function(event) {
             fireballImg ? fireball.image = fireballImg : fireball.image = undefined;
             break;
         case 'freeze':
-            freeze = data.freeze_bonus
+            freeze = data.freeze_bonus;
             freezeImg ? freeze.image = freezeImg : freeze.image = undefined;
+            break;
+        case 'extra_life':
+            addExtraLife();
             break;
         case 'game_score':
             GAME.attackScore = data.attackScore;
@@ -355,6 +365,7 @@ function changeLvl() {
 function updateCastleHP() {
     let bar = document.getElementById("hp-bar");
     for (let i = 0; i < GAME.castleHP; i++) {
+        bar.children[GAME.castleHP - 1].src = "../static/images/hp.png";
         bar.children[i].classList.remove("_hide");
     }
 }

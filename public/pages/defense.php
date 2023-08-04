@@ -113,7 +113,7 @@
                     <span class="freeze-buf__reload"></span>
                 </div>
                 <div class="extra-life-buf buf-slot">
-                <img src="../static/images/freeze_buff.png" class="extra-life__icon" />
+                    <img src="../static/images/extra_life_buff.png" class="extra-life-buf__icon" />
                     <span class="extra-life-buf__reload"></span>
                 </div>
                 <div class="bar-game-info">

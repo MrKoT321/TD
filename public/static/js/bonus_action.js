@@ -226,12 +226,12 @@ function drawDestroyExplosion() {
 }
 
 function updateFireball() {
+    if (GAME.stopwatch - fireball.lastTimeCast >= fireball.reload && !fireball.readyToExplode) {
+        fireball.readyToExplode = true;
+    }
     if (fireball.x && fireball.y) {
         fireball.x += fireball.speedX;
         fireball.y += fireball.speedY;
-        if (GAME.stopwatch - fireball.lastTimeCast >= fireball.reload && !fireball.readyToExplode) {
-            fireball.readyToExplode = true;
-        }
         if (fireball.x < fireball.finishX && fireball.y > fireball.finishY) {
             fireball.x = undefined;
             fireball.y = undefined;
@@ -254,11 +254,11 @@ function updateFireball() {
 }
 
 function updateFreeze() {
+    if (GAME.stopwatch - freeze.lastTimeCast >= freeze.reload && !freeze.readyToExplode) {
+        freeze.readyToExplode = true;
+    }
     if (freeze.x && freeze.y) {
         freeze.y += freeze.speedY;
-        if (GAME.stopwatch - freeze.lastTimeCast >= freeze.reload && !freeze.readyToExplode) {
-            freeze.readyToExplode = true;
-        }
         if (freeze.y > freeze.finishY) {
             freeze.x = undefined;
             freeze.y = undefined;
@@ -282,10 +282,10 @@ function updateFreeze() {
 }
 
 function updateHeal() {
+    if (GAME.stopwatch - healing.lastTimeCast >= healing.reload && !healing.readyToExplode) {
+        healing.readyToExplode = true;
+    }
     if (!!healing.x && !!healing.y) {
-        if (GAME.stopwatch - healing.lastTimeCast >= healing.reload && !healing.readyToExplode) {
-            healing.readyToExplode = true;
-        }
         monsters.forEach(monster => {
             let mstrCenterX = monster.x + monster.width / 2;
             let mstrCenterY = monster.y + monster.height / 2;
@@ -314,15 +314,15 @@ function updateHeal() {
 }
 
 function updateInvisible() {
+    if (GAME.stopwatch - invisible.lastTimeCast >= invisible.reload && !invisible.readyToExplode) {
+        invisible.readyToExplode = true;
+    }
     if (!!invisible.x && !!invisible.y) {
         if(invisible.init) {
             monsters.sort(function(mstrA, mstrB) {
                 return mstrB.invisiblePriority - mstrA.invisiblePriority;
             });
             invisible.init = false;
-        }
-        if (GAME.stopwatch - invisible.lastTimeCast >= invisible.reload && !invisible.readyToExplode) {
-            invisible.readyToExplode = true;
         }
         if (GAME.stopwatch - invisible.lastTimeCast <= invisible.worktime && !invisible.used) {
             if(invisible.blastRadius <= invisible.maxRadius) {

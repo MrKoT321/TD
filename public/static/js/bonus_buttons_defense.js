@@ -168,14 +168,13 @@ function sendFreezeStatus() {
 }
 
 function sendExtraLifeStatus() {
-    // data = {
-    //     type: 'freeze',
-    //     freeze_bonus: freeze
-    // }
-    // json = JSON.stringify(data);
-    // if (typeof socket !== "undefined"){
-    //     socket.send(json);
-    // }
+    data = {
+        type: 'extra_life'
+    }
+    json = JSON.stringify(data);
+    if (typeof socket !== "undefined"){
+        socket.send(json);
+    }
 }
 
 function createFireBall() {
@@ -207,6 +206,7 @@ function createExtraLife() {
     extraLife.wasUsed = true;
     let bar = document.getElementById("hp-bar");
     GAME.castleHP += 1;
+    bar.children[GAME.castleHP - 1].src = "../static/images/extra_life.png";
     bar.children[GAME.castleHP - 1].classList.remove("_hide");
 }
 
