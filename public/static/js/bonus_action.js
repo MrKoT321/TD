@@ -137,7 +137,7 @@ function initBonuses(choisenClass) {
 }
 
 function drawFireball() {
-    if(fireball.x && fireball.y) {
+    if(!!fireball.x && !!fireball.y) {
         canvasContext.drawImage(fireball.image, fireball.x - 100, fireball.y - 100, 200, 200);
     }
 }
@@ -158,7 +158,7 @@ function drawFireballExplosion() {
         fireball.finish = false;
         fireball.explosionSize = 100;
     }
-};
+}
 
 function drawIce() {
     if(freeze.finish) {
@@ -174,7 +174,7 @@ function drawIce() {
         freeze.stepcounter = 0;
         freeze.finish = false;
     }
-};
+}
 
 function drawFreeze() {
     if(freeze.x && freeze.y) {
@@ -183,35 +183,39 @@ function drawFreeze() {
 }
 
 function drawHeal() {
-    canvasContext.beginPath();
-    if(healing.x && healing.y) {
-        let gradient = canvasContext.createRadialGradient(healing.x, healing.y, healing.blastRadius / 2, healing.x, healing.y, healing.blastRadius);
-        gradient.addColorStop("1", healing.color);
-        gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
-        canvasContext.fillStyle = gradient;
+    if (!!healing.x && !!healing.y){
+        canvasContext.beginPath();
+        if(healing.x && healing.y) {
+            let gradient = canvasContext.createRadialGradient(healing.x, healing.y, healing.blastRadius / 2, healing.x, healing.y, healing.blastRadius);
+            gradient.addColorStop("1", healing.color);
+            gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
+            canvasContext.fillStyle = gradient;
+        }
+        canvasContext.strokeStyle = healing.strokeColor;
+        canvasContext.lineWidth = 4;
+        canvasContext.arc(healing.x, healing.y, healing.blastRadius, 0, 2 * Math.PI);
+        canvasContext.stroke();
+        canvasContext.fill();
+        canvasContext.closePath();
     }
-    canvasContext.strokeStyle = healing.strokeColor;
-    canvasContext.lineWidth = 4;
-    canvasContext.arc(healing.x, healing.y, healing.blastRadius, 0, 2 * Math.PI);
-    canvasContext.stroke();
-    canvasContext.fill();
-    canvasContext.closePath();
 }
 
 function drawInvisible() {
-    canvasContext.beginPath();
-    if(invisible.x && invisible.y) {
-        let gradient = canvasContext.createRadialGradient(invisible.x, invisible.y, invisible.blastRadius / 2, invisible.x, invisible.y, invisible.blastRadius);
-        gradient.addColorStop("1", invisible.color);
-        gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
-        canvasContext.fillStyle = gradient;
+    if (!!invisible.x && !!invisible.y) {
+        canvasContext.beginPath();
+        if(invisible.x && invisible.y) {
+            let gradient = canvasContext.createRadialGradient(invisible.x, invisible.y, invisible.blastRadius / 2, invisible.x, invisible.y, invisible.blastRadius);
+            gradient.addColorStop("1", invisible.color);
+            gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
+            canvasContext.fillStyle = gradient;
+        }
+        canvasContext.strokeStyle = invisible.strokeColor;
+        canvasContext.lineWidth = 4;
+        canvasContext.arc(invisible.x, invisible.y, invisible.blastRadius, 0, 2 * Math.PI);
+        canvasContext.stroke();
+        canvasContext.fill();
+        canvasContext.closePath();
     }
-    canvasContext.strokeStyle = invisible.strokeColor;
-    canvasContext.lineWidth = 4;
-    canvasContext.arc(invisible.x, invisible.y, invisible.blastRadius, 0, 2 * Math.PI);
-    canvasContext.stroke();
-    canvasContext.fill();
-    canvasContext.closePath();
 }
 
 function drawDestroyExplosion() {
@@ -219,116 +223,124 @@ function drawDestroyExplosion() {
 }
 
 function updateFireball() {
-    fireball.x += fireball.speedX;
-    fireball.y += fireball.speedY;
-    if (GAME.stopwatch - fireball.lastTimeCast >= fireball.reload && !fireball.readyToExplode) {
-        fireball.readyToExplode = true;
-    }
-    if (fireball.x < fireball.finishX && fireball.y > fireball.finishY) {
-        fireball.x = undefined;
-        fireball.y = undefined;
-        fireball.finish = true;
-        fireball.steptimer = GAME.milisectimer + 100;
-        monsters.forEach(monster => {
-            let mstrCenterX = monster.x + monster.width / 2;
-            let mstrCenterY = monster.y + monster.height / 2;
-            let distance = Math.sqrt(Math.pow(mstrCenterX - fireball.finishX, 2) + Math.pow(mstrCenterY - fireball.finishY, 2));
-            if (distance <= fireball.blastRadius) {
-                if (monster.shield > 0) {
-                    monster.shield -= fireball.atk;
-                } else {
-                    monster.hp -= fireball.atk;
+    if (fireball.x && fireball.y) {
+        fireball.x += fireball.speedX;
+        fireball.y += fireball.speedY;
+        if (GAME.stopwatch - fireball.lastTimeCast >= fireball.reload && !fireball.readyToExplode) {
+            fireball.readyToExplode = true;
+        }
+        if (fireball.x < fireball.finishX && fireball.y > fireball.finishY) {
+            fireball.x = undefined;
+            fireball.y = undefined;
+            fireball.finish = true;
+            fireball.steptimer = GAME.milisectimer + 100;
+            monsters.forEach(monster => {
+                let mstrCenterX = monster.x + monster.width / 2;
+                let mstrCenterY = monster.y + monster.height / 2;
+                let distance = Math.sqrt(Math.pow(mstrCenterX - fireball.finishX, 2) + Math.pow(mstrCenterY - fireball.finishY, 2));
+                if (distance <= fireball.blastRadius) {
+                    if (monster.shield > 0) {
+                        monster.shield -= fireball.atk;
+                    } else {
+                        monster.hp -= fireball.atk;
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 }
 
 function updateFreeze() {
-    freeze.y += freeze.speedY;
-    if (GAME.stopwatch - freeze.lastTimeCast >= freeze.reload && !freeze.readyToExplode) {
-        freeze.readyToExplode = true;
-    }
-    if (freeze.y > freeze.finishY) {
-        freeze.x = undefined;
-        freeze.y = undefined;
-        freeze.finish = true;
-        freeze.steptimer = GAME.milisectimer + 100;
-        monsters.forEach(monster => {
-            let mstrCenterX = monster.x + monster.width / 2;
-            let mstrCenterY = monster.y + monster.height / 2;
-            let distance = Math.sqrt(Math.pow(mstrCenterX - freeze.finishX, 2) + Math.pow(mstrCenterY - freeze.finishY, 2));
-            if (distance <= freeze.blastRadius) {
-                if (monster.shield > 0) {
-                    monster.shield -= freeze.atk;
-                } else {
-                    monster.hp -= freeze.atk;
+    if (freeze.x && freeze.y) {
+        freeze.y += freeze.speedY;
+        if (GAME.stopwatch - freeze.lastTimeCast >= freeze.reload && !freeze.readyToExplode) {
+            freeze.readyToExplode = true;
+        }
+        if (freeze.y > freeze.finishY) {
+            freeze.x = undefined;
+            freeze.y = undefined;
+            freeze.finish = true;
+            freeze.steptimer = GAME.milisectimer + 100;
+            monsters.forEach(monster => {
+                let mstrCenterX = monster.x + monster.width / 2;
+                let mstrCenterY = monster.y + monster.height / 2;
+                let distance = Math.sqrt(Math.pow(mstrCenterX - freeze.finishX, 2) + Math.pow(mstrCenterY - freeze.finishY, 2));
+                if (distance <= freeze.blastRadius) {
+                    if (monster.shield > 0) {
+                        monster.shield -= freeze.atk;
+                    } else {
+                        monster.hp -= freeze.atk;
+                    }
+                    monster.speed /= 2;
                 }
-                monster.speed /= 2;
-            }
-        })
+            })
+        }
     }
 }
 
 function updateHeal() {
-    if (GAME.stopwatch - healing.lastTimeCast >= healing.reload && !healing.readyToExplode) {
-        healing.readyToExplode = true;
-    }
-    monsters.forEach(monster => {
-        let mstrCenterX = monster.x + monster.width / 2;
-        let mstrCenterY = monster.y + monster.height / 2;
-        let distance = Math.sqrt(Math.pow(mstrCenterX - healing.x, 2) + Math.pow(mstrCenterY -  healing.y, 2));
-        if (distance <= healing.blastRadius) {
-            if (monster.hp < monster.maxhp && Math.floor(((GAME.milisectimer - healing.lastTimeCast * 1000) / Math.floor(healing.worktime / healing.castCount * 1000)) * 100) % 100 == 0) {
-                monster.hp += monster.maxhp * healing.heal;
-                if (monster.hp > monster.maxhp) {
-                    monster.hp = monster.maxhp;
+    if (healing.x && healing.y) {
+        if (GAME.stopwatch - healing.lastTimeCast >= healing.reload && !healing.readyToExplode) {
+            healing.readyToExplode = true;
+        }
+        monsters.forEach(monster => {
+            let mstrCenterX = monster.x + monster.width / 2;
+            let mstrCenterY = monster.y + monster.height / 2;
+            let distance = Math.sqrt(Math.pow(mstrCenterX - healing.x, 2) + Math.pow(mstrCenterY -  healing.y, 2));
+            if (distance <= healing.blastRadius) {
+                if (monster.hp < monster.maxhp && Math.floor(((GAME.milisectimer - healing.lastTimeCast * 1000) / Math.floor(healing.worktime / healing.castCount * 1000)) * 100) % 100 == 0) {
+                    monster.hp += monster.maxhp * healing.heal;
+                    if (monster.hp > monster.maxhp) {
+                        monster.hp = monster.maxhp;
+                    }
                 }
             }
-        }
-    })
-    if (GAME.stopwatch - healing.lastTimeCast <= healing.worktime) {
-        if(healing.blastRadius < healing.maxRadius) {
-            healing.blastRadius += healing.speed;
-        }
-    } else {
-        healing.blastRadius -= healing.speed * 4;
-        if (healing.blastRadius <= 0) {
-            healing.x = undefined;
-            healing.y = undefined;
+        })
+        if (GAME.stopwatch - healing.lastTimeCast <= healing.worktime) {
+            if(healing.blastRadius < healing.maxRadius) {
+                healing.blastRadius += healing.speed;
+            }
+        } else {
+            healing.blastRadius -= healing.speed * 4;
+            if (healing.blastRadius <= 0) {
+                healing.x = undefined;
+                healing.y = undefined;
+            }
         }
     }
 }
 
 function updateInvisible() {
-    if(invisible.init) {
-        monsters.sort(function(mstrA, mstrB) {
-            return mstrB.invisiblePriority - mstrA.invisiblePriority;
-        });
-        invisible.init = false;   
-    }
-    if (GAME.stopwatch - invisible.lastTimeCast >= invisible.reload && !invisible.readyToExplode) {
-        invisible.readyToExplode = true;
-    }
-    if (GAME.stopwatch - invisible.lastTimeCast <= invisible.worktime && !invisible.used) {
-        if(invisible.blastRadius <= invisible.maxRadius) {
-            invisible.blastRadius += invisible.speed;
+    if (invisible.x && invisible.y) {
+        if(invisible.init) {
+            monsters.sort(function(mstrA, mstrB) {
+                return mstrB.invisiblePriority - mstrA.invisiblePriority;
+            });
+            invisible.init = false;
         }
-        monsters.forEach(monster => {
-            let mstrCenterX = monster.x + monster.width / 2;
-            let mstrCenterY = monster.y + monster.height / 2;
-            let distance = Math.sqrt(Math.pow(mstrCenterX - invisible.x, 2) + Math.pow(mstrCenterY - invisible.y, 2));
-            if(distance <= invisible.blastRadius && !invisible.used) {
-                monster.invisible = true;
-                monster.invisibleStartTime = GAME.stopwatch;
-                invisible.used = true;
+        if (GAME.stopwatch - invisible.lastTimeCast >= invisible.reload && !invisible.readyToExplode) {
+            invisible.readyToExplode = true;
+        }
+        if (GAME.stopwatch - invisible.lastTimeCast <= invisible.worktime && !invisible.used) {
+            if(invisible.blastRadius <= invisible.maxRadius) {
+                invisible.blastRadius += invisible.speed;
             }
-        });
-    } else {
-        invisible.blastRadius -= invisible.speed;
-        if (invisible.blastRadius <= 0) {
-            invisible.x = undefined;
-            invisible.y = undefined;
+            monsters.forEach(monster => {
+                let mstrCenterX = monster.x + monster.width / 2;
+                let mstrCenterY = monster.y + monster.height / 2;
+                let distance = Math.sqrt(Math.pow(mstrCenterX - invisible.x, 2) + Math.pow(mstrCenterY - invisible.y, 2));
+                if(distance <= invisible.blastRadius && !invisible.used) {
+                    monster.invisible = true;
+                    monster.invisibleStartTime = GAME.stopwatch;
+                    invisible.used = true;
+                }
+            });
+        } else {
+            invisible.blastRadius -= invisible.speed;
+            if (invisible.blastRadius <= 0) {
+                invisible.x = undefined;
+                invisible.y = undefined;
+            }
         }
     }
 }
