@@ -266,7 +266,6 @@ function deleteShield(monsters) {
         if (monster.name == 'monster5' && monster.hp <= 0) {
             for (let mob of monsters) {
                 mob.shield = 0;
-                console.log(mob.name, mob.shield)
             }
         }
     }

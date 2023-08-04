@@ -119,6 +119,7 @@ function resetStopwatch() {
     startTimer = new Date();
     GAME.milisectimer = 0;
     timeInPause = 0;
+    timeInLastPause = 0;
 }
 
 function catchTime() {
@@ -584,5 +585,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
-setTimeout(() => { initGameParams(); }, 1000)
-setTimeout(() => { play(); }, 500)
+setTimeout(() => { initGameParams(); }, 1000);
+setTimeout(() => { play(); }, 500);

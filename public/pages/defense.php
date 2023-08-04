@@ -112,7 +112,10 @@
                     <img src="../static/images/cancel_button.png"  class="freeze-buf__cancel hidden" />
                     <span class="freeze-buf__reload"></span>
                 </div>
-                <div class="buf-slot"></div>
+                <div class="extra-life-buf buf-slot">
+                <img src="../static/images/freeze_buff.png" class="extra-life__icon" />
+                    <span class="extra-life-buf__reload"></span>
+                </div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">
                         <span class="game-info-lvl__title">LVL:</span>

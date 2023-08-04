@@ -93,7 +93,6 @@ function updateVisualLvlParams() {
     totalWave.innerHTML = lvls[GAME.lvlCount - 1].waves.length;
 }
 
-
 function resetStopwatch() {
     GAME.stopwatch = 0;
     startTimer = new Date();
@@ -551,7 +550,6 @@ function showWaveInfo() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    console.log(GAME.stopwatch)
     showWaveInfo();
     updateMoney();
     updateScore();

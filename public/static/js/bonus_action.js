@@ -36,15 +36,14 @@ fireball = {
     steptimer: undefined,
     stepcounter: 0,
     explosionSize: 100,
-    image: undefined,
-    
+    image: undefined
 }
 
 const explosionSteps = [];
 
-explosion_step_1.onload = () => { explosionSteps.push({index: 1, img: explosion_step_1}) }
-explosion_step_2.onload = () => { explosionSteps.push({index: 2, img: explosion_step_2}) }
-explosion_step_3.onload = () => { explosionSteps.push({index: 3, img: explosion_step_3}) }
+explosion_step_1.onload = () => { explosionSteps.push({ index: 1, img: explosion_step_1 }) }
+explosion_step_2.onload = () => { explosionSteps.push({ index: 2, img: explosion_step_2 }) }
+explosion_step_3.onload = () => { explosionSteps.push({ index: 3, img: explosion_step_3 }) }
 fireballImg.onload = () => { fireball.image = fireballImg }
 
 freeze = {
@@ -65,15 +64,19 @@ freeze = {
     steptimer: undefined,
     stepcounter: 0,
     iceSize: 200,
-    image: undefined,
+    image: undefined
 }
 
 const iceSteps = [];
 
-ice_step_1.onload = () => { iceSteps.push({index: 1, img: ice_step_1}) }
-ice_step_2.onload = () => { iceSteps.push({index: 2, img: ice_step_2}) }
-ice_step_3.onload = () => { iceSteps.push({index: 3, img: ice_step_3}) }
+ice_step_1.onload = () => { iceSteps.push({ index: 1, img: ice_step_1 }) }
+ice_step_2.onload = () => { iceSteps.push({ index: 2, img: ice_step_2 }) }
+ice_step_3.onload = () => { iceSteps.push({ index: 3, img: ice_step_3 }) }
 freezeImg.onload = () => { freeze.image = freezeImg }
+
+extraLife = {
+    wasUsed: false
+}
 
 healing = {
     x: undefined,
@@ -89,7 +92,7 @@ healing = {
     readyToExplode: true,
     worktime: 7,
     heal: 0.2,
-    castCount: 4,
+    castCount: 4
 }
 
 invisible = {
@@ -106,7 +109,7 @@ invisible = {
     readyToExplode: true,
     worktime: 7,
     used: true,
-    init: false,
+    init: false
 }
 
 destroy = {
@@ -115,44 +118,44 @@ destroy = {
     reload: 10,
     lastTimeCast: 60,
     isActive: false,
-    readyToExplode: true,
+    readyToExplode: true
 }
 
 gameFieldClick = {
     x: 0,
-    y: 0,
+    y: 0
 }
 
 lvlBonuses = [];
 compareWithGameLvlBonuses = 0;
 
 function initBonuses(choisenClass) {
-    if(choisenClass == "defense") {
+    if (choisenClass == "defense") {
         bonuses = lvls[GAME.lvlCount - 1].bonusesDef;
     }
-    if(choisenClass == "attack") {
+    if (choisenClass == "attack") {
         bonuses = lvls[GAME.lvlCount - 1].bonusesAtk;
     }
     compareWithGameLvlBonuses = GAME.lvlCount;
 }
 
 function drawFireball() {
-    if(fireball.x && fireball.y) {
+    if (fireball.x && fireball.y) {
         canvasContext.drawImage(fireball.image, fireball.x - 100, fireball.y - 100, 200, 200);
     }
 }
 
 function drawFireballExplosion() {
-    if(fireball.finish) {
+    if (fireball.finish) {
         canvasContext.drawImage(explosionSteps[fireball.stepcounter].img, fireball.finishX - fireball.explosionSize / 2, fireball.finishY - fireball.explosionSize / 2, fireball.explosionSize, fireball.explosionSize);
     }
-    if(GAME.milisectimer > fireball.steptimer && fireball.stepcounter < 3) {
+    if (GAME.milisectimer > fireball.steptimer && fireball.stepcounter < 3) {
         explosionSteps.sort(sortSteps);
         fireball.explosionSize += 50;
         fireball.steptimer += 100;
         fireball.stepcounter += 1;
     }
-    if(fireball.stepcounter == 3) {
+    if (fireball.stepcounter == 3) {
         fireball.steptimer = undefined;
         fireball.stepcounter = 0;
         fireball.finish = false;
@@ -161,15 +164,15 @@ function drawFireballExplosion() {
 };
 
 function drawIce() {
-    if(freeze.finish) {
+    if (freeze.finish) {
         canvasContext.drawImage(iceSteps[freeze.stepcounter].img, freeze.finishX - freeze.iceSize / 2, freeze.finishY - freeze.iceSize / 2, freeze.iceSize, freeze.iceSize);
     }
-    if(GAME.milisectimer > freeze.steptimer && freeze.stepcounter < 3) {
-        iceSteps.sort(function sortIce(ice1, ice2) { return ice1.index- ice2.index });
+    if (GAME.milisectimer > freeze.steptimer && freeze.stepcounter < 3) {
+        iceSteps.sort(function sortIce(ice1, ice2) { return ice1.index - ice2.index });
         freeze.steptimer += 350;
         freeze.stepcounter += 1;
     }
-    if(freeze.stepcounter == 3) {
+    if (freeze.stepcounter == 3) {
         freeze.steptimer = undefined;
         freeze.stepcounter = 0;
         freeze.finish = false;
@@ -177,14 +180,14 @@ function drawIce() {
 };
 
 function drawFreeze() {
-    if(freeze.x && freeze.y) {
+    if (freeze.x && freeze.y) {
         canvasContext.drawImage(freeze.image, freeze.x - 35, freeze.y - 35, Math.floor(freeze.iceSize * 0.4), Math.floor(freeze.iceSize * 0.4));
     }
 }
 
 function drawHeal() {
     canvasContext.beginPath();
-    if(healing.x && healing.y) {
+    if (healing.x && healing.y) {
         let gradient = canvasContext.createRadialGradient(healing.x, healing.y, healing.blastRadius / 2, healing.x, healing.y, healing.blastRadius);
         gradient.addColorStop("1", healing.color);
         gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
@@ -200,7 +203,7 @@ function drawHeal() {
 
 function drawInvisible() {
     canvasContext.beginPath();
-    if(invisible.x && invisible.y) {
+    if (invisible.x && invisible.y) {
         let gradient = canvasContext.createRadialGradient(invisible.x, invisible.y, invisible.blastRadius / 2, invisible.x, invisible.y, invisible.blastRadius);
         gradient.addColorStop("1", invisible.color);
         gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
@@ -277,7 +280,7 @@ function updateHeal() {
     monsters.forEach(monster => {
         let mstrCenterX = monster.x + monster.width / 2;
         let mstrCenterY = monster.y + monster.height / 2;
-        let distance = Math.sqrt(Math.pow(mstrCenterX - healing.x, 2) + Math.pow(mstrCenterY -  healing.y, 2));
+        let distance = Math.sqrt(Math.pow(mstrCenterX - healing.x, 2) + Math.pow(mstrCenterY - healing.y, 2));
         if (distance <= healing.blastRadius) {
             if (monster.hp < monster.maxhp && Math.floor(((GAME.milisectimer - healing.lastTimeCast * 1000) / Math.floor(healing.worktime / healing.castCount * 1000)) * 100) % 100 == 0) {
                 monster.hp += monster.maxhp * healing.heal;
@@ -288,7 +291,7 @@ function updateHeal() {
         }
     })
     if (GAME.stopwatch - healing.lastTimeCast <= healing.worktime) {
-        if(healing.blastRadius < healing.maxRadius) {
+        if (healing.blastRadius < healing.maxRadius) {
             healing.blastRadius += healing.speed;
         }
     } else {
@@ -301,24 +304,24 @@ function updateHeal() {
 }
 
 function updateInvisible() {
-    if(invisible.init) {
-        monsters.sort(function(mstrA, mstrB) {
+    if (invisible.init) {
+        monsters.sort(function (mstrA, mstrB) {
             return mstrB.invisiblePriority - mstrA.invisiblePriority;
         });
-        invisible.init = false;   
+        invisible.init = false;
     }
     if (GAME.stopwatch - invisible.lastTimeCast >= invisible.reload && !invisible.readyToExplode) {
         invisible.readyToExplode = true;
     }
     if (GAME.stopwatch - invisible.lastTimeCast <= invisible.worktime && !invisible.used) {
-        if(invisible.blastRadius <= invisible.maxRadius) {
+        if (invisible.blastRadius <= invisible.maxRadius) {
             invisible.blastRadius += invisible.speed;
         }
         monsters.forEach(monster => {
             let mstrCenterX = monster.x + monster.width / 2;
             let mstrCenterY = monster.y + monster.height / 2;
             let distance = Math.sqrt(Math.pow(mstrCenterX - invisible.x, 2) + Math.pow(mstrCenterY - invisible.y, 2));
-            if(distance <= invisible.blastRadius && !invisible.used) {
+            if (distance <= invisible.blastRadius && !invisible.used) {
                 monster.invisible = true;
                 monster.invisibleStartTime = GAME.stopwatch;
                 invisible.used = true;
@@ -337,7 +340,7 @@ function updateDestroy() {
     if (GAME.stopwatch - destroy.lastTimeCast >= destroy.reload && !destroy.readyToExplode) {
         destroy.readyToExplode = true;
     }
-    if(destroy.x && destroy.y) {
+    if (destroy.x && destroy.y) {
         for (let i = 0; i < towers.length; i++) {
             const tower = towers[i];
             if (destroy.x >= tower.x && destroy.x <= tower.x + 100 && destroy.y >= tower.y && destroy.y <= tower.y + 100) {

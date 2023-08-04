@@ -260,6 +260,26 @@ body {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+.extra-life-buf__icon {
+    width: 110px;
+    height: 110px;
+    transform: scale(1);
+    transition: all .2s ease-in;
+}
+
+.extra-life-buf__reload {
+    position: absolute;
+    width: 200px;
+    height: 150px;
+    padding-top: 50px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 100px;
+    color: white;
+    font-family: 'VT323';
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 .healing-buf__icon {
     width: 150px;
     height: 150px;
