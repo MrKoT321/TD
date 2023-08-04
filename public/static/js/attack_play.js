@@ -9,6 +9,8 @@ const pauseGameBtn = document.getElementById("pausegame");
 
 const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
+const cancelBtn = document.getElementById("cancel");
+const menuBtnAlt = document.getElementById("back-to-menu-alt");
 
 const nextBtn = document.getElementById("next-lvl-btn");
 const nextLvlForm = document.getElementById("form");
@@ -22,6 +24,9 @@ const totalWave = document.getElementById("total-wave");
 const wave1Info = document.getElementById("game-info-wave-1");
 const wave2Info = document.getElementById("game-info-wave-2");
 const wave3Info = document.getElementById("game-info-wave-3");
+
+const globalBackground = document.querySelector('.decoration__front');
+const gameMenuBtn = document.getElementById('game-menu-btn');
 
 const gameIdInfo = document.getElementById("game-info-gameid");
 const moneyInitInfo = document.getElementById("game-info-money");
@@ -81,6 +86,33 @@ function updateVisualLvlParams() {
     totalWave.innerHTML = lvls[GAME.lvlCount - 1].waves.length;
 }
 
+function showMenuPopup() {
+    popupoverBg.classList.add('active');
+    popupover.classList.add('active');
+    document.querySelector('.over').style.color = 'orange';
+    document.querySelector('.over').innerHTML = 'BACK TO MENU?';
+    var scoreValue = document.querySelector(".count-score__value").innerHTML;
+    var endScore = document.querySelector(".score__value");
+    restartgame.classList.add("hidden");
+    backToMenuBtn.classList.add("hidden");
+    cancelBtn.classList.remove("hidden");
+    menuBtnAlt.classList.remove("hidden");
+    endScore.innerHTML = scoreValue;
+    prevState = GAME.isPlay;
+    GAME.isPlay = 'menu';
+}
+
+cancelBtn.addEventListener("click", () => { 
+    popupCloseOver();
+    GAME.isPlay = prevState;
+    prevState = undefined;
+    setTimeout(() => {
+        restartgame.classList.remove("hidden");
+        backToMenuBtn.classList.remove("hidden");
+        cancelBtn.classList.add("hidden");
+        menuBtnAlt.classList.add("hidden"); 
+    }, 300);
+});
 
 function resetStopwatch() {
     GAME.stopwatch = 0;
@@ -122,10 +154,12 @@ function changeGameStatusButtons() {
     if (GAME.isPlay == 'play') {
         pauseGameBtn.classList.add("play");
         pauseGameBtn.classList.remove("pause");
+        globalBackground.classList.remove("_pause");
     } else {
         if (GAME.isPlay == 'menu') {
             pauseGameBtn.classList.add("pause");
             pauseGameBtn.classList.remove("play");
+            globalBackground.classList.add("_pause");
         }
     }
     if (GAME.isPlay == 'wavepause') {
@@ -382,6 +416,8 @@ function pauseGame() {
 
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
+gameMenuBtn.addEventListener("click", () => { showMenuPopup() });
+
 var isClick = false;
 document.addEventListener("keydown", (event) => {
     if (!isClick){
@@ -548,6 +584,5 @@ function play() {
     requestAnimationFrame(play);
 }
 
-initGameParams();
-setTimeout(() => { initGameParams(); }, 500)
-setTimeout(() => { play() }, 500)
+setTimeout(() => { initGameParams(); }, 1000)
+setTimeout(() => { play(); }, 500)

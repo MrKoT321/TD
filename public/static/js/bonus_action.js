@@ -51,7 +51,7 @@ freeze = {
     x: undefined,
     y: undefined,
     color: "#007fef",
-    blastRadius: 100,
+    blastRadius: 150,
     reload: 10,
     lastTimeCast: 60,
     speedX: 0,
@@ -64,7 +64,7 @@ freeze = {
     finish: false,
     steptimer: undefined,
     stepcounter: 0,
-    iceSize: 100,
+    iceSize: 200,
     image: undefined,
 }
 
@@ -178,7 +178,7 @@ function drawIce() {
 
 function drawFreeze() {
     if(freeze.x && freeze.y) {
-        canvasContext.drawImage(freeze.image, freeze.x - 35, freeze.y - 35, 70, 70);
+        canvasContext.drawImage(freeze.image, freeze.x - 35, freeze.y - 35, Math.floor(freeze.iceSize * 0.4), Math.floor(freeze.iceSize * 0.4));
     }
 }
 
@@ -336,6 +336,14 @@ function updateInvisible() {
 function updateDestroy() {
     if (GAME.stopwatch - destroy.lastTimeCast >= destroy.reload && !destroy.readyToExplode) {
         destroy.readyToExplode = true;
+    }
+    if(destroy.x && destroy.y) {
+        for (let i = 0; i < towers.length; i++) {
+            const tower = towers[i];
+            if (destroy.x >= tower.x && destroy.x <= tower.x + 100 && destroy.y >= tower.y && destroy.y <= tower.y + 100) {
+                towers.splice(i, 1);
+            }
+        }
     }
 }
 

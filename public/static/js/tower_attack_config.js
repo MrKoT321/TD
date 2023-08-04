@@ -16,6 +16,7 @@ function setTowers(GAME, lvl) {
             bow_loaded_image: bow.loaded_image,
             bow_simple_image: bow.simple_image
         }
+        console.log(bowData.bow_loaded_image);
         let towerData = {
             x: posX,
             y: posY,

@@ -111,7 +111,7 @@
                         <span class="bar bar-2"></span>
                     </div>
                 </div>
-                <div class="bar__out">
+                <div class="bar__out" id="game-menu-btn">
                     <div class="bar__icon">
                         <span></span>
                     </div>
@@ -140,6 +140,10 @@
             </form>
                 <a href="../pages/menu.html" class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
+                </a>
+                <img class="restart hidden" src="../static/images/cancel_button.png" id="cancel"/>
+                <a href="../pages/menu.html" class="menua">
+                    <img class="menu__img hidden" src="../static/images/confirm_button.png" id="back-to-menu-alt" />
                 </a>
             </div>
         </div>

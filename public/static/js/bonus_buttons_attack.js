@@ -30,6 +30,7 @@ canvas.addEventListener(
         gameFieldClick.y = event.clientY - field.y;
         setTimeout(initHeal(), 10);
         setTimeout(initInvisible(), 10);
+        setTimeout(initDestroy(), 10);
     }
 )
 
@@ -169,7 +170,8 @@ function initInvisible() {
 }
 
 function initDestroy() {
-    if (invisible.isActive && isClickOnMap()) {
+    if (destroy.isActive && isClickOnMap()) {
+        console.log("create");
         inActiveDestroy();
         createDestroy();
         sendDestroyStatus();
@@ -230,8 +232,8 @@ function createInvisible() {
 function createDestroy() {
     destroy.x = gameFieldClick.x;
     destroy.y = gameFieldClick.y;
-    invisible.lastTimeCast = GAME.stopwatch;
-    invisible.readyToExplode = false;
+    destroy.lastTimeCast = GAME.stopwatch;
+    destroy.readyToExplode = false;
 }
 
 function drawBonusesReload() {
