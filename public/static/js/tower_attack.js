@@ -379,16 +379,18 @@ function updateStrikes() {
             strike.steptimer += frameTimeElectric;
             strike.stepcounter ++;
         }
-        if(strike.stepcounter == strikeAnimationSteps.length) {
+        if(strike.stepcounter == strikeAnimationSteps.length && !strike.hit) {
+            console.log("ololol")
             monsters.forEach(monster => {
                 var distance = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - strike.x, 2) + Math.pow(monster.y + (monster.height / 2) - strike.y, 2));
-                if(distance <= strike.maxRadius && monster.type != "flying") {
+                if(distance <= strike.maxRadius && monster.type != "flying" && !monster.hit) {
                     if(monster.shield > 0){
                         monster.shield -= strike.atk;
                     } else {
                         monster.hp -= strike.atk;
                     }
                 }
+                strike.hit = true;
             });
             strikes.splice(i, 1);
         }
@@ -398,7 +400,7 @@ function updateStrikes() {
 function checkStrikes(tower) {
     var ex = false;
     strikes.forEach(strike => {
-        if(strike.x == (tower.x + 50) && strike.y == (tower.y + 50)) {
+        if(strike.x == (tower.x + 50) && strike.y == (tower.y + 15)) {
             ex = true;
         }
     })
