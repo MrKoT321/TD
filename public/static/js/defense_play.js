@@ -321,14 +321,13 @@ function changeMap() {
 };
 
 async function sendResults(event) {
-    const score = document.querySelector(".score__value");
     const gameID = document.getElementById("game-id");
     event.preventDefault();
     props = {
         gameId: gameID.innerHTML,
         nickName: GAME.player,
         choisenClass: 'defense',
-        score: Math.floor(score.innerHTML)
+        score: Math.floor(GAME.score)
     }
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
@@ -391,6 +390,11 @@ cancelBtn.addEventListener("click", () => {
         menuBtnAlt.classList.add("hidden"); 
     }, 300);
 });
+
+menuBtnAlt.addEventListener("click", (event) => {
+    sendResults(event);
+    window.location.href = '../../';
+})
 
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
