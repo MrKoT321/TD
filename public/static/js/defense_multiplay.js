@@ -447,6 +447,9 @@ socket.addEventListener('message', function (event) {
         case 'invisible':
             invisible = data.invisible_bonus;
             break;
+        case 'destroy':
+            destroy = data.destroy_bonus;
+            break;
         case 'give_me_score':
             sendScoreToAttack();
             break;

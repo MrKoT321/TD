@@ -266,7 +266,6 @@ function drawDestroyExplosion() {
 }
 
 function drawHummer() {
-    console.log(destroy.steptimerHummer, destroyAnimationDuration)
     if(destroy.steptimerHummer && destroy.hummerAngel < 0) {
         canvasContext.save();
         canvasContext.translate(destroy.x - destroy.step, destroy.y - destroy.step);
@@ -432,9 +431,8 @@ function updateDestroy() {
             const tower = towers[i];
             if (destroy.x >= tower.x && destroy.x <= tower.x + 100 && destroy.y >= tower.y && destroy.y <= tower.y + 100) {
                 destroy.steptimerHummer = GAME.milisectimer;
-                console.log("hummer init", destroy.steptimerHummer)
-                setTimeout(() => {destroy.steptimerExplosion = GAME.milisectimer; console.log("explosion init", destroy.steptimerExplosion)}, destroyAnimationDuration / 2);
-                setTimeout(() => {towers.splice(i, 1); console.log("tower delete", GAME.milisectimer)}, destroyAnimationDuration);
+                setTimeout(() => { destroy.steptimerExplosion = GAME.milisectimer }, destroyAnimationDuration / 2);
+                setTimeout(() => { towers.splice(i, 1) }, destroyAnimationDuration);
             }
         }
         destroy.used = true;
