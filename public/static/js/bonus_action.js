@@ -63,6 +63,8 @@ freeze = {
     blastRadius: 150,
     reload: 10,
     lastTimeCast: 60,
+    duration: 4,
+    ending: true,
     speedX: 0,
     speedY: 0,
     finishX: undefined,
@@ -141,9 +143,9 @@ destroy = {
 
 const destroyExplosionSteps = [];
 
-ice_step_1.onload = () => { destroyExplosionSteps.push({index: 1, img: destroy_step_1}) }
-ice_step_2.onload = () => { destroyExplosionSteps.push({index: 2, img: destroy_step_2}) }
-ice_step_3.onload = () => { destroyExplosionSteps.push({index: 3, img: destroy_step_3}) }
+destroy_step_1.onload = () => { destroyExplosionSteps.push({index: 1, img: destroy_step_1}) }
+destroy_step_2.onload = () => { destroyExplosionSteps.push({index: 2, img: destroy_step_2}) }
+destroy_step_3.onload = () => { destroyExplosionSteps.push({index: 3, img: destroy_step_3}) }
 hummerImg.onload = () => { destroy.hummerImage = hummerImg }
 
 gameFieldClick = {
@@ -311,10 +313,23 @@ function updateFireball() {
     }
 }
 
+function stopFreezing() {
+    if (!freeze.ending && GAME.stopwatch - freeze.lastTimeCast >= freeze.duration) {
+        monsters.forEach(monster => {
+            if (!!monster.freezing) {
+                monster.speed *= 2;
+                monster.freezing ^= true; 
+            }
+        });
+        freeze.ending ^= true;
+    }
+}
+
 function updateFreeze() {
     if (GAME.stopwatch - freeze.lastTimeCast >= freeze.reload && !freeze.readyToExplode) {
         freeze.readyToExplode = true;
     }
+    stopFreezing();
     if (freeze.x && freeze.y) {
         freeze.y += freeze.speedY;
         if (freeze.y > freeze.finishY) {
@@ -332,7 +347,9 @@ function updateFreeze() {
                     } else {
                         monster.hp -= freeze.atk;
                     }
+                    monster.freezing = true;
                     monster.speed /= 2;
+                    freeze.ending = false;
                 }
             })
         }

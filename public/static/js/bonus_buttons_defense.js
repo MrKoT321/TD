@@ -6,7 +6,7 @@ const freezeBonus = document.querySelector(".freeze-buf__icon");
 const freezeBonusCancel = document.querySelector(".freeze-buf__cancel");
 const freezeReloadTimer = document.querySelector(".freeze-buf__reload");
 
-const extraLifeBonus = document.querySelector(".extra-life__icon");
+const extraLifeBonus = document.querySelector(".extra-life-buf__icon");
 const extraLifeBonusReload = document.querySelector(".extra-life-buf__reload");
 
 canvas.addEventListener(
