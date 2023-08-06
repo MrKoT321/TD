@@ -370,7 +370,6 @@ function updateScoreForMobDef() {
             } else {
                 if (monster.hp <= 0) {
                     GAME.score += monster.cost - Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount - 1]));
-                    console.log(GAME.score)
                 }
             }
         }

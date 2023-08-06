@@ -330,11 +330,10 @@ const socket = new WebSocket('ws://localhost:8090');
 
 socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
-    console.log(data)
     switch (data.type) {
         case 'game_score':
-            loading_score1.innerHTML = String(data.attackScore)
-            loading_score3.innerHTML = String(data.defenseScore)
+            loading_score1.innerHTML = String(data.attackScore);
+            loading_score3.innerHTML = String(data.defenseScore);
             break;
     }
 });
