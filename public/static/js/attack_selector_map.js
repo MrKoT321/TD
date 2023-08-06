@@ -24,16 +24,16 @@ electricImg.src = '../static/images/electric_tower.png';
 mortirImg.src = '../static/images/mortir_tower.png';
 
 map1.onload = () => {
-    map.images.push({index: 1, body: map1})
+    map.images.push({ index: 1, body: map1 })
 }
 map2.onload = () => {
-    map.images.push({index: 2, body: map2})
+    map.images.push({ index: 2, body: map2 })
 }
 map3.onload = () => {
-    map.images.push({index: 3, body: map3})
+    map.images.push({ index: 3, body: map3 })
 }
 map4.onload = () => {
-    map.images.push({index: 4, body: map4})
+    map.images.push({ index: 4, body: map4 })
 }
 archerImg.onload = () => {
     map.towers.push(archerImg)
@@ -54,9 +54,9 @@ canvasMap.height = map.height;
 function drawTowers(currWave, positions) {
     let waveTowers = map.towers[currWave - 1];
     let towerImg;
-    for(i=0;i<waveTowers.length;i++) {
+    for (i = 0; i < waveTowers.length; i++) {
         let tower = waveTowers[i];
-        switch(tower.type) {
+        switch (tower.type) {
             case "arrow":
                 towerImg = archerImg;
                 break;
@@ -81,5 +81,5 @@ function drawMap(currLvl, currWave) {
 
 function clearMap() {
     canvasMap.parentNode.classList.add("not_exist");
-    ctxM.clearRect(canvasMap.width/2 - map.width/2, canvasMap.height/2 - map.height/2, map.width, map.height);
+    ctxM.clearRect(canvasMap.width / 2 - map.width / 2, canvasMap.height / 2 - map.height / 2, map.width, map.height);
 }

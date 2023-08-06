@@ -143,9 +143,9 @@ destroy = {
 
 const destroyExplosionSteps = [];
 
-destroy_step_1.onload = () => { destroyExplosionSteps.push({index: 1, img: destroy_step_1}) }
-destroy_step_2.onload = () => { destroyExplosionSteps.push({index: 2, img: destroy_step_2}) }
-destroy_step_3.onload = () => { destroyExplosionSteps.push({index: 3, img: destroy_step_3}) }
+destroy_step_1.onload = () => { destroyExplosionSteps.push({ index: 1, img: destroy_step_1 }) }
+destroy_step_2.onload = () => { destroyExplosionSteps.push({ index: 2, img: destroy_step_2 }) }
+destroy_step_3.onload = () => { destroyExplosionSteps.push({ index: 3, img: destroy_step_3 }) }
 hummerImg.onload = () => { destroy.hummerImage = hummerImg }
 
 gameFieldClick = {
@@ -167,7 +167,7 @@ function initBonuses(choisenClass) {
 }
 
 function drawFireball() {
-    if(!!fireball.x && !!fireball.y) {
+    if (!!fireball.x && !!fireball.y) {
         canvasContext.drawImage(fireball.image, fireball.x - 100, fireball.y - 100, 200, 200);
     }
 }
@@ -213,9 +213,9 @@ function drawFreeze() {
 }
 
 function drawHeal() {
-    if (!!healing.x && !!healing.y){
+    if (!!healing.x && !!healing.y) {
         canvasContext.beginPath();
-        if(healing.x && healing.y) {
+        if (healing.x && healing.y) {
             let gradient = canvasContext.createRadialGradient(healing.x, healing.y, healing.blastRadius / 2, healing.x, healing.y, healing.blastRadius);
             gradient.addColorStop("1", healing.color);
             gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
@@ -233,7 +233,7 @@ function drawHeal() {
 function drawInvisible() {
     if (!!invisible.x && !!invisible.y) {
         canvasContext.beginPath();
-        if(invisible.x && invisible.y) {
+        if (invisible.x && invisible.y) {
             let gradient = canvasContext.createRadialGradient(invisible.x, invisible.y, invisible.blastRadius / 2, invisible.x, invisible.y, invisible.blastRadius);
             gradient.addColorStop("1", invisible.color);
             gradient.addColorStop("0", "rgba(255, 255, 255, 0)");
@@ -249,16 +249,16 @@ function drawInvisible() {
 }
 
 function drawDestroyExplosion() {
-    if(destroy.steptimerExplosion) {
+    if (destroy.steptimerExplosion) {
         canvasContext.drawImage(destroyExplosionSteps[destroy.stepcounter].img, destroy.x - destroy.explosionSize / 2, destroy.y - destroy.explosionSize / 2, destroy.explosionSize, destroy.explosionSize);
     }
-    if(destroy.steptimerExplosion && GAME.milisectimer > destroy.steptimerExplosion && destroy.stepcounter < 3) {
-        destroyExplosionSteps.sort(function(destr1, destr2) {return destr1.index - destr2.index});
+    if (destroy.steptimerExplosion && GAME.milisectimer > destroy.steptimerExplosion && destroy.stepcounter < 3) {
+        destroyExplosionSteps.sort(function (destr1, destr2) { return destr1.index - destr2.index });
         destroy.explosionSize += 50;
         destroy.steptimerExplosion += 100;
         destroy.stepcounter += 1;
     }
-    if(destroy.stepcounter == 3) {
+    if (destroy.stepcounter == 3) {
         destroy.steptimerExplosion = undefined;
         destroy.stepcounter = 0;
         destroy.explosionSize = 100;
@@ -266,18 +266,18 @@ function drawDestroyExplosion() {
 }
 
 function drawHummer() {
-    if(destroy.steptimerHummer && destroy.hummerAngel < 0) {
+    if (destroy.steptimerHummer && destroy.hummerAngel < 0) {
         canvasContext.save();
         canvasContext.translate(destroy.x - destroy.step, destroy.y - destroy.step);
-        canvasContext.rotate(destroy.hummerAngel*Math.PI/180);
-        canvasContext.drawImage(destroy.hummerImage, -destroy.hummerSize/2,  -destroy.hummerSize/2,  destroy.hummerSize,  destroy.hummerSize);
+        canvasContext.rotate(destroy.hummerAngel * Math.PI / 180);
+        canvasContext.drawImage(destroy.hummerImage, -destroy.hummerSize / 2, -destroy.hummerSize / 2, destroy.hummerSize, destroy.hummerSize);
         canvasContext.restore();
     }
-    if(destroy.steptimerHummer && GAME.milisectimer > destroy.steptimerHummer) {
+    if (destroy.steptimerHummer && GAME.milisectimer > destroy.steptimerHummer) {
         destroy.steptimerHummer += destroyFrameTime;
         destroy.hummerAngel += 30;
     }
-    if(destroy.hummerAngel >= 0) {
+    if (destroy.hummerAngel >= 0) {
         destroy.steptimerHummer = undefined;
         destroy.hummerAngel = -90;
         destroy.stepcounter = 0;
@@ -317,7 +317,7 @@ function stopFreezing() {
         monsters.forEach(monster => {
             if (!!monster.freezing) {
                 monster.speed *= 2;
-                monster.freezing ^= true; 
+                monster.freezing ^= true;
             }
         });
         freeze.ending ^= true;
@@ -363,7 +363,7 @@ function updateHeal() {
         monsters.forEach(monster => {
             let mstrCenterX = monster.x + monster.width / 2;
             let mstrCenterY = monster.y + monster.height / 2;
-            let distance = Math.sqrt(Math.pow(mstrCenterX - healing.x, 2) + Math.pow(mstrCenterY -  healing.y, 2));
+            let distance = Math.sqrt(Math.pow(mstrCenterX - healing.x, 2) + Math.pow(mstrCenterY - healing.y, 2));
             if (distance <= healing.blastRadius) {
                 if (monster.hp < monster.maxhp && Math.floor(((GAME.milisectimer - healing.lastTimeCast * 1000) / Math.floor(healing.worktime / healing.castCount * 1000)) * 100) % 100 == 0) {
                     monster.hp += monster.maxhp * healing.heal;
@@ -374,7 +374,7 @@ function updateHeal() {
             }
         })
         if (GAME.stopwatch - healing.lastTimeCast <= healing.worktime) {
-            if(healing.blastRadius < healing.maxRadius) {
+            if (healing.blastRadius < healing.maxRadius) {
                 healing.blastRadius += healing.speed;
             }
         } else {
@@ -392,21 +392,21 @@ function updateInvisible() {
         invisible.readyToExplode = true;
     }
     if (!!invisible.x && !!invisible.y) {
-        if(invisible.init) {
-            monsters.sort(function(mstrA, mstrB) {
+        if (invisible.init) {
+            monsters.sort(function (mstrA, mstrB) {
                 return mstrB.invisiblePriority - mstrA.invisiblePriority;
             });
             invisible.init = false;
         }
         if (GAME.stopwatch - invisible.lastTimeCast <= invisible.worktime && !invisible.used) {
-            if(invisible.blastRadius <= invisible.maxRadius) {
+            if (invisible.blastRadius <= invisible.maxRadius) {
                 invisible.blastRadius += invisible.speed;
             }
             monsters.forEach(monster => {
                 let mstrCenterX = monster.x + monster.width / 2;
                 let mstrCenterY = monster.y + monster.height / 2;
                 let distance = Math.sqrt(Math.pow(mstrCenterX - invisible.x, 2) + Math.pow(mstrCenterY - invisible.y, 2));
-                if(distance <= invisible.blastRadius && !invisible.used) {
+                if (distance <= invisible.blastRadius && !invisible.used) {
                     monster.invisible = true;
                     monster.invisibleStartTime = GAME.stopwatch;
                     invisible.used = true;
@@ -426,7 +426,7 @@ function updateDestroy() {
     if (GAME.stopwatch - destroy.lastTimeCast >= destroy.reload && !destroy.readyToExplode) {
         destroy.readyToExplode = true;
     }
-    if(!!destroy.x && !!destroy.y && !destroy.used) {
+    if (!!destroy.x && !!destroy.y && !destroy.used) {
         for (let i = 0; i < towers.length; i++) {
             const tower = towers[i];
             if (destroy.x >= tower.x && destroy.x <= tower.x + 100 && destroy.y >= tower.y && destroy.y <= tower.y + 100) {

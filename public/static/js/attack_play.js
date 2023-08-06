@@ -102,7 +102,7 @@ function showMenuPopup() {
     GAME.isPlay = 'menu';
 }
 
-cancelBtn.addEventListener("click", () => { 
+cancelBtn.addEventListener("click", () => {
     popupCloseOver();
     GAME.isPlay = prevState;
     prevState = undefined;
@@ -110,7 +110,7 @@ cancelBtn.addEventListener("click", () => {
         restartgame.classList.remove("hidden");
         backToMenuBtn.classList.remove("hidden");
         cancelBtn.classList.add("hidden");
-        menuBtnAlt.classList.add("hidden"); 
+        menuBtnAlt.classList.add("hidden");
     }, 300);
 });
 
@@ -422,7 +422,7 @@ gameMenuBtn.addEventListener("click", () => { showMenuPopup() });
 
 var isClick = false;
 document.addEventListener("keydown", (event) => {
-    if (!isClick){
+    if (!isClick) {
         switch (event.code) {
             case 'Space':
                 pauseGame();
@@ -523,7 +523,7 @@ function payForLastWaves() {
                 GAME.score += monster.cost;
             }
         }
-        for (monster of monsters){
+        for (monster of monsters) {
             GAME.money += Math.floor(monster.cost / 2);
             monster.hp = 0;
         }

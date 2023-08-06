@@ -379,7 +379,7 @@ function showMenuPopup() {
     GAME.isPlay = 'menu';
 }
 
-cancelBtn.addEventListener("click", () => { 
+cancelBtn.addEventListener("click", () => {
     popupCloseOver();
     GAME.isPlay = prevState;
     prevState = undefined;
@@ -387,9 +387,9 @@ cancelBtn.addEventListener("click", () => {
         restartgame.classList.remove("hidden");
         backToMenuBtn.classList.remove("hidden");
         cancelBtn.classList.add("hidden");
-        menuBtnAlt.classList.add("hidden"); 
+        menuBtnAlt.classList.add("hidden");
     }, 300);
-});
+});ы
 
 menuBtnAlt.addEventListener("click", (event) => {
     sendResults(event);

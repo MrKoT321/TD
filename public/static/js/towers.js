@@ -5,7 +5,7 @@ const archer = {
     type: "arrow",
     atkspeed: 2,
     towerColor: "orange",
-    atkColor: "red" ,
+    atkColor: "red",
     towerImg: "../static/images/archer_game_tower.png"
 }
 

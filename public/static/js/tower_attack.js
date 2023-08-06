@@ -102,8 +102,8 @@ function drawArrows() {
     arrows.forEach(flyingArrow => {
         canvasContext.save();
         canvasContext.translate(flyingArrow.x, flyingArrow.y);
-        canvasContext.rotate(flyingArrow.angel*Math.PI/180);
-        canvasContext.drawImage(flyingArrow.image, -flyingArrow.width/2, -flyingArrow.height/2, flyingArrow.width, flyingArrow.height);
+        canvasContext.rotate(flyingArrow.angel * Math.PI / 180);
+        canvasContext.drawImage(flyingArrow.image, -flyingArrow.width / 2, -flyingArrow.height / 2, flyingArrow.width, flyingArrow.height);
         canvasContext.restore();
     })
 }
@@ -111,8 +111,8 @@ function drawArrows() {
 function drawBow(tower) {
     canvasContext.save();
     canvasContext.translate(tower.bow_x, tower.bow_y);
-    canvasContext.rotate(tower.bow_angel*Math.PI/180);
-    canvasContext.drawImage(tower.hit ? tower.bow_simple_image : tower.bow_loaded_image, -tower.bow_width/2, -tower.bow_height/2, tower.bow_width, tower.bow_height);
+    canvasContext.rotate(tower.bow_angel * Math.PI / 180);
+    canvasContext.drawImage(tower.hit ? tower.bow_simple_image : tower.bow_loaded_image, -tower.bow_width / 2, -tower.bow_height / 2, tower.bow_width, tower.bow_height);
     canvasContext.restore();
 }
 
@@ -120,9 +120,9 @@ function updateBow(tower) {
     let monster = monsters[tower.currentEnemy];
     let mstrCenterX = monster.x + monster.width / 2;
     let mstrCenterY = monster.y + monster.height / 2;
-    tower.bow_angel = Math.atan(Math.abs(mstrCenterY - tower.bow_y) / Math.abs(mstrCenterX -  tower.bow_x)) * 180/Math.PI;
+    tower.bow_angel = Math.atan(Math.abs(mstrCenterY - tower.bow_y) / Math.abs(mstrCenterX - tower.bow_x)) * 180 / Math.PI;
     if (tower.bow_x >= mstrCenterX) {
-        tower.bow_angel = 180 - tower.bow_angel ;
+        tower.bow_angel = 180 - tower.bow_angel;
     }
     if (tower.bow_y >= mstrCenterY) {
         tower.bow_angel = tower.bow_angel * -1;
@@ -137,7 +137,7 @@ function updateArrows() {
             let mstrCenterY = flyingArrow.currentEnemy.y + flyingArrow.currentEnemy.height / 2;
             let outMonsterX = flyingArrow.x < flyingArrow.currentEnemy.x || flyingArrow.x > flyingArrow.currentEnemy.x + flyingArrow.currentEnemy.width;
             let outMonsterY = flyingArrow.y < flyingArrow.currentEnemy.y || flyingArrow.y > flyingArrow.currentEnemy.y + flyingArrow.currentEnemy.height;
-            flyingArrow.angel = Math.atan(Math.abs(mstrCenterY - flyingArrow.y) / Math.abs(mstrCenterX - flyingArrow.x)) * 180/Math.PI;
+            flyingArrow.angel = Math.atan(Math.abs(mstrCenterY - flyingArrow.y) / Math.abs(mstrCenterX - flyingArrow.x)) * 180 / Math.PI;
             if (outMonsterX || outMonsterY) {
                 if (outMonsterX) {
                     if (flyingArrow.x >= mstrCenterX) {
@@ -170,7 +170,7 @@ function updateArrows() {
                     }
                 }
             } else {
-                if(flyingArrow.currentEnemy.shield <= 0){
+                if (flyingArrow.currentEnemy.shield <= 0) {
                     flyingArrow.currentEnemy.hp -= flyingArrow.atk;
                 } else {
                     flyingArrow.currentEnemy.shield -= flyingArrow.atk / 2;
@@ -188,11 +188,11 @@ function attackArcher(GAME) {
         if (tower.type == "arrow") {
             drawBow(tower);
             tower.currentEnemy = -1;
-            monsters.sort(function(mstrA, mstrB) {
-                if(mstrA.distance > mstrB.distance) {
+            monsters.sort(function (mstrA, mstrB) {
+                if (mstrA.distance > mstrB.distance) {
                     return -1;
                 }
-                if(mstrA.distance < mstrB.distance) {
+                if (mstrA.distance < mstrB.distance) {
                     return 1;
                 }
                 return 0;
@@ -226,11 +226,11 @@ function attackArcher(GAME) {
 
 function drawBullets() {
     bullets.forEach(flyingBullet => {
-        canvasContext.drawImage(flyingBullet.image, flyingBullet.x - flyingBullet.width/2, flyingBullet.y - flyingBullet.height/2, flyingBullet.width, flyingBullet.height);
+        canvasContext.drawImage(flyingBullet.image, flyingBullet.x - flyingBullet.width / 2, flyingBullet.y - flyingBullet.height / 2, flyingBullet.width, flyingBullet.height);
     })
 }
 
-function makeExplosion(bullet){
+function makeExplosion(bullet) {
     explosions.push({
         x: bullet.finishX,
         y: bullet.finishY,
@@ -268,21 +268,21 @@ function attackMortir(GAME) {
             let mstrCenterX, mstrCenterY;
             tower.currentEnemy = -1
             for (let i = 0; i < monsters.length; i++) {
-                if(monsters[i].dir == 'r'){
+                if (monsters[i].dir == 'r') {
                     mstrCenterX = monsters[i].x + monsters[i].width;
-                    mstrCenterY = monsters[i].y + monsters[i].height / 2; 
+                    mstrCenterY = monsters[i].y + monsters[i].height / 2;
                 }
-                if(monsters[i].dir == 'l'){
+                if (monsters[i].dir == 'l') {
                     mstrCenterX = monsters[i].x - monsters[i].width;
-                    mstrCenterY = monsters[i].y + monsters[i].height / 2; 
+                    mstrCenterY = monsters[i].y + monsters[i].height / 2;
                 }
-                if(monsters[i].dir == 'u'){
+                if (monsters[i].dir == 'u') {
                     mstrCenterX = monsters[i].x + monsters[i].width / 2;
-                    mstrCenterY = monsters[i].y; 
+                    mstrCenterY = monsters[i].y;
                 }
-                if(monsters[i].dir == 'd'){
+                if (monsters[i].dir == 'd') {
                     mstrCenterX = monsters[i].x + monsters[i].width / 2;
-                    mstrCenterY = monsters[i].y + monsters[i].height; 
+                    mstrCenterY = monsters[i].y + monsters[i].height;
                 }
                 if (hittingRadius(tower, mstrCenterX, mstrCenterY) && monsters[i].type != "flying" && !monsters[i].invisible) {
                     tower.currentEnemy = i;
@@ -307,7 +307,7 @@ function attackMortir(GAME) {
     });
 }
 
-function drawExplosion(){
+function drawExplosion() {
     explosions.forEach(explosion => {
         canvasContext.drawImage(explosionSteps[explosion.stepcounter].img, explosion.x - explosion.size / 2, explosion.y - explosion.size / 2, explosion.size, explosion.size);
     })
@@ -315,20 +315,20 @@ function drawExplosion(){
 
 function updateExplosions() {
     explosionSteps.sort(function sortExpSteps(exp1, exp2) { return exp1.index - exp2.index; });
-    for(var i = 0; i < explosions.length; i++) {
+    for (var i = 0; i < explosions.length; i++) {
         // explosion.radius += explosion.speed;
         // explosion.thickness -= explosion.speed / 10;
         let explosion = explosions[i];
-        if(explosion.stepcounter < explosionSteps.length && GAME.milisectimer > explosion.steptimer) {
-            explosion.stepcounter ++;
+        if (explosion.stepcounter < explosionSteps.length && GAME.milisectimer > explosion.steptimer) {
+            explosion.stepcounter++;
             explosion.steptimer += frameTimeExplosion;
             explosion.size += 25;
         }
-        if(explosion.stepcounter == explosionSteps.length) {
+        if (explosion.stepcounter == explosionSteps.length) {
             monsters.forEach(monster => {
                 var distance = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - explosion.x, 2) + Math.pow(monster.y + (monster.height / 2) - explosion.y, 2));
-                if(distance <= explosion.explosionRadius && monster.type != "flying") {
-                    if(monster.shield > 0){
+                if (distance <= explosion.explosionRadius && monster.type != "flying") {
+                    if (monster.shield > 0) {
                         monster.shield -= explosion.atk;
                     } else {
                         monster.hp -= explosion.atk;
@@ -373,18 +373,18 @@ function updateStrikes() {
     //     }
     // }
 
-    for(var i=0; i < strikes.length; i++) {
+    for (var i = 0; i < strikes.length; i++) {
         let strike = strikes[i];
-        if(strike.stepcounter < strikeAnimationSteps.length && GAME.milisectimer > strike.steptimer) {
+        if (strike.stepcounter < strikeAnimationSteps.length && GAME.milisectimer > strike.steptimer) {
             strike.steptimer += frameTimeElectric;
-            strike.stepcounter ++;
+            strike.stepcounter++;
         }
-        if(strike.stepcounter == strikeAnimationSteps.length && !strike.hit) {
+        if (strike.stepcounter == strikeAnimationSteps.length && !strike.hit) {
             console.log("ololol")
             monsters.forEach(monster => {
                 var distance = Math.sqrt(Math.pow(monster.x + (monster.width / 2) - strike.x, 2) + Math.pow(monster.y + (monster.height / 2) - strike.y, 2));
-                if(distance <= strike.maxRadius && monster.type != "flying" && !monster.hit) {
-                    if(monster.shield > 0){
+                if (distance <= strike.maxRadius && monster.type != "flying" && !monster.hit) {
+                    if (monster.shield > 0) {
                         monster.shield -= strike.atk;
                     } else {
                         monster.hp -= strike.atk;
@@ -400,7 +400,7 @@ function updateStrikes() {
 function checkStrikes(tower) {
     var ex = false;
     strikes.forEach(strike => {
-        if(strike.x == (tower.x + 50) && strike.y == (tower.y + 15)) {
+        if (strike.x == (tower.x + 50) && strike.y == (tower.y + 15)) {
             ex = true;
         }
     })

@@ -61,12 +61,12 @@ function pushMonsters(GAME, lvl, monster) {
 
 function drawMonster(monster) {
     if (monster.image) {
-        if(monster.invisible) {
+        if (monster.invisible) {
             canvasContext.globalAlpha = monster.invisibleScale;
-            if(GAME.stopwatch - monster.invisibleStartTime < Math.floor(lvl.invisible_max_time / 5) && monster.invisibleScale > 0.2) {
+            if (GAME.stopwatch - monster.invisibleStartTime < Math.floor(lvl.invisible_max_time / 5) && monster.invisibleScale > 0.2) {
                 monster.invisibleScale -= 0.05;
             }
-            if(GAME.stopwatch - monster.invisibleStartTime > Math.floor(lvl.invisible_max_time - lvl.invisible_max_time / 5) && monster.invisibleScale < 1) {
+            if (GAME.stopwatch - monster.invisibleStartTime > Math.floor(lvl.invisible_max_time - lvl.invisible_max_time / 5) && monster.invisibleScale < 1) {
                 monster.invisibleScale += 0.05;
             }
         }
@@ -76,7 +76,7 @@ function drawMonster(monster) {
 }
 
 function drawDeath() {
-    for(let deathmob of deathmonsters){
+    for (let deathmob of deathmonsters) {
         canvasContext.drawImage(deathmob.image, deathmob.x, deathmob.y);
     }
 }
@@ -272,20 +272,20 @@ function deleteShield(monsters) {
 }
 
 function clearInvisible(monster) {
-    if(monster.invisible && GAME.stopwatch - monster.invisibleStartTime > lvl.invisible_max_time) {
+    if (monster.invisible && GAME.stopwatch - monster.invisibleStartTime > lvl.invisible_max_time) {
         monster.invisible = false;
     }
 }
 
 function death() {
-    for(let deathmob of deathmonsters) {
-        if(GAME.milisectimer == 0){
+    for (let deathmob of deathmonsters) {
+        if (GAME.milisectimer == 0) {
             deathmob.deathtime = -400
         }
-        if(GAME.milisectimer - 200 >= deathmob.deathtime){
+        if (GAME.milisectimer - 200 >= deathmob.deathtime) {
             deathmob.image = death2;
         }
-        if(GAME.milisectimer - 400 >= deathmob.deathtime){
+        if (GAME.milisectimer - 400 >= deathmob.deathtime) {
             deathmonsters = deathmonsters.filter(value => value.image = value.death2)
         }
     }

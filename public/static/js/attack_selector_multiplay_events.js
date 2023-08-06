@@ -422,7 +422,7 @@ unlock_monster5.addEventListener(
 start_lock.addEventListener(
     "mouseover",
     () => {
-        start_info.classList.remove('hidden') 
+        start_info.classList.remove('hidden')
     }
 )
 
@@ -445,8 +445,8 @@ random1.addEventListener(
     () => {
         let randomcostwave1 = 100
         randomWave(wave1, randomcostwave1);
-        for(let mob of wave1){
-            if(mob.amount > 0){
+        for (let mob of wave1) {
+            if (mob.amount > 0) {
                 randomcostwave1 -= mob.cost * mob.amount;
             }
         }
@@ -459,8 +459,8 @@ random2.addEventListener(
     () => {
         let randomcostwave2 = 150
         randomWave(wave2, randomcostwave2);
-        for(let mob of wave2){
-            if(mob.amount > 0){
+        for (let mob of wave2) {
+            if (mob.amount > 0) {
                 randomcostwave2 -= mob.cost * mob.amount;
             }
         }
@@ -473,8 +473,8 @@ random3.addEventListener(
     () => {
         let randomcostwave3 = 200
         randomWave(wave3, randomcostwave3);
-        for(let mob of wave3){
-            if(mob.amount > 0){
+        for (let mob of wave3) {
+            if (mob.amount > 0) {
                 randomcostwave3 -= mob.cost * mob.amount;
             }
         }

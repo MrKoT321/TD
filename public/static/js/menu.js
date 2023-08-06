@@ -104,7 +104,7 @@ function sendMultiplayGameForm(event) {
     waitingScreenPopup.style.opacity = "1";
     waitingScreenPopup.style.transform = "translate(0px, 0px)";
     data = {
-        type: 'add_to_search', 
+        type: 'add_to_search',
         choisen_class: GAME.choisen_class
     }
     json = JSON.stringify(data);
@@ -147,11 +147,11 @@ startMultiplayGameBtn.addEventListener('click', (event) => { if (nicknameMulti.v
 
 const socket = new WebSocket('ws://localhost:8080');
 
-socket.addEventListener('open', function(event) {
+socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
 });
 
-socket.addEventListener('message', function(event) {
+socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     switch (data.type) {
         case 'find':

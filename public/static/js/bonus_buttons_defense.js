@@ -151,7 +151,7 @@ function sendFireballStatus() {
         fireball_bonus: fireball
     }
     json = JSON.stringify(data);
-    if (typeof socket !== "undefined"){
+    if (typeof socket !== "undefined") {
         socket.send(json);
     }
 }
@@ -162,7 +162,7 @@ function sendFreezeStatus() {
         freeze_bonus: freeze
     }
     json = JSON.stringify(data);
-    if (typeof socket !== "undefined"){
+    if (typeof socket !== "undefined") {
         socket.send(json);
     }
 }
@@ -172,7 +172,7 @@ function sendExtraLifeStatus() {
         type: 'extra_life'
     }
     json = JSON.stringify(data);
-    if (typeof socket !== "undefined"){
+    if (typeof socket !== "undefined") {
         socket.send(json);
     }
 }

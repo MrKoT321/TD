@@ -15,7 +15,7 @@ var GAME = {
 var lvlcount = 1;
 
 var mobs_unlock = ['monster1', 'monster2'];
-var mobs_unlock_buy =[];
+var mobs_unlock_buy = [];
 
 var maxcostwave1 = 100;
 var maxcostwave2 = 150;
@@ -66,7 +66,7 @@ function selectionTimeUpdate() {
     if (GAME.timeToChooseLeft < 0) {
         GAME.timeToChooseLeft = 0;
     }
-    timeInfo.innerHTML = String (GAME.timeToChooseLeft);
+    timeInfo.innerHTML = String(GAME.timeToChooseLeft);
     if (GAME.timeToChooseLeft == 0 && !isTimeEnd) {
         fillEmptyWaves();
         isTimeEnd = true;
@@ -247,24 +247,24 @@ function updateWaveMoney() {
 
 function sendWaves(wave1_send, wave2_send, wave3_send) {
     for (mob of wave1) {
-        if(mob.name != '?'){
-            while (mob.amount != 0){
+        if (mob.name != '?') {
+            while (mob.amount != 0) {
                 wave1_send.push(mob.name);
                 mob.amount -= 1
             }
         }
     }
     for (mob of wave2) {
-        if(mob.name != '?'){
-            while (mob.amount != 0){
+        if (mob.name != '?') {
+            while (mob.amount != 0) {
                 wave2_send.push(mob.name);
                 mob.amount -= 1
             }
         }
     }
     for (mob of wave3) {
-        if(mob.name != '?'){
-            while (mob.amount != 0){
+        if (mob.name != '?') {
+            while (mob.amount != 0) {
                 wave3_send.push(mob.name);
                 mob.amount -= 1
             }
@@ -272,35 +272,35 @@ function sendWaves(wave1_send, wave2_send, wave3_send) {
     }
 }
 
-function unblockMonsters(){
-    for(mob of mobs_unlock){
-        if(mob == 'monster3'){
+function unblockMonsters() {
+    for (mob of mobs_unlock) {
+        if (mob == 'monster3') {
             unlock_monster3.classList.add('hidden');
             mob3_selector.classList.remove('hidden');
         }
-        if(mob == 'monster4'){
+        if (mob == 'monster4') {
             unlock_monster4.classList.add('hidden');
             mob4_selector.classList.remove('hidden');
         }
-        if(mob == 'monster5'){
+        if (mob == 'monster5') {
             unlock_monster5.classList.add('hidden');
             mob5_selector.classList.remove('hidden');
         }
     }
 }
 
-function canStart(){
+function canStart() {
     if (wave1[0].amount != 0 && wave2[0].amount != 0 && wave3[0].amount != 0) {
         start_button.classList.remove('hidden');
         start_lock.classList.add('hidden')
-    } else{
+    } else {
         start_lock.classList.remove('hidden');
-        start_button.classList.add('hidden') 
+        start_button.classList.add('hidden')
     }
 }
 
-function initParams(){
-    if(lvl_take.innerHTML != 0){
+function initParams() {
+    if (lvl_take.innerHTML != 0) {
         GAME.money = parseInt(money_take.innerHTML);
         GAME.score = parseInt(score_send.innerHTML);
         GAME.id = parseInt(playerId_take.innerHTML);
@@ -328,7 +328,7 @@ function sendTimeToChoiseToDefense() {
 
 const socket = new WebSocket('ws://localhost:8090');
 
-socket.addEventListener('message', function(event) {
+socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     console.log(data)
     switch (data.type) {
@@ -339,7 +339,7 @@ socket.addEventListener('message', function(event) {
     }
 });
 
-socket.addEventListener('open', function(event) {
+socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
     data = {
         type: "add_room_to_new_client",
@@ -366,27 +366,27 @@ function getRandomInt(max) {
 }
 
 function transformMobsUnlock() {
-    for(let mob of mobs_unlock){
-        if(mob == 'monster1'){
+    for (let mob of mobs_unlock) {
+        if (mob == 'monster1') {
             mobs_unlock_buy.push(monster1);
         }
-        if(mob == 'monster2'){
+        if (mob == 'monster2') {
             mobs_unlock_buy.push(monster2);
         }
-        if(mob == 'monster3'){
+        if (mob == 'monster3') {
             mobs_unlock_buy.push(monster3);
         }
-        if(mob == 'monster4'){
+        if (mob == 'monster4') {
             mobs_unlock_buy.push(monster4);
         }
-        if(mob == 'monster5'){
+        if (mob == 'monster5') {
             mobs_unlock_buy.push(monster5);
         }
     }
 }
 
 function clearWave(wave) {
-    for(let mob of wave) {
+    for (let mob of wave) {
         mob.amount = 0;
         mob.name = '?'
     }
@@ -397,22 +397,22 @@ function randomWave(wave, randomcostwave) {
     transformMobsUnlock();
     let canbuymonsters = mobs_unlock_buy;
     let pushcount = 0;
-    for(randomcostwave; randomcostwave >= monster1.cost;){
+    for (randomcostwave; randomcostwave >= monster1.cost;) {
         canbuymonsters = canbuymonsters.filter(value => value.cost <= randomcostwave)
         let currbuymonster = canbuymonsters[getRandomInt(getRandomInt(canbuymonsters.length))];
         randomcostwave -= currbuymonster.cost;
         let isMonsterInWave = 'no';
-        for(let mob of wave){
-            if(mob.name == currbuymonster.name){
+        for (let mob of wave) {
+            if (mob.name == currbuymonster.name) {
                 mob.amount += 1;
                 isMonsterInWave = 'yes';
                 break
             }
-            else{
+            else {
                 isMonsterInWave = 'no'
             }
         }
-        if(isMonsterInWave == 'no'){
+        if (isMonsterInWave == 'no') {
             wave[pushcount].name = currbuymonster.name;
             wave[pushcount].image = currbuymonster.icon;
             wave[pushcount].amount += 1;
@@ -425,8 +425,8 @@ function randomWave(wave, randomcostwave) {
 function fillWave(wave, costwave) {
     let randomcostwave = costwave;
     randomWave(wave, randomcostwave);
-    for(let mob of wave){
-        if(mob.amount > 0){
+    for (let mob of wave) {
+        if (mob.amount > 0) {
             randomcostwave -= mob.cost * mob.amount;
         }
     }
