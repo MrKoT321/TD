@@ -118,7 +118,7 @@ function drawInvisibleReload() {
 function drawDestroyReload() {
     if (!destroy.readyToExplode) {
         destroyReloadTimer.classList.remove("hidden");
-        destroyReloadTimer.innerHTML = destroy.reload - GAME.stopwatch + destroy.lastTimeCast;
+        // destroyReloadTimer.innerHTML = destroy.reload - GAME.stopwatch + destroy.lastTimeCast;
     } else {
         destroyReloadTimer.innerHTML = "";
         if (!bonuses.includes('destroy')) {

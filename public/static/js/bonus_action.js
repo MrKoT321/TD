@@ -423,9 +423,9 @@ function updateInvisible() {
 }
 
 function updateDestroy() {
-    if (GAME.stopwatch - destroy.lastTimeCast >= destroy.reload && !destroy.readyToExplode) {
-        destroy.readyToExplode = true;
-    }
+    // if (GAME.stopwatch - destroy.lastTimeCast >= destroy.reload && !destroy.readyToExplode) {
+    //     destroy.readyToExplode = true;
+    // }
     if (!!destroy.x && !!destroy.y && !destroy.used) {
         for (let i = 0; i < towers.length; i++) {
             const tower = towers[i];
@@ -475,8 +475,7 @@ function resetInvisible() {
 }
 
 function resetDestroy() {
-    destroy.isActive = false;
-    destroy.readyToExplode = true;
+    // destroy.isActive = false;
     destroy.x = undefined;
     destroy.y = undefined;
 }
@@ -501,7 +500,7 @@ function updateBonuses() {
             freeze.readyToExplode = true;
             healing.readyToExplode = true;
             invisible.readyToExplode = true;
-            destroy.readyToExplode = true;
+            // destroy.readyToExplode = true;
         }
     }
 }
