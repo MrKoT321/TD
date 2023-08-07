@@ -291,6 +291,18 @@ function death() {
     }
 }
 
+function drawFreeze(monster){
+    if (monster.freeze) {
+        let monsterCenterX = monster.x + monster.width / 2;
+        let monsterCenterY = monster.y + monster.height / 2;
+        if (monster.height > monster.width) {
+            canvasContext.arc(monsterCenterX, monster.height / 2, 0, 2 * Math.PI);
+        } else {
+            canvasContext.arc(monsterCenterX, monster.width / 2, 0, 2 * Math.PI);
+        }
+    }
+}
+
 function moveMonsters(GAME, lvls) {
     deleteShield(monsters);
     if (monsters.length > monsters.filter(value => value.hp > 0).length) {
@@ -322,6 +334,7 @@ function moveMonsters(GAME, lvls) {
         addShield(monster);
         drawShield(monster);
         drawMonster(monster);
+        drawFreeze(monster);
         shieldBar(monster);
         hpBar(monster);
         monsterMove(monster);
