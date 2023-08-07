@@ -8,7 +8,7 @@ class ConnectionProvider {
     {
         $dsn = 'mysql:host=localhost:3306;dbname=TD;charset=utf8';
         $user = 'root';
-        $password = 'pdb7325fdah45';
+        $password = '1234';
         try {
             $dbh = new \PDO($dsn, $user, $password);
         }
