@@ -369,7 +369,7 @@ function updateScoreForMobDef() {
                 GAME.score -= monster.cost;
             } else {
                 if (monster.hp <= 0) {
-                    GAME.score += monster.cost - Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount - 1]));
+                    GAME.score += monster.cost - Math.floor(monster.cost * (monster.distance / lvl.road_length));
                 }
             }
         }
@@ -388,7 +388,7 @@ function updateMobDataAtk() {
             } else {
                 GAME.money += Math.floor(monster.cost / 4);
             }
-            GAME.score += Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount - 1]));
+            GAME.score += monster.cost - Math.floor(monster.cost * (monster.distance / lvl.road_length))
         }
     }
 }

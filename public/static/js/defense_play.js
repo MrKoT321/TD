@@ -555,6 +555,12 @@ function showWaveInfo() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
+    monsters.forEach(monster => {
+        if(monster.delete) {
+            console.log(monster.distance);
+        }
+    }
+    );
     showWaveInfo();
     updateMoney();
     updateScore();
