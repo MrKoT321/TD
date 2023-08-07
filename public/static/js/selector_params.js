@@ -118,4 +118,4 @@ var mob5_3 = {
     name: "?"
 }
 
-const maps = ['map1','map2', 'map3', 'map4', 'map5']
+const maps = ['map1', 'map2', 'map3', 'map4', 'map5']

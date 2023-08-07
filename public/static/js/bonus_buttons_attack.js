@@ -183,7 +183,7 @@ function sendHealingStatus() {
         healing_bonus: healing,
     }
     json = JSON.stringify(data);
-    if (typeof socket !== "undefined"){
+    if (typeof socket !== "undefined") {
         socket.send(json);
     }
 }
@@ -194,7 +194,7 @@ function sendInvisibleStatus() {
         invisible_bonus: invisible,
     }
     json = JSON.stringify(data);
-    if (typeof socket !== "undefined"){
+    if (typeof socket !== "undefined") {
         socket.send(json);
     }
 }
@@ -205,7 +205,7 @@ function sendDestroyStatus() {
         destroy_bonus: destroy,
     }
     json = JSON.stringify(data);
-    if (typeof socket !== "undefined"){
+    if (typeof socket !== "undefined") {
         socket.send(json);
     }
 }

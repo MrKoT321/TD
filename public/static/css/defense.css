@@ -744,6 +744,7 @@ body {
 
 .menua {
     text-decoration: none;
+    cursor: pointer;
 }
 
 .menu__img {

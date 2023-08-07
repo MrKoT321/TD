@@ -3,7 +3,7 @@ var towers = [];
 function setTowers(GAME, lvl) {
     towers = [];
     let waveTowers = lvl.atk_towers[GAME.wave - 1];
-    for(i = 0; i < waveTowers.length; i++){
+    for (i = 0; i < waveTowers.length; i++) {
         let posX = (lvl.towersPos[i] % 16 - 1) * 100;
         let posY = Math.floor(lvl.towersPos[i] / 16) * 100;
         let tower = waveTowers[i];
@@ -30,7 +30,7 @@ function setTowers(GAME, lvl) {
             placeTime: GAME.stopwatch,
             startTime: 0
         };
-        towerData = tower.type == "arrow" ? {...towerData, ...bowData} : towerData;
+        towerData = tower.type == "arrow" ? { ...towerData, ...bowData } : towerData;
         towers.push(towerData);
     }
 }

@@ -30,7 +30,7 @@ window.addEventListener(
     (event) => {
         field.x = document.querySelector(".game__field").getBoundingClientRect().x;
         field.y = document.querySelector(".game__field").getBoundingClientRect().y;
-        
+
         mouse.x = event.clientX - field.x;
         mouse.y = event.clientY - field.y;
     }
@@ -203,7 +203,7 @@ function pushToTowers(tower, posX, posY) {
         bow_loaded_image: bow.loaded_image,
         bow_simple_image: bow.simple_image
     }
-    towerData = tower.type == "arrow" ? {...towerData, ...bowData} : towerData;
+    towerData = tower.type == "arrow" ? { ...towerData, ...bowData } : towerData;
     towers.push(towerData)
 }
 
@@ -214,7 +214,7 @@ function sendNewTowerPlace() {
         money: GAME.money
     }
     json = JSON.stringify(data);
-    if (typeof socket !== "undefined"){
+    if (typeof socket !== "undefined") {
         socket.send(json);
     }
 }
@@ -222,7 +222,7 @@ function sendNewTowerPlace() {
 function makeTower(tower) {
     towerTiles.forEach(tile => {
         if (isMouseOnTile(mouseClick, tile)) {
-            if (canBuy(tower)){
+            if (canBuy(tower)) {
                 pushToTowers(tower, tile[0], tile[1]);
                 GAME.money -= tower.cost;
                 sendNewTowerPlace();

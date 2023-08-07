@@ -321,14 +321,13 @@ function changeMap() {
 };
 
 async function sendResults(event) {
-    const score = document.querySelector(".score__value");
     const gameID = document.getElementById("game-id");
     event.preventDefault();
     props = {
         gameId: gameID.innerHTML,
         nickName: GAME.player,
         choisenClass: 'defense',
-        score: Math.floor(score.innerHTML)
+        score: Math.floor(GAME.score)
     }
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
@@ -380,7 +379,7 @@ function showMenuPopup() {
     GAME.isPlay = 'menu';
 }
 
-cancelBtn.addEventListener("click", () => { 
+cancelBtn.addEventListener("click", () => {
     popupCloseOver();
     GAME.isPlay = prevState;
     prevState = undefined;
@@ -388,9 +387,14 @@ cancelBtn.addEventListener("click", () => {
         restartgame.classList.remove("hidden");
         backToMenuBtn.classList.remove("hidden");
         cancelBtn.classList.add("hidden");
-        menuBtnAlt.classList.add("hidden"); 
+        menuBtnAlt.classList.add("hidden");
     }, 300);
 });
+
+menuBtnAlt.addEventListener("click", (event) => {
+    sendResults(event);
+    window.location.href = '../../';
+})
 
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });

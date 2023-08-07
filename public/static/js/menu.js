@@ -10,10 +10,10 @@ const attackChoisenStart = document.getElementById('attack-choisen-start');
 const defenseChoisenStart = document.getElementById('defense-choisen-start');
 const attackChoisenMultiplay = document.getElementById('attack-choisen-multiplay');
 const defenseChoisenMultiplay = document.getElementById('defense-choisen-multiplay');
-const defenseSubmitStart = document.getElementById('defense-submit-start');
-const attackSubmitStart = document.getElementById('attack-submit-start');
-const defenseSubmitMultiplay = document.getElementById('defense-submit-multiplay');
-const attackSubmitMultiplay = document.getElementById('attack-submit-multiplay');
+// const defenseSubmitStart = document.getElementById('defense-submit-start');
+// const attackSubmitStart = document.getElementById('attack-submit-start');
+// const defenseSubmitMultiplay = document.getElementById('defense-submit-multiplay');
+// const attackSubmitMultiplay = document.getElementById('attack-submit-multiplay');
 
 const startGameForm = document.getElementById('start-game-form');
 
@@ -21,11 +21,18 @@ const waitingScreen = document.getElementById('waiting-screen');
 const waitingScreenPopup = document.getElementById('waiting-screen-img');
 const waitingScreenArea = document.getElementById('waiting-screen-area');
 
+
+
+const startSingleGameBtn = document.getElementById("submit-start");
+const startMultiplayGameBtn = document.getElementById("submit-multiplay");
+
+
 GAME = {
     width: 1800,
     height: 1000,
     milisectimer: 0,
     username: undefined,
+    type: undefined,
     choisen_class: undefined,
     roomId: undefined,
     status: "choose"
@@ -40,62 +47,69 @@ nicknameMulti.addEventListener("input", () => { nicknameMulti.value = nicknameMu
 attackChoisenMultiplay.addEventListener(
     "click",
     () => {
-        attackSubmitMultiplay.classList.remove('hidden'); 
-        defenseSubmitMultiplay.classList.add('hidden');
+        GAME.type = 'multiplay';
+        GAME.choisen_class = 'attack';
+        // attackSubmitMultiplay.classList.remove('hidden'); 
+        // defenseSubmitMultiplay.classList.add('hidden');
     }
 )
 
 defenseChoisenMultiplay.addEventListener(
     "click",
     () => {
-        defenseSubmitMultiplay.classList.remove('hidden');
-        attackSubmitMultiplay.classList.add('hidden'); 
+        GAME.type = 'multiplay';
+        GAME.choisen_class = 'defense';
+        // defenseSubmitMultiplay.classList.remove('hidden');
+        // attackSubmitMultiplay.classList.add('hidden'); 
     }
 )
 
 attackChoisenStart.addEventListener(
     "click",
     () => {
-        attackSubmitStart.classList.remove('hidden'); 
-        defenseSubmitStart.classList.add('hidden');
+        GAME.type = 'single';
+        GAME.choisen_class = 'attack';
+        // attackSubmitStart.classList.remove('hidden'); 
+        // defenseSubmitStart.classList.add('hidden');
     }
 )
 
 defenseChoisenStart.addEventListener(
     "click",
     () => {
-        defenseSubmitStart.classList.remove('hidden');
-        attackSubmitStart.classList.add('hidden'); 
+        GAME.type = 'single';
+        GAME.choisen_class = 'defense';
+        // defenseSubmitStart.classList.remove('hidden');
+        // attackSubmitStart.classList.add('hidden'); 
     }
 )
 
-function sendSingleGameForm(Class) {
-    choisenClassSingle.value = Class;
+function sendSingleGameForm() {
+    // choisenClassSingle.value = Class;
+    choisenClassSingle.value = GAME.choisen_class;
     $('#start-game-form').attr('action', '../create_single_game.php');
 }
 
-defenseSubmitStart.addEventListener('click',() => { sendSingleGameForm('defense') });
-attackSubmitStart.addEventListener('click', () => { sendSingleGameForm('attack') });
+startSingleGameBtn.addEventListener('click', () => { sendSingleGameForm() });
+// defenseSubmitStart.addEventListener('click', () => { sendSingleGameForm('defense') });
+// attackSubmitStart.addEventListener('click', () => { sendSingleGameForm('attack') });
 
-function sendMultiplayGameForm(event, Class) {
-    // choisenClassSingle.value = Class;
-    // $('#mutiplay-game-form').attr('action', '../create_multiplay_game.php');
+function sendMultiplayGameForm(event) {
     document.getElementById("form-multiplay").classList.add("hidden");
     document.getElementById("canvas").classList.remove("hidden");
-    history.pushState({}, 'Menu', './#');
     GAME.status = "search";
     GAME.username = nicknameMulti.value;
-    GAME.choisen_class = Class;
     event.preventDefault();
     waitingScreen.classList.add("active");
     waitingScreenPopup.style.opacity = "1";
     waitingScreenPopup.style.transform = "translate(0px, 0px)";
     data = {
-        type: 'add_to_search', 
-        choisen_class: Class
+        type: 'add_to_search',
+        choisen_class: GAME.choisen_class
     }
     json = JSON.stringify(data);
     socket.send(json);
+    history.pushState({}, 'Menu', './#');
 }
 
 waitingScreenArea.addEventListener('click', () => {
@@ -127,16 +141,17 @@ function redirectToMultiplayGame() {
     form.submit();
 }
 
-defenseSubmitMultiplay.addEventListener('click', (event) => { if (nicknameMulti.value !== '') sendMultiplayGameForm(event, 'defense') });
-attackSubmitMultiplay.addEventListener('click', (event) => { if (nicknameMulti.value !== '') sendMultiplayGameForm(event, 'attack') });
+startMultiplayGameBtn.addEventListener('click', (event) => { if (nicknameMulti.value !== '') sendMultiplayGameForm(event) });
+// defenseSubmitMultiplay.addEventListener('click', (event) => { if (nicknameMulti.value !== '') sendMultiplayGameForm(event, 'defense') });
+// attackSubmitMultiplay.addEventListener('click', (event) => { if (nicknameMulti.value !== '') sendMultiplayGameForm(event, 'attack') });
 
 const socket = new WebSocket('ws://localhost:8080');
 
-socket.addEventListener('open', function(event) {
+socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
 });
 
-socket.addEventListener('message', function(event) {
+socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     switch (data.type) {
         case 'find':
