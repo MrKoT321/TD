@@ -579,7 +579,6 @@ function play() {
     drawBackground();
     drawStrikes();
     drawBonusesBottom();
-    updateMobDataAtk();
     moveMonsters(GAME, lvls);
     drawExplosion();
     drawBonusesTop();
@@ -592,6 +591,7 @@ function play() {
     }
     if (GAME.isPlay == 'play') {
         drawBonusesReload();
+        updateMobDataAtk();
         gameOver();
         nextWave();
         catchTime();
