@@ -389,7 +389,7 @@ cancelBtn.addEventListener("click", () => {
         cancelBtn.classList.add("hidden");
         menuBtnAlt.classList.add("hidden");
     }, 300);
-});ы
+});
 
 menuBtnAlt.addEventListener("click", (event) => {
     sendResults(event);
