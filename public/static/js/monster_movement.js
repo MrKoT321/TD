@@ -388,7 +388,7 @@ function updateMobDataAtk() {
             } else {
                 GAME.money += Math.floor(monster.cost / 4);
             }
-            GAME.score += monster.cost - Math.floor(monster.cost * (monster.distance / lvl.road_length))
+            GAME.score += Math.floor(monster.cost * (monster.distance / lvl.road_length))
         }
     }
 }

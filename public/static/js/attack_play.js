@@ -599,4 +599,4 @@ function play() {
 }
 
 setTimeout(() => { initGameParams(); }, 500)
-setTimeout(() => { play(); }, 600)
+setTimeout(() => { play(); }, 700)
