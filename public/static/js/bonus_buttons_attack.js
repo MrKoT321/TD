@@ -129,10 +129,10 @@ function drawInvisibleReload() {
 
 function drawDestroyReload() {
     if (!destroy.wasUsed) {
-        destroyReloadTimer.classList.add("hidden");
+        destroyReloadTimer.classList.remove("hidden");
         // destroyReloadTimer.innerHTML = destroy.reload - GAME.stopwatch + destroy.lastTimeCast;
     } else {
-        destroyReloadTimer.classList.remove("hidden");
+        destroyReloadTimer.classList.add("hidden");
     }
         // destroyReloadTimer.innerHTML = "";
     if (!bonuses.includes('destroy')) {
@@ -159,6 +159,8 @@ function inActiveInvisible() {
 function inActiveDestroy() {
     destroyBonusCancel.classList.add("hidden");
     destroyBonus.classList.remove("buff_active");
+    invisibleReloadTimer.classList.remove("hidden");
+    invisibleReloadTimer.innerHTML = "";
 }
 
 function initHeal() {
