@@ -71,19 +71,26 @@ class GameTable
 
     public function add(Game $record): void
     {
-        $query = "UPDATE games SET score = :score WHERE game_id = :game_id";
-        $statement = $this->connection->prepare($query);
-        try {
-            $statement->execute([
-                ':score' => $record->getScore(),
-                ':game_id' => $record->getGameId()
-            ]);
-        } catch (PDOException $err) {
-            echo "Database Error: The record could not be able added. <br />" . $err->getMessage();
-        } catch (Exception $err) {
-            echo "General Error: The record could not be able added. <br />" . $err->getMessage();
+        $gameId = $record->getGameId();
+        $query = "SELECT score FROM games WHERE game_id = $gameId";
+        $statement = $this->connection->query($query);
+        if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+            $prevScore = $row['score'];
         }
-
+        if ($prevScore < $record->getScore()) {
+            $query = "UPDATE games SET score = :score WHERE game_id = :game_id";
+            $statement = $this->connection->prepare($query);
+            try {
+                $statement->execute([
+                    ':score' => $record->getScore(),
+                    ':game_id' => $gameId
+                ]);
+            } catch (PDOException $err) {
+                echo "Database Error: The record could not be able added. <br />" . $err->getMessage();
+            } catch (Exception $err) {
+                echo "General Error: The record could not be able added. <br />" . $err->getMessage();
+            }
+        }
         return;
     }
 

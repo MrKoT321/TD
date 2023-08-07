@@ -91,13 +91,12 @@ function showMenuPopup() {
     popupover.classList.add('active');
     document.querySelector('.over').style.color = 'orange';
     document.querySelector('.over').innerHTML = 'BACK TO MENU?';
-    var scoreValue = document.querySelector(".count-score__value").innerHTML;
     var endScore = document.querySelector(".score__value");
     restartgame.classList.add("hidden");
     backToMenuBtn.classList.add("hidden");
     cancelBtn.classList.remove("hidden");
     menuBtnAlt.classList.remove("hidden");
-    endScore.innerHTML = scoreValue;
+    endScore.innerHTML = GAME.score;
     prevState = GAME.isPlay;
     GAME.isPlay = 'menu';
 }
@@ -452,8 +451,8 @@ nextBtn.addEventListener(
 
 restartgame.addEventListener(
     "click",
-    () => {
-        // sendResults(event);
+    (event) => {
+        sendResults(event);
         sendBaseLvlParams();
         // updateRestartGameParams();
         // changeMap();
@@ -469,6 +468,14 @@ backToMenuBtn.addEventListener(
         window.location.href = '../../';
     }
 );
+
+menuBtnAlt.addEventListener(
+    "click",
+    (event) => {
+        sendResults(event);
+        window.location.href = '../../';
+    }
+)
 
 function convertStrToArray(waveStr) {
     let resWave = []
@@ -510,6 +517,8 @@ function initGameParams() {
     GAME.id = parseInt(gameIdInfo.innerHTML);
     GAME.money = parseInt(moneyInitInfo.innerHTML);
     GAME.score = parseInt(scoreInfo.innerHTML);
+    let scoreValue = document.querySelector(".count-score__value");
+    scoreValue.innerHTML = GAME.score;
     GAME.mobsUnlock = mobsUnlockInfo.innerHTML;
     changeMap();
 }
