@@ -85,7 +85,7 @@ function drawFreezeReload() {
         freezeReloadTimer.innerHTML = freeze.reload - GAME.stopwatch + freeze.lastTimeCast;
     } else {
         freezeReloadTimer.innerHTML = "";
-        if (!bonuses.includes('freeze')) {
+        if (!bonuses.includes("freeze")) {
             freezeReloadTimer.classList.remove("hidden");
         } else {
             freezeReloadTimer.classList.add("hidden");
@@ -100,7 +100,7 @@ function drawExtraLifeReload() {
         extraLifeBonusReload.classList.remove("hidden");
     }
     if (!bonuses.includes("extra_life")) {
-        freezeReloadTimer.classList.remove("hidden");
+        extraLifeBonusReload.classList.remove("hidden");
     }
 }
 

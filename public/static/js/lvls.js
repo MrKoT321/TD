@@ -41,7 +41,7 @@ const lvl2 = {
     castle_src: "../static/images/CASTLE.png",
     money: 50,
     invisible_max_time: 5,
-    road_length: 1,
+    road_length: 3350,
 }
 
 const lvl3 = {
@@ -64,7 +64,7 @@ const lvl3 = {
     castle_src: "../static/images/CASTLE.png",
     money: 100,
     invisible_max_time: 5,
-    road_length: 1,
+    road_length: 2950,
 }
 
 const lvl4 = {
@@ -87,7 +87,7 @@ const lvl4 = {
     castle_src: "../static/images/CASTLE.png",
     money: 100,
     invisible_max_time: 5,
-    road_length: 1,
+    road_length: 3670,
 }
 
 const lvl5 = {
