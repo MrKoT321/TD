@@ -1,8 +1,6 @@
 <?php
 /**
- * 
  * @var App\Model\AttackInfo $gameInfo
- * 
  */
 ?>
 

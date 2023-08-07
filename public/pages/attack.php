@@ -138,13 +138,13 @@
                     <input class="restart hidden" type="submit" id="restartgame" value="" />
                 </label>
             </form>
-                <a href="../pages/menu.html" class="menua">
+                <div class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
-                </a>
+                </div>
                 <img class="restart hidden" src="../static/images/cancel_button.png" id="cancel"/>
-                <a href="../pages/menu.html" class="menua">
+                <div class="menua">
                     <img class="menu__img hidden" src="../static/images/confirm_button.png" id="back-to-menu-alt" />
-                </a>
+                </div>
             </div>
         </div>
     </div>

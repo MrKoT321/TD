@@ -321,10 +321,10 @@ function changeMap() {
 };
 
 async function sendResults(event) {
-    const gameID = document.getElementById("game-id");
+    const gameID = document.getElementById("game-id").innerHTML;
     event.preventDefault();
     props = {
-        gameId: gameID.innerHTML,
+        gameId: gameID,
         nickName: GAME.player,
         choisenClass: 'defense',
         score: Math.floor(GAME.score)
@@ -368,13 +368,12 @@ function showMenuPopup() {
     popupover.classList.add('active');
     document.querySelector('.over').style.color = 'orange';
     document.querySelector('.over').innerHTML = 'BACK TO MENU?';
-    var scoreValue = document.querySelector(".count-score__value").innerHTML;
     var endScore = document.querySelector(".score__value");
     restartgame.classList.add("hidden");
     backToMenuBtn.classList.add("hidden");
     cancelBtn.classList.remove("hidden");
     menuBtnAlt.classList.remove("hidden");
-    endScore.innerHTML = scoreValue;
+    endScore.innerHTML = GAME.score;
     prevState = GAME.isPlay;
     GAME.isPlay = 'menu';
 }
