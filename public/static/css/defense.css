@@ -1,12 +1,40 @@
 body {
-    height: 1080px;
+    height: 100vh;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #434343;
+    background-color: #42424287;
     overflow: hidden;
+}
+
+.decoration {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.decoration div {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+}
+
+.decoration__back {
+    background-image: url('../images/loading-bg.png');
+    background-size: cover;
+}
+
+.decoration__front {
+    background-color: #42424270;
+    backdrop-filter: blur(6px);
+    transition: background-color .3s ease;
+}
+
+.decoration__front._pause {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color .3s ease;
 }
 
 .game {
@@ -62,7 +90,7 @@ body {
     left: 0;
 }
 
-.bash {
+.electric {
     position: absolute;
     top: 0;
     right: 0;
@@ -176,6 +204,8 @@ body {
 .fireball-buf__icon {
     width: 165px;
     height: 165px;
+    transform: scale(1);
+    transition: all .2s ease-in;
 }
 
 .fireball-buf__cancel {
@@ -204,6 +234,8 @@ body {
 .freeze-buf__icon {
     width: 110px;
     height: 110px;
+    transform: scale(1);
+    transition: all .2s ease-in;
 }
 
 .freeze-buf__cancel {
@@ -228,11 +260,119 @@ body {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+.extra-life-buf__icon {
+    width: 110px;
+    height: 100px;
+    margin-left: 5px;
+    transform: scale(1);
+    transition: all .2s ease-in;
+}
+
+.extra-life-buf__reload {
+    position: absolute;
+    width: 200px;
+    height: 150px;
+    padding-top: 50px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 100px;
+    color: white;
+    font-family: 'VT323';
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.healing-buf__icon {
+    width: 150px;
+    height: 150px;
+    transform: scale(1);
+    transition: all .2s ease-in;
+}
+
+.healing-buf__cancel {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.healing-buf__reload {
+    position: absolute;
+    width: 200px;
+    height: 150px;
+    padding-top: 50px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 100px;
+    color: white;
+    font-family: 'VT323';
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.invisible-buf__icon {
+    width: 150px;
+    height: 150px;
+    transform: scale(1);
+    transition: all .2s ease-in;
+}
+
+.invisible-buf__cancel {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.invisible-buf__reload {
+    position: absolute;
+    width: 200px;
+    height: 150px;
+    padding-top: 50px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 100px;
+    color: white;
+    font-family: 'VT323';
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.destroy-buf__icon {
+    width: 150px;
+    height: 150px;
+    transform: scale(1);
+    transition: all .2s ease-in;
+}
+
+.destroy-buf__cancel {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.destroy-buf__reload {
+    position: absolute;
+    width: 200px;
+    height: 150px;
+    padding-top: 50px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 100px;
+    color: white;
+    font-family: 'VT323';
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 .bar-game-info {
     width: 200px;
     height: 200px;
     font-family: 'VT323';
-    font-size: 60px;
+    font-size: 55px;
 }
 
 .game-info-slot {
@@ -241,6 +381,7 @@ body {
     height: 50%;
     display: flex;
     align-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -278,42 +419,60 @@ body {
 }
 
 .bar__pause {
-    height: 50%;
+    height: 38%;
     width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
 .pause__btn {
-    width: 20px;
+    width: 50px;
     height: 50px;
     cursor: pointer;
+    position: relative;
 }
 
-.pause__btn.play {
-    border-left: 9px solid black;
-    border-right: 9px solid black;
-    /* border-top: 25px solid transparent;
-    border-bottom: 25px solid transparent;
-    border-left: 35px solid black; */
+.pause__btn .bar {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 8px;
+    height: 40px;
+    transform-origin: center;
+    transition: transform 0.2s ease-in-out;
 }
 
-.pause__btn.pause {
-    width: 0;
-    height: 0;
-    /* border-left: 3px solid white;
-    border-right: 3px solid white; */
-    border-top: 25px solid transparent;
-    border-bottom: 25px solid transparent;
-    border-left: 35px solid white;
+.pause__btn.pause .bar {
+    background-color: #000;	
+}
+
+.pause__btn.pause .bar-1 {
+    transform: translateX(10px) translateY(0px) rotate(0deg);	
+}
+
+.pause__btn.pause .bar-2 {
+    transform: translateX(34px) translateY(0px) rotate(0deg);	
+}
+
+.pause__btn.play .bar {
+    background-color: #FFF;	
+}
+
+.pause__btn.play .bar-1 {
+    transform: translateX(30px) translateY(-9.7px) rotate(-55deg);	
+}
+
+.pause__btn.play .bar-2 {
+    transform: translateX(30px) translateY(9.7px) rotate(-125deg);	
 }
 
 .bar__out {
     width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
 .bar__icon {
@@ -478,7 +637,7 @@ body {
 }
 
 .count-coin__value.error {
-    color: red;
+    color: #FF3434;
     display: inline-block;
     margin: 0 20px;
     animation: headShake;
@@ -586,6 +745,7 @@ body {
 
 .menua {
     text-decoration: none;
+    cursor: pointer;
 }
 
 .menu__img {
@@ -670,9 +830,9 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    left: 28%;
+    left: calc(50% - 460px);
     top: 20%;
-    gap: 150px;
+    gap: 70px;
 }
 
 .loading-text {
@@ -727,12 +887,29 @@ body {
 .waiting-screen {
     position: absolute;
     width: 100%;
-    height: 1085px;
+    height: 1004px;
     top: 0;
     left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.waiting-screen-timer {
+    position: absolute;
+    top: 728px;
+    left: 805px;
+    color: #FFF;
+    font-family: 'VT323';
+}
+
+.waiting-screen-timer__value {
+    font-size: 140px;
+}
+
+.waiting-screen-timer__unit {
+    margin-left: 15px;
+    font-size: 140px;
 }
 
 .wave-info {
@@ -783,4 +960,9 @@ body {
     font-family: 'VT323';
     font-size: 100px;
     font-weight: 400;
+}
+
+.buff_active {
+    transform: scale(0.66);
+    transition: all .2s ease-in;
 }

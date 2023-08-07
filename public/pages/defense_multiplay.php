@@ -19,6 +19,10 @@
     <span id="nick-name" class="hidden"><?= htmlspecialchars($game->getNickName()) ?></span>
     <span class="hidden" id="game-info-roomId"><? echo($roomId) ?></span>
     <span id="game-id" class="hidden"><?= $gameId ?></span>
+    <div class="decoration">
+        <div class="decoration__back"></div>
+        <div class="decoration__front"></div>
+    </div>
     <div class="game">
         <div class="game__field field">
             <canvas id='canvas'></canvas>
@@ -37,9 +41,9 @@
                         <img src="../static/images/archer_tower.png" class="choise-tower" />
                         <img src="../static/images/archer_cost.png" class="cost-for-tower" />
                     </div>
-                    <div class="bash selector">
-                        <img src="../static/images/bash_tower.png" class="choise-tower" />
-                        <img src="../static/images/bash_cost.png" class="cost-for-tower" />
+                    <div class="electric selector">
+                        <img src="../static/images/electric_tower.png" class="choise-tower" />
+                        <img src="../static/images/electric_cost.png" class="cost-for-tower" />
                     </div>
                     <div class="mortir selector">
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
@@ -83,7 +87,10 @@
                     <img src="../static/images/cancel_button.png"  class="freeze-buf__cancel hidden" />
                     <span class="freeze-buf__reload"></span>
                 </div>
-                <div class="buf-slot"></div>
+                <div class="extra-life-buf buf-slot">
+                    <img src="../static/images/extra_life_buff.png" class="extra-life-buf__icon" />
+                    <span class="extra-life-buf__reload"></span>
+                </div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">
                         <span class="game-info-lvl__title">LVL:</span>
@@ -104,7 +111,10 @@
                     <span class="bar-start__start-btn" id="startwave">START</span>
                 </div>
                 <div class="bar__pause pause">
-                    <div class="pause__btn pause" id="pausegame"></div>
+                    <div class="pause__btn pause" id="pausegame">
+                        <span class="bar bar-1"></span>
+                        <span class="bar bar-2"></span>
+                    </div>
                 </div>
                 <div class="bar__out">
                     <div class="bar__icon">
@@ -113,6 +123,26 @@
                 </div>
             </div>
         </div>
+        <div class="waiting-screen">
+            <div class="waiting-opponent-screen">
+                <img src="../static/images/waiting_opponent_screen.png" alt="">
+            </div>
+            <div class="waiting-screen-timer">
+                <span class="waiting-screen-timer__value">40</span>
+                <span class="waiting-screen-timer__unit">s</span>
+            </div>
+        </div>
+        <img src='../static/images/loading-bg.png' class='loading-image' />
+        <div class='loading-bg'></div>
+        <div class="load">
+            <span class='loading-text'>LOADING LEVEL</span>
+            <div class="load__score">
+                <span class="loading-score" id = "load-score1">0</span>
+                <span class="loading-score" id = "load-score2">:</span>
+                <span class="loading-score" id = "load-score3">0</span>
+            </div>    
+        <div class="loading" id = "loading"></div>
+    </div>
     </div>
     <div class="popupover__bg">
         <div class="popupover">
@@ -126,22 +156,7 @@
         </div>
     </div>
     </div>
-    <div class="waiting-screen">
-        <div class="waiting-opponent-screen">
-            <img src="../static/images/waiting_opponent_screen.png" alt="">
-        </div>
-    </div>
-    <img src='../static/images/loading-bg.png' class='loading-image' />
-    <div class='loading-bg'></div>
-    <div class="load">
-        <span class='loading-text'>LOADING LEVEL</span>
-        <div class="load__score">
-            <span class="loading-score" id = "load-score1">0</span>
-            <span class="loading-score" id = "load-score2">:</span>
-            <span class="loading-score" id = "load-score3">0</span>
-        </div>    
-        <div class="loading" id = "loading"></div>
-    </div>
+    <script type="application/javascript" src="../static/js/prev_selection.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>

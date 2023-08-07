@@ -8,7 +8,7 @@
 }
 
 body {
-    height: 1080px;
+    height: 100vh;
     margin: 0;
     padding: 0;
     display: flex;
@@ -16,6 +16,34 @@ body {
     align-items: center;
     background-color: #434343;
     overflow: hidden;
+}
+
+.decoration {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.decoration div {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+}
+
+.decoration__back {
+    background-image: url('../images/loading-bg.png');
+    background-size: cover;
+}
+
+.decoration__front {
+    background-color: #42424270;
+    backdrop-filter: blur(6px);
+    transition: background-color .3s ease;
+}
+
+.decoration__front._pause {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color .3s ease;
 }
 
 .game {
@@ -41,7 +69,7 @@ body {
 }
 
 .count-coin.error {
-    color: red;
+    color: #FF3434;
     display: inline-block;
     margin: 0 20px;
     animation: headShake;
@@ -50,15 +78,15 @@ body {
 
 .map-button {
     position: absolute;
-    margin-left: 301px;
-    margin-top: 1px;
+    margin-left: 300px;
+    margin-top: 0;
     cursor: pointer;
 }
 
 .start-button {
     position: absolute;
-    margin-left: 1493px;
-    margin-top: 1px;
+    margin-left: 1494px;
+    margin-top: 0;
     background: url("../images/start-button.png");
     width: 307px;
     height: 104px;
@@ -170,6 +198,22 @@ body {
 .wave-selector__wave-plus {
     margin-left: 56px;
     cursor: pointer;
+}
+
+.timer-to-choose {
+    position: absolute;
+    left: 1220px;
+    color: #FFF;
+    font-family: Holtwood One SC;
+}
+
+.timer-to-choose__value {
+    font-size: 64px;
+}
+
+.timer-to-choose__unit {
+    margin-left: 15px;
+    font-size: 48px;
 }
 
 .popup-map__field {
@@ -364,9 +408,9 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    left: 28%;
+    left: calc(50% - 460px);
     top: 20%;
-    gap: 150px;
+    gap: 70px;
 }
 
 .loading-text {
@@ -437,4 +481,11 @@ body {
     margin-left: 1608px;
     margin-top: 815px;
     cursor: pointer;
+}
+
+.waiting-screen {
+    position: absolute;
+    width: 1800px;
+    height: 1000px;
+    background-color: rgba(0, 0, 0, 0.3);
 }

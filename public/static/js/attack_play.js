@@ -9,6 +9,8 @@ const pauseGameBtn = document.getElementById("pausegame");
 
 const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
+const cancelBtn = document.getElementById("cancel");
+const menuBtnAlt = document.getElementById("back-to-menu-alt");
 
 const nextBtn = document.getElementById("next-lvl-btn");
 const nextLvlForm = document.getElementById("form");
@@ -22,6 +24,9 @@ const totalWave = document.getElementById("total-wave");
 const wave1Info = document.getElementById("game-info-wave-1");
 const wave2Info = document.getElementById("game-info-wave-2");
 const wave3Info = document.getElementById("game-info-wave-3");
+
+const globalBackground = document.querySelector('.decoration__front');
+const gameMenuBtn = document.getElementById('game-menu-btn');
 
 const gameIdInfo = document.getElementById("game-info-gameid");
 const moneyInitInfo = document.getElementById("game-info-money");
@@ -81,12 +86,39 @@ function updateVisualLvlParams() {
     totalWave.innerHTML = lvls[GAME.lvlCount - 1].waves.length;
 }
 
+function showMenuPopup() {
+    popupoverBg.classList.add('active');
+    popupover.classList.add('active');
+    document.querySelector('.over').style.color = 'orange';
+    document.querySelector('.over').innerHTML = 'BACK TO MENU?';
+    var endScore = document.querySelector(".score__value");
+    restartgame.classList.add("hidden");
+    backToMenuBtn.classList.add("hidden");
+    cancelBtn.classList.remove("hidden");
+    menuBtnAlt.classList.remove("hidden");
+    endScore.innerHTML = GAME.score;
+    prevState = GAME.isPlay;
+    GAME.isPlay = 'menu';
+}
+
+cancelBtn.addEventListener("click", () => {
+    popupCloseOver();
+    GAME.isPlay = prevState;
+    prevState = undefined;
+    setTimeout(() => {
+        restartgame.classList.remove("hidden");
+        backToMenuBtn.classList.remove("hidden");
+        cancelBtn.classList.add("hidden");
+        menuBtnAlt.classList.add("hidden");
+    }, 300);
+});
 
 function resetStopwatch() {
     GAME.stopwatch = 0;
     startTimer = new Date();
     GAME.milisectimer = 0;
     timeInPause = 0;
+    timeInLastPause = 0;
 }
 
 function catchTime() {
@@ -115,12 +147,27 @@ function drawPauseBackground() {
     canvasContext.fillRect(0, 0, GAME.width, GAME.height);
 }
 
-function resetButtons() {
-    startWaveBtn.classList.remove("active");
+function changeGameStatusButtons() {
+    startWaveBtn.classList.add("active");
     pauseGameBtn.classList.remove("pause");
     pauseGameBtn.classList.add("play");
+    if (GAME.isPlay == 'play') {
+        pauseGameBtn.classList.add("play");
+        pauseGameBtn.classList.remove("pause");
+        globalBackground.classList.remove("_pause");
+    } else {
+        if (GAME.isPlay == 'menu') {
+            pauseGameBtn.classList.add("pause");
+            pauseGameBtn.classList.remove("play");
+            globalBackground.classList.add("_pause");
+        }
+    }
+    if (GAME.isPlay == 'wavepause') {
+        startWaveBtn.classList.remove("active");
+        pauseGameBtn.classList.add("pause");
+        pauseGameBtn.classList.remove("play");
+    }
 }
-
 function drawCastle() {
     if (GAME.castle) {
         canvasContext.drawImage(GAME.castle, lvl.castle_x, lvl.castle_y, lvl.castle_w, lvl.castle_h);
@@ -170,7 +217,7 @@ function lvlComplete() {
         payForLastWaves();
         GAME.score += GAME.lvlCount * 100;
         GAME.isPlay = 'popuppause';
-        // resetBonuses();
+        resetBonuses();
         if (GAME.lvlCount + 1 > lvls.length) {
             popupoverBg.classList.add('active');
             popupover.classList.add('active');
@@ -216,7 +263,6 @@ function sendNextLvlParams() {
     score.value = String(GAME.score);
     currLvl.value = String(GAME.lvlCount + 1);
     mobsUnlock.value = String(GAME.mobsUnlock);
-    console.log(gameId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
     $('#form').attr('action', '../make_waves.php');
 }
 
@@ -252,6 +298,7 @@ function changeLvl() {
 function updateCastleHP() {
     let bar = document.getElementById("hp-bar");
     for (let i = 0; i < GAME.castleHP; i++) {
+        bar.children[GAME.castleHP - 1].src = "../static/images/hp.png";
         bar.children[i].classList.remove("_hide");
     }
 }
@@ -370,9 +417,11 @@ function pauseGame() {
 
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
+gameMenuBtn.addEventListener("click", () => { showMenuPopup() });
+
 var isClick = false;
 document.addEventListener("keydown", (event) => {
-    if (!isClick){
+    if (!isClick) {
         switch (event.code) {
             case 'Space':
                 pauseGame();
@@ -402,8 +451,8 @@ nextBtn.addEventListener(
 
 restartgame.addEventListener(
     "click",
-    () => {
-        // sendResults(event);
+    (event) => {
+        sendResults(event);
         sendBaseLvlParams();
         // updateRestartGameParams();
         // changeMap();
@@ -419,6 +468,14 @@ backToMenuBtn.addEventListener(
         window.location.href = '../../';
     }
 );
+
+menuBtnAlt.addEventListener(
+    "click",
+    (event) => {
+        sendResults(event);
+        window.location.href = '../../';
+    }
+)
 
 function convertStrToArray(waveStr) {
     let resWave = []
@@ -451,7 +508,6 @@ function createWaves() {
     waveStrs.forEach(waveStr => {
         lvl.waves.splice(-1, 0, ...lvl.waves.splice(-1, 1, convertStrToArray(waveStr)));
     });
-    console.log(lvl.waves);
 }
 
 function initGameParams() {
@@ -461,6 +517,8 @@ function initGameParams() {
     GAME.id = parseInt(gameIdInfo.innerHTML);
     GAME.money = parseInt(moneyInitInfo.innerHTML);
     GAME.score = parseInt(scoreInfo.innerHTML);
+    let scoreValue = document.querySelector(".count-score__value");
+    scoreValue.innerHTML = GAME.score;
     GAME.mobsUnlock = mobsUnlockInfo.innerHTML;
     changeMap();
 }
@@ -474,7 +532,7 @@ function payForLastWaves() {
                 GAME.score += monster.cost;
             }
         }
-        for (monster of monsters){
+        for (monster of monsters) {
             GAME.money += Math.floor(monster.cost / 2);
             monster.hp = 0;
         }
@@ -495,15 +553,20 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawStrikes();
-    drawExplosion();
+    drawBonusesBottom();
     moveMonsters(GAME, lvls);
+    drawExplosion();
+    updateBonuses();
     drawCastle();
+    changeGameStatusButtons();
     if (GAME.isPlay == 'wavepause') {
+        resetBonuses();
+        resetBonusesReload();
         setTowers(GAME, lvl);
         resetStopwatch();
-        resetButtons();
     }
     if (GAME.isPlay == 'play') {
+        drawBonusesReload();
         lvlComplete();
         nextWave();
         catchTime();
@@ -516,18 +579,21 @@ function play() {
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
         GAME.isPlay = 'play';
+        initBonuses("attack");
     }
     drawTower();
     drawArrows();
     drawBullets();
+    drawBonusesTop();
     attackTowers(GAME);
     gameOver();
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();
+        resetBonusesReload();
     }
     requestAnimationFrame(play);
 }
 
-initGameParams();
-play();
+setTimeout(() => { initGameParams(); }, 500)
+setTimeout(() => { play(); }, 600)

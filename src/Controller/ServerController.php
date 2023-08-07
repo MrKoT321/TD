@@ -382,9 +382,9 @@ class ServerController
             (int) $requestData['money'],
             null,
             $requestData['currentLvl'],
-            $requestData['wave1'],
-            $requestData['wave2'],
-            $requestData['wave3'],
+            null,
+            null,
+            null,
             $requestData['mobsUnlock']
         );
         $requestId = $this->requestTable->publish($gameInfo);

@@ -20,7 +20,7 @@ class WebSocketHandler implements MessageComponentInterface {
   public function onOpen(ConnectionInterface $conn) {
     $conn->gameStatus = 'menu';
     $this->clients->attach($conn);
-    echo "-- New client connected: {$conn->resourceId}" . PHP_EOL;
+    echo "-- Server start";
   }
 
   // Обработчик получения сообщения от клиента
@@ -38,7 +38,6 @@ class WebSocketHandler implements MessageComponentInterface {
   // Обработчик закрытия соединения клиента
   public function onClose(ConnectionInterface $conn) {
     $this->clients->detach($conn);
-    echo "Client disconnected: {$conn->resourceId}" . PHP_EOL;
   }
 
   private function findOpponent(ConnectionInterface $from, $data) {
@@ -48,7 +47,6 @@ class WebSocketHandler implements MessageComponentInterface {
       if ($client->resourceId !== $from->resourceId && $client->gameStatus == 'search' && $client->class !== $from->class) {
         $client->gameStatus = 'ready_to_play';
         $from->gameStatus = 'ready_to_play';
-        echo '--- Connection success! Both players ready to play' . PHP_EOL;
         $data->roomId = $client->resourceId;
         $data->type = 'find';
         $from->send(json_encode($data));
@@ -65,21 +63,19 @@ class WebSocketHandler implements MessageComponentInterface {
 
   // Обработчик ошибок соединения
   public function onError(ConnectionInterface $conn, \Exception $e) {
-    echo "An error has occurred: {$e->getMessage()}" . PHP_EOL;
     $conn->close();
   }
 }
 
 // Создаем новый WebSocket-сервер на порту 8080 для меню
 $server = IoServer::factory(
-new HttpServer(
-  new WsServer(
-    new WebSocketHandler()
-  )
-),
-8080
+  new HttpServer(
+    new WsServer(
+      new WebSocketHandler()
+    )
+  ),
+  8080
 );
 
 // Запускаем сервер
-echo "WebSocket server started" . PHP_EOL;
 $server->run();

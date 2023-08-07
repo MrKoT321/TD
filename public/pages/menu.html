@@ -11,6 +11,9 @@
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script async src="../static/js/monsters.js"></script>
+    <script async src="../static/js/monster_movement.js"></script>
+    <script async src="../static/js/monster_movement_menu.js"></script>
     <script async src="../static/js/menu.js"></script>
     <div class="menu">
         <div class="menu-title">
@@ -53,8 +56,9 @@
                     <form method="POST" nctype="multipart/form-data" class="form-popup" id="start-game-form">
                         <input class="form-popup__nickname-single" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" required />
                         <input class="form-popup__single hidden" type="text" name="choisenClass" />
-                        <input class="form-popup__submit" id="defense-submit-start" type="submit" name="submit" value="Submit"/>
-                        <input class="form-popup__submit" id="attack-submit-start" type="submit" name="submit" value="Submit"/>
+                        <input class="form-popup__submit" id="submit-start" type="submit" name="submit" value="Submit"/>
+                        <!-- <input class="form-popup__submit" id="defense-submit-start" type="submit" name="submit" value="Submit"/> -->
+                        <!-- <input class="form-popup__submit" id="attack-submit-start" type="submit" name="submit" value="Submit"/> -->
                     </form> 
                 </div>
             </div>
@@ -69,8 +73,9 @@
                     <form method="POST" nctype="multipart/form-data" class="form-popup" id="mutiplay-game-form">
                         <input class="form-popup__nickname-multi" type="text" name="username" placeholder="Enter your nickname" maxlength="15" autocomplete="off" required />
                         <input type="text" class="form-popup__multi hidden" type="text" name="choisenClass" />
-                        <input class="form-popup__submit" id="defense-submit-multiplay" type="submit" name="submit" value="Submit" />
-                        <input class="form-popup__submit" id="attack-submit-multiplay" type="submit" name="submit" value="Submit" />
+                        <input class="form-popup__submit" id="submit-multiplay" type="submit" name="submit" value="Submit" />
+                        <!-- <input class="form-popup__submit" id="defense-submit-multiplay" type="submit" name="submit" value="Submit" />
+                        <input class="form-popup__submit" id="attack-submit-multiplay" type="submit" name="submit" value="Submit" /> -->
                     </form>
                 </div>
             </div>
@@ -79,11 +84,9 @@
     <div class="popup" id="waiting-screen">
         <a href="#" class="popup__area" id="waiting-screen-area"></a>
         <div class="popup__body">
-            <div class="popup__content" id="waiting-screen-img">
-                <img src="../static/images/waiting_screen.png" class="waiting-screen" />
-                <div class="waiting-screen-spin"></div>
-            </div>
+            <div class="popup__content" id="waiting-screen-img"></div>
         </div>
     </div>
+    <canvas id='canvas' class="waiting-screen-canvas hidden"></canvas>
 </body>
 </html>

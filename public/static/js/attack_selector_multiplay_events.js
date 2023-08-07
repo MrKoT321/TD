@@ -422,7 +422,7 @@ unlock_monster5.addEventListener(
 start_lock.addEventListener(
     "mouseover",
     () => {
-        start_info.classList.remove('hidden') 
+        start_info.classList.remove('hidden')
     }
 )
 
@@ -436,22 +436,7 @@ start_lock.addEventListener(
 start_button.addEventListener(
     "click",
     () => {
-        let wave1_to_send = [], wave2_to_send = [], wave3_to_send = []
-        sendWaves(wave1_to_send, wave2_to_send, wave3_to_send);
-        wave1_send.value = String(wave1_to_send);
-        wave2_send.value = String(wave2_to_send);
-        wave3_send.value = String(wave3_to_send);
-        mobs_unlock_send.value = String(mobs_unlock);
-        playerId_send.value = GAME.playerId;
-        money_send.value = GAME.money;
-        currentLvl_send.value = GAME.lvl;
-        data = {
-            type: 'waves',
-            waves: [wave1_to_send, wave2_to_send, wave3_to_send]
-        }
-        json = JSON.stringify(data);
-        socket.send(json);
-        $('#form').attr('action', '../send_waves_multiplay.php');
+        prepareDataAndSend();
     }
 )
 
@@ -460,8 +445,8 @@ random1.addEventListener(
     () => {
         let randomcostwave1 = 100
         randomWave(wave1, randomcostwave1);
-        for(let mob of wave1){
-            if(mob.amount > 0){
+        for (let mob of wave1) {
+            if (mob.amount > 0) {
                 randomcostwave1 -= mob.cost * mob.amount;
             }
         }
@@ -474,8 +459,8 @@ random2.addEventListener(
     () => {
         let randomcostwave2 = 150
         randomWave(wave2, randomcostwave2);
-        for(let mob of wave2){
-            if(mob.amount > 0){
+        for (let mob of wave2) {
+            if (mob.amount > 0) {
                 randomcostwave2 -= mob.cost * mob.amount;
             }
         }
@@ -487,9 +472,9 @@ random3.addEventListener(
     "click",
     () => {
         let randomcostwave3 = 200
-        randomWave(wave3, costwave3);
-        for(let mob of wave3){
-            if(mob.amount > 0){
+        randomWave(wave3, randomcostwave3);
+        for (let mob of wave3) {
+            if (mob.amount > 0) {
                 randomcostwave3 -= mob.cost * mob.amount;
             }
         }

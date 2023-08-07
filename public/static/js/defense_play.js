@@ -9,6 +9,8 @@ const pauseGameBtn = document.getElementById("pausegame");
 
 const restartgame = document.getElementById("restartgame");
 const backToMenuBtn = document.getElementById("back-to-menu");
+const cancelBtn = document.getElementById("cancel");
+const menuBtnAlt = document.getElementById("back-to-menu-alt");
 
 const nextBtn = document.getElementById("next-lvl-btn");
 
@@ -29,6 +31,10 @@ const wave_mob3_count = document.getElementById('wave-mob3-count')
 const wave_mob4_count = document.getElementById('wave-mob4-count')
 const wave_mob5_count = document.getElementById('wave-mob5-count')
 
+const globalBackground = document.querySelector('.decoration__front');
+
+const gameMenuBtn = document.getElementById('game-menu-btn');
+
 const loading_text = document.querySelector('.loading-text');
 const load = document.querySelector('.load');
 const loading_bg = document.querySelector('.loading-bg');
@@ -37,6 +43,7 @@ const loading_image = document.querySelector('.loading-image');
 const lvls = [lvl1, lvl2, lvl3, lvl4];
 
 var wave_length = 0;
+var prev_state = undefined;
 
 var GAME = {
     player: document.getElementById("nick-name").innerHTML,
@@ -86,12 +93,12 @@ function updateVisualLvlParams() {
     totalWave.innerHTML = lvls[GAME.lvlCount - 1].waves.length;
 }
 
-
 function resetStopwatch() {
     GAME.stopwatch = 0;
     startTimer = new Date();
     GAME.milisectimer = 0;
     timeInPause = 0;
+    timeInLastPause = 0;
 }
 
 function catchTime() {
@@ -122,19 +129,21 @@ function drawPauseBackground() {
 
 function changeGameStatusButtons() {
     startWaveBtn.classList.add("active");
-    pauseGameBtn.classList.remove("pause");
-    pauseGameBtn.classList.add("play");
     if (GAME.isPlay == 'play') {
         pauseGameBtn.classList.add("play");
         pauseGameBtn.classList.remove("pause");
+        globalBackground.classList.remove("_pause");
     } else {
         if (GAME.isPlay == 'menu') {
             pauseGameBtn.classList.add("pause");
             pauseGameBtn.classList.remove("play");
+            globalBackground.classList.add("_pause");
         }
     }
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.remove("active");
+        pauseGameBtn.classList.add("pause");
+        pauseGameBtn.classList.remove("play");
     }
 }
 
@@ -231,6 +240,7 @@ function changeLvl() {
 function updateCastleHP() {
     let bar = document.getElementById("hp-bar");
     for (let i = 0; i < GAME.castleHP; i++) {
+        bar.children[i].src = "../static/images/hp.png";
         bar.children[i].classList.remove("_hide");
     }
 }
@@ -311,16 +321,14 @@ function changeMap() {
 };
 
 async function sendResults(event) {
-    const score = document.querySelector(".score__value");
-    const gameID = document.getElementById("game-id");
+    const gameID = document.getElementById("game-id").innerHTML;
     event.preventDefault();
     props = {
-        gameId: gameID.innerHTML,
+        gameId: gameID,
         nickName: GAME.player,
         choisenClass: 'defense',
-        score: Math.floor(score.innerHTML)
+        score: Math.floor(GAME.score)
     }
-    console.log(props)
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
         method: 'POST',
@@ -355,8 +363,42 @@ function pauseGame() {
     }
 }
 
+function showMenuPopup() {
+    popupoverBg.classList.add('active');
+    popupover.classList.add('active');
+    document.querySelector('.over').style.color = 'orange';
+    document.querySelector('.over').innerHTML = 'BACK TO MENU?';
+    var endScore = document.querySelector(".score__value");
+    restartgame.classList.add("hidden");
+    backToMenuBtn.classList.add("hidden");
+    cancelBtn.classList.remove("hidden");
+    menuBtnAlt.classList.remove("hidden");
+    endScore.innerHTML = GAME.score;
+    prevState = GAME.isPlay;
+    GAME.isPlay = 'menu';
+}
+
+cancelBtn.addEventListener("click", () => {
+    popupCloseOver();
+    GAME.isPlay = prevState;
+    prevState = undefined;
+    setTimeout(() => {
+        restartgame.classList.remove("hidden");
+        backToMenuBtn.classList.remove("hidden");
+        cancelBtn.classList.add("hidden");
+        menuBtnAlt.classList.add("hidden");
+    }, 300);
+});
+
+menuBtnAlt.addEventListener("click", (event) => {
+    sendResults(event);
+    window.location.href = '../../';
+})
+
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
+
+gameMenuBtn.addEventListener("click", () => { showMenuPopup() });
 
 var isClick = false;
 document.addEventListener("keydown", (event) => {
@@ -487,7 +529,6 @@ function updateInfoCounts() {
         } else {
             info_block5.style.position = 'absolute'
         }
-        console.log(wave_length)
     }
 }
 
@@ -519,12 +560,14 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
-    drawExplosion();
-    drawStrikes();
     if (GAME.isPlay != 'wavepause') {
         updateMobDataDef();
     }
+    drawBonusesBottom();
     moveMonsters(GAME, lvls);
+    drawExplosion();
+    drawBonusesTop();
+    updateBonuses();
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
         resetBonusesReload();
@@ -549,19 +592,19 @@ function play() {
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
-        initBonuses();
+        initBonuses("defense");
         GAME.isPlay = 'play';
     }
     if (GAME.isPlay != 'play' && GAME.isPlay != 'wavepause') {
         removeTowerSelectors();
     }
     drawTower();
+    drawStrikes();
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    drawBonuses();
-    changeGameStatusButtons();
     gameOver();
+    changeGameStatusButtons();
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();

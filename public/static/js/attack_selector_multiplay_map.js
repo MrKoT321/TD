@@ -18,16 +18,16 @@ map3.src = '../static/images/MAP3-ALT.png';
 map4.src = '../static/images/MAP4-ALT.png';
 
 map1.onload = () => {
-    map.images.push({index: 1, body: map1})
+    map.images.push({ index: 1, body: map1 })
 }
 map2.onload = () => {
-    map.images.push({index: 2, body: map2})
+    map.images.push({ index: 2, body: map2 })
 }
 map3.onload = () => {
-    map.images.push({index: 3, body: map3})
+    map.images.push({ index: 3, body: map3 })
 }
 map4.onload = () => {
-    map.images.push({index: 4, body: map4})
+    map.images.push({ index: 4, body: map4 })
 }
 
 let canvasMap = document.getElementById("canvas-map");
@@ -44,5 +44,5 @@ function drawMap(currLvl, currWave) {
 
 function clearMap() {
     canvasMap.parentNode.classList.add("not_exist");
-    ctxM.clearRect(canvasMap.width/2 - map.width/2, canvasMap.height/2 - map.height/2, map.width, map.height);
+    ctxM.clearRect(canvasMap.width / 2 - map.width / 2, canvasMap.height / 2 - map.height / 2, map.width, map.height);
 }

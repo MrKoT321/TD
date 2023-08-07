@@ -17,6 +17,10 @@
 </head>
 
 <body>
+    <div class="decoration">
+        <div class="decoration__back"></div>
+        <div class="decoration__front"></div>
+    </div>
     <div class="game">
         <div class="hidden game-info">
             <span class="game-info__gameId" id="game-info-gameid"><?= $gameInfo->getGameId() ?></span>
@@ -31,7 +35,7 @@
         <div class="game__field field">
             <canvas id='canvas'></canvas>
             <div class="count-coin">
-                <span class="count-coin__value">100</span>
+                <span class="count-coin__value">0</span>
                 <img src="../static/images/coin.png" alt="coin" class="count-coin__img">
             </div>
             <div class="count-score">
@@ -44,9 +48,9 @@
                         <img src="../static/images/archer_tower.png" class="choise-tower" />
                         <img src="../static/images/archer_cost.png" class="cost-for-tower" />
                     </div>
-                    <div class="bash selector">
-                        <img src="../static/images/bash_tower.png" class="choise-tower" />
-                        <img src="../static/images/bash_cost.png" class="cost-for-tower" />
+                    <div class="electric selector">
+                        <img src="../static/images/electric_tower.png" class="choise-tower" />
+                        <img src="../static/images/electric_cost.png" class="cost-for-tower" />
                     </div>
                     <div class="mortir selector">
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
@@ -67,9 +71,21 @@
         </div>
         <div class="game__bar bar">
             <div class="bar__bufs">
-                <div class="buf-slot"></div>
-                <div class="buf-slot"></div>
-                <div class="buf-slot"></div>
+                <div class="healing-buf buf-slot">
+                    <img src="../static/images/healing_buff.png" class="healing-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="healing-buf__cancel hidden" />
+                    <span class="healing-buf__reload"></span>
+                </div>
+                <div class="invisible-buf buf-slot">
+                    <img src="../static/images/invisible_buff.png" class="invisible-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="invisible-buf__cancel hidden" />
+                    <span class="invisible-buf__reload"></span>
+                </div>
+                <div class="destroy-buf buf-slot">
+                    <img src="../static/images/destroy_buff.png" class="destroy-buf__icon" />
+                    <img src="../static/images/cancel_button.png"  class="destroy-buf__cancel hidden" />
+                    <span class="destroy-buf__reload"></span>
+                </div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">
                         <span class="game-info-lvl__title">LVL:</span>
@@ -90,9 +106,12 @@
                     <span class="bar-start__start-btn" id="startwave">START</span>
                 </div>
                 <div class="bar__pause pause">
-                    <div class="pause__btn pause" id="pausegame"></div>
+                    <div class="pause__btn pause" id="pausegame">
+                        <span class="bar bar-1"></span>
+                        <span class="bar bar-2"></span>
+                    </div>
                 </div>
-                <div class="bar__out">
+                <div class="bar__out" id="game-menu-btn">
                     <div class="bar__icon">
                         <span></span>
                     </div>
@@ -119,9 +138,13 @@
                     <input class="restart hidden" type="submit" id="restartgame" value="" />
                 </label>
             </form>
-                <a href="../pages/menu.html" class="menua">
+                <div class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
-                </a>
+                </div>
+                <img class="restart hidden" src="../static/images/cancel_button.png" id="cancel"/>
+                <div class="menua">
+                    <img class="menu__img hidden" src="../static/images/confirm_button.png" id="back-to-menu-alt" />
+                </div>
             </div>
         </div>
     </div>
@@ -144,10 +167,11 @@
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
+    <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>
     <script type="application/javascript" src="../static/js/monster_movement.js"></script>
+    <script type="application/javascript" src="../static/js/bonus_buttons_attack.js"></script>
     <script type="application/javascript" src="../static/js/bonus_action.js"></script>
     <script type="application/javascript" src="../static/js/tower_attack_config.js"></script>
     <script type="application/javascript" src="../static/js/tower_draw.js"></script>

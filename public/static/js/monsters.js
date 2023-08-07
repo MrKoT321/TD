@@ -10,7 +10,8 @@ const monster1 = {
     shield: 0,
     baseTime: [20, 27, 25, 30],
     countShield: 0,
-    maxShield: 75
+    maxShield: 75,
+    invisiblePriority: 1,
 }
 
 const monster2 = {
@@ -25,7 +26,8 @@ const monster2 = {
     shield: 0,
     baseTime: [20, 27, 25, 30],
     countShield: 0,
-    maxShield: 75
+    maxShield: 75,
+    invisiblePriority: 1,
 }
 
 const monster3 = {
@@ -40,7 +42,8 @@ const monster3 = {
     shield: 0,
     baseTime: [10, 13, 12, 15],
     countShield: 0,
-    maxShield: 75
+    maxShield: 75,
+    invisiblePriority: 3,
 }
 
 const monster4 = {
@@ -55,7 +58,8 @@ const monster4 = {
     shield: 0,
     baseTime: [40, 54, 48, 60],
     countShield: 0,
-    maxShield: 75
+    maxShield: 75,
+    invisiblePriority: 3,
 }
 
 const monster5 = {
@@ -70,7 +74,8 @@ const monster5 = {
     baseTime: [20, 27, 25, 30],
     giveShield: 75,
     type: "walking",
-    maxShield: 150
+    maxShield: 150,
+    invisiblePriority: 2,
 }
 
 const monster1_step1 = new Image();

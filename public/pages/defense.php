@@ -18,6 +18,10 @@
 <body>
     <span id="nick-name" class="hidden"><?= htmlspecialchars($game->getNickName()) ?></span>
     <span id="game-id" class="hidden"><?= $gameId ?></span>
+    <div class="decoration">
+        <div class="decoration__back"></div>
+        <div class="decoration__front"></div>
+    </div>
     <div class="game">
         <div class="game__field field">
             <canvas id='canvas'></canvas>
@@ -62,9 +66,9 @@
                         <img src="../static/images/archer_tower.png" class="choise-tower" />
                         <img src="../static/images/archer_cost.png" class="cost-for-tower" />
                     </div>
-                    <div class="bash selector">
-                        <img src="../static/images/bash_tower.png" class="choise-tower" />
-                        <img src="../static/images/bash_cost.png" class="cost-for-tower" />
+                    <div class="electric selector">
+                        <img src="../static/images/electric_tower.png" class="choise-tower" />
+                        <img src="../static/images/electric_cost.png" class="cost-for-tower" />
                     </div>
                     <div class="mortir selector">
                         <img src="../static/images/mortir_tower.png" class="choise-tower" />                        
@@ -108,7 +112,10 @@
                     <img src="../static/images/cancel_button.png"  class="freeze-buf__cancel hidden" />
                     <span class="freeze-buf__reload"></span>
                 </div>
-                <div class="buf-slot"></div>
+                <div class="extra-life-buf buf-slot">
+                    <img src="../static/images/extra_life_buff.png" class="extra-life-buf__icon" />
+                    <span class="extra-life-buf__reload"></span>
+                </div>
                 <div class="bar-game-info">
                     <div class="game-info-lvl game-info-slot">
                         <span class="game-info-lvl__title">LVL:</span>
@@ -129,14 +136,24 @@
                     <span class="bar-start__start-btn" id="startwave">START</span>
                 </div>
                 <div class="bar__pause pause">
-                    <div class="pause__btn pause" id="pausegame"></div>
+                    <div class="pause__btn pause" id="pausegame">
+                        <span class="bar bar-1"></span>
+                        <span class="bar bar-2"></span>
+                    </div>
                 </div>
                 <div class="bar__out">
-                    <div class="bar__icon">
+                    <div class="bar__icon" id="game-menu-btn">
                         <span></span>
                     </div>
                 </div>
             </div>
+        </div>
+        <img src='../static/images/loading-bg.png' class='loading-image' />
+        <div class='loading-bg'></div>
+        <div class="load">
+            <span class='loading-text'>LOADING LEVELS</span>
+            <div></div> 
+            <div class="loading"></div>
         </div>
     </div>
     <div class="popupover__bg">
@@ -148,12 +165,15 @@
             </div>
             <div class="overbuttons">
                 <img class="restart" src="../static/images/restart.png" id="restartgame"/>
-                <a href="../pages/menu.html" class="menua">
+                <div class="menua">
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
-                </a>
+                </div>
+                <img class="restart hidden" src="../static/images/cancel_button.png" id="cancel"/>
+                <div class="menua">
+                    <img class="menu__img hidden" src="../static/images/confirm_button.png" id="back-to-menu-alt" />
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <div class="popupcomplete__bg">
         <div class="popupcomplete">
@@ -163,13 +183,7 @@
             </div>
         </div>
     </div>
-    <img src='../static/images/loading-bg.png' class='loading-image' />
-    <div class='loading-bg'></div>
-    <div class="load">
-        <span class='loading-text'>LOADING LEVELS</span>
-        <div></div> 
-        <div class="loading"></div>
-    </div>
+    <script type="application/javascript" src="../static/js/prev_selection.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>
     <script type="application/javascript" src="../static/js/towers.js"></script>
     <script type="application/javascript" src="../static/js/lvls.js"></script>

@@ -23,7 +23,6 @@ class WebSocketHandler implements MessageComponentInterface
   public function onOpen(ConnectionInterface $conn)
   {
     $this->clients->attach($conn);
-    echo "-- New client connected: {$conn->resourceId}\n";
   }
 
   // Обработчик получения сообщения от клиента
@@ -45,13 +44,11 @@ class WebSocketHandler implements MessageComponentInterface
   public function onClose(ConnectionInterface $conn)
   {
     $this->clients->detach($conn);
-    echo "Client disconnected: {$conn->resourceId}\n";
   }
 
   // Обработчик ошибок соединения
   public function onError(ConnectionInterface $conn, \Exception $e)
   {
-    echo "An error has occurred: {$e->getMessage()}\n";
     $conn->close();
   }
 }
@@ -67,5 +64,4 @@ $server = IoServer::factory(
 );
 
 // Запускаем сервер
-echo "WebSocket server started\n";
 $server->run();

@@ -16,6 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 
@@ -28,7 +29,7 @@
         <span class="game-info__gameId" id="game-info-mobsUnlock"><?= $gameInfo->getMobsUnlock() ?></span>
         <span class="game-info__gameId" id="game-info-roomId"><? echo($roomId) ?></span>
     </div>
-        <div class="game__field field">
+    <div class="game__field field">
         <div class="monsters-selector">
                 <div>
                     <img src="../static/images/monster1_selector.png" id="mob1" class="monster-selector"/>
@@ -162,6 +163,10 @@
                 <img src="../static/images/3.png" class="wave-selector__3 hidden"/>
                 <img src="../static/images/wave+.png" class="wave-selector__wave-plus"/>
             </div>
+           <div class="timer-to-choose hidden">
+               <span class="timer-to-choose__value">20</span>
+               <span class="timer-to-choose__unit">s</span>
+           </div>
             <img src="../static/images/start_lock.png" class="start-button" id="start-lock" />
             <span class="popup-start hidden">Add at least one monster per wave</span>
             <form method="POST" enctype="multipart/form-data" id="form">
@@ -200,6 +205,7 @@
             </div>    
             <div class="loading"></div>
         </div>
+        <div class="waiting-screen hidden"></div>        
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>

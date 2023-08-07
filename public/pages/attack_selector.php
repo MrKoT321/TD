@@ -1,8 +1,6 @@
 <?php
 /**
- * 
  * @var App\Model\AttackInfo $gameInfo
- * 
  */
 ?>
 
@@ -191,14 +189,13 @@
             <div class="popup-map__bg"></div>
             <canvas id="canvas-map" class="canvas-map"></canvas>
         </div>
-    </div>
-    </div>
-    <img src='../static/images/loading-bg.png' class='loading-image' />
-    <div class='loading-bg'></div>
-    <div class="load">
-        <span class='loading-text'>LOADING LEVEL</span>
-        <div></div> 
-        <div class="loading"></div>
+        <img src='../static/images/loading-bg.png' class='loading-image' />
+        <div class='loading-bg'></div>
+        <div class="load">
+            <span class='loading-text'>LOADING LEVEL</span>
+            <div></div> 
+            <div class="loading"></div>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="application/javascript" src="../static/js/monsters.js"></script>

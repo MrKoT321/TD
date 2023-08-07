@@ -22,7 +22,7 @@ const upgradeTowerMoneyInfo = document.querySelector(".upgrade-tower-info__cost"
 
 const towersIcons = document.querySelector(".choise-tower");
 const archerTower = document.querySelector(".archer");
-const bashTower = document.querySelector(".bash");
+const electricTower = document.querySelector(".electric");
 const mortirTower = document.querySelector(".mortir");
 
 window.addEventListener(
@@ -30,7 +30,7 @@ window.addEventListener(
     (event) => {
         field.x = document.querySelector(".game__field").getBoundingClientRect().x;
         field.y = document.querySelector(".game__field").getBoundingClientRect().y;
-        
+
         mouse.x = event.clientX - field.x;
         mouse.y = event.clientY - field.y;
     }
@@ -180,7 +180,7 @@ function removeTowerSelectors() {
 }
 
 function pushToTowers(tower, posX, posY) {
-    towers.push({
+    let towerData = {
         x: posX,
         y: posY,
         cost: tower.cost,
@@ -193,7 +193,18 @@ function pushToTowers(tower, posX, posY) {
         currentEnemy: -1,
         placeTime: GAME.stopwatch,
         startTime: 0
-    })
+    };
+    let bowData = {
+        bow_x: posX + 50,
+        bow_y: posY + 15,
+        bow_width: bow.width,
+        bow_height: bow.height,
+        bow_angel: 90,
+        bow_loaded_image: bow.loaded_image,
+        bow_simple_image: bow.simple_image
+    }
+    towerData = tower.type == "arrow" ? { ...towerData, ...bowData } : towerData;
+    towers.push(towerData)
 }
 
 function sendNewTowerPlace() {
@@ -203,7 +214,7 @@ function sendNewTowerPlace() {
         money: GAME.money
     }
     json = JSON.stringify(data);
-    if (typeof socket !== "undefined"){
+    if (typeof socket !== "undefined") {
         socket.send(json);
     }
 }
@@ -211,7 +222,7 @@ function sendNewTowerPlace() {
 function makeTower(tower) {
     towerTiles.forEach(tile => {
         if (isMouseOnTile(mouseClick, tile)) {
-            if (canBuy(tower)){
+            if (canBuy(tower)) {
                 pushToTowers(tower, tile[0], tile[1]);
                 GAME.money -= tower.cost;
                 sendNewTowerPlace();
@@ -224,4 +235,4 @@ function makeTower(tower) {
 
 archerTower.addEventListener("click", () => { makeTower(archer); });
 mortirTower.addEventListener("click", () => { makeTower(mortir); });
-bashTower.addEventListener("click", () => { makeTower(bash); })
+electricTower.addEventListener("click", () => { makeTower(electric); })

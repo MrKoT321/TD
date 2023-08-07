@@ -13,6 +13,8 @@ const backToMenuBtn = document.getElementById("back-to-menu");
 const nextLvlForm = document.getElementById("form");
 // const restartGameForm = document.getElementById("form-restart");
 
+const globalBackground = document.querySelector('.decoration__front');
+
 const currentLvl = document.getElementById("current-lvl");
 const totalLvl = document.getElementById("total-lvl");
 const currentWave = document.getElementById("current-wave");
@@ -86,25 +88,35 @@ function changeGameStatusButtons() {
     if (GAME.isPlay == 'play') {
         pauseGameBtn.classList.add("play");
         pauseGameBtn.classList.remove("pause");
+        globalBackground.classList.remove("_pause");
     } else {
         if (GAME.isPlay == 'menu') {
             pauseGameBtn.classList.add("pause");
             pauseGameBtn.classList.remove("play");
+            globalBackground.classList.add("_pause");
         }
     }
     if (GAME.isPlay == 'wavepause') {
         startWaveBtn.classList.remove("active");
-    } 
+        pauseGameBtn.classList.add("pause");
+        pauseGameBtn.classList.remove("play");
+    }
+}
+
+function addExtraLife() {
+    let bar = document.getElementById("hp-bar");
+    GAME.castleHP += 1;
+    bar.children[GAME.castleHP - 1].src = "../static/images/extra_life.png";
+    bar.children[GAME.castleHP - 1].classList.remove("_hide");
 }
 
 const socket = new WebSocket('ws://localhost:8090');
 
-socket.addEventListener('message', function(event) {
+socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
-    console.log(data)
     switch (data.type) {
         case 'tower_add':
-            towers = data.towers;   
+            towers = data.towers;
             break;
         case 'game_status':
             GAME.isPlay = data.status;
@@ -112,9 +124,14 @@ socket.addEventListener('message', function(event) {
             break;
         case 'fireball':
             fireball = data.fireball_bonus;
+            fireballImg ? fireball.image = fireballImg : fireball.image = undefined;
             break;
         case 'freeze':
             freeze = data.freeze_bonus;
+            freezeImg ? freeze.image = freezeImg : freeze.image = undefined;
+            break;
+        case 'extra_life':
+            addExtraLife();
             break;
         case 'game_score':
             GAME.attackScore = data.attackScore;
@@ -123,7 +140,7 @@ socket.addEventListener('message', function(event) {
     }
 });
 
-socket.addEventListener('open', function(event) {
+socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
     data = {
         type: "add_room_to_new_client",
@@ -218,34 +235,34 @@ function drawCastle() {
 
 function gameOver() {
     if ((GAME.castleHP == 0 || (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0))) {
-        if(GAME.lvlCount < 4) {
+        if (GAME.lvlCount < 4) {
             sendNextLvlParams();
         }
-        if(GAME.lvlCount == 4) {
+        if (GAME.lvlCount == 4) {
             if (GAME.castleHP == 0) {
                 GAME.attackScore += 1
             }
-            if(GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0){
+            if (GAME.castleHP > 0 && GAME.wave == lvls[GAME.lvlCount - 1].waves.length && monsters.length == 0) {
                 GAME.defenseScore += 1
             }
             showFinalPopup(GAME.attackScore, GAME.defenseScore);
             GAME.isPlay = 'popuppause';
         }
-    } 
+    }
 }
 
 function showFinalPopup(myScore, opponentScore) {
     popupoverBg.classList.add('active');
     popupover.classList.add('active');
-    if(myScore > opponentScore) {
+    if (myScore > opponentScore) {
         document.querySelector('.over').style.color = 'green';
         document.querySelector('.over').innerHTML = 'VICTORY';
     }
-    if(myScore < opponentScore) {
+    if (myScore < opponentScore) {
         document.querySelector('.over').style.color = 'red';
         document.querySelector('.over').innerHTML = 'YOU LOSE';
     }
-    if(myScore == opponentScore) {
+    if (myScore == opponentScore) {
         document.querySelector('.over').style.color = 'orange';
         document.querySelector('.over').innerHTML = 'DRAW';
     }
@@ -277,7 +294,7 @@ function updateMoney() {
 //             GAME.money += 100;
 //         }
 //     } 
-    
+
 // }
 
 // async function sendNextlvlParams(event) {
@@ -299,7 +316,7 @@ function updateMoney() {
 // }
 
 function sendNextLvlParams() {
-    if(!GAME.submit) {
+    if (!GAME.submit) {
         let playerId = nextLvlForm.elements.playerId;
         let money = nextLvlForm.elements.money;
         let score = nextLvlForm.elements.score;
@@ -310,7 +327,6 @@ function sendNextLvlParams() {
         score.value = String(GAME.score);
         currLvl.value = String(GAME.lvlCount + 1);
         mobsUnlock.value = String(GAME.mobsUnlock);
-        // console.log(playerId.value, money.value, score.value, currLvl.value, mobsUnlock.value);
         $('#form').attr('action', '../make_waves_multiplay.php');
         $('#form').trigger('submit');
         GAME.submit = true;
@@ -349,6 +365,7 @@ function changeLvl() {
 function updateCastleHP() {
     let bar = document.getElementById("hp-bar");
     for (let i = 0; i < GAME.castleHP; i++) {
+        bar.children[GAME.castleHP - 1].src = "../static/images/hp.png";
         bar.children[i].classList.remove("_hide");
     }
 }
@@ -384,7 +401,7 @@ function updateNextLvlParams() {
         stepcounter = 1;
         strikes = [];
         explosions = [];
-    }    
+    }
 }
 
 function updateRestartGameParams() {
@@ -449,7 +466,7 @@ function startWave() {
         startWaveBtn.classList.add("active");
         GAME.isPlay = 'startgame';
         sendGameStatus();
-    } 
+    }
 }
 
 function pauseGame() {
@@ -471,7 +488,7 @@ function pauseGame() {
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
 document.addEventListener("keydown", (event) => {
-    switch(event.code) {
+    switch (event.code) {
         case 'Space':
             pauseGame();
             break;
@@ -494,8 +511,8 @@ document.addEventListener("keydown", (event) => {
 // );
 
 backToMenuBtn.addEventListener(
-    "click", 
-    (event) => { 
+    "click",
+    (event) => {
         sendResults(event);
         window.location.href = '../../';
     }
@@ -556,20 +573,25 @@ function updateScore() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    updateScore()
+    updateScore();
     updateMoney();
     updateVisualLvlParams();
     drawBackground();
-    drawExplosion();
     drawStrikes();
+    drawBonusesBottom();
     updateMobDataAtk();
     moveMonsters(GAME, lvls);
+    drawExplosion();
+    drawBonusesTop();
+    updateBonuses();
     drawCastle();
-    drawBonuses();
     if (GAME.isPlay == 'wavepause') {
+        resetBonuses();
+        resetBonusesReload();
         resetStopwatch();
     }
     if (GAME.isPlay == 'play') {
+        drawBonusesReload();
         gameOver();
         nextWave();
         catchTime();
@@ -581,15 +603,17 @@ function play() {
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
         GAME.isPlay = 'play';
+        initBonuses("attack");
     }
     drawTower();
     drawArrows();
     drawBullets();
     attackTowers(GAME);
-    changeGameStatusButtons(); 
+    changeGameStatusButtons();
     if (GAME.isPlay == 'menu') {
         stopTimer();
         drawPauseBackground();
+        resetBonusesReload();
     }
     requestAnimationFrame(play);
 }
