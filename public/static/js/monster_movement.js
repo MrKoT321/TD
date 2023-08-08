@@ -293,7 +293,6 @@ function death() {
 
 function drawFreezeAura(monster){
     if (monster.freezing) {
-        console.log(1)
         let monsterCenterX = monster.x + monster.width / 2;
         let monsterCenterY = monster.y + monster.height / 2;
         canvasContext.beginPath();
@@ -375,6 +374,7 @@ function shieldBar(monster) {
 
 function payForMonstersDef() {
     for (let monster of monsters) {
+        // console.log(monster.index, monster.hp, monster.finish)
         if (monster.hp <= 0 && !monster.finish) {
             GAME.money += monster.cost / 2
         }
@@ -388,7 +388,7 @@ function updateScoreForMobDef() {
                 GAME.score -= monster.cost;
             } else {
                 if (monster.hp <= 0) {
-                    GAME.score += monster.cost - Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount - 1]));
+                    GAME.score += monster.cost - Math.floor(monster.cost * (monster.distance / lvl.road_length));
                 }
             }
         }
@@ -407,7 +407,7 @@ function updateMobDataAtk() {
             } else {
                 GAME.money += Math.floor(monster.cost / 4);
             }
-            GAME.score += Math.floor(monster.cost * ((GAME.stopwatch - monster.bornTime) / monster.baseTime[GAME.lvlCount - 1]));
+            GAME.score += Math.floor(monster.cost * (monster.distance / lvl.road_length))
         }
     }
 }

@@ -50,9 +50,9 @@ healingBonus.addEventListener(
 )
 
 destroyBonus.addEventListener(
-    'click',
+    "click",
     () => {
-        if (!destroy.isActive && destroy.readyToExplode && bonuses.includes('destroy')) {
+        if (!destroy.wasUsed && !destroy.isActive && bonuses.includes('destroy')) {
             destroyBonusCancel.classList.remove("hidden");
             destroyBonus.classList.add("buff_active");
             destroy.isActive = true;
@@ -116,17 +116,14 @@ function drawInvisibleReload() {
 }
 
 function drawDestroyReload() {
-    if (!destroy.readyToExplode) {
-        destroyReloadTimer.classList.remove("hidden");
-        // destroyReloadTimer.innerHTML = destroy.reload - GAME.stopwatch + destroy.lastTimeCast;
+    if (!destroy.wasUsed) {
+        destroyReloadTimer.classList.add("hidden");
     } else {
-        destroyReloadTimer.innerHTML = "";
-        if (!bonuses.includes('destroy')) {
-            destroyReloadTimer.classList.remove("hidden");
-        } else {
-            destroyReloadTimer.classList.add("hidden");
-        }
+        destroyReloadTimer.classList.remove("hidden");
     }
+    if (!bonuses.includes("destroy")) {
+        destroyReloadTimer.classList.remove("hidden");
+    } 
 }
 
 function inActiveHealing() {
@@ -148,9 +145,9 @@ function inActiveInvisible() {
 function inActiveDestroy() {
     destroyBonusCancel.classList.add("hidden");
     destroyBonus.classList.remove("buff_active");
-    destroy.isActive = false;
     destroyReloadTimer.classList.remove("hidden");
     destroyReloadTimer.innerHTML = "";
+    destroy.isActive = false;
 }
 
 function initHeal() {
@@ -170,7 +167,7 @@ function initInvisible() {
 }
 
 function initDestroy() {
-    if (destroy.isActive && isClickOnMap()) {
+    if(destroy.isActive && !destroy.wasUsed && isClickOnMap()) {
         inActiveDestroy();
         createDestroy();
         sendDestroyStatus();

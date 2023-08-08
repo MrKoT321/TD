@@ -63,6 +63,8 @@ var timeInPause = 0;
 var timeInLastPause = 0;
 var pauseStartTime = new Date();
 
+var prevState;
+
 var lvl = lvls[GAME.lvlCount - 1];
 GAME.castleHP = lvl.castleHP;
 
@@ -215,7 +217,6 @@ function lvlComplete() {
         } else {
             popupcompleteBg.classList.add('active');
             popupcomplete.classList.add('active');
-            GAME.money += 100;
         }
     }
 
@@ -287,7 +288,7 @@ function updateRestartGameParams() {
     monstercount = 0;
     monsters = [];
     starttime = 900;
-    GAME.money = 100;
+    GAME.money = lvl.money;
     GAME.score = 0;
     towerTiles = [];
     towers = [];
@@ -370,9 +371,11 @@ function showMenuPopup() {
     document.querySelector('.over').innerHTML = 'BACK TO MENU?';
     var endScore = document.querySelector(".score__value");
     restartgame.classList.add("hidden");
+    backToMenuBtn.parentNode.classList.add("hidden");
     backToMenuBtn.classList.add("hidden");
     cancelBtn.classList.remove("hidden");
     menuBtnAlt.classList.remove("hidden");
+    menuBtnAlt.parentNode.classList.remove("hidden");
     endScore.innerHTML = GAME.score;
     prevState = GAME.isPlay;
     GAME.isPlay = 'menu';
@@ -384,9 +387,11 @@ cancelBtn.addEventListener("click", () => {
     prevState = undefined;
     setTimeout(() => {
         restartgame.classList.remove("hidden");
+        backToMenuBtn.parentNode.classList.remove("hidden");
         backToMenuBtn.classList.remove("hidden");
         cancelBtn.classList.add("hidden");
         menuBtnAlt.classList.add("hidden");
+        menuBtnAlt.parentNode.classList.add("hidden");
     }, 300);
 });
 
@@ -578,7 +583,6 @@ function play() {
         resetBonusesReload();
     }
     if (GAME.isPlay == 'play') {
-        updateMobDataDef();
         drawBonusesReload();
         lvlComplete();
         nextWave();
@@ -587,6 +591,7 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
+        updateMobDataDef();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);

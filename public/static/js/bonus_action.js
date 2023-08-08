@@ -138,7 +138,8 @@ destroy = {
     steptimerExplosion: undefined,
     steptimerHummer: undefined,
     stepcounter: 0,
-    explosionSize: 100
+    explosionSize: 100,
+    wasUsed: false,
 }
 
 const destroyExplosionSteps = [];
@@ -153,8 +154,7 @@ gameFieldClick = {
     y: 0
 }
 
-lvlBonuses = [];
-compareWithGameLvlBonuses = 0;
+bonuses = [];
 
 function initBonuses(choisenClass) {
     if (choisenClass == "defense") {
@@ -163,7 +163,6 @@ function initBonuses(choisenClass) {
     if (choisenClass == "attack") {
         bonuses = lvls[GAME.lvlCount - 1].bonusesAtk;
     }
-    compareWithGameLvlBonuses = GAME.lvlCount;
 }
 
 function drawFireball() {
@@ -207,7 +206,7 @@ function drawIce() {
 }
 
 function drawFreeze() {
-    if (freeze.x && freeze.y) {
+    if (!!freeze.x && !!freeze.y) {
         canvasContext.drawImage(freeze.image, freeze.x - 35, freeze.y - 35, Math.floor(freeze.iceSize * 0.4), Math.floor(freeze.iceSize * 0.4));
     }
 }
@@ -432,7 +431,7 @@ function updateDestroy() {
             if (destroy.x >= tower.x && destroy.x <= tower.x + 100 && destroy.y >= tower.y && destroy.y <= tower.y + 100) {
                 destroy.steptimerHummer = GAME.milisectimer;
                 setTimeout(() => { destroy.steptimerExplosion = GAME.milisectimer }, destroyAnimationDuration / 2);
-                setTimeout(() => { towers.splice(i, 1) }, destroyAnimationDuration);
+                setTimeout(() => { towers.splice(i, 1); destroy.wasUsed = true; }, destroyAnimationDuration);
             }
         }
         destroy.used = true;

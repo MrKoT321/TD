@@ -93,9 +93,11 @@ function showMenuPopup() {
     document.querySelector('.over').innerHTML = 'BACK TO MENU?';
     var endScore = document.querySelector(".score__value");
     restartgame.classList.add("hidden");
+    backToMenuBtn.parentNode.classList.add("hidden");
     backToMenuBtn.classList.add("hidden");
     cancelBtn.classList.remove("hidden");
     menuBtnAlt.classList.remove("hidden");
+    menuBtnAlt.parentNode.classList.remove("hidden");
     endScore.innerHTML = GAME.score;
     prevState = GAME.isPlay;
     GAME.isPlay = 'menu';
@@ -109,7 +111,9 @@ cancelBtn.addEventListener("click", () => {
         restartgame.classList.remove("hidden");
         backToMenuBtn.classList.remove("hidden");
         cancelBtn.classList.add("hidden");
+        backToMenuBtn.parentNode.classList.remove("hidden");
         menuBtnAlt.classList.add("hidden");
+        menuBtnAlt.parentNode.classList.add("hidden");
     }, 300);
 });
 
@@ -182,7 +186,7 @@ function gameOver() {
         document.querySelector('.over').innerHTML = 'GAME OVER';
         var scoreValue = document.querySelector(".count-score__value").innerHTML;
         var endScore = document.querySelector(".score__value");
-        endScore.innerHTML = scoreValue;
+        endScore.innerHTML = GAME.score;
         GAME.isPlay = 'popuppause';
     }
 }
@@ -298,7 +302,7 @@ function changeLvl() {
 function updateCastleHP() {
     let bar = document.getElementById("hp-bar");
     for (let i = 0; i < GAME.castleHP; i++) {
-        bar.children[GAME.castleHP - 1].src = "../static/images/hp.png";
+        bar.children[i].src = "../static/images/hp.png";
         bar.children[i].classList.remove("_hide");
     }
 }
@@ -376,13 +380,12 @@ function changeMap() {
 };
 
 async function sendResults(event) {
-    const score = document.querySelector(".score__value");
     event.preventDefault();
     props = {
         gameId: gameIdInfo.innerHTML,
         nickName: GAME.player,
         choisenClass: 'attack',
-        score: Math.floor(score.innerHTML)
+        score: GAME.score
     }
     const json = JSON.stringify(props);
     let response = await fetch('/add_record.php', {
@@ -552,7 +555,6 @@ function play() {
     updateScore();
     updateVisualLvlParams();
     drawBackground();
-    drawStrikes();
     drawBonusesBottom();
     moveMonsters(GAME, lvls);
     drawExplosion();
@@ -582,6 +584,7 @@ function play() {
         initBonuses("attack");
     }
     drawTower();
+    drawStrikes();
     drawArrows();
     drawBullets();
     drawBonusesTop();
@@ -596,4 +599,4 @@ function play() {
 }
 
 setTimeout(() => { initGameParams(); }, 500)
-setTimeout(() => { play(); }, 600)
+setTimeout(() => { play(); }, 700)
