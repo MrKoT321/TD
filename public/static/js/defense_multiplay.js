@@ -418,7 +418,7 @@ function createWaves(waves) {
     });
 }
 
-const socket = new WebSocket('ws://localhost:8090');
+const socket = new WebSocket('ws://192.168.248.28:8090');
 
 socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
