@@ -561,7 +561,6 @@ function play() {
     drawBackground();
     drawTiles(GAME, lvls);
     drawStrikes();
-    updateMobDataDef();
     drawBonusesBottom();
     moveMonsters(GAME, lvls);
     drawExplosion();
@@ -574,6 +573,7 @@ function play() {
         resetStopwatch();
     }
     if (GAME.isPlay == 'play') {
+        updateMobDataDef();
         gameOver();
         nextWave();
         catchTime();

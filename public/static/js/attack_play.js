@@ -567,6 +567,7 @@ function play() {
     }
     if (GAME.isPlay == 'play') {
         drawBonusesReload();
+        updateMobDataAtk();
         lvlComplete();
         nextWave();
         catchTime();
@@ -574,7 +575,6 @@ function play() {
         updateBullets();
         updateStrikes();
         updateExplosions();
-        updateMobDataAtk();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
