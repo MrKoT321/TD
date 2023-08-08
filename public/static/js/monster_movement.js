@@ -291,6 +291,23 @@ function death() {
     }
 }
 
+function drawFreezeAura(monster){
+    if (monster.freezing) {
+        let monsterCenterX = monster.x + monster.width / 2;
+        let monsterCenterY = monster.y + monster.height / 2;
+        canvasContext.beginPath();
+        canvasContext.fillStyle = "rgba(49, 218, 255, 0.5)";
+        if (monster.height > monster.width) {
+            canvasContext.arc(monsterCenterX, monsterCenterY, monster.height / 2 + 10, 0, 2 * Math.PI);
+            canvasContext.fill();
+        } else {
+            canvasContext.arc(monsterCenterX, monsterCenterY, monster.width / 2 + 10, 0, 2 * Math.PI);
+            canvasContext.fill();
+        }
+        canvasContext.closePath();
+    }
+}
+
 function moveMonsters(GAME, lvls) {
     deleteShield(monsters);
     if (monsters.length > monsters.filter(value => value.hp > 0).length) {
@@ -322,6 +339,7 @@ function moveMonsters(GAME, lvls) {
         addShield(monster);
         drawShield(monster);
         drawMonster(monster);
+        drawFreezeAura(monster);
         shieldBar(monster);
         hpBar(monster);
         monsterMove(monster);
@@ -356,6 +374,7 @@ function shieldBar(monster) {
 
 function payForMonstersDef() {
     for (let monster of monsters) {
+        // console.log(monster.index, monster.hp, monster.finish)
         if (monster.hp <= 0 && !monster.finish) {
             GAME.money += monster.cost / 2
         }

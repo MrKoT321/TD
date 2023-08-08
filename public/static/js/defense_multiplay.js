@@ -561,7 +561,6 @@ function play() {
     drawBackground();
     drawTiles(GAME, lvls);
     drawStrikes();
-    updateMobDataDef();
     drawBonusesBottom();
     moveMonsters(GAME, lvls);
     drawExplosion();
@@ -582,6 +581,7 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
+        updateMobDataDef();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
