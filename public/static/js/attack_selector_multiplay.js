@@ -326,7 +326,7 @@ function sendTimeToChoiseToDefense() {
     socket.send(json);
 }
 
-const socket = new WebSocket('ws://192.168.248.28:8090');
+const socket = new WebSocket('ws://192.168.248.168:8090');
 
 socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
