@@ -560,9 +560,6 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
-    if (GAME.isPlay != 'wavepause') {
-        updateMobDataDef();
-    }
     drawBonusesBottom();
     moveMonsters(GAME, lvls);
     drawExplosion();
@@ -581,6 +578,7 @@ function play() {
         resetBonusesReload();
     }
     if (GAME.isPlay == 'play') {
+        updateMobDataDef();
         drawBonusesReload();
         lvlComplete();
         nextWave();
