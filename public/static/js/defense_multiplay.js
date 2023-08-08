@@ -449,6 +449,7 @@ socket.addEventListener('message', function (event) {
             break;
         case 'destroy':
             destroy = data.destroy_bonus;
+            destroy.hummerImage = hummerImg;
             break;
         case 'give_me_score':
             sendScoreToAttack();
@@ -560,11 +561,9 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
-    drawStrikes();
     drawBonusesBottom();
     moveMonsters(GAME, lvls);
     drawExplosion();
-    drawBonusesTop();
     updateBonuses();
     drawCastle();
     if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
@@ -592,7 +591,9 @@ function play() {
         removeTowerSelectors();
     }
     drawTower();
+    drawBonusesTop();
     drawArrows();
+    drawStrikes();
     drawBullets();
     attackTowers(GAME);
     changeGameStatusButtons();

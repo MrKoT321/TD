@@ -590,11 +590,9 @@ function play() {
     updateMoney();
     updateVisualLvlParams();
     drawBackground();
-    drawStrikes();
     drawBonusesBottom();
     moveMonsters(GAME, lvls);
     drawExplosion();
-    drawBonusesTop();
     updateBonuses();
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -619,7 +617,9 @@ function play() {
         initBonuses("attack");
     }
     drawTower();
+    drawBonusesTop();
     drawArrows();
+    drawStrikes();
     drawBullets();
     attackTowers(GAME);
     changeGameStatusButtons();
