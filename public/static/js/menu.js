@@ -145,7 +145,7 @@ startMultiplayGameBtn.addEventListener('click', (event) => { if (nicknameMulti.v
 // defenseSubmitMultiplay.addEventListener('click', (event) => { if (nicknameMulti.value !== '') sendMultiplayGameForm(event, 'defense') });
 // attackSubmitMultiplay.addEventListener('click', (event) => { if (nicknameMulti.value !== '') sendMultiplayGameForm(event, 'attack') });
 
-const socket = new WebSocket('ws://localhost:8080');
+const socket = new WebSocket('ws://192.158.248.28:8080');
 
 socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
