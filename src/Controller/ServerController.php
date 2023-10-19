@@ -75,11 +75,11 @@ class ServerController
         );
         $gameId = $this->gameTable->create($game);
         if ($requestData['choisenClass'] === 'defense') {
-            setcookie("id", strval($gameId), time()+3600, "/single_game_defense.php","", true, true);
+            // setcookie("id", strval($gameId), time()+3600, "/single_game_defense.php","", true, true);
             $this->writeRedirectSeeOther("/single_game_defense.php?game_id=$gameId");
             exit();
         }
-        setcookie("id", strval($gameId), time()+3600, "/single_game_attack.php","", true, true);
+        // setcookie("id", strval($gameId), time()+3600, "/single_game_attack.php","", true, true);
         $this->writeRedirectSeeOther("/single_game_attack.php?game_id=$gameId");
     }
 
@@ -94,10 +94,10 @@ class ServerController
             $this->writeRedirectSeeOther('/');
             exit();
         }
-        if (!isset($_COOKIE["id"]) && $gameId !== $_COOKIE["id"]) {
-            $this->writeRedirectSeeOther('/');
-            exit();
-        }
+        // if (!isset($_COOKIE["id"]) && $gameId !== $_COOKIE["id"]) {
+            // $this->writeRedirectSeeOther('/');
+            // exit();
+        // }
         $game = $this->gameTable->find($gameId);
         if (!$game) {
             $this->writeRedirectSeeOther('/');
@@ -119,10 +119,10 @@ class ServerController
                     $this->writeRedirectSeeOther('/');
                     exit();
                 }
-                if (!isset($_COOKIE["id"]) && $gameId !== $_COOKIE["id"]) {
-                    $this->writeRedirectSeeOther('/');
-                    exit();
-                }
+                // if (!isset($_COOKIE["id"]) && $gameId !== $_COOKIE["id"]) {
+                    // $this->writeRedirectSeeOther('/');
+                    // exit();
+                // }
                 $requestStatus = $this->requestTable->getStatus($requestId);
                 if (!$requestStatus) {
                     $this->writeRedirectSeeOther('/');
@@ -142,10 +142,10 @@ class ServerController
                 $this->writeRedirectSeeOther('/');
                 exit();
             }
-            if (!isset($_COOKIE["id"]) && $gameId !== $_COOKIE["id"]) {
-                $this->writeRedirectSeeOther('/');
-                exit();
-            }
+            // if (!isset($_COOKIE["id"]) && $gameId !== $_COOKIE["id"]) {
+            //     $this->writeRedirectSeeOther('/');
+            //     exit();
+            // }
             $userName = $this->gameTable->getNickNameByGameId($gameId);
             if (is_null($userName)) {
                 $this->writeRedirectSeeOther('/');

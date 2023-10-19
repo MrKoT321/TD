@@ -116,7 +116,7 @@ socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     switch (data.type) {
         case 'tower_add':
-            towers = data.towers;
+            placeTowers()
             break;
         case 'game_status':
             GAME.isPlay = data.status;
@@ -139,6 +139,16 @@ socket.addEventListener('message', function (event) {
             break;
     }
 });
+
+function placeTowers() {
+    towers = data.towers;
+    towers.forEach(tower => {
+        if(tower.type == "arrow") {
+            tower.bow_loaded_image = bow.loaded_image;
+            tower.bow_simple_image = bow.simple_image;
+        }
+    });
+}
 
 socket.addEventListener('open', function (event) {
     console.log('Connected to server.');
@@ -365,7 +375,7 @@ function changeLvl() {
 function updateCastleHP() {
     let bar = document.getElementById("hp-bar");
     for (let i = 0; i < GAME.castleHP; i++) {
-        bar.children[GAME.castleHP - 1].src = "../static/images/hp.png";
+        bar.children[i].src = "../static/images/hp.png";
         bar.children[i].classList.remove("_hide");
     }
 }

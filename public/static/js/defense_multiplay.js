@@ -303,7 +303,7 @@ function changeLvl() {
 function updateCastleHP() {
     let bar = document.getElementById("hp-bar");
     for (let i = 0; i < GAME.castleHP; i++) {
-        bar.children[GAME.castleHP - 1].src = "../static/images/hp.png";
+        bar.children[i].src = "../static/images/hp.png";
         bar.children[i].classList.remove("_hide");
     }
 }
@@ -449,6 +449,7 @@ socket.addEventListener('message', function (event) {
             break;
         case 'destroy':
             destroy = data.destroy_bonus;
+            destroy.hummerImage = hummerImg;
             break;
         case 'give_me_score':
             sendScoreToAttack();

@@ -142,7 +142,7 @@
                     <img class="menu__img" src="../static/images/menu.png" id="back-to-menu" />
                 </div>
                 <img class="restart hidden" src="../static/images/cancel_button.png" id="cancel"/>
-                <div class="menua">
+                <div class="menua hidden">
                     <img class="menu__img hidden" src="../static/images/confirm_button.png" id="back-to-menu-alt" />
                 </div>
             </div>
