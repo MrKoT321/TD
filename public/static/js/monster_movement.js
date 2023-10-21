@@ -293,7 +293,6 @@ function death() {
 
 function drawFreezeAura(monster){
     if (monster.freezing) {
-        console.log(1)
         let monsterCenterX = monster.x + monster.width / 2;
         let monsterCenterY = monster.y + monster.height / 2;
         canvasContext.beginPath();
@@ -375,6 +374,7 @@ function shieldBar(monster) {
 
 function payForMonstersDef() {
     for (let monster of monsters) {
+        // console.log(monster.index, monster.hp, monster.finish)
         if (monster.hp <= 0 && !monster.finish) {
             GAME.money += monster.cost / 2
         }

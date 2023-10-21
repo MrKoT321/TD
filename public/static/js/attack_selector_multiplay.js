@@ -1,7 +1,7 @@
 var GAME = {
     width: 1800,
     height: 1000,
-    money: 100,
+    money: 0,
     score: 0,
     lvl: 1,
     currwave: 'wave1',

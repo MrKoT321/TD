@@ -116,7 +116,11 @@ socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     switch (data.type) {
         case 'tower_add':
+<<<<<<< HEAD
             placeTowers()
+=======
+            placeTowers();
+>>>>>>> origin/Nikita
             break;
         case 'game_status':
             GAME.isPlay = data.status;
@@ -197,6 +201,15 @@ function updateVisualLvlParams() {
     totalWave.innerHTML = lvls[GAME.lvlCount - 1].waves.length;
 }
 
+function placeTowers() {
+    towers = data.towers;
+    towers.forEach(tower => {
+        if(tower.type == "arrow") {
+            tower.bow_loaded_image = bow.loaded_image ? bow.loaded_image : console.log("error");
+            tower.bow_simple_image = bow.simple_image ? bow.simple_image : console.log("error");
+        } 
+    });
+}
 
 function resetStopwatch() {
     GAME.stopwatch = 0;
@@ -497,16 +510,20 @@ function pauseGame() {
 
 startWaveBtn.addEventListener("click", () => { startWave() });
 pauseGameBtn.addEventListener("click", () => { pauseGame() });
-document.addEventListener("keydown", (event) => {
-    switch (event.code) {
-        case 'Space':
-            pauseGame();
-            break;
-        case 'Enter':
-            startWave();
-            break;
-    }
-})
+
+
+setTimeout(
+    document.addEventListener("keydown", (event) => {
+        switch (event.code) {
+            case 'Space':
+                pauseGame();
+                break;
+            case 'Enter':
+                startWave();
+                break;
+        }
+    }), 5000
+);
 
 // restartgame.addEventListener(
 //     "click",
@@ -587,11 +604,9 @@ function play() {
     updateMoney();
     updateVisualLvlParams();
     drawBackground();
-    drawStrikes();
     drawBonusesBottom();
     moveMonsters(GAME, lvls);
     drawExplosion();
-    drawBonusesTop();
     updateBonuses();
     drawCastle();
     if (GAME.isPlay == 'wavepause') {
@@ -601,7 +616,6 @@ function play() {
     }
     if (GAME.isPlay == 'play') {
         drawBonusesReload();
-        updateMobDataAtk();
         gameOver();
         nextWave();
         catchTime();
@@ -609,6 +623,7 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
+        updateMobDataAtk();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
@@ -616,7 +631,9 @@ function play() {
         initBonuses("attack");
     }
     drawTower();
+    drawBonusesTop();
     drawArrows();
+    drawStrikes();
     drawBullets();
     attackTowers(GAME);
     changeGameStatusButtons();

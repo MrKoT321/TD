@@ -561,11 +561,9 @@ function play() {
     updateVisualLvlParams();
     drawBackground();
     drawTiles(GAME, lvls);
-    drawStrikes();
     drawBonusesBottom();
     moveMonsters(GAME, lvls);
     drawExplosion();
-    drawBonusesTop();
     updateBonuses();
     drawCastle();
     if (GAME.isPlay == 'waitooponent' || GAME.isPlay == 'wavepause') {
@@ -574,7 +572,6 @@ function play() {
         resetStopwatch();
     }
     if (GAME.isPlay == 'play') {
-        updateMobDataDef();
         gameOver();
         nextWave();
         catchTime();
@@ -583,6 +580,7 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
+        updateMobDataDef();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
@@ -593,7 +591,9 @@ function play() {
         removeTowerSelectors();
     }
     drawTower();
+    drawBonusesTop();
     drawArrows();
+    drawStrikes();
     drawBullets();
     attackTowers(GAME);
     changeGameStatusButtons();

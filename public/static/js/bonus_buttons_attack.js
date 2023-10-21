@@ -30,7 +30,7 @@ canvas.addEventListener(
         gameFieldClick.y = event.clientY - field.y;
         setTimeout(initHeal(), 10);
         setTimeout(initInvisible(), 10);
-        // setTimeout(initDestroy(), 10);
+        setTimeout(initDestroy(), 10);
     }
 )
 
@@ -49,29 +49,17 @@ healingBonus.addEventListener(
     }
 )
 
-// destroyBonus.addEventListener(
-//     'click',
-//     () => {
-//         if (!destroy.isActive && destroy.readyToExplode && bonuses.includes('destroy')) {
-//             initDestoy();
-//             inActiveHealing();
-//             inActiveInvisible();
-//         } else {
-//             inActiveDestroy();
-//         }
-//     }
-// )
-
 destroyBonus.addEventListener(
     "click",
     () => {
-        if (!destroy.wasUsed && bonuses.includes('destroy')) {
+        if (!destroy.wasUsed && !destroy.isActive && bonuses.includes('destroy')) {
             destroyBonusCancel.classList.remove("hidden");
             destroyBonus.classList.add("buff_active");
-            // destroy.isActive = true;
-            initDestroy();
+            destroy.isActive = true;
             inActiveHealing();
             inActiveInvisible();
+        } else {
+            inActiveDestroy();
         }
     }
 )
@@ -129,13 +117,11 @@ function drawInvisibleReload() {
 
 function drawDestroyReload() {
     if (!destroy.wasUsed) {
-        destroyReloadTimer.classList.remove("hidden");
-        // destroyReloadTimer.innerHTML = destroy.reload - GAME.stopwatch + destroy.lastTimeCast;
-    } else {
         destroyReloadTimer.classList.add("hidden");
+    } else {
+        destroyReloadTimer.classList.remove("hidden");
     }
-        // destroyReloadTimer.innerHTML = "";
-    if (!bonuses.includes('destroy')) {
+    if (!bonuses.includes("destroy")) {
         destroyReloadTimer.classList.remove("hidden");
     } 
 }
@@ -159,8 +145,9 @@ function inActiveInvisible() {
 function inActiveDestroy() {
     destroyBonusCancel.classList.add("hidden");
     destroyBonus.classList.remove("buff_active");
-    invisibleReloadTimer.classList.remove("hidden");
-    invisibleReloadTimer.innerHTML = "";
+    destroyReloadTimer.classList.remove("hidden");
+    destroyReloadTimer.innerHTML = "";
+    destroy.isActive = false;
 }
 
 function initHeal() {
@@ -180,7 +167,8 @@ function initInvisible() {
 }
 
 function initDestroy() {
-    if(isClickOnMap()) {
+    if(destroy.isActive && !destroy.wasUsed && isClickOnMap()) {
+        inActiveDestroy();
         createDestroy();
         sendDestroyStatus();
     }

@@ -63,6 +63,8 @@ var timeInPause = 0;
 var timeInLastPause = 0;
 var pauseStartTime = new Date();
 
+var prevState;
+
 var lvl = lvls[GAME.lvlCount - 1];
 GAME.castleHP = lvl.castleHP;
 
@@ -215,7 +217,6 @@ function lvlComplete() {
         } else {
             popupcompleteBg.classList.add('active');
             popupcomplete.classList.add('active');
-            GAME.money += 100;
         }
     }
 
@@ -558,12 +559,6 @@ function showWaveInfo() {
 //           'startgame' - ожидание появления первого моба
 
 function play() {
-    monsters.forEach(monster => {
-        if(monster.delete) {
-            console.log(monster.distance);
-        }
-    }
-    );
     showWaveInfo();
     updateMoney();
     updateScore();
@@ -588,7 +583,6 @@ function play() {
         resetBonusesReload();
     }
     if (GAME.isPlay == 'play') {
-        updateMobDataDef();
         drawBonusesReload();
         lvlComplete();
         nextWave();
@@ -597,6 +591,7 @@ function play() {
         updateBullets();
         updateExplosions();
         updateStrikes();
+        updateMobDataDef();
     }
     if (GAME.isPlay == 'startgame') {
         addMonster(GAME, lvls);
