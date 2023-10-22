@@ -116,11 +116,7 @@ socket.addEventListener('message', function (event) {
     data = JSON.parse(event.data);
     switch (data.type) {
         case 'tower_add':
-<<<<<<< HEAD
-            placeTowers()
-=======
             placeTowers();
->>>>>>> origin/Nikita
             break;
         case 'game_status':
             GAME.isPlay = data.status;

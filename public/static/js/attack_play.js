@@ -457,10 +457,10 @@ restartgame.addEventListener(
     (event) => {
         sendResults(event);
         sendBaseLvlParams();
-        // updateRestartGameParams();
-        // changeMap();
-        // updateCastleHP();
-        // popupCloseOver();
+        updateRestartGameParams();
+        changeMap();
+        updateCastleHP();
+        popupCloseOver();
     }
 );
 
